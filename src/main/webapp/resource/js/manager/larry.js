@@ -76,10 +76,6 @@ $(function(){
             });
         }
     })
-
-    $('#larry-tab ul li:last-child(i)').click(function(){
-        console.log($(this).data("id"));
-    })
 })
 
 
