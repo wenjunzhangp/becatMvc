@@ -1,6 +1,6 @@
 var isRememberMe=false;//默认记住我为false
-layui.use(['layer', 'form'], function() {
-    var layer = layui.layer, $ = layui.jquery, form = layui.form();
+layui.use(['form','layer','jquery'],function(){
+    var layer = layui.layer, $ = layui.jquery, form = layui.form;
     //监听指定开关
     form.on('switch(switchTest)', function(data){
         isRememberMe=this.checked ? 'true' : 'false';
