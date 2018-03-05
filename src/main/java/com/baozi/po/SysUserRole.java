@@ -1,33 +1,33 @@
 package com.baozi.po;
 
 public class SysUserRole {
-    private String id;
+    private int id;
 
-    private String sysUserId;
+    private int sysUserId;
 
-    private String sysRoleId;
+    private int sysRoleId;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getSysUserId() {
+    public int getSysUserId() {
         return sysUserId;
     }
 
-    public void setSysUserId(String sysUserId) {
-        this.sysUserId = sysUserId == null ? null : sysUserId.trim();
+    public void setSysUserId(int sysUserId) {
+        this.sysUserId = sysUserId;
     }
 
-    public String getSysRoleId() {
+    public int getSysRoleId() {
         return sysRoleId;
     }
 
-    public void setSysRoleId(String sysRoleId) {
-        this.sysRoleId = sysRoleId == null ? null : sysRoleId.trim();
+    public void setSysRoleId(int sysRoleId) {
+        this.sysRoleId = sysRoleId;
     }
 }

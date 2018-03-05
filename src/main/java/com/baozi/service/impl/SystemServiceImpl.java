@@ -59,11 +59,11 @@ public class SystemServiceImpl implements SystemService {
         return null;
     }
 
-    public List<SysPermission> findMenuListByUserId(String userId) throws Exception {
+    public List<SysPermission> findMenuListByUserId(int userId) throws Exception {
         return sysPermissionMapperCustom.findMenuListByUserId(userId);
     }
 
-    public List<SysPermission> findPermissionListByUserId(String userId) throws Exception {
+    public List<SysPermission> findPermissionListByUserId(int userId) throws Exception {
         return sysPermissionMapperCustom.findPermissionListByUserId(userId);
     }
 }
