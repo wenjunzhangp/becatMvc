@@ -35,7 +35,7 @@ public interface SystemService {
      * @return
      * @throws Exception
      */
-    public List<SysPermission> findMenuListByUserId(String userId)throws Exception;
+    public List<SysPermission> findMenuListByUserId(int userId)throws Exception;
 
     /**
      * 根据用户Id查询用户所拥有的URL权限集合
@@ -43,5 +43,5 @@ public interface SystemService {
      * @return
      * @throws Exception
      */
-    public List<SysPermission> findPermissionListByUserId(String userId)throws Exception;
+    public List<SysPermission> findPermissionListByUserId(int userId)throws Exception;
 }

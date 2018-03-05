@@ -1,7 +1,7 @@
 package com.baozi.po;
 
 public class SysUser {
-    private String id;
+    private int id;
 
     private String usercode;
 
@@ -13,12 +13,12 @@ public class SysUser {
 
     private String locked;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(int id) {
+        this.id = id ;
     }
 
     public String getUsercode() {

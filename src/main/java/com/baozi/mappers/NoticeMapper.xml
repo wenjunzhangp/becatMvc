@@ -1,0 +1,818 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taotao.mapper.NoticeMapper">
+  <resultMap id="BaseResultMap" type="com.baozi.po.Notice">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="isDisplay" jdbcType="BIT" property="isdisplay" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="category" jdbcType="INTEGER" property="category" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="publicTime" jdbcType="TIMESTAMP" property="publictime" />
+    <result column="lastModifyTime" jdbcType="TIMESTAMP" property="lastmodifytime" />
+    <result column="display" jdbcType="INTEGER" property="display" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="person" jdbcType="BIT" property="person" />
+    <result column="platsource" jdbcType="INTEGER" property="platsource" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.baozi.po.Notice">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, title, isDisplay, createTime, category, status, publicTime, lastModifyTime, display, 
+    img, userId, person, platsource
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.baozi.po.NoticeExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.baozi.po.NoticeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from notice
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from notice
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.baozi.po.NoticeExample">
+    delete from notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.baozi.po.Notice">
+    insert into notice (id, title, isDisplay, 
+      createTime, category, status, 
+      publicTime, lastModifyTime, display, 
+      img, userId, person, platsource, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{isdisplay,jdbcType=BIT}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{category,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{publictime,jdbcType=TIMESTAMP}, #{lastmodifytime,jdbcType=TIMESTAMP}, #{display,jdbcType=INTEGER}, 
+      #{img,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{person,jdbcType=BIT}, #{platsource,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.baozi.po.Notice">
+    insert into notice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="isdisplay != null">
+        isDisplay,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="publictime != null">
+        publicTime,
+      </if>
+      <if test="lastmodifytime != null">
+        lastModifyTime,
+      </if>
+      <if test="display != null">
+        display,
+      </if>
+      <if test="img != null">
+        img,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="person != null">
+        person,
+      </if>
+      <if test="platsource != null">
+        platsource,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="isdisplay != null">
+        #{isdisplay,jdbcType=BIT},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="publictime != null">
+        #{publictime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifytime != null">
+        #{lastmodifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="display != null">
+        #{display,jdbcType=INTEGER},
+      </if>
+      <if test="img != null">
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="person != null">
+        #{person,jdbcType=BIT},
+      </if>
+      <if test="platsource != null">
+        #{platsource,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.baozi.po.NoticeExample" resultType="java.lang.Integer">
+    select count(*) from notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update notice
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isdisplay != null">
+        isDisplay = #{record.isdisplay,jdbcType=BIT},
+      </if>
+      <if test="record.createtime != null">
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.category != null">
+        category = #{record.category,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.publictime != null">
+        publicTime = #{record.publictime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastmodifytime != null">
+        lastModifyTime = #{record.lastmodifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.display != null">
+        display = #{record.display,jdbcType=INTEGER},
+      </if>
+      <if test="record.img != null">
+        img = #{record.img,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.person != null">
+        person = #{record.person,jdbcType=BIT},
+      </if>
+      <if test="record.platsource != null">
+        platsource = #{record.platsource,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update notice
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      isDisplay = #{record.isdisplay,jdbcType=BIT},
+      createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      category = #{record.category,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      publicTime = #{record.publictime,jdbcType=TIMESTAMP},
+      lastModifyTime = #{record.lastmodifytime,jdbcType=TIMESTAMP},
+      display = #{record.display,jdbcType=INTEGER},
+      img = #{record.img,jdbcType=VARCHAR},
+      userId = #{record.userid,jdbcType=INTEGER},
+      person = #{record.person,jdbcType=BIT},
+      platsource = #{record.platsource,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update notice
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      isDisplay = #{record.isdisplay,jdbcType=BIT},
+      createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      category = #{record.category,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      publicTime = #{record.publictime,jdbcType=TIMESTAMP},
+      lastModifyTime = #{record.lastmodifytime,jdbcType=TIMESTAMP},
+      display = #{record.display,jdbcType=INTEGER},
+      img = #{record.img,jdbcType=VARCHAR},
+      userId = #{record.userid,jdbcType=INTEGER},
+      person = #{record.person,jdbcType=BIT},
+      platsource = #{record.platsource,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baozi.po.Notice">
+    update notice
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="isdisplay != null">
+        isDisplay = #{isdisplay,jdbcType=BIT},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="publictime != null">
+        publicTime = #{publictime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifytime != null">
+        lastModifyTime = #{lastmodifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="display != null">
+        display = #{display,jdbcType=INTEGER},
+      </if>
+      <if test="img != null">
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="person != null">
+        person = #{person,jdbcType=BIT},
+      </if>
+      <if test="platsource != null">
+        platsource = #{platsource,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.baozi.po.Notice">
+    update notice
+    set title = #{title,jdbcType=VARCHAR},
+      isDisplay = #{isdisplay,jdbcType=BIT},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      category = #{category,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      publicTime = #{publictime,jdbcType=TIMESTAMP},
+      lastModifyTime = #{lastmodifytime,jdbcType=TIMESTAMP},
+      display = #{display,jdbcType=INTEGER},
+      img = #{img,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER},
+      person = #{person,jdbcType=BIT},
+      platsource = #{platsource,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baozi.po.Notice">
+    update notice
+    set title = #{title,jdbcType=VARCHAR},
+      isDisplay = #{isdisplay,jdbcType=BIT},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      category = #{category,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      publicTime = #{publictime,jdbcType=TIMESTAMP},
+      lastModifyTime = #{lastmodifytime,jdbcType=TIMESTAMP},
+      display = #{display,jdbcType=INTEGER},
+      img = #{img,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER},
+      person = #{person,jdbcType=BIT},
+      platsource = #{platsource,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.taotao.pojo.Notice">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="isDisplay" jdbcType="BIT" property="isdisplay" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="category" jdbcType="INTEGER" property="category" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="publicTime" jdbcType="TIMESTAMP" property="publictime" />
+    <result column="lastModifyTime" jdbcType="TIMESTAMP" property="lastmodifytime" />
+    <result column="display" jdbcType="INTEGER" property="display" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="person" jdbcType="BIT" property="person" />
+    <result column="platsource" jdbcType="INTEGER" property="platsource" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.taotao.pojo.Notice">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, title, isDisplay, createTime, category, status, publicTime, lastModifyTime, display, 
+    img, userId, person, platsource
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.taotao.pojo.NoticeExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.taotao.pojo.NoticeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from notice
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from notice
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.taotao.pojo.NoticeExample">
+    delete from notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.taotao.pojo.Notice">
+    insert into notice (id, title, isDisplay, 
+      createTime, category, status, 
+      publicTime, lastModifyTime, display, 
+      img, userId, person, platsource, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{isdisplay,jdbcType=BIT}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{category,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{publictime,jdbcType=TIMESTAMP}, #{lastmodifytime,jdbcType=TIMESTAMP}, #{display,jdbcType=INTEGER}, 
+      #{img,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{person,jdbcType=BIT}, #{platsource,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.taotao.pojo.Notice">
+    insert into notice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="isdisplay != null">
+        isDisplay,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="publictime != null">
+        publicTime,
+      </if>
+      <if test="lastmodifytime != null">
+        lastModifyTime,
+      </if>
+      <if test="display != null">
+        display,
+      </if>
+      <if test="img != null">
+        img,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="person != null">
+        person,
+      </if>
+      <if test="platsource != null">
+        platsource,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="isdisplay != null">
+        #{isdisplay,jdbcType=BIT},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="publictime != null">
+        #{publictime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifytime != null">
+        #{lastmodifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="display != null">
+        #{display,jdbcType=INTEGER},
+      </if>
+      <if test="img != null">
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="person != null">
+        #{person,jdbcType=BIT},
+      </if>
+      <if test="platsource != null">
+        #{platsource,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.taotao.pojo.NoticeExample" resultType="java.lang.Integer">
+    select count(*) from notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update notice
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isdisplay != null">
+        isDisplay = #{record.isdisplay,jdbcType=BIT},
+      </if>
+      <if test="record.createtime != null">
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.category != null">
+        category = #{record.category,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.publictime != null">
+        publicTime = #{record.publictime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastmodifytime != null">
+        lastModifyTime = #{record.lastmodifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.display != null">
+        display = #{record.display,jdbcType=INTEGER},
+      </if>
+      <if test="record.img != null">
+        img = #{record.img,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.person != null">
+        person = #{record.person,jdbcType=BIT},
+      </if>
+      <if test="record.platsource != null">
+        platsource = #{record.platsource,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update notice
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      isDisplay = #{record.isdisplay,jdbcType=BIT},
+      createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      category = #{record.category,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      publicTime = #{record.publictime,jdbcType=TIMESTAMP},
+      lastModifyTime = #{record.lastmodifytime,jdbcType=TIMESTAMP},
+      display = #{record.display,jdbcType=INTEGER},
+      img = #{record.img,jdbcType=VARCHAR},
+      userId = #{record.userid,jdbcType=INTEGER},
+      person = #{record.person,jdbcType=BIT},
+      platsource = #{record.platsource,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update notice
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      isDisplay = #{record.isdisplay,jdbcType=BIT},
+      createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      category = #{record.category,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      publicTime = #{record.publictime,jdbcType=TIMESTAMP},
+      lastModifyTime = #{record.lastmodifytime,jdbcType=TIMESTAMP},
+      display = #{record.display,jdbcType=INTEGER},
+      img = #{record.img,jdbcType=VARCHAR},
+      userId = #{record.userid,jdbcType=INTEGER},
+      person = #{record.person,jdbcType=BIT},
+      platsource = #{record.platsource,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.taotao.pojo.Notice">
+    update notice
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="isdisplay != null">
+        isDisplay = #{isdisplay,jdbcType=BIT},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="publictime != null">
+        publicTime = #{publictime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifytime != null">
+        lastModifyTime = #{lastmodifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="display != null">
+        display = #{display,jdbcType=INTEGER},
+      </if>
+      <if test="img != null">
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="person != null">
+        person = #{person,jdbcType=BIT},
+      </if>
+      <if test="platsource != null">
+        platsource = #{platsource,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.taotao.pojo.Notice">
+    update notice
+    set title = #{title,jdbcType=VARCHAR},
+      isDisplay = #{isdisplay,jdbcType=BIT},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      category = #{category,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      publicTime = #{publictime,jdbcType=TIMESTAMP},
+      lastModifyTime = #{lastmodifytime,jdbcType=TIMESTAMP},
+      display = #{display,jdbcType=INTEGER},
+      img = #{img,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER},
+      person = #{person,jdbcType=BIT},
+      platsource = #{platsource,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.taotao.pojo.Notice">
+    update notice
+    set title = #{title,jdbcType=VARCHAR},
+      isDisplay = #{isdisplay,jdbcType=BIT},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      category = #{category,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      publicTime = #{publictime,jdbcType=TIMESTAMP},
+      lastModifyTime = #{lastmodifytime,jdbcType=TIMESTAMP},
+      display = #{display,jdbcType=INTEGER},
+      img = #{img,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER},
+      person = #{person,jdbcType=BIT},
+      platsource = #{platsource,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
