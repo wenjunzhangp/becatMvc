@@ -4,6 +4,7 @@ import com.baozi.po.SysUser;
 import com.baozi.po.SysUserExample;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface SysUserMapper {
@@ -11,7 +12,7 @@ public interface SysUserMapper {
 
     int deleteByExample(SysUserExample example);
 
-    int deleteByPrimaryKey(int id);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(SysUser record);
 
@@ -19,7 +20,7 @@ public interface SysUserMapper {
 
     List<SysUser> selectByExample(SysUserExample example);
 
-    SysUser selectByPrimaryKey(int id);
+    SysUser selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") SysUser record, @Param("example") SysUserExample example);
 
@@ -28,4 +29,6 @@ public interface SysUserMapper {
     int updateByPrimaryKeySelective(SysUser record);
 
     int updateByPrimaryKey(SysUser record);
+
+    public Date findUserLastLoginTime(@Param("userId")int userId);
 }

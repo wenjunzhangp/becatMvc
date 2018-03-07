@@ -17,26 +17,7 @@ public interface Constant {
 	static final String ID = "id" ;
 	static final String TOKEN = "token" ;
 	static final String LOING_USER  = "loing_user" ;
-	/**Long */
-	static final Long ZERO = new Long(0);
-	static final Long ONE = new Long(1);
-	static final Long TWO = new Long(2);
-	static final Long THREE = new Long(3);
-	static final Long EIGHT = new Long(8);
-	
-	/**String */
-	static final String S_ZERO = "0";
-	static final String S_ONE = "1";
-	static final String S_TOW = "2";
-	static final String S_THREE = "3";
-	
-	/**Integer */
-	static final Integer I_ZERO = 0;
-	static final Integer I_ONE = 1;
-	static final Integer I_TOW = 2;
-	static final Integer I_THREE = 3;
-	/**其他常用变量 end**/
-	
+
 	/**cache常用变量 begin**/
 	static final String CACHE_NAME = "shiro_cache";
 	static final String CACHE_MANAGER = "cacheManager" ;//cacheManager bean name
@@ -48,5 +29,6 @@ public interface Constant {
 	/**地址**/
 	static final String DOMAIN_WWW = IConfig.get("www.becat.domain");//前端域名
 
-	static String VERSION = String.valueOf(System.currentTimeMillis());//版本号，重启的时间
+	/**系统版本号，与数据库版本对应**/
+	static int VERSION = 1;
 }

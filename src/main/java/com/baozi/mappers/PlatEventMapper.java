@@ -34,4 +34,6 @@ public interface PlatEventMapper {
     int updateByPrimaryKeyWithBLOBs(PlatEvent record);
 
     int updateByPrimaryKey(PlatEvent record);
+
+    public List<PlatEvent> findAllPlatEvent();
 }

@@ -284,4 +284,9 @@
       platsource = #{platsource,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="findAllPlatEvent" resultType="com.baozi.po.PlatEvent" >
+    select id,title,createTime from plat_event order by createTime desc
+  </select>
+
 </mapper>

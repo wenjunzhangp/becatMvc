@@ -41,10 +41,7 @@ public class LoginController extends BaseController{
     @RequiresAuthentication
     @RequestMapping("/index")
     public String index(HttpServletRequest request) {
-        //从shiro的subject中取出身份信息
-        Subject subject= SecurityUtils.getSubject();
-        ActiveUser activeUser=(ActiveUser)subject.getPrincipal();
-        request.setAttribute("activeUser",activeUser);
+        request.setAttribute("activeUser",super.loginUser());
         return "index";
     }
 

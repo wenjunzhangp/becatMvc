@@ -1,7 +1,10 @@
 package com.baozi.controller;
 
+import com.baozi.po.ActiveUser;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -104,6 +107,16 @@ public class BaseController {
 			}
 		}
 		return result;
+	}
+
+	protected ActiveUser loginUser(){
+		//从shiro的subject中取出身份信息
+		Subject subject= SecurityUtils.getSubject();
+		ActiveUser activeUser=(ActiveUser)subject.getPrincipal();
+		if ( null != activeUser ) {
+			return activeUser;
+		}
+		return null;
 	}
 	
 }

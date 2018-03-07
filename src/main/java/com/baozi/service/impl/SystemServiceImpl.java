@@ -29,6 +29,7 @@ public class SystemServiceImpl implements SystemService {
     @Autowired
     private SysPermissionMapperCustom sysPermissionMapperCustom;
 
+    @Override
     public ActiveUser authenticat(String userCode, String password) throws Exception {
         SysUser user=this.findSysUserByUserCode(userCode);
         if(user==null){
@@ -49,6 +50,7 @@ public class SystemServiceImpl implements SystemService {
         return activeUser;
     }
 
+    @Override
     public SysUser findSysUserByUserCode(String userCode){
         SysUserExample sysUserExample=new SysUserExample();
         SysUserExample.Criteria criteria= sysUserExample.createCriteria();
@@ -60,14 +62,17 @@ public class SystemServiceImpl implements SystemService {
         return null;
     }
 
+    @Override
     public List<SysPermission> findMenuListByUserId(int userId){
         return sysPermissionMapperCustom.findMenuListByUserId(userId);
     }
 
+    @Override
     public List<SysPermission> findPermissionListByUserId(int userId){
         return sysPermissionMapperCustom.findPermissionListByUserId(userId);
     }
 
+    @Override
     public Set<String> findRolesListByUserId(int userId) {
         return sysPermissionMapperCustom.findRolesListByUserId(userId);
     }
