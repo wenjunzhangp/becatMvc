@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author 老笼包
@@ -28,6 +29,7 @@ public class SystemServiceImpl implements SystemService {
     @Autowired
     private SysPermissionMapperCustom sysPermissionMapperCustom;
 
+    @Override
     public ActiveUser authenticat(String userCode, String password) throws Exception {
         SysUser user=this.findSysUserByUserCode(userCode);
         if(user==null){
@@ -48,7 +50,8 @@ public class SystemServiceImpl implements SystemService {
         return activeUser;
     }
 
-    public SysUser findSysUserByUserCode(String userCode)throws  Exception{
+    @Override
+    public SysUser findSysUserByUserCode(String userCode){
         SysUserExample sysUserExample=new SysUserExample();
         SysUserExample.Criteria criteria= sysUserExample.createCriteria();
         criteria.andUsercodeEqualTo(userCode);
@@ -59,11 +62,18 @@ public class SystemServiceImpl implements SystemService {
         return null;
     }
 
-    public List<SysPermission> findMenuListByUserId(int userId) throws Exception {
+    @Override
+    public List<SysPermission> findMenuListByUserId(int userId){
         return sysPermissionMapperCustom.findMenuListByUserId(userId);
     }
 
-    public List<SysPermission> findPermissionListByUserId(int userId) throws Exception {
+    @Override
+    public List<SysPermission> findPermissionListByUserId(int userId){
         return sysPermissionMapperCustom.findPermissionListByUserId(userId);
+    }
+
+    @Override
+    public Set<String> findRolesListByUserId(int userId) {
+        return sysPermissionMapperCustom.findRolesListByUserId(userId);
     }
 }

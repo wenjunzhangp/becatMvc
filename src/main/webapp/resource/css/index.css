@@ -8,7 +8,7 @@
 iframe{ position:absolute; height:100%; width:100%; border:none;}
 .top_menu.layui-nav .layui-nav-child dd.layui-this a,.closeBox.layui-nav .layui-nav-child dd.layui-this a,.closeBox .layui-nav-child dd.layui-this,.top_menu .layui-nav-child dd.layui-this{ background:none; color:#333;}
 .layui-nav .layui-nav-child a:hover,.layui-nav .layui-nav-child dd.layui-this a:hover{background-color:#5FB878;color:#fff;}
-
+.hideCustom{display: none;}
 /*模拟加载层图标样式*/
 .layui-layer-dialog .layui-layer-content .layui-layer-ico16{ background-size:100% 100% !important; }
 /*样式改变的过渡*/

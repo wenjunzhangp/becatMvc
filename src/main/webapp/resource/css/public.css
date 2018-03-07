@@ -23,6 +23,7 @@
 .loginBody .layui-input-focus .layui-input::-moz-placeholder{transition: color 0.2s linear 0.2s;}
 .loginBody .layui-input-focus .layui-input:-ms-input-placeholder{transition: color 0.2s linear 0.2s;}
 .loginBody .layui-input-focus .layui-input::placeholder{transition: color 0.2s linear 0.2s;-webkit-transition: color 0.2s linear 0.2s;}
+.hideCustom{display: none;}
 /*后台首页*/
 .panel_box{ margin-bottom:5px;}
 .panel{ text-align:center; height:90px;}

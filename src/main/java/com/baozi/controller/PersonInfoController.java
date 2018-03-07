@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  **/
 @RequestMapping("/console")
 @Controller
-public class PersonInfoController {
+public class PersonInfoController extends BaseController{
 
+    /**
+     * 个人信息界面
+     * @return
+     */
     @RequestMapping("/personInfo")
     public String personInfo() {
         return "personInfo";

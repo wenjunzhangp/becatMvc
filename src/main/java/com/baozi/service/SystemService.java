@@ -5,6 +5,7 @@ import com.baozi.po.SysPermission;
 import com.baozi.po.SysUser;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author 老笼包
@@ -27,7 +28,7 @@ public interface SystemService {
      * @return
      * @throws Exception
      */
-    public SysUser findSysUserByUserCode(String userCode)throws  Exception;
+    public SysUser findSysUserByUserCode(String userCode);
 
     /**
      * 根据用户Id查询所拥有的菜单
@@ -35,7 +36,7 @@ public interface SystemService {
      * @return
      * @throws Exception
      */
-    public List<SysPermission> findMenuListByUserId(int userId)throws Exception;
+    public List<SysPermission> findMenuListByUserId(int userId);
 
     /**
      * 根据用户Id查询用户所拥有的URL权限集合
@@ -43,5 +44,13 @@ public interface SystemService {
      * @return
      * @throws Exception
      */
-    public List<SysPermission> findPermissionListByUserId(int userId)throws Exception;
+    public List<SysPermission> findPermissionListByUserId(int userId);
+
+    /**
+     * 根据用户Id查询用户所拥有的角色集合
+     * @param userId
+     * @return
+     * @throws Exception
+     */
+    public Set<String> findRolesListByUserId(int userId);
 }

@@ -11,7 +11,7 @@ layui.use(['form','layer','jquery'],function(){
         var randomcode=$("#randomcode").val();
         var rememberMe=isRememberMe;
         $.ajax({
-            url: "/console/userLogin",
+            url: "/console/userLogin.shtml",
             dataType : "json",
             async:false,
             data: {username:username,password:password,randomcode:randomcode,rememberMe:rememberMe},
@@ -19,7 +19,7 @@ layui.use(['form','layer','jquery'],function(){
                 if(data.status==200){
                     layer.msg("正在为您跳转...");
                     setTimeout(function(){
-                        window.location.href= "/console/index";
+                        window.location.href= "/console/index.shtml";
                     },1000)
                 }else{
                     layer.msg(data.msg);
@@ -32,5 +32,5 @@ layui.use(['form','layer','jquery'],function(){
 //切换验证码
 function randomImg() {
     var img = document.getElementById("randomcode_img");
-    img.src = "/console/getGifCode?rnd=" + Math.random();
+    img.src = "/open/getGifCode.shtml?rnd=" + Math.random();
 }

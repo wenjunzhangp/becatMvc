@@ -39,7 +39,7 @@
 
 			<div class="layui-form-item">
 				<input style="float: left;width: 50%" type="text" id="randomcode" name="randomcode" placeholder="验证码" class="layui-input">
-				<img title="看不清？换一张" style="height: 38px;line-height: 38px;width: 50%;" id="randomcode_img" src="/console/getGifCode" onClick="randomImg();" alt="看不清？换一张"/>
+				<img title="看不清？换一张" style="height: 38px;line-height: 38px;width: 50%;" id="randomcode_img" src="/open/getGifCode.shtml" onClick="randomImg();" alt="看不清？换一张"/>
 			</div>
 
 			<div class="layui-form-item">
