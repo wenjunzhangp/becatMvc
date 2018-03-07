@@ -1,277 +1,160 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>BECAT-我喜欢撸猫喜欢宁静的生活</title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    <link rel="shortcut icon" href="/resource/images/favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="/resource/js/layui/css/layui.css" media="all">
-    <link rel="stylesheet" type="text/css" href="/resource/js/bootstrap/css/bootstrap.css" media="all">
-    <link rel="stylesheet" type="text/css" href="/resource/css/global.css" media="all">
-    <link rel="stylesheet" type="text/css" href="/resource/css/main.css" media="all">
+	<meta charset="utf-8">
+	<title>BeCat-我喜欢撸猫喜欢宁静的生活</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" type="text/css" href="/resource/js/layui/css/layui.css" media="all">
+	<link rel="stylesheet" type="text/css" href="/resource/css/public.css" media="all">
 </head>
-<body>
-<section class="larry-wrapper">
-    <!-- overview -->
-	<div class="row state-overview">
-		<div class="col-lg-3 col-sm-6 layui-anim layui-anim-up">
-			<section class="panel">
-				<div class="symbol userblue layui-anim layui-anim-rotate"> <i class="iconpx-users"></i>
+<body class="childrenBody">
+	<blockquote class="layui-elem-quote layui-bg-green">
+		<div id="nowTime"></div>
+	</blockquote>
+	<div class="layui-row layui-col-space10 panel_box">
+		<div class="panel layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg2">
+			<a href="javascript:;" data-url="http://fly.layui.com/case/2018/" target="_blank">
+				<div class="panel_icon layui-bg-green">
+					<i class="layui-anim seraph icon-good"></i>
 				</div>
-				<div class="value">
-					<a href="#">
-						<h1 id="count1">10</h1>
-					</a>
-					<p>用户总量</p>
+				<div class="panel_word">
+					<span>致敬LayUI</span>
+					<cite>年度最佳案例</cite>
 				</div>
-			</section>
+			</a>
 		</div>
-		<div class="col-lg-3 col-sm-6 layui-anim layui-anim-up">
-			<section class="panel">
-				<div class="symbol commred layui-anim layui-anim-rotate"> <i class="iconpx-user-add"></i>
+		<div class="panel layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg2">
+			<a href="javascript:;" data-url="https://github.com/wenjunzhangp" target="_blank">
+				<div class="panel_icon layui-bg-black">
+					<i class="layui-anim seraph icon-github"></i>
 				</div>
-				<div class="value">
-					<a href="#">
-						<h1 id="count2">1</h1>
-					</a>
-					<p>今日注册用户</p>
+				<div class="panel_word">
+					<span>Github</span>
+					<cite>作者开源库</cite>
 				</div>
-			</section>
+			</a>
 		</div>
-		<div class="col-lg-3 col-sm-6 layui-anim layui-anim-up">
-			<section class="panel">
-				<div class="symbol articlegreen layui-anim layui-anim-rotate">
-					<i class="iconpx-file-word-o"></i>
+		<div class="panel layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg2">
+			<a href="javascript:;" data-url="https://github.com/liushijie" target="_blank">
+				<div class="panel_icon layui-bg-black">
+					<i class="layui-anim seraph icon-github"></i>
 				</div>
-				<div class="value">
-					<a href="#">
-						<h1 id="count3">50</h1>
-					</a>
-					<p>文章总数</p>
+				<div class="panel_word">
+					<span>Github</span>
+					<cite>合作人开源库</cite>
 				</div>
-			</section>
+			</a>
 		</div>
-		<div class="col-lg-3 col-sm-6 layui-anim layui-anim-up">
-			<section class="panel">
-				<div class="symbol rsswet layui-anim layui-anim-rotate">
-					<i class="iconpx-check-circle"></i>
+		<div class="panel layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg2">
+			<a href="javascript:;" data-url="page/user/userList.html">
+				<div class="panel_icon layui-bg-orange">
+					<i class="layui-anim seraph icon-icon10" data-icon="icon-icon10"></i>
 				</div>
-				<div class="value">
-					<a href="#">
-						<h1 id="count4">0</h1>
-					</a>
-					<p>待审文章总数</p>
+				<div class="panel_word userAll">
+					<span>${userCount}</span>
+					<em>用户总数</em>
+					<cite class="layui-hide">用户中心</cite>
 				</div>
-			</section>
+			</a>
+		</div>
+		<div class="panel layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg2">
+			<a href="javascript:;" data-url="page/systemSetting/icons.html">
+				<div class="panel_icon layui-bg-cyan">
+					<i class="layui-anim layui-icon" data-icon="&#xe857;">&#xe857;</i>
+				</div>
+				<div class="panel_word outIcons">
+					<span>${petCount}</span>
+					<em>猫咪数量</em>
+					<cite class="layui-hide">猫咪管理</cite>
+				</div>
+			</a>
+		</div>
+		<div class="panel layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg2">
+			<a href="javascript:;">
+				<div class="panel_icon layui-bg-blue">
+					<i class="layui-anim seraph icon-clock"></i>
+				</div>
+				<div class="panel_word">
+					<span class="loginTime">${userLastLoginTime}</span>
+					<cite>上次登录时间</cite>
+				</div>
+			</a>
 		</div>
 	</div>
-	<!-- overview end -->
-	<div class="row">
-		<div class="col-lg-6">
-			<section class="panel">
-				<header class="panel-heading bm0">
-					<span class='span-title'>系统概览</span>
-					<span class="tools pull-right"><a href="javascript:;" class="iconpx-chevron-down"></a></span>
-				</header>
-				<div class="panel-body" >
-					<table class="table table-hover personal-task">
-                         <tbody>
-                         	<tr>
-                         		<td>
-                         			<strong>版本信息</strong>： 版本名称：<a href="http://www.larrycms.com">LarryCMS</a> 版本号: V01_UTF8_0.10
-
-                         		</td>
-                         		<td>
-
-                         		</td>
-                         	</tr>
-                         	<tr>
-                         		<td>
-                                <strong>开发作者</strong>： Larry
-
-                                </td>
-                                <td></td>
-                         	</tr>
-                         	<tr>
-                         		<td>
-                                <strong>网站域名</strong>：未定义
-                                </td>
-                                <td></td>
-                         	</tr>
-                         	<tr>
-                         		<td>
-                                <strong>网站目录</strong>：未定义
-                                </td>
-                                <td></td>
-                         	</tr>
-                         	<tr>
-                         		<td>
-                                <strong>服务器IP</strong>：未定义
-                                </td>
-                                <td></td>
-                         	</tr>
-                         	<tr>
-                         		<td>
-                                <strong>服务器环境</strong>：未定义
-                                </td>
-                                <td></td>
-                         	</tr>
-                         	<tr>
-                         		<td>
-                                <strong>数据库版本</strong>： 未定义
-
-                                </td>
-                                <td></td>
-                         	</tr>
-                         	<tr>
-                         		<td>
-                                <strong>最大上传限制</strong>： 未定义
-
-                                </td>
-                                <td></td>
-                         	</tr>
-                         	<tr>
-                         		<td>
-                                <strong>当前登录用户</strong>： <span class="current_user">未定义</span>
-
-                                </td>
-                                <td></td>
-                         	</tr>
-                         </tbody>
-					</table>
-				</div>
-			</section>
-      <!-- 网站信息统计｛SEO数据统计｝ -->
-      <section class="panel">
-                  <header class="panel-heading bm0">
-                       <span class='span-title'>网站信息统计｛SEO数据统计｝</span>
-                       <span class="tools pull-right"><a href="javascript:;" class="iconpx-chevron-down"></a></span>
-                  </header>
-                  <div class="panel-body laery-seo-box">
-                        <div class="larry-seo-stats" id="larry-seo-stats"></div>
-                  </div>
-      </section>
+	<blockquote class="layui-elem-quote main_btn">
+		<p class="layui-blue">当韩寒去办公室办理退学手续的时候，老师们问他，你不念书了，将来靠什么生活，年少的韩寒天真的说：靠我的稿费啊。老师们全笑了。</p>
+		<p class="layui-red">马云去肯德基应聘，他落选了。马云跟大老板们讲了什么叫电子商务，大老板们得出个结论， 这是个骗子。 </p>
+		<p class="layui-blue">谢霆锋15岁的时候，父母离了婚，他独自一人去日本学习音乐，只有一把吉他，有时候上晚课回住的地方晚了，就抱着吉他在街上睡。</p>
+		<p class="layui-red">你那能叫活着么？你那只能叫没死。      ----摘自《疯狂原始人》</p>
+	</blockquote>
+	<div class="layui-row layui-col-space10">
+		<div class="layui-col-lg6 layui-col-md12">
+			<blockquote class="layui-elem-quote title">系统基本参数</blockquote>
+			<table class="layui-table magt0">
+				<colgroup>
+					<col width="150">
+					<col>
+				</colgroup>
+				<tbody>
+				<tr>
+					<td>当前版本</td>
+					<td class="version"></td>
+				</tr>
+				<tr>
+					<td>开发作者</td>
+					<td class="author"></td>
+				</tr>
+				<tr>
+					<td>网站首页</td>
+					<td class="homePage"></td>
+				</tr>
+				<tr>
+					<td>服务器环境</td>
+					<td class="server"></td>
+				</tr>
+				<tr>
+					<td>数据库版本</td>
+					<td class="dataBase"></td>
+				</tr>
+				<tr>
+					<td>最大上传限制</td>
+					<td class="maxUpload"></td>
+				</tr>
+				<tr>
+					<td>当前用户权限</td>
+					<td class="userRights">
+						<shiro:hasRole name='超级管理员'>超级管理员</shiro:hasRole>
+						<shiro:hasRole name='系统维护员'>系统维护员</shiro:hasRole>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+			<blockquote class="layui-elem-quote title">最新文章 <i class="layui-icon layui-red">&#xe756;</i></blockquote>
+			<table class="layui-table mag0" lay-skin="line">
+				<colgroup>
+					<col>
+					<col width="110">
+				</colgroup>
+				<tbody class="hot_news"></tbody>
+			</table>
 		</div>
-		<div class="col-lg-6">
-		     <!-- 快捷操作 -->
-             <section class="panel">
-                  <header class="panel-heading bm0">
-                        <span class='span-title'>快捷操作</span>
-                        <span class="tools pull-right"><a href="javascript:;" class="iconpx-chevron-down"></a></span>
-                  </header>
-                  <div class="panel-body">
-                        <table class="table table-hover personal-task shortcut">
-                            <tr>
-                            	<td>
-                            		<div class="c1">1</div>
-                            		<div class="c2">2</div>
-                            		<br>
-                            	</td>
-                            </tr>
-                        </table>
-                  </div>
-             </section>
-          <!-- 系统公告 -->
-             <section class="panel">
-                 <header class="panel-heading bm0">
-                        <span class='span-title'>系统公告</span>
-                        <span class="tools pull-right"><a href="javascript:;" class="iconpx-chevron-down"></a></span>
-                  </header>
-                  <div class="panel-body">
-                        <table class="table table-hover personal-task shortcut">
-                            <tr>
-                              <td>
-                                <div class="c1">1</div>
-                                <div class="c2">2</div>
-                                <br>
-                              </td>
-                            </tr>
-                        </table>
-                  </div>
-             </section>
-
-              <!-- 最新文章 -->
-             <section class="panel">
-                  <header class="panel-heading bm0">
-                        <span class='span-title'>最新文章</span>
-                        <span class="badge" style="background-color:#FF3333;"> new </span>
-                        <span class="tools pull-right"><a href="javascript:;" class="iconpx-chevron-down"></a></span>
-                  </header>
-                  <div class="panel-body">
-                       <table class="table table-hover personal-task">
-                             <tbody>
-                              <tr>
-                                <td>原创</td>
-                                <td>
-                                  <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
-                                </td>
-                                <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11</td>
-                              </tr>
-                              <tr>
-                                <td>原创</td>
-                                <td>
-                                  <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
-                                </td>
-                                <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11</td>
-                              </tr>
-                              <tr>
-                                <td>原创</td>
-                                <td>
-                                  <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
-                                </td>
-                                <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11</td>
-                              </tr>
-                              <tr>
-                                <td>原创</td>
-                                <td>
-                                  <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
-                                </td>
-                                <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11</td>
-                              </tr>
-                              <tr>
-                                <td>原创</td>
-                                <td>
-                                  <a href="#" target="_blank">汪涵率众特工入侵地球 20160408</a>
-                                </td>
-                                <td class="col-md-5">阅读量：1350 &nbsp;&nbsp;&nbsp;&nbsp; 2016-04-11</td>
-                              </tr>
-                             </tbody>
-                       </table>
-                  </div>
-             </section>
+		<div class="layui-col-lg6 layui-col-md12">
+			<blockquote class="layui-elem-quote title">BeCat发展历程</blockquote>
+			<div class="layui-elem-quote layui-quote-nm history_box magb0">
+				<ul class="layui-timeline platevent"></ul>
+			</div>
 		</div>
 	</div>
 
-</section>
-
-<script type="text/javascript" src="/resource/js/layui/layui.js"></script>
-<script type="text/javascript" src="/resource/jsplug/echarts.min.js"></script>
-<script type="text/javascript" src="/resource/js/manager/main.js"></script>
-<script type="text/javascript">
-    layui.use(['jquery','layer','element'],function(){
-        window.jQuery = window.$ = layui.jquery;
-        window.layer = layui.layer;
-        window.element = layui.element();
-
-        $('.panel .tools .iconpx-chevron-down').click(function(){
-            var el = $(this).parents(".panel").children(".panel-body");
-            if($(this).hasClass("iconpx-chevron-down")){
-                $(this).removeClass("iconpx-chevron-down").addClass("iconpx-chevron-up");
-                el.slideUp(200);
-            }else{
-                $(this).removeClass("iconpx-chevron-up").addClass("iconpx-chevron-down");
-                el.slideDown(200);
-            }
-        })
-
-    });
-</script>
+	<script type="text/javascript" src="/resource/js/layui/layui.js"></script>
+	<script type="text/javascript" src="/resource/js/manager/main.js"></script>
 </body>
 </html>

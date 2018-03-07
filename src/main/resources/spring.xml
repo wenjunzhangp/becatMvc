@@ -66,7 +66,7 @@
 	<!-- 会话管理器 -->
 	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
 		<!-- session的失效时长，单位毫秒 -->
-		<property name="globalSessionTimeout" value="600000"/>
+		<property name="globalSessionTimeout" value="86400000"/>
 		<!-- 删除失效的session -->
 		<property name="deleteInvalidSessions" value="true"/>
 	</bean>
@@ -95,9 +95,9 @@
 		<property name="rememberMeParam" value="rememberMe"/>
 	</bean>
 	<!--自定义退出过滤器-->
-	<bean id="logoutFilter" class="com.baozi.filter.CustomLogoutFilter">
+	<!--<bean id="logoutFilter" class="com.baozi.filter.CustomLogoutFilter">
 		<property name="redirectUrl" value="/console/login" />
-	</bean>
+	</bean>-->
 
 	<!-- 安全管理器 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
@@ -131,7 +131,7 @@
 			<map>
 				<!-- 将自定义 的FormAuthenticationFilter注入shiroFilter中-->
 				<entry key="authc" value-ref="formAuthenticationFilter" />
-				<entry key="logout" value-ref="logoutFilter" />
+				<!--<entry key="logout" value-ref="logoutFilter" />-->
 			</map>
 		</property>
 		<!-- Shiro连接约束配置,即过滤链的定义 -->
@@ -144,12 +144,11 @@
 				/login.html=anon
 				/register.html=anon
 				<!--URL的权限配置-->
-				/console/getGifCode=anon
-				/console/login=anon
-				/console/userLogin=authc
-				/console/index=authc
-				/logout=logout
-				/**=anon
+				/open/**=anon
+				/console/login.shtml=anon
+				/console/userLogin.shtml=authc
+				/console/index.shtml=authc
+				/**=authc
 			</value>
 		</property>
 	</bean>

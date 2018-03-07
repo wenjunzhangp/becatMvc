@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baozi.mappers.MessageMapper" >
+  <resultMap id="BaseResultMap" type="com.baozi.po.Message" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="likes" property="likes" jdbcType="INTEGER" />
+    <result column="agent" property="agent" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="iplocation" property="iplocation" jdbcType="VARCHAR" />
+    <result column="author_id" property="authorId" jdbcType="BIGINT" />
+    <result column="pkey" property="pkey" jdbcType="VARCHAR" />
+    <result column="referer" property="referer" jdbcType="VARCHAR" />
+    <result column="pids" property="pids" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.baozi.po.Message" extends="BaseResultMap" >
+    <result column="message" property="message" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, created_time, parent_id, likes, agent, ip, iplocation, author_id, pkey, referer, 
+    pids, level
+  </sql>
+  <sql id="Blob_Column_List" >
+    message
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.baozi.po.MessageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.baozi.po.MessageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from message
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from message
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.baozi.po.MessageExample" >
+    delete from message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.baozi.po.Message" >
+    insert into message (id, created_time, parent_id, 
+      likes, agent, ip, iplocation, 
+      author_id, pkey, referer, 
+      pids, level, message
+      )
+    values (#{id,jdbcType=BIGINT}, #{createdTime,jdbcType=TIMESTAMP}, #{parentId,jdbcType=BIGINT}, 
+      #{likes,jdbcType=INTEGER}, #{agent,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{iplocation,jdbcType=VARCHAR}, 
+      #{authorId,jdbcType=BIGINT}, #{pkey,jdbcType=VARCHAR}, #{referer,jdbcType=VARCHAR}, 
+      #{pids,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, #{message,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.baozi.po.Message" >
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="likes != null" >
+        likes,
+      </if>
+      <if test="agent != null" >
+        agent,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="iplocation != null" >
+        iplocation,
+      </if>
+      <if test="authorId != null" >
+        author_id,
+      </if>
+      <if test="pkey != null" >
+        pkey,
+      </if>
+      <if test="referer != null" >
+        referer,
+      </if>
+      <if test="pids != null" >
+        pids,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="likes != null" >
+        #{likes,jdbcType=INTEGER},
+      </if>
+      <if test="agent != null" >
+        #{agent,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="iplocation != null" >
+        #{iplocation,jdbcType=VARCHAR},
+      </if>
+      <if test="authorId != null" >
+        #{authorId,jdbcType=BIGINT},
+      </if>
+      <if test="pkey != null" >
+        #{pkey,jdbcType=VARCHAR},
+      </if>
+      <if test="referer != null" >
+        #{referer,jdbcType=VARCHAR},
+      </if>
+      <if test="pids != null" >
+        #{pids,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.baozi.po.MessageExample" resultType="java.lang.Integer" >
+    select count(*) from message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update message
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.createdTime != null" >
+        created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.likes != null" >
+        likes = #{record.likes,jdbcType=INTEGER},
+      </if>
+      <if test="record.agent != null" >
+        agent = #{record.agent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip != null" >
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iplocation != null" >
+        iplocation = #{record.iplocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authorId != null" >
+        author_id = #{record.authorId,jdbcType=BIGINT},
+      </if>
+      <if test="record.pkey != null" >
+        pkey = #{record.pkey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.referer != null" >
+        referer = #{record.referer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pids != null" >
+        pids = #{record.pids,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.message != null" >
+        message = #{record.message,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update message
+    set id = #{record.id,jdbcType=BIGINT},
+      created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      parent_id = #{record.parentId,jdbcType=BIGINT},
+      likes = #{record.likes,jdbcType=INTEGER},
+      agent = #{record.agent,jdbcType=VARCHAR},
+      ip = #{record.ip,jdbcType=VARCHAR},
+      iplocation = #{record.iplocation,jdbcType=VARCHAR},
+      author_id = #{record.authorId,jdbcType=BIGINT},
+      pkey = #{record.pkey,jdbcType=VARCHAR},
+      referer = #{record.referer,jdbcType=VARCHAR},
+      pids = #{record.pids,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=INTEGER},
+      message = #{record.message,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update message
+    set id = #{record.id,jdbcType=BIGINT},
+      created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      parent_id = #{record.parentId,jdbcType=BIGINT},
+      likes = #{record.likes,jdbcType=INTEGER},
+      agent = #{record.agent,jdbcType=VARCHAR},
+      ip = #{record.ip,jdbcType=VARCHAR},
+      iplocation = #{record.iplocation,jdbcType=VARCHAR},
+      author_id = #{record.authorId,jdbcType=BIGINT},
+      pkey = #{record.pkey,jdbcType=VARCHAR},
+      referer = #{record.referer,jdbcType=VARCHAR},
+      pids = #{record.pids,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baozi.po.Message" >
+    update message
+    <set >
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="likes != null" >
+        likes = #{likes,jdbcType=INTEGER},
+      </if>
+      <if test="agent != null" >
+        agent = #{agent,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="iplocation != null" >
+        iplocation = #{iplocation,jdbcType=VARCHAR},
+      </if>
+      <if test="authorId != null" >
+        author_id = #{authorId,jdbcType=BIGINT},
+      </if>
+      <if test="pkey != null" >
+        pkey = #{pkey,jdbcType=VARCHAR},
+      </if>
+      <if test="referer != null" >
+        referer = #{referer,jdbcType=VARCHAR},
+      </if>
+      <if test="pids != null" >
+        pids = #{pids,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.baozi.po.Message" >
+    update message
+    set created_time = #{createdTime,jdbcType=TIMESTAMP},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      likes = #{likes,jdbcType=INTEGER},
+      agent = #{agent,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      iplocation = #{iplocation,jdbcType=VARCHAR},
+      author_id = #{authorId,jdbcType=BIGINT},
+      pkey = #{pkey,jdbcType=VARCHAR},
+      referer = #{referer,jdbcType=VARCHAR},
+      pids = #{pids,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER},
+      message = #{message,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baozi.po.Message" >
+    update message
+    set created_time = #{createdTime,jdbcType=TIMESTAMP},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      likes = #{likes,jdbcType=INTEGER},
+      agent = #{agent,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      iplocation = #{iplocation,jdbcType=VARCHAR},
+      author_id = #{authorId,jdbcType=BIGINT},
+      pkey = #{pkey,jdbcType=VARCHAR},
+      referer = #{referer,jdbcType=VARCHAR},
+      pids = #{pids,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>BECAT-我喜欢撸猫喜欢宁静的生活</title>
+	<title>BeCat-我喜欢撸猫喜欢宁静的生活</title>
 	<meta name="renderer" content="webkit">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -23,7 +23,7 @@
 <div class="video_mask"></div>
 <div class="login">
 	<div class="beg-login-main">
-		<form action="" class="layui-form" id="form_login" method="post">
+		<form class="layui-form">
 			<div class="layui-form-item">
 				<label class="beg-login-icon">
 					<i class="layui-icon">&#xe612;</i>
@@ -39,7 +39,7 @@
 
 			<div class="layui-form-item">
 				<input style="float: left;width: 50%" type="text" id="randomcode" name="randomcode" placeholder="验证码" class="layui-input">
-				<img title="看不清？换一张" style="height: 38px;line-height: 38px;width: 50%;" id="randomcode_img" src="/console/getGifCode" onClick="randomImg();" alt="看不清？换一张"/>
+				<img title="看不清？换一张" style="height: 38px;line-height: 38px;width: 50%;" id="randomcode_img" src="/open/getGifCode.shtml" onClick="randomImg();" alt="看不清？换一张"/>
 			</div>
 
 			<div class="layui-form-item">
@@ -57,7 +57,6 @@
 		</form>
 	</div>
 </div>
-<script type="text/javascript" src="/resource/js/jquery/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="/resource/js/layui/layui.js"></script>
 <script type="text/javascript" src="/resource/js/manager/login.js"></script>
 </body>

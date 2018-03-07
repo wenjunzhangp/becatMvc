@@ -1,9 +1,7 @@
 package com.baozi.po;
 
-import java.util.Iterator;
 import java.util.List;
-
-import com.sun.org.apache.bcel.internal.generic.NEW;
+import java.util.Set;
 
 /**
  * 用户身份信息，存入session 由于tomcat将session会序列化在本地硬盘上，所以使用Serializable接口
@@ -12,10 +10,11 @@ import com.sun.org.apache.bcel.internal.generic.NEW;
  * 
  */
 public class ActiveUser implements java.io.Serializable {
-	private String userid;//用户id（主键）
+	private int userid;//用户id（主键）
 	private String usercode;// 用户账号
 	private String username;// 用户名称
 
+	private Set<String> roles;//角色
 	private List<SysPermission> menus;// 菜单
 	private List<SysPermission> permissions;// 权限
 
@@ -36,11 +35,11 @@ public class ActiveUser implements java.io.Serializable {
 		this.usercode = usercode;
 	}
 
-	public String getUserid() {
+	public int getUserid() {
 		return userid;
 	}
 
-	public void setUserid(String userid) {
+	public void setUserid(int userid) {
 		this.userid = userid;
 	}
 
@@ -60,5 +59,11 @@ public class ActiveUser implements java.io.Serializable {
 		this.permissions = permissions;
 	}
 
-	
+	public Set<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<String> roles) {
+		this.roles = roles;
+	}
 }

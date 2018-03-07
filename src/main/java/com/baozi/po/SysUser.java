@@ -1,7 +1,9 @@
 package com.baozi.po;
 
+import java.util.Date;
+
 public class SysUser {
-    private String id;
+    private Integer id;
 
     private String usercode;
 
@@ -13,12 +15,18 @@ public class SysUser {
 
     private String locked;
 
-    public String getId() {
+    private String email;
+
+    private Date createTime;
+
+    private Date lastLoginTime;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUsercode() {
@@ -59,5 +67,29 @@ public class SysUser {
 
     public void setLocked(String locked) {
         this.locked = locked == null ? null : locked.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 }
