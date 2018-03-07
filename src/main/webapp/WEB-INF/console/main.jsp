@@ -20,35 +20,35 @@
 	</blockquote>
 	<div class="layui-row layui-col-space10 panel_box">
 		<div class="panel layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg2">
-			<a href="javascript:;" data-url="http://fly.layui.com/case/u/3198216" target="_blank">
+			<a href="javascript:;" data-url="http://fly.layui.com/case/2018/" target="_blank">
 				<div class="panel_icon layui-bg-green">
 					<i class="layui-anim seraph icon-good"></i>
 				</div>
 				<div class="panel_word">
-					<span>为我点赞</span>
-					<cite>点赞地址链接</cite>
+					<span>致敬LayUI</span>
+					<cite>年度最佳案例</cite>
 				</div>
 			</a>
 		</div>
 		<div class="panel layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg2">
-			<a href="javascript:;" data-url="https://github.com/BrotherMa/layuicms2.0" target="_blank">
+			<a href="javascript:;" data-url="https://github.com/wenjunzhangp" target="_blank">
 				<div class="panel_icon layui-bg-black">
 					<i class="layui-anim seraph icon-github"></i>
 				</div>
 				<div class="panel_word">
 					<span>Github</span>
-					<cite>模版下载链接</cite>
+					<cite>作者开源库</cite>
 				</div>
 			</a>
 		</div>
 		<div class="panel layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg2">
-			<a href="javascript:;" data-url="https://gitee.com/layuicms/layuicms2.0" target="_blank">
-				<div class="panel_icon layui-bg-red">
-					<i class="layui-anim seraph icon-oschina"></i>
+			<a href="javascript:;" data-url="https://github.com/liushijie" target="_blank">
+				<div class="panel_icon layui-bg-black">
+					<i class="layui-anim seraph icon-github"></i>
 				</div>
 				<div class="panel_word">
-					<span>码云</span>
-					<cite>模版下载链接</cite>
+					<span>Github</span>
+					<cite>合作人开源库</cite>
 				</div>
 			</a>
 		</div>

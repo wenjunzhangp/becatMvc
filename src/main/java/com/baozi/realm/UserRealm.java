@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class UserRealm extends AuthorizingRealm {
 
@@ -74,14 +75,7 @@ public class UserRealm extends AuthorizingRealm {
         //将getPrimaryPrincipal方法返回值转为真实身份类型（在上边的doGetAuthenticationInfo认证通过填充到SimpleAuthenticationInfo中身份类型），
         ActiveUser activeUser =  (ActiveUser) principalCollection.getPrimaryPrincipal();
         //根据身份信息获取权限信息
-        //从数据库获取到权限数据
-        List<SysPermission> permissionList = null;
-        try {
-            permissionList = systemService.findPermissionListByUserId(activeUser.getUserid());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        //单独定一个集合对象
+        List<SysPermission> permissionList = systemService.findPermissionListByUserId(activeUser.getUserid());
         List<String> permissions = new ArrayList<String>();
         if(permissionList!=null){
             for(SysPermission sysPermission:permissionList){
@@ -89,10 +83,16 @@ public class UserRealm extends AuthorizingRealm {
                 permissions.add(sysPermission.getPercode());
             }
         }
+        //角色信息
+        Set<String> roles = systemService.findRolesListByUserId(activeUser.getUserid());
         //查到权限数据，返回授权信息(要包括 上边的permissions)
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         //将上边查询到授权信息填充到simpleAuthorizationInfo对象中
         simpleAuthorizationInfo.addStringPermissions(permissions);
+        simpleAuthorizationInfo.addRoles(roles);
+        //更新主体中的subject信息
+        activeUser.setRoles(roles);
+        activeUser.setPermissions(permissionList);
         return simpleAuthorizationInfo;
     }
 

@@ -48,7 +48,7 @@ public class CustomExceptionResolver implements HandlerExceptionResolver  {
 		
 		try {
 			//转向到错误 页面
-			request.getRequestDispatcher("/error.html").forward(request, response);
+			request.getRequestDispatcher("/500.html").forward(request, response);
 		} catch (ServletException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

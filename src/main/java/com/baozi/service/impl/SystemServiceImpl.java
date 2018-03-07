@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author 老笼包
@@ -48,7 +49,7 @@ public class SystemServiceImpl implements SystemService {
         return activeUser;
     }
 
-    public SysUser findSysUserByUserCode(String userCode)throws  Exception{
+    public SysUser findSysUserByUserCode(String userCode){
         SysUserExample sysUserExample=new SysUserExample();
         SysUserExample.Criteria criteria= sysUserExample.createCriteria();
         criteria.andUsercodeEqualTo(userCode);
@@ -59,11 +60,15 @@ public class SystemServiceImpl implements SystemService {
         return null;
     }
 
-    public List<SysPermission> findMenuListByUserId(int userId) throws Exception {
+    public List<SysPermission> findMenuListByUserId(int userId){
         return sysPermissionMapperCustom.findMenuListByUserId(userId);
     }
 
-    public List<SysPermission> findPermissionListByUserId(int userId) throws Exception {
+    public List<SysPermission> findPermissionListByUserId(int userId){
         return sysPermissionMapperCustom.findPermissionListByUserId(userId);
+    }
+
+    public Set<String> findRolesListByUserId(int userId) {
+        return sysPermissionMapperCustom.findRolesListByUserId(userId);
     }
 }

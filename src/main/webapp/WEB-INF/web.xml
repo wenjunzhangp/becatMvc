@@ -28,7 +28,7 @@
     </filter>
     <filter-mapping>
         <filter-name>shiroFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>*.shtml</url-pattern>
     </filter-mapping>
 
     <!-- 编码过滤器 -->
@@ -57,7 +57,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>springMVC</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>*.shtml</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -76,20 +76,20 @@
     </welcome-file-list>
 
     <session-config>
-        <session-timeout>1800</session-timeout>
+        <session-timeout>86400</session-timeout>
     </session-config>
 
     <error-page>
         <error-code>401</error-code>
-        <location>/error.html</location>
+        <location>/500.html</location>
     </error-page>
     <error-page>
         <error-code>405</error-code>
-        <location>/error.html</location>
+        <location>/500.html</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>
-        <location>/error.html</location>
+        <location>/500.html</location>
     </error-page>
     <error-page>
         <error-code>404</error-code>

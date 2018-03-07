@@ -3,6 +3,7 @@ package com.baozi.mappers;
 import com.baozi.po.SysPermission;
 
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -17,9 +18,12 @@ import java.util.List;
 public interface SysPermissionMapperCustom {
 	
 	//根据用户id查询菜单
-	public List<SysPermission> findMenuListByUserId(int userid)throws Exception;
+	public List<SysPermission> findMenuListByUserId(int userid);
 
 	//根据用户id查询权限url
-	public List<SysPermission> findPermissionListByUserId(int userid)throws Exception;
+	public List<SysPermission> findPermissionListByUserId(int userid);
+
+	//根据用户Id查询用户所拥有的角色集合
+	public Set<String> findRolesListByUserId(int userid);
 
 }

@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  **/
 @RequestMapping("/console")
 @Controller
-public class MainController {
+public class MainController extends BaseController{
 
+    /**
+     * 主体界面
+     * @return
+     */
     @RequestMapping("/main")
     public String main() {
         return "main";

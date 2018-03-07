@@ -3,25 +3,17 @@ package com.baozi.controller;
 import com.baozi.po.ActiveUser;
 import com.baozi.service.SystemService;
 import com.baozi.util.LogUtils;
-import com.baozi.util.vcode.Captcha;
-import com.baozi.util.vcode.GifCaptcha;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.UnauthorizedException;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.subject.Subject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * @author 老笼包
@@ -30,44 +22,23 @@ import javax.servlet.http.HttpSession;
  **/
 @RequestMapping("/console")
 @Controller
-public class LoginController {
-
-    @Autowired
-    private SystemService systemService;
+public class LoginController extends BaseController{
 
     /**
-     * 获取验证码（Gif版本）
-     * @param response
+     * 跳转到登录界面
+     * @return
      */
-    @RequestMapping(value="/getGifCode",method= RequestMethod.GET)
-    public void getGifCode(HttpServletResponse response, HttpServletRequest request){
-        try {
-            response.setHeader("Pragma", "No-cache");
-            response.setHeader("Cache-Control", "no-cache");
-            response.setDateHeader("Expires", 0);
-            response.setContentType("image/gif");
-            /**
-             * gif格式动画验证码
-             * 宽，高，位数。
-             */
-            Captcha captcha = new GifCaptcha(146,42,4);
-            //输出
-            ServletOutputStream out = response.getOutputStream();
-            captcha.out(out);
-            out.flush();
-            //request.setAttribute("validateCode",captcha.text().toLowerCase());
-            HttpSession session= request.getSession();
-            session.setAttribute("validateCode",captcha.text().toLowerCase());
-        } catch (Exception e) {
-            LogUtils.logInfo("获取验证码异常"+e.getMessage());
-        }
-    }
-
     @RequestMapping("/login")
     public String login() {
         return "login";
     }
 
+    /**
+     * 后台首页
+     * @param request
+     * @return
+     */
+    @RequiresAuthentication
     @RequestMapping("/index")
     public String index(HttpServletRequest request) {
         //从shiro的subject中取出身份信息
@@ -77,6 +48,11 @@ public class LoginController {
         return "index";
     }
 
+    /**
+     * 登录检测
+     * @param request
+     * @return
+     */
     @RequestMapping("/userLogin")
     @ResponseBody
     public CodeResult userLogin(HttpServletRequest request) {
@@ -127,12 +103,38 @@ public class LoginController {
         return CodeResult.build(500,"发生未知错误");
     }
 
+    /**
+     * 退出登录
+     * @return
+     */
+    @RequestMapping(value="logout",method =RequestMethod.GET)
+    @ResponseBody
+    public CodeResult logout(){
+        try {
+            SecurityUtils.getSubject().logout();
+            return CodeResult.ok();
+        } catch (Exception e) {
+            LogUtils.logError("退出出现错误"+e.getMessage(),e);
+            return CodeResult.build(500,"退出遇到问题请重试");
+        }
+    }
+
+    /**
+     * 锁屏
+     * @param request
+     * @return
+     */
     @RequestMapping("/lock")
     @ResponseBody
     public CodeResult lock(HttpServletRequest request) {
         return CodeResult.ok();
     }
 
+    /**
+     * 解锁
+     * @param request
+     * @return
+     */
     @RequestMapping("/unlock")
     @ResponseBody
     public CodeResult unlock(HttpServletRequest request) {
