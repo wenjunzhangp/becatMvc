@@ -9,8 +9,21 @@ layui.use(['form','layer','laydate','table','laytpl'],function(){
     //添加验证规则
     form.verify({
         oldPwd : function(value, item){
-            if(value != "123456"){
-                return "密码错误，请重新输入！";
+            var errorMsg = '';
+            $.ajax({
+                url: "/console/checkPwd.shtml",
+                dataType : "json",
+                async : false,
+                cache:true,
+                data: {oldpwd:$("#oldpwd").val()},
+                success: function(resp) {
+                    if(resp.status==500){
+                        errorMsg = "密码记错了吧，再好好想想吧！";
+                    }
+                }
+            });
+            if ( errorMsg != '' ) {
+                return errorMsg;
             }
         },
         newPwd : function(value, item){
@@ -19,10 +32,29 @@ layui.use(['form','layer','laydate','table','laytpl'],function(){
             }
         },
         confirmPwd : function(value, item){
-            if(!new RegExp($("#oldPwd").val()).test(value)){
+            if(!new RegExp($("#checkpwd").val()).test(value)){
                 return "两次输入密码不一致，请重新输入！";
             }
         }
+    })
+
+    //提交修改密码
+    form.on("submit(changePwd)",function(data){
+        var index = layer.load();
+        $.ajax({
+            url: "/console/updatepassword.shtml",
+            dataType : "json",
+            async:false,
+            data: {newpwd:$("#newpwd").val()},
+            success: function(resp) {
+                layer.close(index);
+                if(resp.status==200){
+                    layer.msg("请牢记新密码！");
+                }else{
+                    layer.msg(resp.msg);
+                }
+            }
+        });
     })
 
     //用户等级

@@ -1,5 +1,7 @@
 package com.baozi.po;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class SysUser {
@@ -7,9 +9,21 @@ public class SysUser {
 
     private String usercode;
 
+    private String realname;
+
     private String username;
 
     private String password;
+
+    private String hobby;
+
+    private String myself;
+
+    private String birthday;
+
+    private Integer gender;
+
+    private String phone;
 
     private String salt;
 
@@ -17,8 +31,10 @@ public class SysUser {
 
     private String email;
 
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date createTime;
 
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date lastLoginTime;
 
     public Integer getId() {
@@ -37,6 +53,14 @@ public class SysUser {
         this.usercode = usercode == null ? null : usercode.trim();
     }
 
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname == null ? null : realname.trim();
+    }
+
     public String getUsername() {
         return username;
     }
@@ -51,6 +75,46 @@ public class SysUser {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    public String getHobby() {
+        return hobby;
+    }
+
+    public void setHobby(String hobby) {
+        this.hobby = hobby == null ? null : hobby.trim();
+    }
+
+    public String getMyself() {
+        return myself;
+    }
+
+    public void setMyself(String myself) {
+        this.myself = myself == null ? null : myself.trim();
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getSalt() {

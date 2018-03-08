@@ -33,11 +33,11 @@ public class MainController extends BaseController{
     public String main(HttpServletRequest request) {
         ActiveUser activeUser = super.loginUser();
         //获取平台用户总数
-        request.setAttribute("userCount",sysUserService.findAllUserCount());
+        setValueRequest(request,"userCount",sysUserService.findAllUserCount());
         //获取平台宠物数量
-        request.setAttribute("petCount",petService.findAllPetCount());
+        setValueRequest(request,"petCount",petService.findAllPetCount());
         //获取用户最后登录时间
-        request.setAttribute("userLastLoginTime", DateUtil.formatDate(sysUserService.findUserLastLoginTime(activeUser.getUserid()),"yyyy-MM-dd HH:mm:ss"));
+        setValueRequest(request,"userLastLoginTime", DateUtil.formatDate(sysUserService.findUserLastLoginTime(activeUser.getUserid()),"yyyy-MM-dd HH:mm:ss"));
         return "main";
     }
 

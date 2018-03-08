@@ -1,5 +1,5 @@
 layui.config({
-	base : "../../js/"
+    base : "/resource/js/manager/"
 }).use(['flow','form','layer','upload'],function(){
     var flow = layui.flow,
         form = layui.form,

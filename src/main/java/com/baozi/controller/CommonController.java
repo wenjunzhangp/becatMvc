@@ -97,7 +97,6 @@ public class CommonController extends BaseController {
 			ServletOutputStream out = response.getOutputStream();
 			captcha.out(out);
 			out.flush();
-			//request.setAttribute("validateCode",captcha.text().toLowerCase());
 			HttpSession session= request.getSession();
 			session.setAttribute("validateCode",captcha.text().toLowerCase());
 		} catch (Exception e) {

@@ -4,8 +4,14 @@
   <resultMap id="BaseResultMap" type="com.baozi.po.SysUser" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="usercode" property="usercode" jdbcType="VARCHAR" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="hobby" property="hobby" jdbcType="VARCHAR" />
+    <result column="myself" property="myself" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="salt" property="salt" jdbcType="VARCHAR" />
     <result column="locked" property="locked" jdbcType="CHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
@@ -71,7 +77,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, usercode, username, password, salt, locked, email, create_time, last_login_time
+    id, usercode, realname, username, password, hobby, myself, birthday, gender, phone, 
+    salt, locked, email, create_time, last_login_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.baozi.po.SysUserExample" >
     select
@@ -104,14 +111,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.baozi.po.SysUser" >
-    insert into sys_user (id, usercode, username, 
-      password, salt, locked, 
-      email, create_time, last_login_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{usercode,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{locked,jdbcType=CHAR}, 
-      #{email,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}
-      )
+    insert into sys_user (id, usercode, realname, 
+      username, password, hobby, 
+      myself, birthday, gender, 
+      phone, salt, locked, email, 
+      create_time, last_login_time)
+    values (#{id,jdbcType=INTEGER}, #{usercode,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{hobby,jdbcType=VARCHAR}, 
+      #{myself,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER},
+      #{phone,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{locked,jdbcType=CHAR}, #{email,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.baozi.po.SysUser" >
     insert into sys_user
@@ -122,11 +131,29 @@
       <if test="usercode != null" >
         usercode,
       </if>
+      <if test="realname != null" >
+        realname,
+      </if>
       <if test="username != null" >
         username,
       </if>
       <if test="password != null" >
         password,
+      </if>
+      <if test="hobby != null" >
+        hobby,
+      </if>
+      <if test="myself != null" >
+        myself,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="phone != null" >
+        phone,
       </if>
       <if test="salt != null" >
         salt,
@@ -151,11 +178,29 @@
       <if test="usercode != null" >
         #{usercode,jdbcType=VARCHAR},
       </if>
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
+      </if>
       <if test="username != null" >
         #{username,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null" >
+        #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="myself != null" >
+        #{myself,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
       </if>
       <if test="salt != null" >
         #{salt,jdbcType=VARCHAR},
@@ -189,11 +234,29 @@
       <if test="record.usercode != null" >
         usercode = #{record.usercode,jdbcType=VARCHAR},
       </if>
+      <if test="record.realname != null" >
+        realname = #{record.realname,jdbcType=VARCHAR},
+      </if>
       <if test="record.username != null" >
         username = #{record.username,jdbcType=VARCHAR},
       </if>
       <if test="record.password != null" >
         password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hobby != null" >
+        hobby = #{record.hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.myself != null" >
+        myself = #{record.myself,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null" >
+        birthday = #{record.birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null" >
+        gender = #{record.gender,jdbcType=INTEGER},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
       </if>
       <if test="record.salt != null" >
         salt = #{record.salt,jdbcType=VARCHAR},
@@ -219,8 +282,14 @@
     update sys_user
     set id = #{record.id,jdbcType=INTEGER},
       usercode = #{record.usercode,jdbcType=VARCHAR},
+      realname = #{record.realname,jdbcType=VARCHAR},
       username = #{record.username,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
+      hobby = #{record.hobby,jdbcType=VARCHAR},
+      myself = #{record.myself,jdbcType=VARCHAR},
+      birthday = #{record.birthday,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=INTEGER},
+      phone = #{record.phone,jdbcType=VARCHAR},
       salt = #{record.salt,jdbcType=VARCHAR},
       locked = #{record.locked,jdbcType=CHAR},
       email = #{record.email,jdbcType=VARCHAR},
@@ -236,11 +305,29 @@
       <if test="usercode != null" >
         usercode = #{usercode,jdbcType=VARCHAR},
       </if>
+      <if test="realname != null" >
+        realname = #{realname,jdbcType=VARCHAR},
+      </if>
       <if test="username != null" >
         username = #{username,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null" >
+        hobby = #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="myself != null" >
+        myself = #{myself,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="salt != null" >
         salt = #{salt,jdbcType=VARCHAR},
@@ -263,8 +350,14 @@
   <update id="updateByPrimaryKey" parameterType="com.baozi.po.SysUser" >
     update sys_user
     set usercode = #{usercode,jdbcType=VARCHAR},
+      realname = #{realname,jdbcType=VARCHAR},
       username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
+      hobby = #{hobby,jdbcType=VARCHAR},
+      myself = #{myself,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
       salt = #{salt,jdbcType=VARCHAR},
       locked = #{locked,jdbcType=CHAR},
       email = #{email,jdbcType=VARCHAR},
@@ -279,5 +372,4 @@
       and id=#{userId}
     </if>
   </select>
-
 </mapper>

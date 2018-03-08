@@ -41,7 +41,7 @@ public class LoginController extends BaseController{
     @RequiresAuthentication
     @RequestMapping("/index")
     public String index(HttpServletRequest request) {
-        request.setAttribute("activeUser",super.loginUser());
+        setValueRequest(request,"activeUser",super.loginUser());
         return "index";
     }
 

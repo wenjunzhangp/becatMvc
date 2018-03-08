@@ -1,5 +1,7 @@
 package com.baozi.service;
 
+import com.baozi.po.SysUser;
+
 import java.util.Date;
 
 /**
@@ -21,4 +23,25 @@ public interface SysUserService {
      * @return
      */
     public Date findUserLastLoginTime(int userId);
+
+    /**
+     * 根据主键查询用户
+     * @param userId
+     * @return
+     */
+    public SysUser findSysUserByUserId(int userId);
+
+    /**
+     * 修改个人资料
+     * @param sysUser
+     */
+    public int updateUserInfo(SysUser sysUser);
+
+    /**
+     * 修改个人密码
+     * @param userId
+     * @param newpwd
+     * @return
+     */
+    public int updateUserPwd(int userId,String newpwd);
 }

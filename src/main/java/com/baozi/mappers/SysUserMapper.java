@@ -30,5 +30,5 @@ public interface SysUserMapper {
 
     int updateByPrimaryKey(SysUser record);
 
-    public Date findUserLastLoginTime(@Param("userId")int userId);
+    public Date findUserLastLoginTime(@Param("userId") int userId);
 }

@@ -36,7 +36,7 @@ public class BaseController {
 	 * @param key
 	 * @param value
 	 */
-	protected static void setValue2Request(HttpServletRequest request,String key,Object value){
+	protected static void setValueRequest(HttpServletRequest request,String key,Object value){
 		request.setAttribute(key, value);
 	}
 	
