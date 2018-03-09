@@ -51,11 +51,11 @@
       <version>2.3.1</version>
     </dependency>
     <!-- 添加jstl支持 -->
-    <dependency>
+    <!--<dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
       <version>1.2</version>
-    </dependency>
+    </dependency>-->
     <!-- 添加logback日志 -->
     <dependency>
       <groupId>ch.qos.logback</groupId>

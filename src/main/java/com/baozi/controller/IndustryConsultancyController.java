@@ -29,4 +29,9 @@ public class IndustryConsultancyController extends BaseController{
             return CodeResult.build(500,"error");
         }
     }
+
+    @RequestMapping("/article")
+    public String articleUI(){
+        return "/user/userList";
+    }
 }
