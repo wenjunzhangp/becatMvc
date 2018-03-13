@@ -1,12 +1,15 @@
 package com.baozi.controller;
 
 import com.baozi.po.ActiveUser;
+import com.baozi.service.SysLogService;
+import com.baozi.service.UserLogService;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -17,6 +20,11 @@ import java.util.Map.Entry;
 
 public class BaseController {
 
+	@Autowired
+	protected UserLogService userLogService;
+
+	@Autowired
+	protected SysLogService sysLogService;
 	
 	protected int pageNo =1;
 	public static  int pageSize = 10;

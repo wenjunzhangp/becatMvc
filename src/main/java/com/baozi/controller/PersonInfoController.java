@@ -3,8 +3,12 @@ package com.baozi.controller;
 import com.baozi.po.ActiveUser;
 import com.baozi.po.SysUser;
 import com.baozi.service.SysUserService;
+import com.baozi.util.GenerateLogFactory;
 import com.baozi.util.LogUtils;
 import com.baozi.util.MD5Factory;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,6 +63,10 @@ public class PersonInfoController extends BaseController{
             sb.replace(0,1,"");
             sysUser.setHobby(sb.toString());
             sysUserService.updateUserInfo(sysUser);
+            ActiveUser activeUser = super.loginUser();
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
+            userLogService.insert(GenerateLogFactory.buildUserLogCurrency(activeUser,"修改个人资料",0,activeUser.getUsername()+"修改个人资料",session.getHost()));
             return CodeResult.ok();
         } catch ( Exception e ) {
             LogUtils.logError("个人资料更新失败!用户id是"+sysUser.getId(),e);
@@ -97,6 +105,9 @@ public class PersonInfoController extends BaseController{
         ActiveUser activeUser = super.loginUser();
         try {
             sysUserService.updateUserPwd(activeUser.getUserid(),newpwd);
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
+            userLogService.insert(GenerateLogFactory.buildUserLogCurrency(activeUser,"【敏感操作修改密码】",0,activeUser.getUsername()+"【敏感操作修改密码】",session.getHost()));
             return CodeResult.ok();
         } catch ( Exception e ) {
             LogUtils.logError("个人密码更新失败!用户id是"+activeUser.getUserid(),e);

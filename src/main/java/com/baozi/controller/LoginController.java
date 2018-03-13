@@ -1,12 +1,16 @@
 package com.baozi.controller;
 
 import com.baozi.po.ActiveUser;
+import com.baozi.po.SysUser;
+import com.baozi.service.SysUserService;
 import com.baozi.service.SystemService;
+import com.baozi.util.GenerateLogFactory;
 import com.baozi.util.LogUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * @author 老笼包
@@ -23,6 +28,9 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/console")
 @Controller
 public class LoginController extends BaseController{
+
+    @Autowired
+    private SysUserService sysUserService;
 
     /**
      * 跳转到登录界面
@@ -76,10 +84,15 @@ public class LoginController extends BaseController{
             }
             try {
                 subject.login(token);
-                /*Session session = subject.getSession();
-                System.out.println("session的Id"+session.getId());
+                /*System.out.println("session的Id"+session.getId());
                 System.out.println("session主机地址"+session.getHost());
                 System.out.println("session有效期间"+session.getId());*/
+                ActiveUser activeUser = super.loginUser();
+                Session session = subject.getSession();
+                SysUser sysUser = sysUserService.findSysUserByUserId(activeUser.getUserid());
+                sysUser.setLastLoginTime(new Date());
+                sysUserService.updateUserInfo(sysUser);
+                userLogService.insert(GenerateLogFactory.buildUserLogCurrency(activeUser,"登陆",0,activeUser.getUsername()+"登陆后台系统",session.getHost()));
                 return CodeResult.ok();
             } catch (IncorrectCredentialsException e) {
                 return CodeResult.build(500,"用户名或者密码错误");

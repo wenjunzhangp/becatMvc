@@ -11,7 +11,7 @@ public class UserLog {
 
     private String username;
 
-    private Integer opermodule;
+    private String opermodule;
 
     private Short opertype;
 
@@ -19,7 +19,7 @@ public class UserLog {
 
     private String remark;
 
-    private Integer host;
+    private String host;
 
     public Integer getId() {
         return id;
@@ -53,11 +53,11 @@ public class UserLog {
         this.username = username == null ? null : username.trim();
     }
 
-    public Integer getOpermodule() {
+    public String getOpermodule() {
         return opermodule;
     }
 
-    public void setOpermodule(Integer opermodule) {
+    public void setOpermodule(String opermodule) {
         this.opermodule = opermodule;
     }
 
@@ -85,11 +85,11 @@ public class UserLog {
         this.remark = remark == null ? null : remark.trim();
     }
 
-    public Integer getHost() {
+    public String getHost() {
         return host;
     }
 
-    public void setHost(Integer host) {
+    public void setHost(String host) {
         this.host = host;
     }
 }

@@ -38,24 +38,17 @@
       <artifactId>shiro-ehcache</artifactId>
       <version>1.2.5</version>
     </dependency>
-    <!-- 添加sevlet支持 -->
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>3.1.0</version>
-    </dependency>
-    <!-- 添加jsp支持 -->
-    <dependency>
-      <groupId>javax.servlet.jsp</groupId>
-      <artifactId>javax.servlet.jsp-api</artifactId>
-      <version>2.3.1</version>
-    </dependency>
     <!-- 添加jstl支持 -->
-    <!--<dependency>
+    <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
       <version>1.2</version>
-    </dependency>-->
+    </dependency>
+    <dependency>
+      <groupId>taglibs</groupId>
+      <artifactId>standard</artifactId>
+      <version>1.1.2</version>
+    </dependency>
     <!-- 添加logback日志 -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
