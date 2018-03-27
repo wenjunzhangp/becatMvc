@@ -1,7 +1,5 @@
 package com.baozi.po;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
 
 public class SysUser {
@@ -31,11 +29,11 @@ public class SysUser {
 
     private String email;
 
-    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date createTime;
 
-    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date lastLoginTime;
+
+    private String sourceimg;
 
     public Integer getId() {
         return id;
@@ -98,7 +96,7 @@ public class SysUser {
     }
 
     public void setBirthday(String birthday) {
-        this.birthday = birthday;
+        this.birthday = birthday == null ? null : birthday.trim();
     }
 
     public Integer getGender() {
@@ -114,7 +112,7 @@ public class SysUser {
     }
 
     public void setPhone(String phone) {
-        this.phone = phone;
+        this.phone = phone == null ? null : phone.trim();
     }
 
     public String getSalt() {
@@ -155,5 +153,13 @@ public class SysUser {
 
     public void setLastLoginTime(Date lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
+    }
+
+    public String getSourceimg() {
+        return sourceimg;
+    }
+
+    public void setSourceimg(String sourceimg) {
+        this.sourceimg = sourceimg == null ? null : sourceimg.trim();
     }
 }

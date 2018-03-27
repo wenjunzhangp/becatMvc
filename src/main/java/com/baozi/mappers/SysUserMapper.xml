@@ -17,6 +17,7 @@
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="sourceimg" property="sourceimg" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -78,7 +79,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, usercode, realname, username, password, hobby, myself, birthday, gender, phone, 
-    salt, locked, email, create_time, last_login_time
+    salt, locked, email, create_time, last_login_time, sourceimg
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.baozi.po.SysUserExample" >
     select
@@ -115,12 +116,14 @@
       username, password, hobby, 
       myself, birthday, gender, 
       phone, salt, locked, email, 
-      create_time, last_login_time)
+      create_time, last_login_time, sourceimg
+      )
     values (#{id,jdbcType=INTEGER}, #{usercode,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
       #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{hobby,jdbcType=VARCHAR}, 
-      #{myself,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER},
-      #{phone,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{locked,jdbcType=CHAR}, #{email,jdbcType=VARCHAR},
-      #{createTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP})
+      #{myself,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
+      #{phone,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{locked,jdbcType=CHAR}, #{email,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{sourceimg,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.baozi.po.SysUser" >
     insert into sys_user
@@ -170,6 +173,9 @@
       <if test="lastLoginTime != null" >
         last_login_time,
       </if>
+      <if test="sourceimg != null" >
+        sourceimg,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -216,6 +222,9 @@
       </if>
       <if test="lastLoginTime != null" >
         #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sourceimg != null" >
+        #{sourceimg,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -273,6 +282,9 @@
       <if test="record.lastLoginTime != null" >
         last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.sourceimg != null" >
+        sourceimg = #{record.sourceimg,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -294,7 +306,8 @@
       locked = #{record.locked,jdbcType=CHAR},
       email = #{record.email,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP}
+      last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      sourceimg = #{record.sourceimg,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -344,6 +357,9 @@
       <if test="lastLoginTime != null" >
         last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="sourceimg != null" >
+        sourceimg = #{sourceimg,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -362,7 +378,8 @@
       locked = #{locked,jdbcType=CHAR},
       email = #{email,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP}
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      sourceimg = #{sourceimg,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 

@@ -27,6 +27,8 @@
 	<div class="layui-col-md3 layui-col-xs12 user_right">
 		<div class="layui-upload-list">
 			<img class="layui-upload-img layhobbyhiddenui-circle userFaceBtn userAvatar" id="userFace">
+			<p id="tryagain"></p>
+			<input type="hidden" name="userFaceImg" id="userFaceImg" value="">
 		</div>
 		<button type="button" class="layui-btn layui-btn-primary userFaceBtn"><i class="layui-icon">&#xe67c;</i> 掐指一算，我要换一个头像了</button>
 	</div>

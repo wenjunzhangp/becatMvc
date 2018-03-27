@@ -595,52 +595,62 @@ public class SysUserExample {
             return (Criteria) this;
         }
 
-        public Criteria andBirthdayEqualTo(Date value) {
+        public Criteria andBirthdayEqualTo(String value) {
             addCriterion("birthday =", value, "birthday");
             return (Criteria) this;
         }
 
-        public Criteria andBirthdayNotEqualTo(Date value) {
+        public Criteria andBirthdayNotEqualTo(String value) {
             addCriterion("birthday <>", value, "birthday");
             return (Criteria) this;
         }
 
-        public Criteria andBirthdayGreaterThan(Date value) {
+        public Criteria andBirthdayGreaterThan(String value) {
             addCriterion("birthday >", value, "birthday");
             return (Criteria) this;
         }
 
-        public Criteria andBirthdayGreaterThanOrEqualTo(Date value) {
+        public Criteria andBirthdayGreaterThanOrEqualTo(String value) {
             addCriterion("birthday >=", value, "birthday");
             return (Criteria) this;
         }
 
-        public Criteria andBirthdayLessThan(Date value) {
+        public Criteria andBirthdayLessThan(String value) {
             addCriterion("birthday <", value, "birthday");
             return (Criteria) this;
         }
 
-        public Criteria andBirthdayLessThanOrEqualTo(Date value) {
+        public Criteria andBirthdayLessThanOrEqualTo(String value) {
             addCriterion("birthday <=", value, "birthday");
             return (Criteria) this;
         }
 
-        public Criteria andBirthdayIn(List<Date> values) {
+        public Criteria andBirthdayLike(String value) {
+            addCriterion("birthday like", value, "birthday");
+            return (Criteria) this;
+        }
+
+        public Criteria andBirthdayNotLike(String value) {
+            addCriterion("birthday not like", value, "birthday");
+            return (Criteria) this;
+        }
+
+        public Criteria andBirthdayIn(List<String> values) {
             addCriterion("birthday in", values, "birthday");
             return (Criteria) this;
         }
 
-        public Criteria andBirthdayNotIn(List<Date> values) {
+        public Criteria andBirthdayNotIn(List<String> values) {
             addCriterion("birthday not in", values, "birthday");
             return (Criteria) this;
         }
 
-        public Criteria andBirthdayBetween(Date value1, Date value2) {
+        public Criteria andBirthdayBetween(String value1, String value2) {
             addCriterion("birthday between", value1, value2, "birthday");
             return (Criteria) this;
         }
 
-        public Criteria andBirthdayNotBetween(Date value1, Date value2) {
+        public Criteria andBirthdayNotBetween(String value1, String value2) {
             addCriterion("birthday not between", value1, value2, "birthday");
             return (Criteria) this;
         }
@@ -715,52 +725,62 @@ public class SysUserExample {
             return (Criteria) this;
         }
 
-        public Criteria andPhoneEqualTo(Integer value) {
+        public Criteria andPhoneEqualTo(String value) {
             addCriterion("phone =", value, "phone");
             return (Criteria) this;
         }
 
-        public Criteria andPhoneNotEqualTo(Integer value) {
+        public Criteria andPhoneNotEqualTo(String value) {
             addCriterion("phone <>", value, "phone");
             return (Criteria) this;
         }
 
-        public Criteria andPhoneGreaterThan(Integer value) {
+        public Criteria andPhoneGreaterThan(String value) {
             addCriterion("phone >", value, "phone");
             return (Criteria) this;
         }
 
-        public Criteria andPhoneGreaterThanOrEqualTo(Integer value) {
+        public Criteria andPhoneGreaterThanOrEqualTo(String value) {
             addCriterion("phone >=", value, "phone");
             return (Criteria) this;
         }
 
-        public Criteria andPhoneLessThan(Integer value) {
+        public Criteria andPhoneLessThan(String value) {
             addCriterion("phone <", value, "phone");
             return (Criteria) this;
         }
 
-        public Criteria andPhoneLessThanOrEqualTo(Integer value) {
+        public Criteria andPhoneLessThanOrEqualTo(String value) {
             addCriterion("phone <=", value, "phone");
             return (Criteria) this;
         }
 
-        public Criteria andPhoneIn(List<Integer> values) {
+        public Criteria andPhoneLike(String value) {
+            addCriterion("phone like", value, "phone");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneNotLike(String value) {
+            addCriterion("phone not like", value, "phone");
+            return (Criteria) this;
+        }
+
+        public Criteria andPhoneIn(List<String> values) {
             addCriterion("phone in", values, "phone");
             return (Criteria) this;
         }
 
-        public Criteria andPhoneNotIn(List<Integer> values) {
+        public Criteria andPhoneNotIn(List<String> values) {
             addCriterion("phone not in", values, "phone");
             return (Criteria) this;
         }
 
-        public Criteria andPhoneBetween(Integer value1, Integer value2) {
+        public Criteria andPhoneBetween(String value1, String value2) {
             addCriterion("phone between", value1, value2, "phone");
             return (Criteria) this;
         }
 
-        public Criteria andPhoneNotBetween(Integer value1, Integer value2) {
+        public Criteria andPhoneNotBetween(String value1, String value2) {
             addCriterion("phone not between", value1, value2, "phone");
             return (Criteria) this;
         }
@@ -1092,6 +1112,76 @@ public class SysUserExample {
 
         public Criteria andLastLoginTimeNotBetween(Date value1, Date value2) {
             addCriterion("last_login_time not between", value1, value2, "lastLoginTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andSourceimgIsNull() {
+            addCriterion("sourceimg is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSourceimgIsNotNull() {
+            addCriterion("sourceimg is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSourceimgEqualTo(String value) {
+            addCriterion("sourceimg =", value, "sourceimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSourceimgNotEqualTo(String value) {
+            addCriterion("sourceimg <>", value, "sourceimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSourceimgGreaterThan(String value) {
+            addCriterion("sourceimg >", value, "sourceimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSourceimgGreaterThanOrEqualTo(String value) {
+            addCriterion("sourceimg >=", value, "sourceimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSourceimgLessThan(String value) {
+            addCriterion("sourceimg <", value, "sourceimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSourceimgLessThanOrEqualTo(String value) {
+            addCriterion("sourceimg <=", value, "sourceimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSourceimgLike(String value) {
+            addCriterion("sourceimg like", value, "sourceimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSourceimgNotLike(String value) {
+            addCriterion("sourceimg not like", value, "sourceimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSourceimgIn(List<String> values) {
+            addCriterion("sourceimg in", values, "sourceimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSourceimgNotIn(List<String> values) {
+            addCriterion("sourceimg not in", values, "sourceimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSourceimgBetween(String value1, String value2) {
+            addCriterion("sourceimg between", value1, value2, "sourceimg");
+            return (Criteria) this;
+        }
+
+        public Criteria andSourceimgNotBetween(String value1, String value2) {
+            addCriterion("sourceimg not between", value1, value2, "sourceimg");
             return (Criteria) this;
         }
     }

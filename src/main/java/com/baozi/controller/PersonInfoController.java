@@ -3,9 +3,7 @@ package com.baozi.controller;
 import com.baozi.po.ActiveUser;
 import com.baozi.po.SysUser;
 import com.baozi.service.SysUserService;
-import com.baozi.util.GenerateLogFactory;
-import com.baozi.util.LogUtils;
-import com.baozi.util.MD5Factory;
+import com.baozi.util.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -13,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Set;
 
 /**
  * @author wenjun.zhang
@@ -112,6 +112,23 @@ public class PersonInfoController extends BaseController{
         } catch ( Exception e ) {
             LogUtils.logError("个人密码更新失败!用户id是"+activeUser.getUserid(),e);
             return CodeResult.build(500,"密码更新失败!");
+        }
+    }
+
+    @RequestMapping("/uploadUserFaceImg")
+    @ResponseBody
+    public CodeResult uploadUserFaceImg(HttpServletRequest request,MultipartHttpServletRequest multiRequest) {
+        try {
+            ActiveUser activeUser = super.loginUser();
+            String resultFilePaths = FileUploadUtil.uploadFile(multiRequest);
+            SysUser sysUser = new SysUser();
+            sysUser.setId(activeUser.getUserid());
+            sysUser.setSourceimg(resultFilePaths);
+            sysUserService.updateUserInfo(sysUser);
+            return CodeResult.ok(IConfig.get("becat.imgserver.prefix")+resultFilePaths);
+        } catch (Exception e) {
+            LogUtils.logError("用户头像文件长传失败",e);
+            return CodeResult.build(500,"");
         }
     }
 

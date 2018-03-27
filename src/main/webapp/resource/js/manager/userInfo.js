@@ -21,14 +21,32 @@ layui.use(['form','layer','upload','laydate',"address"],function(){
     }
 
     //上传头像
-    upload.render({
+    var uploadInst = upload.render({
         elem: '.userFaceBtn',
-        url: '/resource/json/userface.json',
-        method : "get",  //此处是为了演示之用，实际使用中请将此删除，默认用post方式提交
+        url: '/console/uploadUserFaceImg.shtml',
+        method : "post",
+        ext: 'jpg|png|gif',
+        before: function(obj){
+            obj.preview(function(index, file, result){
+                $('#userFace').attr('src', result);
+            });
+        },
         done: function(res, index, upload){
-            var num = parseInt(4*Math.random());  //生成0-4的随机数，随机显示一个头像信息
-            $('#userFace').attr('src',res.data[num].src);
-            window.sessionStorage.setItem('userFace',res.data[num].src);
+            console.log(res);
+            if (res.status==200) {
+                layer.msg("头像更新成功!");
+                console.log(res.data);
+                $('#userFace').attr('src',res.data);
+            } else {
+                layer.msg("头像更新失败!");
+            }
+        },
+        error: function(){
+            var tryagain = $('#tryagain');
+            tryagain.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+            tryagain.find('.demo-reload').on('click', function(){
+                uploadInst.upload();
+            });
         }
     });
 
