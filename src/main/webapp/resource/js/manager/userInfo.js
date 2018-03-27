@@ -12,13 +12,8 @@ layui.use(['form','layer','upload','laydate',"address"],function(){
         laydate = layui.laydate,
         address = layui.address;
 
-    //判断是否设置过头像，如果设置过则修改顶部、左侧和个人资料中的头像，否则使用默认头像
-    if(window.sessionStorage.getItem('userFace')){
-        $("#userFace").attr("src",window.sessionStorage.getItem('userFace'));
-        $(".userAvatar").attr("src",$(".userAvatar").attr("src").split("images/")[0] + "images/" + window.sessionStorage.getItem('userFace').split("images/")[1]);
-    }else{
-        $("#userFace").attr("src","/resource/images/face.jpg");
-    }
+    $("#userFace").attr("src",$("#userimg").val());
+    $(".userAvatar").attr("src",$("#userimg").val());
 
     //上传头像
     var uploadInst = upload.render({
@@ -32,11 +27,11 @@ layui.use(['form','layer','upload','laydate',"address"],function(){
             });
         },
         done: function(res, index, upload){
-            console.log(res);
             if (res.status==200) {
                 layer.msg("头像更新成功!");
-                console.log(res.data);
                 $('#userFace').attr('src',res.data);
+                $(".userAvatar").attr("src",res.data);
+                window.sessionStorage.setItem('userFace',res.data);
             } else {
                 layer.msg("头像更新失败!");
             }

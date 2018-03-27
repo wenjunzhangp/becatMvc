@@ -10,9 +10,9 @@ layui.use(['form','jquery',"layer"],function() {
     }
 
     //判断是否设置过头像，如果设置过则修改顶部、左侧和个人资料中的头像，否则使用默认头像
-    if(window.sessionStorage.getItem('userFace') &&  $(".userAvatar").length > 0){
+    if( window.sessionStorage.getItem('userFace') ){
         $("#userFace").attr("src",window.sessionStorage.getItem('userFace'));
-        $(".userAvatar").attr("src",$(".userAvatar").attr("src").split("images/")[0] + "images/" + window.sessionStorage.getItem('userFace').split("images/")[1]);
+        $(".userAvatar").attr("src",window.sessionStorage.getItem('userFace'));
     }else{
         $("#userFace").attr("src","/resource/images/face.jpg");
     }
@@ -70,8 +70,8 @@ layui.use(['form','jquery',"layer"],function() {
             shade : 0.9,
             success : function(){
                 //判断是否设置过头像，如果设置过则修改顶部、左侧和个人资料中的头像，否则使用默认头像
-                if(window.sessionStorage.getItem('userFace') &&  $(".userAvatar").length > 0){
-                    $(".userAvatar").attr("src",$(".userAvatar").attr("src").split("images/")[0] + "images/" + window.sessionStorage.getItem('userFace').split("images/")[1]);
+                if( window.sessionStorage.getItem('userFace') ){
+                    $(".userAvatar").attr("src", window.sessionStorage.getItem('userFace'));
                 }
             }
         })

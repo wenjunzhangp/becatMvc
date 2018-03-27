@@ -36,6 +36,7 @@ public class PersonInfoController extends BaseController{
     public String personInfo(HttpServletRequest request) {
         SysUser sysUser = sysUserService.findSysUserByUserId(super.loginUser().getUserid());
         setValueRequest(request,"userInfo",sysUser);
+        setValueRequest(request,"userImg",IConfig.get("becat.imgserver.prefix")+sysUser.getSourceimg());
         return "/user/personInfo";
     }
 

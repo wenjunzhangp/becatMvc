@@ -24,9 +24,10 @@
 	<input type="hidden" id="genderhidden" value="${userInfo.gender}">
 	<input type="hidden" id="hobbyhidden" value="${userInfo.hobby}">
 	<input type="hidden" id="hobby" name="hobby">
+	<input type="hidden" id="userimg" value="${userImg}">
 	<div class="layui-col-md3 layui-col-xs12 user_right">
 		<div class="layui-upload-list">
-			<img class="layui-upload-img layhobbyhiddenui-circle userFaceBtn userAvatar" id="userFace">
+			<img class="layui-upload-img layhobbyhiddenui-circle userFaceBtn userAvatar" src="${userImg}" id="userFace">
 			<p id="tryagain"></p>
 			<input type="hidden" name="userFaceImg" id="userFaceImg" value="">
 		</div>
