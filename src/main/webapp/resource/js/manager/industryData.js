@@ -7,6 +7,7 @@ layui.use(['form','layer','table','laytpl'],function(){
 
     //用户列表
     var tableIns = table.render({
+        id : "id",
         elem: '#userList',
         url : '/console/indusPage.shtml',
         cellMinWidth : 95,
@@ -23,25 +24,23 @@ layui.use(['form','layer','table','laytpl'],function(){
             {field: 'remark', title: '备注',  minWidth:200, align:'center'},
             {field: 'category', title: '所属分类', align:'center'},
             {field: 'source', title: '来源', align:'center',minWidth:150},
-            {field: 'hot', title: '热点文章', align:'center',minWidth:100},
+            {field: 'hot', title: '热点文章', align:'center',minWidth:100,templet:function(d){
+                return d.hot == "0" ? "否" : "是";
+            }},
             {title: '操作', minWidth:175, templet:'#userListBar',fixed:"right",align:"center"}
         ]]
     });
 
     //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
-        if($(".searchVal").val() != ''){
-            table.reload("newsListTable",{
-                page: {
-                    curr: 1 //重新从第 1 页开始
-                },
-                where: {
-                    key: $(".searchVal").val()  //搜索的关键字
-                }
-            })
-        }else{
-            layer.msg("请输入文章标题");
-        }
+        table.reload("indusListTable",{
+            page: {
+                curr: 1 //重新从第 1 页开始
+            },
+            where: {
+                title : $(".searchVal").val()
+            }
+        })
     });
 
     //添加用户

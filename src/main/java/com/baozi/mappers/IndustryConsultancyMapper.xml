@@ -490,7 +490,7 @@
     select * from industry_consultancy
     <where>
       <if test="title!=null and title!='' ">
-        and title like CONCAT('%', #{title}, '%')
+        title like CONCAT('%', #{title}, '%')
       </if>
       <if test="category!=null and category!=-1 ">
         and category = #{category}
