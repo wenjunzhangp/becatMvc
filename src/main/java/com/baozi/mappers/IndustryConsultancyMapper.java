@@ -5,6 +5,7 @@ import com.baozi.po.IndustryConsultancyExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IndustryConsultancyMapper {
     int countByExample(IndustryConsultancyExample example);
@@ -36,4 +37,6 @@ public interface IndustryConsultancyMapper {
     int updateByPrimaryKey(IndustryConsultancy record);
 
     public List<IndustryConsultancy> findIndustryConsultancyTop5();
+
+    public List<IndustryConsultancy> findIndustryConsultancyPage(Map<String,Object> paramMap);
 }

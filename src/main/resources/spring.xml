@@ -148,7 +148,7 @@
 				/console/login.shtml=anon
 				/console/userLogin.shtml=authc
 				/console/index.shtml=authc
-				/**=authc
+				/**=anon
 			</value>
 		</property>
 	</bean>

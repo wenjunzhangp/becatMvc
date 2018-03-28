@@ -23,6 +23,7 @@ layui.use(['form','layer','jquery'],function(){
                     },1000)
                 }else{
                     layer.msg(data.msg);
+                    randomImg();
                 }
             }
         });

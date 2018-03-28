@@ -3,6 +3,8 @@ package com.baozi.controller;
 import com.baozi.po.ActiveUser;
 import com.baozi.service.SysLogService;
 import com.baozi.service.UserLogService;
+import com.baozi.statics.Constant;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -27,17 +29,13 @@ public class BaseController {
 	protected SysLogService sysLogService;
 	
 	protected int pageNo =1;
-	public static  int pageSize = 10;
+	protected int pageSize = 10;
 	private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);
 	protected Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
 	public static String URL404 =  "/404.html";
 	public static String URL500 =  "/500.html";
 	public static String URLUNAUTHORIZED =  "/unauthorized.html";
 
-	private final static String PARAM_PAGE_NO = "pageNo";
-	
-	protected String pageSizeName = "pageSize";
-	
 	/**
 	 * 往Request里带值
 	 * @param request
@@ -47,9 +45,60 @@ public class BaseController {
 	protected static void setValueRequest(HttpServletRequest request,String key,Object value){
 		request.setAttribute(key, value);
 	}
-	
+
 	/**
-	 * [获取session]
+	 * 赋值分页参数信息
+	 * @param request
+	 */
+	protected void setPageInfo(HttpServletRequest request){
+		String pageNoStr = request.getParameter("page");
+		if ( StringUtils.isNotBlank(pageNoStr) ) {
+			pageNo = Integer.valueOf(pageNoStr);
+		}
+		String pageSizeStr = request.getParameter("limit");
+		if ( StringUtils.isNotBlank(pageSizeStr) ) {
+			pageSize = Integer.valueOf(pageSizeStr);
+		}
+	}
+
+	/**
+	 * 分页返回成功的响应体
+	 * @param pageInfo
+	 */
+	protected void setResultMapOk(PageInfo pageInfo){
+		resultMap.put(Constant.CODE,Constant.HTTP_DEFAULT);
+		resultMap.put(Constant.MESSAGE,"");
+		resultMap.put("count",pageInfo.getTotal());
+		resultMap.put(Constant.DATA,pageInfo.getList());
+	}
+
+	/**
+	 * 分页返回失败的响应体
+	 * @param e 异常信息
+	 */
+	protected void setResultMapError( Exception e ){
+		resultMap.put(Constant.CODE,Constant.HTTP_ERROR);
+		resultMap.put(Constant.MESSAGE,e.getMessage());
+	}
+
+	/**
+	 * 获取请求属性封装为Map类型
+	 * @param request
+	 * @return
+	 */
+	protected Map<String, Object> genRequestMapSingle(HttpServletRequest request) {
+		Map<String, Object> conditions = new HashMap<String, Object>();
+		Map map = request.getParameterMap();
+		for (Object o : map.keySet()) {
+			String key = (String) o;
+			conditions.put(key, ((String[]) map.get(key))[0]);
+		}
+		setPageInfo(request);
+		return conditions;
+	}
+
+	/**
+	 * 获取session
 	 * @param request
 	 * @return
 	 */
@@ -57,22 +106,6 @@ public class BaseController {
 		return request.getSession();
 	}
 
-	public int getPageNo() {
-		return pageNo;
-	}
-
-	public void setPageNo(int pageNo) {
-		this.pageNo = pageNo;
-	}
-
-	public int getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(int pageSize) {
-		BaseController.pageSize = pageSize;
-	}
-	
 	public ModelAndView redirect(String redirectUrl, Map<String,Object>...parament){
 		ModelAndView view = new ModelAndView(new RedirectView(redirectUrl));
 		if(null != parament && parament.length > 0){
@@ -80,43 +113,15 @@ public class BaseController {
 		}
 		return view;
 	}
+
 	public ModelAndView redirect404(){
 		return new ModelAndView(new RedirectView(URL404));
 	}
-	
-	@SuppressWarnings("unchecked")
-	protected Map<String, Object> prepareParams(Object obj, HttpServletRequest request) throws Exception {
-		if (request != null) {
-			String pageNoStr   = (String)request.getParameter(PARAM_PAGE_NO),
-				   pageSizeStr = (String)request.getParameter(pageSizeName);
-			if (StringUtils.isNotBlank(pageNoStr)) {
-				pageNo = Integer.parseInt(pageNoStr);
-			}
-			if (StringUtils.isNotBlank(pageSizeStr)) {
-				pageSize = Integer.parseInt(pageSizeStr);
-			}
-		}
-		
-		Map<String, Object> params = new HashMap<String, Object>();
-		params = BeanUtils.describe(obj);
-		params = handleParams(params);
-		return params;
-	}
-	private Map<String, Object> handleParams(Map<String, Object> params) {
-		Map<String, Object> result = new HashMap<String, Object>();
-		if (null != params) {
-			Set<Entry<String, Object>> entrySet = params.entrySet();
-			
-			for (Iterator<Entry<String, Object>> it = entrySet.iterator(); it.hasNext(); ) {
-				Entry<String, Object> entry = it.next();
-				if (entry.getValue() != null) {
-					result.put(entry.getKey(), StringUtils.trimToEmpty((String)entry.getValue()));
-				}				
-			}
-		}
-		return result;
-	}
 
+	/**
+	 * 获取用户登录信息
+	 * @return
+	 */
 	protected ActiveUser loginUser(){
 		//从shiro的subject中取出身份信息
 		Subject subject= SecurityUtils.getSubject();

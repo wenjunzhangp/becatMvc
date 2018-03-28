@@ -8,4 +8,10 @@
   <typeAliases>
     <package name="com.baozi.mappers"/>
   </typeAliases>
+  <plugins>
+    <plugin interceptor="com.github.pagehelper.PageInterceptor">
+      <property name="helperDialect" value="mysql"/>
+      <property name="reasonable" value="false" />
+    </plugin>
+  </plugins>
 </configuration>

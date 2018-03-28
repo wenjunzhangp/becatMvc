@@ -3,10 +3,13 @@ package com.baozi.service.impl;
 import com.baozi.mappers.IndustryConsultancyMapper;
 import com.baozi.po.IndustryConsultancy;
 import com.baozi.service.IndustryConsultancyService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author wenjun.zhang
@@ -22,5 +25,12 @@ public class IndustryConsultancyServiceImpl implements IndustryConsultancyServic
     @Override
     public List<IndustryConsultancy> findIndustryConsultancyTop5() {
         return industryConsultancyMapper.findIndustryConsultancyTop5();
+    }
+
+    @Override
+    public PageInfo<IndustryConsultancy> findIndustryConsultancyPage(Map<String, Object> paramMap) {
+        PageHelper.startPage(Integer.valueOf(paramMap.get("page").toString()),Integer.valueOf(paramMap.get("limit").toString()),true);
+        List<IndustryConsultancy> dataList = industryConsultancyMapper.findIndustryConsultancyPage(paramMap);
+        return new PageInfo<IndustryConsultancy>(dataList);
     }
 }

@@ -486,4 +486,17 @@
     select id,title,createTime from industry_consultancy order by createTime desc limit 5
   </select>
 
+  <select id="findIndustryConsultancyPage" resultType="com.baozi.po.IndustryConsultancy" parameterType="map">
+    select * from industry_consultancy
+    <where>
+      <if test="title!=null and title!='' ">
+        and title like CONCAT('%', #{title}, '%')
+      </if>
+      <if test="category!=null and category!=-1 ">
+        and category = #{category}
+      </if>
+    </where>
+    order by lastModifyTime desc
+  </select>
+
 </mapper>
