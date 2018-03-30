@@ -79,7 +79,7 @@ layui.use(['form','element','layer','jquery'],function(){
             if(data.status==200){
                 var hotNewsHtml = '';
                 $.each(data.data,function(i,v){
-                    hotNewsHtml += '<tr><td align="left"><a href="javascript:;"> '+v.title+'</a></td><td>'+v.createtime+'</td></tr>';
+                    hotNewsHtml += '<tr><td align="left" width="80%"><a href="javascript:;"> '+v.title+'</a></td><td>'+v.createtime+'</td></tr>';
                 });
                 $(".hot_news").html(hotNewsHtml);
             }else{

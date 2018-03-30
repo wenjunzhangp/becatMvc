@@ -483,20 +483,29 @@
   </update>
 
   <select id="findIndustryConsultancyTop5" resultType="com.baozi.po.IndustryConsultancy" >
-    select id,title,createTime from industry_consultancy order by createTime desc limit 5
+    select id,title,createTime from industry_consultancy where display=1 order by createTime desc limit 5
   </select>
 
-  <select id="findIndustryConsultancyPage" resultType="com.baozi.po.IndustryConsultancy" parameterType="map">
-    select * from industry_consultancy
+  <select id="findIndustryConsultancyPage" resultType="com.baozi.vo.IndustryConsultancyVo" parameterType="map">
+    select i.id,i.title,i.createtime,i.major,i.remark,c.`name`,c.link,i.source,i.hot from industry_consultancy i LEFT JOIN industry_consultancy_category c on i.category=c.id
     <where>
+      i.display=1
       <if test="title!=null and title!='' ">
-        title like CONCAT('%', #{title}, '%')
+        and i.title like CONCAT('%', #{title}, '%')
       </if>
       <if test="category!=null and category!=-1 ">
-        and category = #{category}
+        and i.category = #{category}
       </if>
     </where>
-    order by lastModifyTime desc
+    order by i.lastModifyTime desc
   </select>
+
+  <delete id="deleteIndusSingleOrBatch" parameterType="java.util.List">
+    update industry_consultancy set display = 0
+    where id in
+    <foreach item="id" collection="list" open="(" close=")" separator=",">
+    #{id}
+    </foreach>
+  </delete>
 
 </mapper>

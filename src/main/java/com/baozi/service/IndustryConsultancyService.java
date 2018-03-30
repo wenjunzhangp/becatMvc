@@ -1,6 +1,7 @@
 package com.baozi.service;
 
 import com.baozi.po.IndustryConsultancy;
+import com.baozi.vo.IndustryConsultancyVo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -23,5 +24,18 @@ public interface IndustryConsultancyService {
      * @param paramMap
      * @return
      */
-    public PageInfo<IndustryConsultancy> findIndustryConsultancyPage(Map<String,Object> paramMap);
+    public PageInfo<IndustryConsultancyVo> findIndustryConsultancyPage(Map<String,Object> paramMap);
+
+    /**
+     * 加载所有文章分类
+     * @return
+     */
+    public List<Map> selectAllCategory();
+
+    /**
+     * 执行批量删除文章
+     * @param idList
+     * @return
+     */
+    public int deleteIndusSingleOrBatch(List idList);
 }

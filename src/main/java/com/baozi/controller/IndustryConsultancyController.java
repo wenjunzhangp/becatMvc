@@ -5,13 +5,17 @@ import com.baozi.service.IndustryConsultancyService;
 import com.baozi.statics.Constant;
 import com.baozi.util.LogUtils;
 import com.github.pagehelper.PageInfo;
+import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,13 +37,24 @@ public class IndustryConsultancyController extends BaseController{
             return CodeResult.ok(industryConsultancyService.findIndustryConsultancyTop5());
         } catch ( Exception e ) {
             LogUtils.logError("调取最新文章错误",e);
-            return CodeResult.build(500,"error");
+            return CodeResult.build(500,e.getMessage());
         }
     }
 
     @RequestMapping("/article")
     public String articleUI(){
         return "/industry/industryData";
+    }
+
+    @RequestMapping("/initIndusAllCategory")
+    @ResponseBody
+    public CodeResult initIndusAllCategory(){
+        try {
+            return CodeResult.ok(industryConsultancyService.selectAllCategory());
+        } catch ( Exception e ) {
+            LogUtils.logError("加载文章分类错误",e);
+            return CodeResult.build(500,e.getMessage());
+        }
     }
 
     @RequestMapping("/indusPage")
@@ -53,5 +68,18 @@ public class IndustryConsultancyController extends BaseController{
             setResultMapError(e);
         }
         return resultMap;
+    }
+
+    @RequestMapping("/deleteIndusSingleOrBatch")
+    @ResponseBody
+    public CodeResult deleteIndusSingleOrBatch(String ids){
+        try {
+            List idList = Arrays.asList(ids.split(","));
+            industryConsultancyService.deleteIndusSingleOrBatch(idList);
+            return CodeResult.build(200,"批量操作成功");
+        } catch ( Exception e ) {
+            LogUtils.logError("删除文章出现异常",e);
+            return CodeResult.build(500,e.getMessage());
+        }
     }
 }

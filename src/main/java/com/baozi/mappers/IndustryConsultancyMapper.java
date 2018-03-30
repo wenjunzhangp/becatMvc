@@ -2,6 +2,7 @@ package com.baozi.mappers;
 
 import com.baozi.po.IndustryConsultancy;
 import com.baozi.po.IndustryConsultancyExample;
+import com.baozi.vo.IndustryConsultancyVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -38,5 +39,7 @@ public interface IndustryConsultancyMapper {
 
     public List<IndustryConsultancy> findIndustryConsultancyTop5();
 
-    public List<IndustryConsultancy> findIndustryConsultancyPage(Map<String,Object> paramMap);
+    public List<IndustryConsultancyVo> findIndustryConsultancyPage(Map<String,Object> paramMap);
+
+    public int deleteIndusSingleOrBatch(List idList);
 }

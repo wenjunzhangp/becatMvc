@@ -208,4 +208,8 @@
       name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectAllCategory" resultType="map" >
+    select id,title from industry_consultancy_category
+  </select>
 </mapper>

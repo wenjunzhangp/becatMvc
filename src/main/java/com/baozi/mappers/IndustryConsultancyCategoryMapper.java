@@ -5,6 +5,7 @@ import com.baozi.po.IndustryConsultancyCategoryExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IndustryConsultancyCategoryMapper {
     int countByExample(IndustryConsultancyCategoryExample example);
@@ -28,4 +29,6 @@ public interface IndustryConsultancyCategoryMapper {
     int updateByPrimaryKeySelective(IndustryConsultancyCategory record);
 
     int updateByPrimaryKey(IndustryConsultancyCategory record);
+
+    public List<Map> selectAllCategory();
 }

@@ -22,7 +22,7 @@ layui.use(['form','layer','table','laytpl'],function(){
             {field: 'createtime', title: '创建时间', minWidth:100, align:'center'},
             {field: 'major', title: '优化词', align:'center'},
             {field: 'remark', title: '备注',  minWidth:200, align:'center'},
-            {field: 'category', title: '所属分类', align:'center'},
+            {field: 'name', title: '所属分类', align:'center'},
             {field: 'source', title: '来源', align:'center',minWidth:150},
             {field: 'hot', title: '热点文章', align:'center',minWidth:100,templet:function(d){
                 return d.hot == "0" ? "否" : "是";
@@ -38,15 +38,36 @@ layui.use(['form','layer','table','laytpl'],function(){
                 curr: 1 //重新从第 1 页开始
             },
             where: {
-                title : $(".searchVal").val()
+                title : $(".searchVal").val(),
+                category : $("#search").val()
             }
         })
     });
 
+    //加载所有文章分类
+    $.ajax({
+        url : "/console/initIndusAllCategory.shtml",
+        type : "get",
+        cache:true,
+        dataType : "json",
+        success : function(data){
+            if(data.status==200){
+                var categoryHtml = '<option value="-1">全部</option>';
+                $.each(data.data,function(i,v){
+                    categoryHtml += '<option value="'+v.id+'">'+v.title+'</option>';
+                });
+                $("#search").append(categoryHtml);
+                form.render('select');
+            }else{
+                layer.msg(data.msg);
+            }
+        }
+    })
+
     //添加用户
-    function addUser(edit){
+    function addIndus(edit){
         var index = layui.layer.open({
-            title : "添加用户",
+            title : "添加文章",
             type : 2,
             content : "userAdd.html",
             success : function(layero, index){
@@ -61,7 +82,7 @@ layui.use(['form','layer','table','laytpl'],function(){
                     form.render();
                 }
                 setTimeout(function(){
-                    layui.layer.tips('点击此处返回用户列表', '.layui-layer-setwin .layui-layer-close', {
+                    layui.layer.tips('点击此处返回文章列表', '.layui-layer-setwin .layui-layer-close', {
                         tips: 3
                     });
                 },500)
@@ -74,28 +95,36 @@ layui.use(['form','layer','table','laytpl'],function(){
         })
     }
     $(".addNews_btn").click(function(){
-        addUser();
+        addIndus();
     })
 
     //批量删除
     $(".delAll_btn").click(function(){
-        var checkStatus = table.checkStatus('userListTable'),
+        var checkStatus = table.checkStatus('indusListTable'),
             data = checkStatus.data,
             newsId = [];
         if(data.length > 0) {
             for (var i in data) {
-                newsId.push(data[i].newsId);
+                newsId.push(data[i].id);
             }
-            layer.confirm('确定删除选中的用户？', {icon: 3, title: '提示信息'}, function (index) {
-                // $.get("删除文章接口",{
-                //     newsId : newsId  //将需要删除的newsId作为参数传入
-                // },function(data){
-                tableIns.reload();
-                layer.close(index);
-                // })
+            layer.confirm('确定删除选中的文章？', {icon: 3, title: '提示信息'}, function (index) {
+                $.ajax({
+                    url : "/console/deleteIndusSingleOrBatch.shtml",
+                    type : "post",
+                    data: {ids:newsId.toString()},
+                    success : function(data){
+                        if(data.status==200){
+                            tableIns.reload();
+                            layer.close(index);
+                            layer.msg(data.msg);
+                        }else{
+                            layer.msg(data.msg);
+                        }
+                    }
+                })
             })
         }else{
-            layer.msg("请选择需要删除的用户");
+            layer.msg("请选择需要删除的文章");
         }
     })
 
@@ -105,7 +134,7 @@ layui.use(['form','layer','table','laytpl'],function(){
             data = obj.data;
 
         if(layEvent === 'edit'){ //编辑
-            addUser(data);
+            addIndus(data);
         }else if(layEvent === 'usable'){ //启用禁用
             var _this = $(this),
                 usableText = "是否确定禁用此用户？",

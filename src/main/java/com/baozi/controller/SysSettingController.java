@@ -27,7 +27,7 @@ public class SysSettingController extends BaseController{
             return CodeResult.ok(sysSettingService.findSysSettingById());
         } catch ( Exception e ) {
             LogUtils.logError("调取系统基本配置信息错误",e);
-            return CodeResult.build(500,"error");
+            return CodeResult.build(500,e.getMessage());
         }
     }
 }

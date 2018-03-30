@@ -9,7 +9,7 @@
 	  * 
 	FROM
 	  sys_permission 
-	WHERE TYPE in ('permission','menu')
+	WHERE TYPE in ('url','menu','button')
 	  AND id IN 
 	  (SELECT 
 	    sys_permission_id 

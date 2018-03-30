@@ -129,7 +129,7 @@ public class PersonInfoController extends BaseController{
             return CodeResult.ok(IConfig.get("becat.imgserver.prefix")+resultFilePaths);
         } catch (Exception e) {
             LogUtils.logError("用户头像文件长传失败",e);
-            return CodeResult.build(500,"");
+            return CodeResult.build(500,e.getMessage());
         }
     }
 

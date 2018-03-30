@@ -68,43 +68,43 @@
         </encoder>
     </appender>-->
     <!-- INFO级别日志 appender -->
-    <!--<appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        &lt;!&ndash; 过滤器，只记录INFO级别的日志 &ndash;&gt;
+    <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 过滤器，只记录INFO级别的日志 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>INFO</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            &lt;!&ndash; 按天回滚 daily &ndash;&gt;
+            <!-- 按天回滚 daily -->
             <fileNamePattern>${log_dir}/%d{yyyy-MM-dd}/info-log.log
             </fileNamePattern>
-            &lt;!&ndash; 日志最大的历史 60天 &ndash;&gt;
+            <!-- 日志最大的历史 60天 -->
             <maxHistory>${maxHistory}</maxHistory>
         </rollingPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
         </encoder>
-    </appender>-->
+    </appender>
     <!-- DEBUG级别日志 appender -->
-    <!--<appender name="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        &lt;!&ndash; 过滤器，只记录DEBUG级别的日志 &ndash;&gt;
+    <appender name="DEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 过滤器，只记录DEBUG级别的日志 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>DEBUG</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            &lt;!&ndash; 按天回滚 daily &ndash;&gt;
+            <!-- 按天回滚 daily -->
             <fileNamePattern>${log_dir}/%d{yyyy-MM-dd}/debug-log.log
             </fileNamePattern>
-            &lt;!&ndash; 日志最大的历史 60天 &ndash;&gt;
+            <!-- 日志最大的历史 60天 -->
             <maxHistory>${maxHistory}</maxHistory>
         </rollingPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
         </encoder>
-    </appender>-->
+    </appender>
     <!-- TRACE级别日志 appender -->
     <!--<appender name="TRACE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         &lt;!&ndash; 过滤器，只记录ERROR级别的日志 &ndash;&gt;
@@ -129,11 +129,6 @@
     <root level="INFO">
         <!-- 控制台输出 -->
         <appender-ref ref="INFO" />
-        <!-- 文件输出 -->
-        <appender-ref ref="ERROR" />
-        <appender-ref ref="INFO" />
-        <appender-ref ref="WARN" />
         <appender-ref ref="DEBUG" />
-        <appender-ref ref="TRACE" />
     </root>
 </configuration>

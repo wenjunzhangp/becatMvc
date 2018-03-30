@@ -26,7 +26,7 @@ public class PlatEventController extends BaseController{
             return CodeResult.ok(platEventService.findAllPlatEvent());
         } catch ( Exception e ) {
             LogUtils.logError("调取平台大事记错误",e);
-            return CodeResult.build(500,"error");
+            return CodeResult.build(500,e.getMessage());
         }
     }
 }

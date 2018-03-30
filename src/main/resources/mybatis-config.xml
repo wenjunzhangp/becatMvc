@@ -3,7 +3,8 @@
 
 <configuration>
   <settings>
-    <setting name="defaultExecutorType" value="REUSE" />
+    <!--正式服务器需关闭此配置，不然会打爆你的服务器-->
+    <setting name="logImpl" value="STDOUT_LOGGING" />
   </settings>
   <typeAliases>
     <package name="com.baozi.mappers"/>

@@ -1,8 +1,10 @@
 package com.baozi.service.impl;
 
+import com.baozi.mappers.IndustryConsultancyCategoryMapper;
 import com.baozi.mappers.IndustryConsultancyMapper;
 import com.baozi.po.IndustryConsultancy;
 import com.baozi.service.IndustryConsultancyService;
+import com.baozi.vo.IndustryConsultancyVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +24,28 @@ public class IndustryConsultancyServiceImpl implements IndustryConsultancyServic
     @Autowired
     private IndustryConsultancyMapper industryConsultancyMapper;
 
+    @Autowired
+    private IndustryConsultancyCategoryMapper industryConsultancyCategoryMapper;
+
     @Override
     public List<IndustryConsultancy> findIndustryConsultancyTop5() {
         return industryConsultancyMapper.findIndustryConsultancyTop5();
     }
 
     @Override
-    public PageInfo<IndustryConsultancy> findIndustryConsultancyPage(Map<String, Object> paramMap) {
+    public PageInfo<IndustryConsultancyVo> findIndustryConsultancyPage(Map<String, Object> paramMap) {
         PageHelper.startPage(Integer.valueOf(paramMap.get("page").toString()),Integer.valueOf(paramMap.get("limit").toString()),true);
-        List<IndustryConsultancy> dataList = industryConsultancyMapper.findIndustryConsultancyPage(paramMap);
-        return new PageInfo<IndustryConsultancy>(dataList);
+        List<IndustryConsultancyVo> dataList = industryConsultancyMapper.findIndustryConsultancyPage(paramMap);
+        return new PageInfo<IndustryConsultancyVo>(dataList);
+    }
+
+    @Override
+    public List<Map> selectAllCategory() {
+        return industryConsultancyCategoryMapper.selectAllCategory();
+    }
+
+    @Override
+    public int deleteIndusSingleOrBatch(List idList) {
+        return industryConsultancyMapper.deleteIndusSingleOrBatch(idList);
     }
 }

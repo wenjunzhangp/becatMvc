@@ -26,14 +26,21 @@
 				<div class="layui-input-inline">
 					<input type="text" class="layui-input searchVal" placeholder="请输入文章标题" />
 				</div>
+				<div class="layui-input-inline component">
+					<select name="search" id="search" lay-search lay-filter="searchPage"></select>
+				</div>
 				<a class="layui-btn search_btn" data-type="reload">搜索</a>
 			</div>
+			<shiro:hasPermission name="console:addIndus">
 			<div class="layui-inline">
-				<a class="layui-btn layui-btn-normal addNews_btn">添加用户</a>
+				<a class="layui-btn layui-btn-normal addNews_btn">添加文章</a>
 			</div>
+			</shiro:hasPermission>
+			<shiro:hasPermission name="console:deleteIndusSingleOrBatch">
 			<div class="layui-inline">
 				<a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
 			</div>
+			</shiro:hasPermission>
 		</form>
 	</blockquote>
 	<table id="userList" lay-filter="userList"></table>
