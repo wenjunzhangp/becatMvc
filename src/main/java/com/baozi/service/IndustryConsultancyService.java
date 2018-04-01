@@ -38,4 +38,12 @@ public interface IndustryConsultancyService {
      * @return
      */
     public int deleteIndusSingleOrBatch(List idList);
+
+    /**
+     * 启动或者禁用文章
+     * @param id
+     * @param status
+     * @return
+     */
+    public int updateIndusStatus(int id,int status);
 }

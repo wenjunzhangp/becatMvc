@@ -64,6 +64,10 @@ layui.use(['form','layer','table','laytpl'],function(){
         }
     })
 
+    $(".addNews_btn").click(function(){
+        addIndus();
+    })
+
     //添加用户
     function addIndus(edit){
         var index = layui.layer.open({
@@ -94,9 +98,6 @@ layui.use(['form','layer','table','laytpl'],function(){
             layui.layer.full(index);
         })
     }
-    $(".addNews_btn").click(function(){
-        addIndus();
-    })
 
     //批量删除
     $(".delAll_btn").click(function(){
@@ -114,9 +115,9 @@ layui.use(['form','layer','table','laytpl'],function(){
                     data: {ids:newsId.toString()},
                     success : function(data){
                         if(data.status==200){
-                            tableIns.reload();
-                            layer.close(index);
                             layer.msg(data.msg);
+                            layer.close(index);
+                            tableIns.reload();
                         }else{
                             layer.msg(data.msg);
                         }
@@ -136,12 +137,13 @@ layui.use(['form','layer','table','laytpl'],function(){
         if(layEvent === 'edit'){ //编辑
             addIndus(data);
         }else if(layEvent === 'usable'){ //启用禁用
-            var _this = $(this),
-                usableText = "是否确定禁用此用户？",
-                btnText = "已禁用";
-            if(_this.text()=="已禁用"){
-                usableText = "是否确定启用此用户？",
+            var _this=$(this),
+                usableText = "是否确定禁用此文章？",
+                btnText = "已禁用",status=0;
+            if(data.status==0){
+                usableText = "是否确定启用此文章？",
                 btnText = "已启用";
+                status=1;
             }
             layer.confirm(usableText,{
                 icon: 3,
@@ -152,6 +154,20 @@ layui.use(['form','layer','table','laytpl'],function(){
             },function(index){
                 _this.text(btnText);
                 layer.close(index);
+                $.ajax({
+                    url : "/console/updateIndusStatus.shtml",
+                    type : "post",
+                    data: {id:data.id,status:status},
+                    success : function(data){
+                        if(data.status==200){
+                            layer.msg(data.msg);
+                            layer.close(index);
+                            tableIns.reload();
+                        }else{
+                            layer.msg(data.msg);
+                        }
+                    }
+                })
             },function(index){
                 layer.close(index);
             });

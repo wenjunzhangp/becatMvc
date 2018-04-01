@@ -82,4 +82,16 @@ public class IndustryConsultancyController extends BaseController{
             return CodeResult.build(500,e.getMessage());
         }
     }
+
+    @RequestMapping("/updateIndusStatus")
+    @ResponseBody
+    public CodeResult updateIndusStatus(int id,int status){
+        try {
+            industryConsultancyService.updateIndusStatus(id,status);
+            return CodeResult.build(200,status==0?"禁用成功":"启用成功");
+        } catch ( Exception e ) {
+            LogUtils.logError("删除文章出现异常",e);
+            return CodeResult.build(500,e.getMessage());
+        }
+    }
 }

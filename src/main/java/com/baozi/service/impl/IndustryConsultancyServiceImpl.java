@@ -10,6 +10,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -47,5 +48,14 @@ public class IndustryConsultancyServiceImpl implements IndustryConsultancyServic
     @Override
     public int deleteIndusSingleOrBatch(List idList) {
         return industryConsultancyMapper.deleteIndusSingleOrBatch(idList);
+    }
+
+    @Override
+    public int updateIndusStatus(int id, int status) {
+        IndustryConsultancy industryConsultancy = new IndustryConsultancy();
+        industryConsultancy.setId(id);
+        industryConsultancy.setStatus(status);
+        industryConsultancy.setLastmodifytime(new Date());
+        return industryConsultancyMapper.updateByPrimaryKeySelective(industryConsultancy);
     }
 }

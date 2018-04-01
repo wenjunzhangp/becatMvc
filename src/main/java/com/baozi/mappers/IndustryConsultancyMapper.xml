@@ -497,7 +497,7 @@
         and i.category = #{category}
       </if>
     </where>
-    order by i.lastModifyTime desc
+    order by i.status,i.lastModifyTime desc
   </select>
 
   <delete id="deleteIndusSingleOrBatch" parameterType="java.util.List">
