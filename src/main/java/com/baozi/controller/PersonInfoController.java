@@ -67,7 +67,7 @@ public class PersonInfoController extends BaseController{
             ActiveUser activeUser = super.loginUser();
             Subject subject = SecurityUtils.getSubject();
             Session session = subject.getSession();
-            userLogService.insert(GenerateLogFactory.buildUserLogCurrency(activeUser,"修改个人资料",0,activeUser.getUsername()+"修改个人资料",session.getHost()));
+            userLogService.insert(GenerateLogFactory.buildUserLogCurrency(activeUser,"修改个人资料",(short) 0,activeUser.getUsername()+"修改个人资料",session.getHost()));
             return CodeResult.ok();
         } catch ( Exception e ) {
             LogUtils.logError("个人资料更新失败!用户id是"+sysUser.getId(),e);
@@ -108,7 +108,7 @@ public class PersonInfoController extends BaseController{
             sysUserService.updateUserPwd(activeUser.getUserid(),newpwd);
             Subject subject = SecurityUtils.getSubject();
             Session session = subject.getSession();
-            userLogService.insert(GenerateLogFactory.buildUserLogCurrency(activeUser,"【敏感操作修改密码】",0,activeUser.getUsername()+"【敏感操作修改密码】",session.getHost()));
+            userLogService.insert(GenerateLogFactory.buildUserLogCurrency(activeUser,"【敏感操作修改密码】",(short) 0,activeUser.getUsername()+"【敏感操作修改密码】",session.getHost()));
             return CodeResult.ok();
         } catch ( Exception e ) {
             LogUtils.logError("个人密码更新失败!用户id是"+activeUser.getUserid(),e);

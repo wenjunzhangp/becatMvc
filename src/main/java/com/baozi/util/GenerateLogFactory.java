@@ -22,13 +22,13 @@ public class GenerateLogFactory {
      * @param host 主机IP
      * @return
      */
-    public static SysLog buildSysLogCurrency(ActiveUser user,String operModule,int operType,String remark,String host){
+    public static SysLog buildSysLogCurrency(ActiveUser user,String operModule,short operType,String remark,String host){
         SysLog sysLog = new SysLog();
         sysLog.setUserid(user.getUserid());
         sysLog.setUsername(user.getUsername());
         sysLog.setLogtype((short) 0);
         sysLog.setOpermodule(operModule);
-        sysLog.setOpertype((short) 0);
+        sysLog.setOpertype(operType);
         sysLog.setOpertime(new Date());
         sysLog.setRemark(remark);
         sysLog.setHost(host);
@@ -44,13 +44,13 @@ public class GenerateLogFactory {
      * @param host 主机IP
      * @return
      */
-    public static UserLog buildUserLogCurrency(ActiveUser user, String operModule, int operType, String remark, String host){
+    public static UserLog buildUserLogCurrency(ActiveUser user, String operModule, short operType, String remark, String host){
         UserLog sysLog = new UserLog();
         sysLog.setUserid(user.getUserid());
         sysLog.setUsername(user.getUsername());
         sysLog.setLogtype((short) 0);
         sysLog.setOpermodule(operModule);
-        sysLog.setOpertype((short) 0);
+        sysLog.setOpertype(operType);
         sysLog.setOpertime(new Date());
         sysLog.setRemark(remark);
         sysLog.setHost(host);
