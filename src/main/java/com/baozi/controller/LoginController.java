@@ -92,7 +92,7 @@ public class LoginController extends BaseController{
                 SysUser sysUser = sysUserService.findSysUserByUserId(activeUser.getUserid());
                 sysUser.setLastLoginTime(new Date());
                 sysUserService.updateUserInfo(sysUser);
-                userLogService.insert(GenerateLogFactory.buildUserLogCurrency(activeUser,"登陆",0,activeUser.getUsername()+"登陆后台系统",session.getHost()));
+                userLogService.insert(GenerateLogFactory.buildUserLogCurrency(activeUser,"登陆",(short) 0,activeUser.getUsername()+"登陆后台系统",session.getHost()));
                 return CodeResult.ok();
             } catch (IncorrectCredentialsException e) {
                 return CodeResult.build(500,"用户名或者密码错误");
@@ -108,6 +108,8 @@ public class LoginController extends BaseController{
                 return CodeResult.build(500,"账号不存在");
             } catch (UnauthorizedException e) {
                 return CodeResult.build(500,"登陆失败");
+            } catch ( Exception e ) {
+                return CodeResult.build(500,e.getMessage());
             }
         }
         return CodeResult.build(500,"发生未知错误");
