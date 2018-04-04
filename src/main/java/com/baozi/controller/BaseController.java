@@ -65,11 +65,21 @@ public class BaseController {
 	 * 分页返回成功的响应体
 	 * @param pageInfo
 	 */
-	protected void setResultMapOk(PageInfo pageInfo){
+	protected void setResultMapOkByPage(PageInfo pageInfo){
 		resultMap.put(Constant.CODE,Constant.HTTP_DEFAULT);
 		resultMap.put(Constant.MESSAGE,"");
 		resultMap.put("count",pageInfo.getTotal());
 		resultMap.put(Constant.DATA,pageInfo.getList());
+	}
+
+	/**
+	 * 普通请求返回成功的响应体
+	 * @param object
+	 */
+	protected void setResultMapOk(Object object){
+		resultMap.put(Constant.CODE,Constant.HTTP_DEFAULT);
+		resultMap.put(Constant.MESSAGE,"");
+		resultMap.put(Constant.DATA,object);
 	}
 
 	/**

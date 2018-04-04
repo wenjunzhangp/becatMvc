@@ -62,7 +62,7 @@ public class IndustryConsultancyController extends BaseController{
     public Map<String,Object> indusPage(HttpServletRequest request){
         try {
             Map<String,Object> paramMap = genRequestMapSingle(request);
-            setResultMapOk(industryConsultancyService.findIndustryConsultancyPage(paramMap));
+            setResultMapOkByPage(industryConsultancyService.findIndustryConsultancyPage(paramMap));
         } catch ( Exception e ) {
             LogUtils.logError("读取文章列表数据失败",e);
             setResultMapError(e);
