@@ -5,7 +5,6 @@ layui.use(['form','layer','table','laytpl'],function(){
         laytpl = layui.laytpl,
         table = layui.table;
 
-    //用户列表
     var tableIns = table.render({
         id : "id",
         elem: '#userList',
@@ -25,17 +24,19 @@ layui.use(['form','layer','table','laytpl'],function(){
             {field: 'name', title: '所属分类', align:'center'},
             {field: 'source', title: '来源', align:'center',minWidth:150},
             {field: 'hot', title: '热点文章', align:'center',minWidth:100,templet:function(d){
-                return d.hot == "0" ? "否" : "是";
+                return d.hot == 0 ? "否" : "是";
+            }},
+            {field: 'status', title: '状态', align:'center',minWidth:100,templet:function(d){
+                return d.status == 0 ? "<shiro:hasPermission name=\"console:updateIndusStatus\"><a class=\"layui-btn layui-btn-xs layui-btn-warm\" lay-event=\"usable\">启用</a></shiro:hasPermission>" : "<shiro:hasPermission name=\"console:updateIndusStatus\"><a class=\"layui-btn layui-btn-xs layui-btn-warm\" lay-event=\"usable\">禁用</a></shiro:hasPermission>";
             }},
             {title: '操作', minWidth:175, templet:'#userListBar',fixed:"right",align:"center"}
         ]]
     });
 
-    //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
         table.reload("indusListTable",{
             page: {
-                curr: 1 //重新从第 1 页开始
+                curr: 1
             },
             where: {
                 title : $(".searchVal").val(),
@@ -44,7 +45,6 @@ layui.use(['form','layer','table','laytpl'],function(){
         })
     });
 
-    //加载所有文章分类
     $.ajax({
         url : "/console/initIndusAllCategory.shtml",
         type : "get",
@@ -68,7 +68,6 @@ layui.use(['form','layer','table','laytpl'],function(){
         addIndus();
     })
 
-    //添加用户
     function addIndus(edit){
         var index = layui.layer.open({
             title : "添加文章",
@@ -99,7 +98,6 @@ layui.use(['form','layer','table','laytpl'],function(){
         })
     }
 
-    //批量删除
     $(".delAll_btn").click(function(){
         var checkStatus = table.checkStatus('indusListTable'),
             data = checkStatus.data,
@@ -108,7 +106,7 @@ layui.use(['form','layer','table','laytpl'],function(){
             for (var i in data) {
                 newsId.push(data[i].id);
             }
-            layer.confirm('确定删除选中的文章？', {icon: 3, title: '提示信息'}, function (index) {
+            layer.confirm('确定删除选中的文章？', {icon: 3, title: '温馨提示'}, function (index) {
                 $.ajax({
                     url : "/console/deleteIndusSingleOrBatch.shtml",
                     type : "post",
@@ -129,30 +127,24 @@ layui.use(['form','layer','table','laytpl'],function(){
         }
     })
 
-    //列表操作
     table.on('tool(userList)', function(obj){
         var layEvent = obj.event,
             data = obj.data;
 
-        if(layEvent === 'edit'){ //编辑
+        if(layEvent === 'edit'){
             addIndus(data);
-        }else if(layEvent === 'usable'){ //启用禁用
-            var _this=$(this),
-                usableText = "是否确定禁用此文章？",
-                btnText = "已禁用",status=0;
+        }else if(layEvent === 'usable'){
+            var _this=$(this),usableText = "是否确定禁用此文章？", status=0;
             if(data.status==0){
-                usableText = "是否确定启用此文章？",
-                btnText = "已启用";
-                status=1;
+                usableText = "是否确定启用此文章？", status=1;
             }
             layer.confirm(usableText,{
                 icon: 3,
-                title:'系统提示',
+                title:'温馨提示',
                 cancel : function(index){
                     layer.close(index);
                 }
             },function(index){
-                _this.text(btnText);
                 layer.close(index);
                 $.ajax({
                     url : "/console/updateIndusStatus.shtml",
@@ -171,14 +163,22 @@ layui.use(['form','layer','table','laytpl'],function(){
             },function(index){
                 layer.close(index);
             });
-        }else if(layEvent === 'del'){ //删除
-            layer.confirm('确定删除此用户？',{icon:3, title:'提示信息'},function(index){
-                // $.get("删除文章接口",{
-                //     newsId : data.newsId  //将需要删除的newsId作为参数传入
-                // },function(data){
-                    tableIns.reload();
-                    layer.close(index);
-                // })
+        }else if(layEvent === 'del'){
+            layer.confirm('确定删除此文章？',{icon:3, title:'温馨提示'},function(index){
+                $.ajax({
+                    url : "/console/deleteIndusSingleOrBatch.shtml",
+                    type : "post",
+                    data: {ids:data.id},
+                    success : function(data){
+                        if(data.status==200){
+                            layer.msg(data.msg);
+                            layer.close(index);
+                            tableIns.reload();
+                        }else{
+                            layer.msg(data.msg);
+                        }
+                    }
+                })
             });
         }
     });

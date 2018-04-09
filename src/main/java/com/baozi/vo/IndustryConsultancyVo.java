@@ -30,6 +30,8 @@ public class IndustryConsultancyVo {
 
     private Boolean hot;
 
+    private Boolean status;
+
     public Integer getId() {
         return id;
     }
@@ -100,5 +102,13 @@ public class IndustryConsultancyVo {
 
     public void setHot(Boolean hot) {
         this.hot = hot;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 }

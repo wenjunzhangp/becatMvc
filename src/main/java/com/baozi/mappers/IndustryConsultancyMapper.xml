@@ -487,7 +487,7 @@
   </select>
 
   <select id="findIndustryConsultancyPage" resultType="com.baozi.vo.IndustryConsultancyVo" parameterType="map">
-    select i.id,i.title,i.createtime,i.major,i.remark,c.`name`,c.link,i.source,i.hot from industry_consultancy i LEFT JOIN industry_consultancy_category c on i.category=c.id
+    select i.id,i.title,i.createtime,i.major,i.remark,c.`name`,c.link,i.source,i.hot,i.`status` from industry_consultancy i LEFT JOIN industry_consultancy_category c on i.category=c.id
     <where>
       i.display=1
       <if test="title!=null and title!='' ">

@@ -47,9 +47,12 @@
 
 	<!--操作-->
 	<script type="text/html" id="userListBar">
+		<shiro:hasPermission name="console:updateIndus">
 		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-		<a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="usable">已启用</a>
+		</shiro:hasPermission>
+		<shiro:hasPermission name="console:deleteIndusSingleOrBatch">
 		<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+		</shiro:hasPermission>
 	</script>
 </form>
 <script type="text/javascript" src="/resource/js/layui/layui.js"></script>
