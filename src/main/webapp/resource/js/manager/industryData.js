@@ -27,7 +27,12 @@ layui.use(['form','layer','table','laytpl'],function(){
                 return d.hot == 0 ? "否" : "是";
             }},
             {field: 'status', title: '状态', align:'center',minWidth:100,templet:function(d){
-                return d.status == 0 ? "<shiro:hasPermission name=\"console:updateIndusStatus\"><a class=\"layui-btn layui-btn-xs layui-btn-warm\" lay-event=\"usable\">启用</a></shiro:hasPermission>" : "<shiro:hasPermission name=\"console:updateIndusStatus\"><a class=\"layui-btn layui-btn-xs layui-btn-warm\" lay-event=\"usable\">禁用</a></shiro:hasPermission>";
+                return d.status == 0 ? "<shiro:hasPermission name=\"console:updateIndusStatus\">" +
+                    "<a class=\"layui-btn layui-btn-xs layui-btn-warm\" lay-event=\"usable\">启用</a>" +
+                    "</shiro:hasPermission>" :
+                    "<shiro:hasPermission name=\"console:updateIndusStatus\">" +
+                    "<a class=\"layui-btn layui-btn-xs layui-btn-warm\" lay-event=\"usable\">禁用</a>" +
+                    "</shiro:hasPermission>";
             }},
             {title: '操作', minWidth:175, templet:'#userListBar',fixed:"right",align:"center"}
         ]]
@@ -70,9 +75,9 @@ layui.use(['form','layer','table','laytpl'],function(){
 
     function addIndus(edit){
         var index = layui.layer.open({
-            title : "添加文章",
+            title : "编辑文章",
             type : 2,
-            content : "userAdd.html",
+            content : "/console/addOrUpdateIndus.shtml",
             success : function(layero, index){
                 var body = layui.layer.getChildFrame('body', index);
                 if(edit){

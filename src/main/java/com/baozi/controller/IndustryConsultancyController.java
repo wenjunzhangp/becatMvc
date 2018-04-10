@@ -46,6 +46,11 @@ public class IndustryConsultancyController extends BaseController{
         return "/industry/industryData";
     }
 
+    @RequestMapping("/addOrUpdateIndus")
+    public String addOrUpdateIndus(){
+        return "/industry/indusMofidy";
+    }
+
     @RequestMapping("/initIndusAllCategory")
     @ResponseBody
     public CodeResult initIndusAllCategory(){
