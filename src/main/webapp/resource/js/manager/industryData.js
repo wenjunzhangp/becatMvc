@@ -81,12 +81,16 @@ layui.use(['form','layer','table','laytpl'],function(){
             success : function(layero, index){
                 var body = layui.layer.getChildFrame('body', index);
                 if(edit){
-                    body.find(".userName").val(edit.userName);  //登录名
-                    body.find(".userEmail").val(edit.userEmail);  //邮箱
-                    body.find(".userSex input[value="+edit.userSex+"]").prop("checked","checked");  //性别
-                    body.find(".userGrade").val(edit.userGrade);  //会员等级
-                    body.find(".userStatus").val(edit.userStatus);    //用户状态
-                    body.find(".userDesc").text(edit.userDesc);    //用户简介
+                    body.find(".idval").val(edit.id);
+                    body.find(".title").val(edit.title);
+                    body.find(".source").val(edit.source);
+                    body.find(".content").text(edit.content);
+                    body.find(".remark").text(edit.remark);
+                    body.find(".description").text(edit.description);
+                    body.find(".hot input[value="+edit.hot+"]").prop("checked","checked");
+                    body.find(".category").val(edit.category);
+                    body.find(".status").val(edit.status);
+                    body.find(".userFaceBtn").attr('src',edit.sourceimg);
                     form.render();
                 }
                 setTimeout(function(){

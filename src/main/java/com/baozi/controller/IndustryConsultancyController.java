@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * @author wenjun.zhang
@@ -96,6 +94,27 @@ public class IndustryConsultancyController extends BaseController{
             return CodeResult.build(200,status==0?"禁用成功":"启用成功");
         } catch ( Exception e ) {
             LogUtils.logError("删除文章出现异常",e);
+            return CodeResult.build(500,e.getMessage());
+        }
+    }
+
+    @RequestMapping("/modifyIndus")
+    @ResponseBody
+    public CodeResult modifyIndus(IndustryConsultancy industryConsultancy){
+        try {
+            if (industryConsultancy.getStatus()==1) {
+               industryConsultancy.setPublictime(new Date());
+            }
+            if (industryConsultancy.getId()>0) {
+                industryConsultancy.setLastmodifytime(new Date());
+                industryConsultancyService.updateIndustryConsultancy(industryConsultancy);
+            } else {
+                industryConsultancy.setCreatetime(new Date());
+                industryConsultancyService.insert(industryConsultancy);
+            }
+            return CodeResult.ok();
+        } catch ( Exception e ) {
+            LogUtils.logError("文章编辑出现异常",e);
             return CodeResult.build(500,e.getMessage());
         }
     }

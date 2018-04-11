@@ -46,4 +46,18 @@ public interface IndustryConsultancyService {
      * @return
      */
     public int updateIndusStatus(int id,int status);
+
+    /**
+     * 修改文章表
+     * @param industryConsultancy
+     * @return
+     */
+    public int updateIndustryConsultancy(IndustryConsultancy industryConsultancy);
+
+    /**
+     * 新增文章
+     * @param industryConsultancy
+     * @return
+     */
+    public int insert(IndustryConsultancy industryConsultancy);
 }

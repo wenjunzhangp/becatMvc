@@ -15,12 +15,11 @@
 	<link rel="stylesheet" href="/resource/css/public.css" media="all" />
 </head>
 <body class="childrenBody">
-<form class="layui-form layui-row">
-	<input type="hidden" id="" name="id" value="">
-	<input type="hidden" id="sourceImg" name="sourceImg" value="${sourceImg}">
+<form class="layui-form layui-row indusForm">
+	<input type="hidden" class="idval" name="id" value="">
 	<div class="layui-col-md3 layui-col-xs12 user_right">
 		<div class="layui-upload-list">
-			<img class="layui-upload-img layhobbyhiddenui-circle userFaceBtn userAvatar" src="${sourceImg}" id="userFace">
+			<img class="layui-upload-img layhobbyhiddenui-circle userFaceBtn userAvatar" src="" id="userFace">
 			<p id="tryagain"></p>
 			<input type="hidden" name="userFaceImg" id="userFaceImg" value="">
 		</div>
@@ -42,7 +41,7 @@
 		<div class="layui-form-item layui-row layui-col-xs12">
 			<label class="layui-form-label">内容</label>
 			<div class="layui-input-block">
-				<textarea name="content" id="content" ></textarea>
+				<textarea name="content" id="content" class="content" ></textarea>
 			</div>
 		</div>
 		<div class="layui-form-item layui-row layui-col-xs12">
@@ -68,7 +67,7 @@
 			<div class="magb15 layui-col-md4 layui-col-xs12">
 				<label class="layui-form-label">分类</label>
 				<div class="layui-input-block">
-					<select name="category" id="category" lay-filter="loadCategory"></select>
+					<select name="category" id="category" class="category" lay-filter="category"></select>
 				</div>
 			</div>
 			<div class="magb15 layui-col-md4 layui-col-xs12">

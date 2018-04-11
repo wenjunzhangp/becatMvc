@@ -58,4 +58,14 @@ public class IndustryConsultancyServiceImpl implements IndustryConsultancyServic
         industryConsultancy.setLastmodifytime(new Date());
         return industryConsultancyMapper.updateByPrimaryKeySelective(industryConsultancy);
     }
+
+    @Override
+    public int updateIndustryConsultancy(IndustryConsultancy industryConsultancy) {
+        return industryConsultancyMapper.updateByPrimaryKeySelective(industryConsultancy);
+    }
+
+    @Override
+    public int insert(IndustryConsultancy industryConsultancy) {
+        return industryConsultancyMapper.insertSelective(industryConsultancy);
+    }
 }

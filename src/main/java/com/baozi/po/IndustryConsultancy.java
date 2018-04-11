@@ -1,7 +1,5 @@
 package com.baozi.po;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
 
 public class IndustryConsultancy {
@@ -9,15 +7,16 @@ public class IndustryConsultancy {
 
     private String title;
 
+    //1未删除  0删除   （逻辑删除）
     private Boolean display;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createtime;
 
     private Date publictime;
 
     private Date lastmodifytime;
 
+    //1启用 0禁用
     private Integer status;
 
     private String major;
@@ -38,6 +37,7 @@ public class IndustryConsultancy {
 
     private String carouselposition;
 
+    //1热点  0非热点
     private Boolean hot;
 
     private String content;
