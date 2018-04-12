@@ -21,7 +21,7 @@
 		<div class="layui-upload-list">
 			<img class="layui-upload-img layhobbyhiddenui-circle userFaceBtn userAvatar" src="" id="userFace">
 			<p id="tryagain"></p>
-			<input type="hidden" name="userFaceImg" id="userFaceImg" value="">
+			<input type="hidden" name="sourceimg" id="sourceimg" value="">
 		</div>
 		<button type="button" class="layui-btn layui-btn-primary userFaceBtn"><i class="layui-icon">&#xe67c;</i>上传一张缩略图</button>
 	</div>

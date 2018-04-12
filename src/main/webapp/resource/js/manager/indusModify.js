@@ -47,6 +47,7 @@ layui.use(['form','layer','layedit','upload'],function(){
             if (res.status==200) {
                 layer.msg("缩略图上传成功!");
                 $('#userFace').attr('src',res.data);
+                $("#sourceimg").val(res.data);
             } else {
                 layer.msg("缩略图上传失败请稍后再试!");
             }

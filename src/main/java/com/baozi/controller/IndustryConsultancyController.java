@@ -3,7 +3,9 @@ package com.baozi.controller;
 import com.baozi.po.IndustryConsultancy;
 import com.baozi.service.IndustryConsultancyService;
 import com.baozi.statics.Constant;
+import com.baozi.util.IConfig;
 import com.baozi.util.LogUtils;
+import com.baozi.util.StringUtil;
 import com.github.pagehelper.PageInfo;
 import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,10 +104,14 @@ public class IndustryConsultancyController extends BaseController{
     @ResponseBody
     public CodeResult modifyIndus(IndustryConsultancy industryConsultancy){
         try {
+            if (StringUtil.isNotEmpty(industryConsultancy.getSourceimg())) {
+                String imgUrl = industryConsultancy.getSourceimg().substring(IConfig.get("becat.imgserver.prefix").lastIndexOf("/")+1,industryConsultancy.getSourceimg().length());
+                industryConsultancy.setSourceimg(imgUrl);
+            }
             if (industryConsultancy.getStatus()==1) {
                industryConsultancy.setPublictime(new Date());
             }
-            if (industryConsultancy.getId()>0) {
+            if (null!=industryConsultancy.getId()) {
                 industryConsultancy.setLastmodifytime(new Date());
                 industryConsultancyService.updateIndustryConsultancy(industryConsultancy);
             } else {
@@ -118,4 +124,5 @@ public class IndustryConsultancyController extends BaseController{
             return CodeResult.build(500,e.getMessage());
         }
     }
+
 }
