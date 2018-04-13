@@ -91,6 +91,7 @@ layui.use(['form','layer','table','laytpl'],function(){
                     body.find(".category").val(edit.category);
                     body.find(".status").val(edit.status);
                     body.find(".userFaceBtn").attr('src',edit.sourceimg);
+                    body.find("#sourceimg").val(edit.sourceimg);
                     form.render();
                 }
                 setTimeout(function(){

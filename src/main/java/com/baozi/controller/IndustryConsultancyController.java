@@ -115,6 +115,7 @@ public class IndustryConsultancyController extends BaseController{
                 industryConsultancy.setLastmodifytime(new Date());
                 industryConsultancyService.updateIndustryConsultancy(industryConsultancy);
             } else {
+                industryConsultancy.setDisplay(true);
                 industryConsultancy.setCreatetime(new Date());
                 industryConsultancyService.insert(industryConsultancy);
             }

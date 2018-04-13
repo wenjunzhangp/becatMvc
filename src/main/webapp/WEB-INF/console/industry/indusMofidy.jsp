@@ -67,7 +67,8 @@
 			<div class="magb15 layui-col-md4 layui-col-xs12">
 				<label class="layui-form-label">分类</label>
 				<div class="layui-input-block">
-					<select name="category" id="category" class="category" lay-filter="category"></select>
+					<select name="category" id="category" class="category" lay-verify="required|indusCategory"
+							lay-filter="category"></select>
 				</div>
 			</div>
 			<div class="magb15 layui-col-md4 layui-col-xs12">
