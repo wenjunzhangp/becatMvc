@@ -19,11 +19,11 @@
 	<blockquote class="layui-elem-quote quoteBox">
 		<form class="layui-form">
 			<div class="layui-inline">
-				<div class="layui-input-inline">
+				<div class="layui-input-inline ">
 					<input type="text" class="layui-input username_user" placeholder="请输入用户名" />
 				</div>
-				<div class="layui-input-inline component">
-
+				<div class="layui-input-inline " style="width: 260px;">
+					<input id="time" name="time" type="text" placeholder="时间筛选" readonly class="layui-input">
 				</div>
 				<a class="layui-btn search_userlog_btn" data-type="reload">搜索</a>
 			</div>

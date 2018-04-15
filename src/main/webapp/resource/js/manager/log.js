@@ -1,5 +1,11 @@
-layui.use(['table'],function(){
-	var table = layui.table, $ = layui.jquery;
+layui.use(['table','laydate'],function(){
+	var table = layui.table, $ = layui.jquery,laydate = layui.laydate;
+
+    laydate.render({
+        elem: '#time',
+        range: '~',
+        format:'yyyy-MM-dd'
+    });
 
     var userLogTable =  table.render({
         elem: '#userLog',
@@ -20,14 +26,17 @@ layui.use(['table'],function(){
     });
 
     $(".search_userlog_btn").on("click",function(){
+        var time = $("#time").val();
+        var starttime = time.substring(0,time.indexOf("~"));
+        var endtime = time.substring(time.indexOf("~")+1,time.length);
         table.reload("userLog",{
             page: {
                 curr: 1
             },
             where: {
                 username : $(".username_user").val(),
-                /*starttime : $("#search").val(),
-                endtime : $("#endtime").val()*/
+                starttime : starttime,
+                endtime : endtime
             }
         })
     });
@@ -51,14 +60,17 @@ layui.use(['table'],function(){
     });
 
     $(".search_syslog_btn").on("click",function(){
+        var time = $("#time").val();
+        var starttime = time.substring(0,time.indexOf("~"));
+        var endtime = time.substring(time.indexOf("~")+1,time.length);
         table.reload("sysLog",{
             page: {
                 curr: 1
             },
             where: {
                 username : $(".username_sys").val(),
-                /*starttime : $("#search").val(),
-                endtime : $("#endtime").val()*/
+                starttime : starttime,
+                endtime : endtime
             }
         })
     });
