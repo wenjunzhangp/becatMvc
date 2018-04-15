@@ -14,4 +14,11 @@ public interface SysSettingService {
      * @return
      */
     public SysSetting findSysSettingById();
+
+    /**
+     * 修改系统基本配置信息
+     * @param sysSetting
+     * @return
+     */
+    public int updateSysSetting(SysSetting sysSetting);
 }

@@ -19,6 +19,18 @@ public class SysSetting {
 
     private Date createtime;
 
+    private Date lastModifyTime;
+
+    private String domainName;
+
+    private String icpcard;
+
+    private String description;
+
+    private String keywords;
+
+    private String copyright;
+
     public Integer getId() {
         return id;
     }
@@ -81,5 +93,53 @@ public class SysSetting {
 
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
+    }
+
+    public Date getLastModifyTime() {
+        return lastModifyTime;
+    }
+
+    public void setLastModifyTime(Date lastModifyTime) {
+        this.lastModifyTime = lastModifyTime;
+    }
+
+    public String getDomainName() {
+        return domainName;
+    }
+
+    public void setDomainName(String domainName) {
+        this.domainName = domainName;
+    }
+
+    public String getIcpcard() {
+        return icpcard;
+    }
+
+    public void setIcpcard(String icpcard) {
+        this.icpcard = icpcard;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
+
+    public String getCopyright() {
+        return copyright;
+    }
+
+    public void setCopyright(String copyright) {
+        this.copyright = copyright;
     }
 }

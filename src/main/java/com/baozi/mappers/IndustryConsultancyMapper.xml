@@ -482,8 +482,8 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="findIndustryConsultancyTop5" resultType="com.baozi.po.IndustryConsultancy" >
-    select id,title,createTime from industry_consultancy where display=1 order by createTime desc limit 5
+  <select id="findIndustryConsultancyTop5" resultType="com.baozi.vo.IndustryConsultancyVo" >
+    select * from industry_consultancy where display=1 order by publicTime desc limit 5
   </select>
 
   <select id="findIndustryConsultancyPage" resultType="com.baozi.vo.IndustryConsultancyVo" parameterType="map">

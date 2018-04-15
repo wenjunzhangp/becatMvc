@@ -23,4 +23,10 @@ public class SysSettingServiceImpl implements SysSettingService{
         SysSettingExample sysSettingExample = new SysSettingExample();
         return sysSettingMapper.selectByExample(sysSettingExample).get(0);
     }
+
+    @Override
+    public int updateSysSetting(SysSetting sysSetting) {
+        return sysSettingMapper.updateByPrimaryKeySelective(sysSetting);
+    }
+
 }

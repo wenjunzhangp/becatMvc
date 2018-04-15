@@ -29,7 +29,7 @@ public class IndustryConsultancyServiceImpl implements IndustryConsultancyServic
     private IndustryConsultancyCategoryMapper industryConsultancyCategoryMapper;
 
     @Override
-    public List<IndustryConsultancy> findIndustryConsultancyTop5() {
+    public List<IndustryConsultancyVo> findIndustryConsultancyTop5() {
         return industryConsultancyMapper.findIndustryConsultancyTop5();
     }
 

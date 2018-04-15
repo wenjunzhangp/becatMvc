@@ -10,6 +10,12 @@
     <result column="database_version" property="databaseVersion" jdbcType="VARCHAR" />
     <result column="max_file" property="maxFile" jdbcType="VARCHAR" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="lastModifyTime" property="lastModifyTime" jdbcType="TIMESTAMP" />
+    <result column="domainName" property="domainName" jdbcType="VARCHAR" />
+    <result column="icpcard" property="icpcard" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+    <result column="copyright" property="copyright" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -71,7 +77,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, current_version, author, domain_url, server_config, database_version, max_file, 
-    createtime
+    createtime,lastModifyTime,domainName,icpcard,description,keywords,copyright
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.baozi.po.SysSettingExample" >
     select
@@ -213,7 +219,13 @@
       server_config = #{record.serverConfig,jdbcType=VARCHAR},
       database_version = #{record.databaseVersion,jdbcType=VARCHAR},
       max_file = #{record.maxFile,jdbcType=VARCHAR},
-      createtime = #{record.createtime,jdbcType=TIMESTAMP}
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      lastModifyTime = #{record.lastModifyTime,jdbcType=TIMESTAMP},
+      domainName = #{record.domainName,jdbcType=VARCHAR},
+      icpcard = #{record.icpcard,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      keywords = #{record.keywords,jdbcType=VARCHAR},
+      copyright = #{record.copyright,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -242,6 +254,24 @@
       <if test="createtime != null" >
         createtime = #{createtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="lastModifyTime != null" >
+        lastModifyTime = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="keywords != null" >
+        keywords = #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="domainName != null" >
+        domainName = #{domainName,jdbcType=VARCHAR},
+      </if>
+      <if test="icpcard != null" >
+        icpcard = #{icpcard,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="copyright != null" >
+        copyright = #{copyright,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -253,7 +283,13 @@
       server_config = #{serverConfig,jdbcType=VARCHAR},
       database_version = #{databaseVersion,jdbcType=VARCHAR},
       max_file = #{maxFile,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=TIMESTAMP}
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      lastModifyTime = #{record.lastModifyTime,jdbcType=TIMESTAMP},
+      domainName = #{record.domainName,jdbcType=VARCHAR},
+      icpcard = #{record.icpcard,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      keywords = #{record.keywords,jdbcType=VARCHAR},
+      copyright = #{record.copyright,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

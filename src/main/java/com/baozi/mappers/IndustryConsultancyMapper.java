@@ -37,7 +37,7 @@ public interface IndustryConsultancyMapper {
 
     int updateByPrimaryKey(IndustryConsultancy record);
 
-    public List<IndustryConsultancy> findIndustryConsultancyTop5();
+    public List<IndustryConsultancyVo> findIndustryConsultancyTop5();
 
     public List<IndustryConsultancyVo> findIndustryConsultancyPage(Map<String,Object> paramMap);
 
