@@ -2,9 +2,11 @@ package com.baozi.mappers;
 
 import com.baozi.po.UserLog;
 import com.baozi.po.UserLogExample;
+import com.baozi.vo.UserLogVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserLogMapper {
     int countByExample(UserLogExample example);
@@ -28,4 +30,6 @@ public interface UserLogMapper {
     int updateByPrimaryKeySelective(UserLog record);
 
     int updateByPrimaryKey(UserLog record);
+
+    public List<UserLogVo> findUserLogPage(Map<String,Object> paramMap);
 }

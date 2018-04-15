@@ -1,6 +1,10 @@
 package com.baozi.service;
 
 import com.baozi.po.UserLog;
+import com.baozi.vo.UserLogVo;
+import com.github.pagehelper.PageInfo;
+
+import java.util.Map;
 
 /**
  * @author wenjun.zhang
@@ -15,4 +19,11 @@ public interface UserLogService {
      * @return
      */
     public int insert(UserLog record);
+
+    /**
+     * 分页查询用户日志列表
+     * @param paramMap
+     * @return
+     */
+    public PageInfo<UserLogVo> findUserLogPage(Map<String,Object> paramMap);
 }

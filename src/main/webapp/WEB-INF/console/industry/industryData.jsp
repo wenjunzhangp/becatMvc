@@ -54,6 +54,19 @@
 		<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
 		</shiro:hasPermission>
 	</script>
+
+	<!--操作-->
+	<script type="text/html" id="modifyStatus">
+		{{#  if(d.status == "0"){ }}
+			<shiro:hasPermission name="console:updateIndusStatus">
+				<a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="usable">启用</a>
+			</shiro:hasPermission>
+		{{#  } else { }}
+			<shiro:hasPermission name="console:updateIndusStatus">
+				<a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="usable">禁用</a>
+			</shiro:hasPermission>
+		{{#  }}}
+	</script>
 </form>
 <script type="text/javascript" src="/resource/js/layui/layui.js"></script>
 <script type="text/javascript" src="/resource/js/manager/industryData.js"></script>

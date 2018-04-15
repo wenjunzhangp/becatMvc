@@ -2,9 +2,11 @@ package com.baozi.mappers;
 
 import com.baozi.po.SysLog;
 import com.baozi.po.SysLogExample;
+import com.baozi.vo.SysLogVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SysLogMapper {
     int countByExample(SysLogExample example);
@@ -28,4 +30,6 @@ public interface SysLogMapper {
     int updateByPrimaryKeySelective(SysLog record);
 
     int updateByPrimaryKey(SysLog record);
+
+    public List<SysLogVo> findSysLogPage(Map<String,Object> paramMap);
 }

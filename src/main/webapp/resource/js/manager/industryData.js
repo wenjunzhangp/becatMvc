@@ -26,14 +26,7 @@ layui.use(['form','layer','table','laytpl'],function(){
             {field: 'hot', title: '热点文章', align:'center',minWidth:100,templet:function(d){
                 return d.hot == 0 ? "否" : "是";
             }},
-            {field: 'status', title: '状态', align:'center',minWidth:100,templet:function(d){
-                return d.status == 0 ? "<shiro:hasPermission name=\"console:updateIndusStatus\">" +
-                    "<a class=\"layui-btn layui-btn-xs layui-btn-warm\" lay-event=\"usable\">启用</a>" +
-                    "</shiro:hasPermission>" :
-                    "<shiro:hasPermission name=\"console:updateIndusStatus\">" +
-                    "<a class=\"layui-btn layui-btn-xs layui-btn-warm\" lay-event=\"usable\">禁用</a>" +
-                    "</shiro:hasPermission>";
-            }},
+            {field: 'status', title: '状态', align:'center',minWidth:100,templet:"#modifyStatus"},
             {title: '操作', minWidth:175, templet:'#userListBar',fixed:"right",align:"center"}
         ]]
     });

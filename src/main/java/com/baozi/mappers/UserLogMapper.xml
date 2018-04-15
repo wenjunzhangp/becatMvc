@@ -272,4 +272,20 @@
       host = #{host,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="findUserLogPage" resultType="com.baozi.vo.UserLogVo" parameterType="map">
+    select * from user_log
+    <where>
+      <if test="username!=null and username!='' ">
+        and username like CONCAT('%', #{username}, '%')
+      </if>
+      <if test="starttime!=null and starttime!='' ">
+        <![CDATA[ and opertime >= #{starttime} ]]>
+      </if>
+      <if test="endtime!=null and endtime!='' ">
+        <![CDATA[ and opertime <= #{endtime} ]]>
+      </if>
+    </where>
+    order by opertime desc
+  </select>
 </mapper>

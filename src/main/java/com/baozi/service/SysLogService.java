@@ -1,6 +1,10 @@
 package com.baozi.service;
 
 import com.baozi.po.SysLog;
+import com.baozi.vo.SysLogVo;
+import com.github.pagehelper.PageInfo;
+
+import java.util.Map;
 
 /**
  * @author wenjun.zhang
@@ -15,4 +19,11 @@ public interface SysLogService {
      * @return
      */
     public int insert(SysLog record);
+
+    /**
+     * 分页查询系统日志列表
+     * @param paramMap
+     * @return
+     */
+    public PageInfo<SysLogVo> findSysLogPage(Map<String,Object> paramMap);
 }
