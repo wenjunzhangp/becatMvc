@@ -9,7 +9,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
     //友链列表
     var tableIns = table.render({
         elem: '#linkList',
-        url : '../../json/linkList.json',
+        url : '/resource/js/json/linkList.json',
         page : true,
         cellMinWidth : 95,
         height : "full-104",
