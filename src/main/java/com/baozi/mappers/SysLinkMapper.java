@@ -2,9 +2,11 @@ package com.baozi.mappers;
 
 import com.baozi.po.SysLink;
 import com.baozi.po.SysLinkExample;
+import com.baozi.vo.SysLinkVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SysLinkMapper {
     int countByExample(SysLinkExample example);
@@ -28,4 +30,6 @@ public interface SysLinkMapper {
     int updateByPrimaryKeySelective(SysLink record);
 
     int updateByPrimaryKey(SysLink record);
+
+    public List<SysLinkVo> findSysLinkPage (Map<String,Object> paramMap);
 }

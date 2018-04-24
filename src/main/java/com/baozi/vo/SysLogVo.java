@@ -1,5 +1,7 @@
 package com.baozi.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class SysLogVo {
@@ -15,6 +17,7 @@ public class SysLogVo {
 
     private Short opertype;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date opertime;
 
     private String remark;

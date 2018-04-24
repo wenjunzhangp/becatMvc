@@ -6,68 +6,73 @@ layui.use(['form','layer','laydate','table','upload'],function(){
         upload = layui.upload,
         table = layui.table;
 
-    //友链列表
+    laydate.render({
+        elem: '#time',
+        range: '~',
+        format:'yyyy-MM-dd'
+    });
+
     var tableIns = table.render({
+        id : "id",
         elem: '#linkList',
-        url : '/resource/js/json/linkList.json',
+        url : '/console/sysLinkPage.shtml',
         page : true,
-        cellMinWidth : 95,
-        height : "full-104",
-        limit : 20,
+        cellMinWidth : 104,
+        height : "full-125",
         limits : [10,15,20,25],
+        limit : 10,
         id : "linkListTab",
         cols : [[
             {type: "checkbox", fixed:"left", width:50},
             {field: 'logo', title: 'LOGO', width:180, align:"center",templet:function(d){
-                return '<a href="'+d.websiteUrl+'" target="_blank"><img src="'+d.logo+'" height="26" /></a>';
+                return '<a href="'+d.logo+'" target="_blank"><img src="'+d.logo+'" height="26" /></a>';
             }},
-            {field: 'websiteName', title: '网站名称', minWidth:240},
-            {field: 'websiteUrl', title: '网站地址',width:300,templet:function(d){
-                return '<a class="layui-blue" href="'+d.websiteUrl+'" target="_blank">'+d.websiteUrl+'</a>';
+            {field: 'domainName', title: '网站名称', width:200,align:"center"},
+            {field: 'domainUrl', title: '网站地址',width:200,align:"center",templet:function(d){
+                return '<a class="layui-blue" href="https://'+d.domainUrl+'" target="_blank">'+d.domainUrl+'</a>';
             }},
-            {field: 'masterEmail', title: '站长邮箱',minWidth:200, align:'center'},
-            {field: 'showAddress', title: '展示位置', align:'center',templet:function(d){
-                return d.showAddress == "checked" ? "首页" : "子页";
+            {field: 'contact', title: '站长联系方式',width:150, align:'center'},
+            {field: 'show', title: '展示位置',width:100, align:'center',templet:function(d){
+                return d.show == "1" ? "首页" : "子页";
             }},
-            {field: 'addTime', title: '添加时间', align:'center',minWidth:110},
-            {title: '操作', width:130,fixed:"right",align:"center", templet:function(){
-                return '<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a><a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>';
-            }}
+            {field: 'createtime', title: '创建时间', align:'center',minWidth:50},
+            {field: 'status', title: '状态', align:'center',width:110,templet:"#modifyStatus"},
+            {title: '操作', width:130,fixed:"right",align:"center",templet:'#sysLinkListBar'}
         ]]
     });
 
-    //搜索【此功能需要后台配合，所以暂时没有动态效果演示】
     $(".search_btn").on("click",function(){
-        if($(".searchVal").val() != ''){
-            table.reload("linkListTab",{
-                page: {
-                    curr: 1 //重新从第 1 页开始
-                },
-                where: {
-                    key: $(".searchVal").val()  //搜索的关键字
-                }
-            })
-        }else{
-            layer.msg("请输入搜索的内容");
-        }
+        var time = $("#time").val();
+        var starttime = time.substring(0,time.indexOf("~"));
+        var endtime = time.substring(time.indexOf("~")+1,time.length);
+        table.reload("linkListTab",{
+            page: {
+                curr: 1
+            },
+            where: {
+                domainName : $(".domainName").val(),
+                starttime : starttime,
+                endtime : endtime
+            }
+        })
     });
 
-    //添加友链
     function addLink(edit){
         var index = layer.open({
-            title : "添加友链",
+            title : "编辑友链",
             type : 2,
             area : ["300px","385px"],
-            content : "page/systemSetting/linksAdd.html",
+            content : "/console/linkadd.shtml",
             success : function(layero, index){
                 var body = $($(".layui-layer-iframe",parent.document).find("iframe")[0].contentWindow.document.body);
                 if(edit){
                     body.find(".linkLogo").css("background","#fff");
-                    body.find(".linkLogoImg").attr("src",edit.logo);
-                    body.find(".linkName").val(edit.websiteName);
-                    body.find(".linkUrl").val(edit.websiteUrl);
-                    body.find(".masterEmail").val(edit.masterEmail);
-                    body.find(".showAddress").prop("checked",edit.showAddress);
+                    body.find(".logo").attr("src",edit.logo);
+                    body.find(".domainName").val(edit.domainName);
+                    body.find(".domainUrl").val(edit.domainUrl);
+                    body.find(".contact").val(edit.contact);
+                    body.find(".show").prop("checked",edit.show==1?'checked':'');
+                    body.find(".status").prop("checked",edit.status==1?'checked':'');
                     form.render();
                 }
                 setTimeout(function(){
@@ -82,92 +87,140 @@ layui.use(['form','layer','laydate','table','upload'],function(){
         addLink();
     })
 
-    //批量删除
     $(".delAll_btn").click(function(){
         var checkStatus = table.checkStatus('linkListTab'),
             data = checkStatus.data,
             linkId = [];
         if(data.length > 0) {
             for (var i in data) {
-                linkId.push(data[i].newsId);
+                linkId.push(data[i].id);
             }
-            layer.confirm('确定删除选中的友链？', {icon: 3, title: '提示信息'}, function (index) {
-                // $.get("删除友链接口",{
-                //     linkId : linkId  //将需要删除的linkId作为参数传入
-                // },function(data){
-                tableIns.reload();
-                layer.close(index);
-                // })
+            layer.confirm('确定删除选中的友链？', {icon: 3, title: '温馨提示'}, function (index) {
+                $.ajax({
+                    url : "/console/deleteSysLinkSingleOrBatch.shtml",
+                    type : "post",
+                    data: {ids:linkId.toString()},
+                    success : function(data){
+                        if(data.status==200){
+                            layer.msg(data.msg);
+                            tableIns.reload();
+                            layer.close(index);
+                        }else{
+                            layer.msg(data.msg);
+                        }
+                    }
+                })
             })
         }else{
-            layer.msg("请选择需要删除的文章");
+            layer.msg("请选择需要删除的友链");
         }
     })
 
-    //列表操作
     table.on('tool(linkList)', function(obj){
         var layEvent = obj.event,
             data = obj.data;
 
-        if(layEvent === 'edit'){ //编辑
+        if(layEvent === 'edit'){
             addLink(data);
-        } else if(layEvent === 'del'){ //删除
-            layer.confirm('确定删除此友链？',{icon:3, title:'提示信息'},function(index){
-                // $.get("删除友链接口",{
-                //     linkId : data.linkId  //将需要删除的linkId作为参数传入
-                // },function(data){
-                    tableIns.reload();
+        }else if(layEvent === 'usable'){
+            var _this=$(this),usableText = "是否确定禁用此友链？", status=0;
+            if(data.status==0){
+                usableText = "是否确定启用此友链？", status=1;
+            }
+            layer.confirm(usableText,{
+                icon: 3,
+                title:'温馨提示',
+                cancel : function(index){
                     layer.close(index);
-                // })
+                }
+            },function(index){
+                layer.close(index);
+                $.ajax({
+                    url : "/console/updateSysLinkStatus.shtml",
+                    type : "post",
+                    data: {id:data.id,status:status},
+                    success : function(data){
+                        if(data.status==200){
+                            layer.msg(data.msg);
+                            layer.close(index);
+                            tableIns.reload();
+                        }else{
+                            layer.msg(data.msg);
+                        }
+                    }
+                })
+            },function(index){
+                layer.close(index);
+            });
+        } else if(layEvent === 'del'){
+            layer.confirm('确定删除此友链？',{icon:3, title:'温馨提示'},function(index){
+                $.ajax({
+                    url : "/console/deleteSysLinkSingleOrBatch.shtml",
+                    type : "post",
+                    data: {ids:data.id},
+                    success : function(data){
+                        if(data.status==200){
+                            layer.msg(data.msg);
+                            layer.close(index);
+                            tableIns.reload();
+                        }else{
+                            layer.msg(data.msg);
+                        }
+                    }
+                })
             });
         }
     });
 
-    //上传logo
-    upload.render({
-        elem: '.linkLogo',
-        url: '../../json/linkLogo.json',
-        method : "get",  //此处是为了演示之用，实际使用中请将此删除，默认用post方式提交
+    var uploadInst = upload.render({
+        elem: '.userFaceBtn',
+        url: '/console/uploadUserFaceImg.shtml',
+        method : "post",
+        ext: 'jpg|png|gif',
+        before: function(obj){
+            obj.preview(function(index, file, result){
+                $('#userFace').attr('src', result);
+            });
+        },
         done: function(res, index, upload){
-            var num = parseInt(4*Math.random());  //生成0-4的随机数，随机显示一个头像信息
-            $('.linkLogoImg').attr('src',res.data[num].src);
-            $('.linkLogo').css("background","#fff");
+            if (res.status==200) {
+                layer.msg("缩略图上传成功!");
+                $('#userFace').attr('src',res.data);
+                $("#logo").val(res.data);
+                $('.linkLogo').css("background","#fff");
+            } else {
+                layer.msg("缩略图上传失败请稍后再试!");
+            }
+        },
+        error: function(){
+            var tryagain = $('#tryagain');
+            tryagain.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+            tryagain.find('.demo-reload').on('click', function(){
+                uploadInst.upload();
+            });
         }
     });
 
-    //格式化时间
-    function filterTime(val){
-        if(val < 10){
-            return "0" + val;
-        }else{
-            return val;
-        }
-    }
-    //添加时间
-    var time = new Date();
-    var submitTime = time.getFullYear()+'-'+filterTime(time.getMonth()+1)+'-'+filterTime(time.getDate())+' '+filterTime(time.getHours())+':'+filterTime(time.getMinutes())+':'+filterTime(time.getSeconds());
-
-    form.on("submit(addLink)",function(data){
-        //弹出loading
+    form.on("submit(modifyLink)",function(data){
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-        // 实际使用时的提交信息
-        // $.post("上传路径",{
-        //     linkLogoImg : $(".linkLogo").attr("src"),  //logo
-        //     linkName : $(".linkName").val(),  //网站名称
-        //     linkUrl : $(".linkUrl").val(),    //网址
-        //     masterEmail : $('.masterEmail').val(),    //站长邮箱
-        //     showAddress : data.filed.showAddress == "on" ? "checked" : "",    //展示位置
-        //     newsTime : submitTime,    //发布时间
-        // },function(res){
-        //
-        // })
-        setTimeout(function(){
-            top.layer.close(index);
-            top.layer.msg("文章添加成功！");
-            layer.closeAll("iframe");
-            //刷新父页面
-            $(".layui-tab-item.layui-show",parent.document).find("iframe")[0].contentWindow.location.reload();
-        },500);
+        $.ajax({
+            url : "/console/modifySysLink.shtml",
+            type : "post",
+            data:$(".linkForm").serialize(),
+            dataType : "json",
+            success : function(data){
+                if(data.status==200){
+                    setTimeout(function(){
+                        top.layer.close(index);
+                        top.layer.msg("友链添加成功！");
+                        layer.closeAll("iframe");
+                        $(".layui-tab-item.layui-show",parent.document).find("iframe")[0].contentWindow.location.reload();
+                    },1000);
+                }else{
+                    layer.msg(data.msg);
+                }
+            }
+        })
         return false;
     })
 

@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -18,20 +20,40 @@
 	<blockquote class="layui-elem-quote quoteBox">
 		<form class="layui-form">
 			<div class="layui-inline">
-				<div class="layui-input-inline">
-					<input type="text" class="layui-input searchVal" placeholder="请输入搜索的内容" />
+				<div class="layui-input-inline ">
+					<input type="text" class="layui-input domainName" placeholder="请输入网站名" />
+				</div>
+				<div class="layui-input-inline " style="width: 260px;">
+					<input id="time" name="time" type="text" placeholder="时间筛选" readonly class="layui-input">
 				</div>
 				<a class="layui-btn search_btn" data-type="reload">搜索</a>
-			</div>
-			<div class="layui-inline">
-				<a class="layui-btn layui-btn-normal addLink_btn">添加友链</a>
-			</div>
-			<div class="layui-inline">
-				<a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
 			</div>
 		</form>
 	</blockquote>
 	<table id="linkList" lay-filter="linkList"></table>
+
+	<!--操作-->
+	<script type="text/html" id="sysLinkListBar">
+		<shiro:hasPermission name="console:updateSysLink">
+			<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+		</shiro:hasPermission>
+		<shiro:hasPermission name="console:deleteSysLinkSingleOrBatch">
+			<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+		</shiro:hasPermission>
+	</script>
+
+	<!--操作-->
+	<script type="text/html" id="modifyStatus">
+		{{#  if(d.status == "0"){ }}
+		<shiro:hasPermission name="console:updateSysLinkStatus">
+			<a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="usable">启用</a>
+		</shiro:hasPermission>
+		{{#  } else { }}
+		<shiro:hasPermission name="console:updateSysLinkStatus">
+			<a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="usable">禁用</a>
+		</shiro:hasPermission>
+		{{#  }}}
+	</script>
 
 	<script type="text/javascript" src="/resource/js/layui/layui.js"></script>
 	<script type="text/javascript" src="/resource/js/manager/linkData.js"></script>

@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="com.baozi.po.SysLink" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="logo" property="logo" jdbcType="VARCHAR" />
-    <result column="domain_name" property="domainName" jdbcType="VARCHAR" />
-    <result column="domain_url" property="domainUrl" jdbcType="VARCHAR" />
+    <result column="domainName" property="domainName" jdbcType="VARCHAR" />
+    <result column="domainUrl" property="domainUrl" jdbcType="VARCHAR" />
     <result column="contact" property="contact" jdbcType="VARCHAR" />
     <result column="show" property="show" jdbcType="INTEGER" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
@@ -71,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, logo, domain_name, domain_url, contact, show, createtime, display, status
+    id, logo, domainName, domainUrl, contact, show, createtime, display, status
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.baozi.po.SysLinkExample" >
     select
@@ -104,8 +104,8 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.baozi.po.SysLink" >
-    insert into sys_link (id, logo, domain_name, 
-      domain_url, contact, show, 
+    insert into sys_link (id, logo, domainName,
+      domainUrl, contact, show,
       createtime, display, status
       )
     values (#{id,jdbcType=INTEGER}, #{logo,jdbcType=VARCHAR}, #{domainName,jdbcType=VARCHAR}, 
@@ -123,10 +123,10 @@
         logo,
       </if>
       <if test="domainName != null" >
-        domain_name,
+        domainName,
       </if>
       <if test="domainUrl != null" >
-        domain_url,
+        domainUrl,
       </if>
       <if test="contact != null" >
         contact,
@@ -190,10 +190,10 @@
         logo = #{record.logo,jdbcType=VARCHAR},
       </if>
       <if test="record.domainName != null" >
-        domain_name = #{record.domainName,jdbcType=VARCHAR},
+        domainName = #{record.domainName,jdbcType=VARCHAR},
       </if>
       <if test="record.domainUrl != null" >
-        domain_url = #{record.domainUrl,jdbcType=VARCHAR},
+        domainUrl = #{record.domainUrl,jdbcType=VARCHAR},
       </if>
       <if test="record.contact != null" >
         contact = #{record.contact,jdbcType=VARCHAR},
@@ -219,8 +219,8 @@
     update sys_link
     set id = #{record.id,jdbcType=INTEGER},
       logo = #{record.logo,jdbcType=VARCHAR},
-      domain_name = #{record.domainName,jdbcType=VARCHAR},
-      domain_url = #{record.domainUrl,jdbcType=VARCHAR},
+      domainName = #{record.domainName,jdbcType=VARCHAR},
+      domainUrl = #{record.domainUrl,jdbcType=VARCHAR},
       contact = #{record.contact,jdbcType=VARCHAR},
       show = #{record.show,jdbcType=INTEGER},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
@@ -237,10 +237,10 @@
         logo = #{logo,jdbcType=VARCHAR},
       </if>
       <if test="domainName != null" >
-        domain_name = #{domainName,jdbcType=VARCHAR},
+        domainName = #{domainName,jdbcType=VARCHAR},
       </if>
       <if test="domainUrl != null" >
-        domain_url = #{domainUrl,jdbcType=VARCHAR},
+        domainUrl = #{domainUrl,jdbcType=VARCHAR},
       </if>
       <if test="contact != null" >
         contact = #{contact,jdbcType=VARCHAR},
@@ -263,8 +263,8 @@
   <update id="updateByPrimaryKey" parameterType="com.baozi.po.SysLink" >
     update sys_link
     set logo = #{logo,jdbcType=VARCHAR},
-      domain_name = #{domainName,jdbcType=VARCHAR},
-      domain_url = #{domainUrl,jdbcType=VARCHAR},
+      domainName = #{domainName,jdbcType=VARCHAR},
+      domainUrl = #{domainUrl,jdbcType=VARCHAR},
       contact = #{contact,jdbcType=VARCHAR},
       show = #{show,jdbcType=INTEGER},
       createtime = #{createtime,jdbcType=TIMESTAMP},
@@ -272,4 +272,21 @@
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="findSysLinkPage" resultType="com.baozi.vo.SysLinkVo" parameterType="map">
+    select * from sys_link s
+    <where>
+      s.display=1
+      <if test="domainName!=null and domainName!='' ">
+        and s.domainName like CONCAT('%', #{domainName}, '%')
+      </if>
+      <if test="starttime!=null and starttime!='' ">
+        <![CDATA[ and s.createtime >= #{starttime} ]]>
+      </if>
+      <if test="endtime!=null and endtime!='' ">
+        <![CDATA[ and s.createtime <= #{endtime} ]]>
+      </if>
+    </where>
+    order by s.status,s.createtime desc
+  </select>
 </mapper>
