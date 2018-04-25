@@ -17,8 +17,9 @@
 <body class="childrenBody">
 <form class="layui-form linkForm">
 	<input type="hidden" class="idval" name="id" value="">
-	<input type="hidden" class="showval" name="show" value="">
-	<input type="hidden" class="statusval" name="status" value="">
+	<input type="hidden" class="showval" name="show" value="1">
+	<input type="hidden" class="statusval" name="status" value="1">
+	<input type="hidden" class="display" name="display" value="">
 	<div class="layui-form-item">
 		<div class="layui-upload-list linkLogo">
 			<img class="layui-upload-img layhobbyhiddenui-circle userFaceBtn userAvatar" style="width: 300px;height: 100px;" src="" id="userFace">

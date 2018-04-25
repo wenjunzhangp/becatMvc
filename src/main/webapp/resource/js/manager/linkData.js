@@ -69,10 +69,12 @@ layui.use(['form','layer','laydate','table','upload'],function(){
                 if(edit){
                     body.find(".idval").val(edit.id);
                     body.find(".linkLogo").css("background","#fff");
-                    body.find(".logo").attr("src",edit.logo);
+                    body.find("#logo").val(edit.logo);
+                    body.find(".userFaceBtn").attr('src',edit.logo);
                     body.find(".domainName").val(edit.domainName);
                     body.find(".domainUrl").val(edit.domainUrl);
                     body.find(".contact").val(edit.contact);
+                    body.find(".display").val(edit.display);
                     body.find(".show").prop("checked",edit.show==1?'checked':'');
                     body.find(".status").prop("checked",edit.status==1?'checked':'');
                     form.render();

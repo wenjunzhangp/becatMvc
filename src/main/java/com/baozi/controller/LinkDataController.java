@@ -89,6 +89,7 @@ public class LinkDataController extends BaseController{
                 sysLinkService.updateSysLink(sysLink);
             } else {
                 sysLink.setDisplay(1);
+                sysLink.setStatus(1);
                 sysLink.setCreatetime(new Date());
                 sysLinkService.insert(sysLink);
             }
