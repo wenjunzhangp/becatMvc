@@ -17,10 +17,12 @@
 <body class="childrenBody">
 <form class="layui-form linkForm">
 	<input type="hidden" class="idval" name="id" value="">
+	<input type="hidden" class="showval" name="show" value="">
+	<input type="hidden" class="statusval" name="status" value="">
 	<div class="layui-form-item">
 		<div class="layui-upload-list linkLogo">
-			<img class="layui-upload-img layhobbyhiddenui-circle userFaceBtn userAvatar" src="" id="userFace">
-			<p id="tryagain"></p>
+			<img class="layui-upload-img layhobbyhiddenui-circle userFaceBtn userAvatar" style="width: 300px;height: 100px;" src="" id="userFace">
+			<button type="button" class="layui-btn layui-btn-primary userFaceBtn"><i class="layui-icon">&#xe67c;</i>上传一张LOGO图</button>
 			<input type="hidden" name="logo" id="logo" value="">
 		</div>
 	</div>
@@ -39,19 +41,19 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">站长邮箱</label>
 		<div class="layui-input-block">
-			<input type="text" class="layui-input contact" name="contact" lay-verify="required|email" placeholder="请输入站长联系方式（QQ、WECHAT、手机）" />
+			<input type="text" class="layui-input contact" name="contact" lay-verify="required" placeholder="请输入站长联系方式（QQ、WECHAT、手机）" />
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">展示位置</label>
 		<div class="layui-input-block">
-			<input type="checkbox" class="layui-input show" name="show" lay-text="首页|子页" lay-skin="switch" />
+			<input type="checkbox" class="layui-input show" lay-text="首页|子页" lay-filter="show" lay-skin="switch" />
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">状态</label>
 		<div class="layui-input-block">
-			<input type="checkbox" class="layui-input status" name="status" lay-text="启用|禁用" lay-skin="switch" />
+			<input type="checkbox" class="layui-input status" lay-text="启用|禁用" lay-filter="status" lay-skin="switch" />
 		</div>
 	</div>
 	<div class="layui-form-item">

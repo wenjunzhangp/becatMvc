@@ -1,3 +1,4 @@
+var show=1,status=1;
 layui.use(['form','layer','laydate','table','upload'],function(){
     var form = layui.form,
         layer = parent.layer === undefined ? layui.layer : top.layer,
@@ -29,7 +30,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
             }},
             {field: 'domainName', title: '网站名称', width:200,align:"center"},
             {field: 'domainUrl', title: '网站地址',width:200,align:"center",templet:function(d){
-                return '<a class="layui-blue" href="https://'+d.domainUrl+'" target="_blank">'+d.domainUrl+'</a>';
+                return '<a class="layui-blue" href="'+d.domainUrl+'" target="_blank">'+d.domainUrl+'</a>';
             }},
             {field: 'contact', title: '站长联系方式',width:150, align:'center'},
             {field: 'show', title: '展示位置',width:100, align:'center',templet:function(d){
@@ -61,11 +62,12 @@ layui.use(['form','layer','laydate','table','upload'],function(){
         var index = layer.open({
             title : "编辑友链",
             type : 2,
-            area : ["300px","385px"],
+            area : ["466px","500px"],
             content : "/console/linkadd.shtml",
             success : function(layero, index){
                 var body = $($(".layui-layer-iframe",parent.document).find("iframe")[0].contentWindow.document.body);
                 if(edit){
+                    body.find(".idval").val(edit.id);
                     body.find(".linkLogo").css("background","#fff");
                     body.find(".logo").attr("src",edit.logo);
                     body.find(".domainName").val(edit.domainName);
@@ -174,7 +176,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
 
     var uploadInst = upload.render({
         elem: '.userFaceBtn',
-        url: '/console/uploadUserFaceImg.shtml',
+        url: '/open/uploadImg.shtml',
         method : "post",
         ext: 'jpg|png|gif',
         before: function(obj){
@@ -193,12 +195,22 @@ layui.use(['form','layer','laydate','table','upload'],function(){
             }
         },
         error: function(){
-            var tryagain = $('#tryagain');
-            tryagain.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
-            tryagain.find('.demo-reload').on('click', function(){
-                uploadInst.upload();
-            });
+            layer.msg("缩略图上传失败请稍后再试!");
         }
+    });
+
+    form.on('switch(show)', function(data){
+        show=this.checked ? 1 : 0;
+        var body = $($(".layui-layer-iframe",parent.document).find("iframe")[0].contentWindow.document.body);
+        body.find(".showval").val(show);
+        form.render();
+    });
+
+    form.on('switch(status)', function(data){
+        status=this.checked ? 1 : 0;
+        var body = $($(".layui-layer-iframe",parent.document).find("iframe")[0].contentWindow.document.body);
+        body.find(".statusval").val(status);
+        form.render();
     });
 
     form.on("submit(modifyLink)",function(data){
@@ -212,7 +224,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
                 if(data.status==200){
                     setTimeout(function(){
                         top.layer.close(index);
-                        top.layer.msg("友链添加成功！");
+                        top.layer.msg("操作成功！");
                         layer.closeAll("iframe");
                         $(".layui-tab-item.layui-show",parent.document).find("iframe")[0].contentWindow.location.reload();
                     },1000);

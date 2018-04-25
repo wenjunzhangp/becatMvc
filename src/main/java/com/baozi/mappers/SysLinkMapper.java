@@ -32,4 +32,6 @@ public interface SysLinkMapper {
     int updateByPrimaryKey(SysLink record);
 
     public List<SysLinkVo> findSysLinkPage (Map<String,Object> paramMap);
+
+    public int deleteSysLinkSingleOrBatch(List idList);
 }

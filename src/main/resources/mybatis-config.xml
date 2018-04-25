@@ -4,7 +4,7 @@
 <configuration>
   <settings>
     <!--正式服务器需关闭此配置，不然会打爆你的服务器-->
-    <!--<setting name="logImpl" value="STDOUT_LOGGING" />-->
+    <setting name="logImpl" value="STDOUT_LOGGING" />
     <setting name="defaultExecutorType" value="BATCH" />
   </settings>
   <typeAliases>

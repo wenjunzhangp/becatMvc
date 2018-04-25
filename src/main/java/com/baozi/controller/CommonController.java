@@ -1,5 +1,7 @@
 package com.baozi.controller;
 
+import com.baozi.util.FileUploadUtil;
+import com.baozi.util.IConfig;
 import com.baozi.util.LogUtils;
 import com.baozi.util.vcode.Captcha;
 import com.baozi.util.vcode.GifCaptcha;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UrlPathHelper;
 
@@ -127,6 +130,18 @@ public class CommonController extends BaseController {
 			session.setAttribute("_code",captcha.text().toLowerCase());  
 		} catch (Exception e) {
 			LogUtils.logError("获取验证码异常",e);
+		}
+	}
+
+	@RequestMapping("/uploadImg")
+	@ResponseBody
+	public CodeResult uploadUserFaceImg(HttpServletRequest request,MultipartHttpServletRequest multiRequest) {
+		try {
+			String resultFilePaths = FileUploadUtil.uploadFile(multiRequest);
+			return CodeResult.ok(IConfig.get("becat.imgserver.prefix")+resultFilePaths);
+		} catch (Exception e) {
+			LogUtils.logError("图像文件长传失败",e);
+			return CodeResult.build(500,e.getMessage());
 		}
 	}
 

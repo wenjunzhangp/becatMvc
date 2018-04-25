@@ -289,4 +289,12 @@
     </where>
     order by s.status,s.createtime desc
   </select>
+
+  <delete id="deleteSysLinkSingleOrBatch" parameterType="java.util.List">
+    update sys_link set display = 0
+    where id in
+    <foreach item="id" collection="list" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+  </delete>
 </mapper>

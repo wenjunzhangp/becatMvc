@@ -24,7 +24,7 @@ layui.use(['form','layer','layedit','upload'],function(){
 
     layedit.set({
         uploadImage: {
-            url: '/console/uploadUserFaceImg.shtml',
+            url: '/open/uploadImg.shtml',
             type: 'post'
         }
     });
@@ -35,7 +35,7 @@ layui.use(['form','layer','layedit','upload'],function(){
 
     var uploadInst = upload.render({
         elem: '.userFaceBtn',
-        url: '/console/uploadUserFaceImg.shtml',
+        url: '/open/uploadImg.shtml',
         method : "post",
         ext: 'jpg|png|gif',
         before: function(obj){
