@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="com.baozi.po.SysLink" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="logo" property="logo" jdbcType="VARCHAR" />
-    <result column="domainName" property="domainName" jdbcType="VARCHAR" />
-    <result column="domainUrl" property="domainUrl" jdbcType="VARCHAR" />
+    <result column="domainName" property="domainname" jdbcType="VARCHAR" />
+    <result column="domainUrl" property="domainurl" jdbcType="VARCHAR" />
     <result column="contact" property="contact" jdbcType="VARCHAR" />
     <result column="show" property="show" jdbcType="INTEGER" />
     <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
@@ -71,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, logo, domainName, domainUrl, contact, show, createtime, display, `status`
+    id, logo, domainName, domainUrl, contact, show, createtime, display, status
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.baozi.po.SysLinkExample" >
     select
@@ -104,12 +104,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.baozi.po.SysLink" >
-    insert into sys_link (id, logo, domainName,
-      domainUrl, contact, show,
-      createtime, display, `status`
+    insert into sys_link (id, logo, domainName, 
+      domainUrl, contact, show, 
+      createtime, display, status
       )
-    values (#{id,jdbcType=INTEGER}, #{logo,jdbcType=VARCHAR}, #{domainName,jdbcType=VARCHAR}, 
-      #{domainUrl,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{show,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{logo,jdbcType=VARCHAR}, #{domainname,jdbcType=VARCHAR}, 
+      #{domainurl,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{show,jdbcType=INTEGER}, 
       #{createtime,jdbcType=TIMESTAMP}, #{display,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}
       )
   </insert>
@@ -122,17 +122,17 @@
       <if test="logo != null" >
         logo,
       </if>
-      <if test="domainName != null" >
+      <if test="domainname != null" >
         domainName,
       </if>
-      <if test="domainUrl != null" >
+      <if test="domainurl != null" >
         domainUrl,
       </if>
       <if test="contact != null" >
         contact,
       </if>
       <if test="show != null" >
-        show,
+        `show`,
       </if>
       <if test="createtime != null" >
         createtime,
@@ -141,7 +141,7 @@
         display,
       </if>
       <if test="status != null" >
-        `status`
+        `status`,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -151,11 +151,11 @@
       <if test="logo != null" >
         #{logo,jdbcType=VARCHAR},
       </if>
-      <if test="domainName != null" >
-        #{domainName,jdbcType=VARCHAR},
+      <if test="domainname != null" >
+        #{domainname,jdbcType=VARCHAR},
       </if>
-      <if test="domainUrl != null" >
-        #{domainUrl,jdbcType=VARCHAR},
+      <if test="domainurl != null" >
+        #{domainurl,jdbcType=VARCHAR},
       </if>
       <if test="contact != null" >
         #{contact,jdbcType=VARCHAR},
@@ -170,7 +170,7 @@
         #{display,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=INTEGER}
+        #{status,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -189,11 +189,11 @@
       <if test="record.logo != null" >
         logo = #{record.logo,jdbcType=VARCHAR},
       </if>
-      <if test="record.domainName != null" >
-        domainName = #{record.domainName,jdbcType=VARCHAR},
+      <if test="record.domainname != null" >
+        domainName = #{record.domainname,jdbcType=VARCHAR},
       </if>
-      <if test="record.domainUrl != null" >
-        domainUrl = #{record.domainUrl,jdbcType=VARCHAR},
+      <if test="record.domainurl != null" >
+        domainUrl = #{record.domainurl,jdbcType=VARCHAR},
       </if>
       <if test="record.contact != null" >
         contact = #{record.contact,jdbcType=VARCHAR},
@@ -208,7 +208,7 @@
         display = #{record.display,jdbcType=INTEGER},
       </if>
       <if test="record.status != null" >
-        `status` = #{record.status,jdbcType=INTEGER},
+        status = #{record.status,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -219,13 +219,13 @@
     update sys_link
     set id = #{record.id,jdbcType=INTEGER},
       logo = #{record.logo,jdbcType=VARCHAR},
-      domainName = #{record.domainName,jdbcType=VARCHAR},
-      domainUrl = #{record.domainUrl,jdbcType=VARCHAR},
+      domainName = #{record.domainname,jdbcType=VARCHAR},
+      domainUrl = #{record.domainurl,jdbcType=VARCHAR},
       contact = #{record.contact,jdbcType=VARCHAR},
       show = #{record.show,jdbcType=INTEGER},
       createtime = #{record.createtime,jdbcType=TIMESTAMP},
       display = #{record.display,jdbcType=INTEGER},
-    `status` = #{record.status,jdbcType=INTEGER}
+      status = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -236,17 +236,17 @@
       <if test="logo != null" >
         logo = #{logo,jdbcType=VARCHAR},
       </if>
-      <if test="domainName != null" >
-        domainName = #{domainName,jdbcType=VARCHAR},
+      <if test="domainname != null" >
+        domainName = #{domainname,jdbcType=VARCHAR},
       </if>
-      <if test="domainUrl != null" >
-        domainUrl = #{domainUrl,jdbcType=VARCHAR},
+      <if test="domainurl != null" >
+        domainUrl = #{domainurl,jdbcType=VARCHAR},
       </if>
       <if test="contact != null" >
         contact = #{contact,jdbcType=VARCHAR},
       </if>
       <if test="show != null" >
-        show = #{show,jdbcType=INTEGER},
+        `show` = #{show,jdbcType=INTEGER},
       </if>
       <if test="createtime != null" >
         createtime = #{createtime,jdbcType=TIMESTAMP},
@@ -263,13 +263,13 @@
   <update id="updateByPrimaryKey" parameterType="com.baozi.po.SysLink" >
     update sys_link
     set logo = #{logo,jdbcType=VARCHAR},
-      domainName = #{domainName,jdbcType=VARCHAR},
-      domainUrl = #{domainUrl,jdbcType=VARCHAR},
+      domainName = #{domainname,jdbcType=VARCHAR},
+      domainUrl = #{domainurl,jdbcType=VARCHAR},
       contact = #{contact,jdbcType=VARCHAR},
       show = #{show,jdbcType=INTEGER},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       display = #{display,jdbcType=INTEGER},
-      `status` = #{status,jdbcType=INTEGER}
+      status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
@@ -287,7 +287,7 @@
         <![CDATA[ and s.createtime <= #{endtime} ]]>
       </if>
     </where>
-    order by s.`status`,s.createtime desc
+    order by s.status,s.createtime desc
   </select>
 
   <delete id="deleteSysLinkSingleOrBatch" parameterType="java.util.List">
@@ -297,4 +297,5 @@
       #{id}
     </foreach>
   </delete>
+
 </mapper>

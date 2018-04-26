@@ -235,143 +235,143 @@ public class SysLinkExample {
             return (Criteria) this;
         }
 
-        public Criteria andDomainNameIsNull() {
-            addCriterion("domain_name is null");
+        public Criteria andDomainnameIsNull() {
+            addCriterion("domainName is null");
             return (Criteria) this;
         }
 
-        public Criteria andDomainNameIsNotNull() {
-            addCriterion("domain_name is not null");
+        public Criteria andDomainnameIsNotNull() {
+            addCriterion("domainName is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDomainNameEqualTo(String value) {
-            addCriterion("domain_name =", value, "domainName");
+        public Criteria andDomainnameEqualTo(String value) {
+            addCriterion("domainName =", value, "domainname");
             return (Criteria) this;
         }
 
-        public Criteria andDomainNameNotEqualTo(String value) {
-            addCriterion("domain_name <>", value, "domainName");
+        public Criteria andDomainnameNotEqualTo(String value) {
+            addCriterion("domainName <>", value, "domainname");
             return (Criteria) this;
         }
 
-        public Criteria andDomainNameGreaterThan(String value) {
-            addCriterion("domain_name >", value, "domainName");
+        public Criteria andDomainnameGreaterThan(String value) {
+            addCriterion("domainName >", value, "domainname");
             return (Criteria) this;
         }
 
-        public Criteria andDomainNameGreaterThanOrEqualTo(String value) {
-            addCriterion("domain_name >=", value, "domainName");
+        public Criteria andDomainnameGreaterThanOrEqualTo(String value) {
+            addCriterion("domainName >=", value, "domainname");
             return (Criteria) this;
         }
 
-        public Criteria andDomainNameLessThan(String value) {
-            addCriterion("domain_name <", value, "domainName");
+        public Criteria andDomainnameLessThan(String value) {
+            addCriterion("domainName <", value, "domainname");
             return (Criteria) this;
         }
 
-        public Criteria andDomainNameLessThanOrEqualTo(String value) {
-            addCriterion("domain_name <=", value, "domainName");
+        public Criteria andDomainnameLessThanOrEqualTo(String value) {
+            addCriterion("domainName <=", value, "domainname");
             return (Criteria) this;
         }
 
-        public Criteria andDomainNameLike(String value) {
-            addCriterion("domain_name like", value, "domainName");
+        public Criteria andDomainnameLike(String value) {
+            addCriterion("domainName like", value, "domainname");
             return (Criteria) this;
         }
 
-        public Criteria andDomainNameNotLike(String value) {
-            addCriterion("domain_name not like", value, "domainName");
+        public Criteria andDomainnameNotLike(String value) {
+            addCriterion("domainName not like", value, "domainname");
             return (Criteria) this;
         }
 
-        public Criteria andDomainNameIn(List<String> values) {
-            addCriterion("domain_name in", values, "domainName");
+        public Criteria andDomainnameIn(List<String> values) {
+            addCriterion("domainName in", values, "domainname");
             return (Criteria) this;
         }
 
-        public Criteria andDomainNameNotIn(List<String> values) {
-            addCriterion("domain_name not in", values, "domainName");
+        public Criteria andDomainnameNotIn(List<String> values) {
+            addCriterion("domainName not in", values, "domainname");
             return (Criteria) this;
         }
 
-        public Criteria andDomainNameBetween(String value1, String value2) {
-            addCriterion("domain_name between", value1, value2, "domainName");
+        public Criteria andDomainnameBetween(String value1, String value2) {
+            addCriterion("domainName between", value1, value2, "domainname");
             return (Criteria) this;
         }
 
-        public Criteria andDomainNameNotBetween(String value1, String value2) {
-            addCriterion("domain_name not between", value1, value2, "domainName");
+        public Criteria andDomainnameNotBetween(String value1, String value2) {
+            addCriterion("domainName not between", value1, value2, "domainname");
             return (Criteria) this;
         }
 
-        public Criteria andDomainUrlIsNull() {
-            addCriterion("domain_url is null");
+        public Criteria andDomainurlIsNull() {
+            addCriterion("domainUrl is null");
             return (Criteria) this;
         }
 
-        public Criteria andDomainUrlIsNotNull() {
-            addCriterion("domain_url is not null");
+        public Criteria andDomainurlIsNotNull() {
+            addCriterion("domainUrl is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDomainUrlEqualTo(String value) {
-            addCriterion("domain_url =", value, "domainUrl");
+        public Criteria andDomainurlEqualTo(String value) {
+            addCriterion("domainUrl =", value, "domainurl");
             return (Criteria) this;
         }
 
-        public Criteria andDomainUrlNotEqualTo(String value) {
-            addCriterion("domain_url <>", value, "domainUrl");
+        public Criteria andDomainurlNotEqualTo(String value) {
+            addCriterion("domainUrl <>", value, "domainurl");
             return (Criteria) this;
         }
 
-        public Criteria andDomainUrlGreaterThan(String value) {
-            addCriterion("domain_url >", value, "domainUrl");
+        public Criteria andDomainurlGreaterThan(String value) {
+            addCriterion("domainUrl >", value, "domainurl");
             return (Criteria) this;
         }
 
-        public Criteria andDomainUrlGreaterThanOrEqualTo(String value) {
-            addCriterion("domain_url >=", value, "domainUrl");
+        public Criteria andDomainurlGreaterThanOrEqualTo(String value) {
+            addCriterion("domainUrl >=", value, "domainurl");
             return (Criteria) this;
         }
 
-        public Criteria andDomainUrlLessThan(String value) {
-            addCriterion("domain_url <", value, "domainUrl");
+        public Criteria andDomainurlLessThan(String value) {
+            addCriterion("domainUrl <", value, "domainurl");
             return (Criteria) this;
         }
 
-        public Criteria andDomainUrlLessThanOrEqualTo(String value) {
-            addCriterion("domain_url <=", value, "domainUrl");
+        public Criteria andDomainurlLessThanOrEqualTo(String value) {
+            addCriterion("domainUrl <=", value, "domainurl");
             return (Criteria) this;
         }
 
-        public Criteria andDomainUrlLike(String value) {
-            addCriterion("domain_url like", value, "domainUrl");
+        public Criteria andDomainurlLike(String value) {
+            addCriterion("domainUrl like", value, "domainurl");
             return (Criteria) this;
         }
 
-        public Criteria andDomainUrlNotLike(String value) {
-            addCriterion("domain_url not like", value, "domainUrl");
+        public Criteria andDomainurlNotLike(String value) {
+            addCriterion("domainUrl not like", value, "domainurl");
             return (Criteria) this;
         }
 
-        public Criteria andDomainUrlIn(List<String> values) {
-            addCriterion("domain_url in", values, "domainUrl");
+        public Criteria andDomainurlIn(List<String> values) {
+            addCriterion("domainUrl in", values, "domainurl");
             return (Criteria) this;
         }
 
-        public Criteria andDomainUrlNotIn(List<String> values) {
-            addCriterion("domain_url not in", values, "domainUrl");
+        public Criteria andDomainurlNotIn(List<String> values) {
+            addCriterion("domainUrl not in", values, "domainurl");
             return (Criteria) this;
         }
 
-        public Criteria andDomainUrlBetween(String value1, String value2) {
-            addCriterion("domain_url between", value1, value2, "domainUrl");
+        public Criteria andDomainurlBetween(String value1, String value2) {
+            addCriterion("domainUrl between", value1, value2, "domainurl");
             return (Criteria) this;
         }
 
-        public Criteria andDomainUrlNotBetween(String value1, String value2) {
-            addCriterion("domain_url not between", value1, value2, "domainUrl");
+        public Criteria andDomainurlNotBetween(String value1, String value2) {
+            addCriterion("domainUrl not between", value1, value2, "domainurl");
             return (Criteria) this;
         }
 

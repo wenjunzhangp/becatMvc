@@ -28,9 +28,9 @@ layui.use(['form','layer','laydate','table','upload'],function(){
             {field: 'logo', title: 'LOGO', width:180, align:"center",templet:function(d){
                 return '<a href="'+d.logo+'" target="_blank"><img src="'+d.logo+'" height="26" /></a>';
             }},
-            {field: 'domainName', title: '网站名称', width:200,align:"center"},
-            {field: 'domainUrl', title: '网站地址',width:200,align:"center",templet:function(d){
-                return '<a class="layui-blue" href="'+d.domainUrl+'" target="_blank">'+d.domainUrl+'</a>';
+            {field: 'domainname', title: '网站名称', width:200,align:"center"},
+            {field: 'domainurl', title: '网站地址',width:200,align:"center",templet:function(d){
+                return '<a class="layui-blue" href="'+d.domainurl+'" target="_blank">'+d.domainurl+'</a>';
             }},
             {field: 'contact', title: '站长联系方式',width:150, align:'center'},
             {field: 'show', title: '展示位置',width:100, align:'center',templet:function(d){
@@ -71,8 +71,8 @@ layui.use(['form','layer','laydate','table','upload'],function(){
                     body.find(".linkLogo").css("background","#fff");
                     body.find("#logo").val(edit.logo);
                     body.find(".userFaceBtn").attr('src',edit.logo);
-                    body.find(".domainName").val(edit.domainName);
-                    body.find(".domainUrl").val(edit.domainUrl);
+                    body.find(".domainName").val(edit.domainname);
+                    body.find(".domainUrl").val(edit.domainurl);
                     body.find(".contact").val(edit.contact);
                     body.find(".display").val(edit.display);
                     body.find(".show").prop("checked",edit.show==1?'checked':'');

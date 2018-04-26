@@ -7,9 +7,9 @@ public class SysLink {
 
     private String logo;
 
-    private String domainName;
+    private String domainname;
 
-    private String domainUrl;
+    private String domainurl;
 
     private String contact;
 
@@ -37,20 +37,20 @@ public class SysLink {
         this.logo = logo == null ? null : logo.trim();
     }
 
-    public String getDomainName() {
-        return domainName;
+    public String getDomainname() {
+        return domainname;
     }
 
-    public void setDomainName(String domainName) {
-        this.domainName = domainName == null ? null : domainName.trim();
+    public void setDomainname(String domainname) {
+        this.domainname = domainname == null ? null : domainname.trim();
     }
 
-    public String getDomainUrl() {
-        return domainUrl;
+    public String getDomainurl() {
+        return domainurl;
     }
 
-    public void setDomainUrl(String domainUrl) {
-        this.domainUrl = domainUrl == null ? null : domainUrl.trim();
+    public void setDomainurl(String domainurl) {
+        this.domainurl = domainurl == null ? null : domainurl.trim();
     }
 
     public String getContact() {

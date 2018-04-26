@@ -10,9 +10,9 @@ public class SysLinkVo {
 
     private String logo;
 
-    private String domainName;
+    private String domainname;
 
-    private String domainUrl;
+    private String domainurl;
 
     private String contact;
 
@@ -41,20 +41,20 @@ public class SysLinkVo {
         this.logo = logo == null ? null : logo.trim();
     }
 
-    public String getDomainName() {
-        return domainName;
+    public String getDomainname() {
+        return domainname;
     }
 
-    public void setDomainName(String domainName) {
-        this.domainName = domainName == null ? null : domainName.trim();
+    public void setDomainname(String domainname) {
+        this.domainname = domainname;
     }
 
-    public String getDomainUrl() {
-        return domainUrl;
+    public String getDomainurl() {
+        return domainurl;
     }
 
-    public void setDomainUrl(String domainUrl) {
-        this.domainUrl = domainUrl == null ? null : domainUrl.trim();
+    public void setDomainurl(String domainurl) {
+        this.domainurl = domainurl;
     }
 
     public String getContact() {
