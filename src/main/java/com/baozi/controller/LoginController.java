@@ -3,13 +3,12 @@ package com.baozi.controller;
 import com.baozi.po.ActiveUser;
 import com.baozi.po.SysUser;
 import com.baozi.service.SysUserService;
-import com.baozi.service.SystemService;
 import com.baozi.util.GenerateLogFactory;
 import com.baozi.util.LogUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.UnauthorizedException;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +45,7 @@ public class LoginController extends BaseController{
      * @param request
      * @return
      */
-    @RequiresAuthentication
+    @RequiresUser
     @RequestMapping("/index")
     public String index(HttpServletRequest request) {
         setValueRequest(request,"activeUser",super.loginUser());
