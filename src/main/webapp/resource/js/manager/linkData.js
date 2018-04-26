@@ -63,7 +63,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
             title : "编辑友链",
             type : 2,
             area : ["466px","500px"],
-            content : "/console/linkadd.shtml",
+            content : "/console/addOrUpdateLink.shtml",
             success : function(layero, index){
                 var body = $($(".layui-layer-iframe",parent.document).find("iframe")[0].contentWindow.document.body);
                 if(edit){

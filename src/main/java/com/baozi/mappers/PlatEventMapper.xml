@@ -6,8 +6,8 @@
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="edate" property="edate" jdbcType="DATE" />
     <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
-    <result column="status" property="status" jdbcType="TINYINT" />
-    <result column="platsource" property="platsource" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="display" property="display" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.baozi.po.PlatEvent" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
@@ -71,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, edate, createTime, status, platsource
+    id, title, edate, createTime, status, display
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -126,10 +126,10 @@
   </delete>
   <insert id="insert" parameterType="com.baozi.po.PlatEvent" >
     insert into plat_event (id, title, edate, 
-      createTime, status, platsource, 
+      createTime, `status`, display, 
       content)
     values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{edate,jdbcType=DATE}, 
-      #{createtime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}, #{platsource,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, #{display,jdbcType=INTEGER},
       #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.baozi.po.PlatEvent" >
@@ -148,10 +148,10 @@
         createTime,
       </if>
       <if test="status != null" >
-        status,
+        `status`,
       </if>
-      <if test="platsource != null" >
-        platsource,
+      <if test="display != null" >
+        display,
       </if>
       <if test="content != null" >
         content,
@@ -171,10 +171,10 @@
         #{createtime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=TINYINT},
+        #{status,jdbcType=INTEGER},
       </if>
-      <if test="platsource != null" >
-        #{platsource,jdbcType=INTEGER},
+      <if test="display != null" >
+        #{display,jdbcType=INTEGER},
       </if>
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
@@ -203,10 +203,10 @@
         createTime = #{record.createtime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.status != null" >
-        status = #{record.status,jdbcType=TINYINT},
+        `status` = #{record.status,jdbcType=INTEGER},
       </if>
-      <if test="record.platsource != null" >
-        platsource = #{record.platsource,jdbcType=INTEGER},
+      <if test="record.display != null" >
+        display = #{record.display,jdbcType=INTEGER},
       </if>
       <if test="record.content != null" >
         content = #{record.content,jdbcType=LONGVARCHAR},
@@ -222,8 +222,8 @@
       title = #{record.title,jdbcType=VARCHAR},
       edate = #{record.edate,jdbcType=DATE},
       createTime = #{record.createtime,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=TINYINT},
-      platsource = #{record.platsource,jdbcType=INTEGER},
+    `status` = #{record.status,jdbcType=INTEGER},
+      display = #{record.display,jdbcType=INTEGER},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -235,8 +235,8 @@
       title = #{record.title,jdbcType=VARCHAR},
       edate = #{record.edate,jdbcType=DATE},
       createTime = #{record.createtime,jdbcType=TIMESTAMP},
-      status = #{record.status,jdbcType=TINYINT},
-      platsource = #{record.platsource,jdbcType=INTEGER}
+    `status` = #{record.status,jdbcType=INTEGER},
+      display = #{record.display,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -254,10 +254,10 @@
         createTime = #{createtime,jdbcType=TIMESTAMP},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=TINYINT},
+        `status` = #{status,jdbcType=INTEGER},
       </if>
-      <if test="platsource != null" >
-        platsource = #{platsource,jdbcType=INTEGER},
+      <if test="display != null" >
+        display = #{display,jdbcType=INTEGER},
       </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
@@ -270,8 +270,8 @@
     set title = #{title,jdbcType=VARCHAR},
       edate = #{edate,jdbcType=DATE},
       createTime = #{createtime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=TINYINT},
-      platsource = #{platsource,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER},
+      display = #{display,jdbcType=INTEGER},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -280,13 +280,38 @@
     set title = #{title,jdbcType=VARCHAR},
       edate = #{edate,jdbcType=DATE},
       createTime = #{createtime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=TINYINT},
-      platsource = #{platsource,jdbcType=INTEGER}
+      `status` = #{status,jdbcType=INTEGER},
+      display = #{display,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
   <select id="findAllPlatEvent" resultType="com.baozi.po.PlatEvent" >
-    select id,title,createTime from plat_event order by createTime desc
+    select id,title,createTime from plat_event where status=1 and display=1 order by createTime desc
   </select>
+
+  <select id="findPlatEventPage" resultType="com.baozi.vo.PlatEventVo" parameterType="map">
+    select * from plat_event s
+    <where>
+      s.display=1
+      <if test="title!=null and title!='' ">
+        and s.title like CONCAT('%', #{title}, '%')
+      </if>
+      <if test="starttime!=null and starttime!='' ">
+        <![CDATA[ and s.createTime >= #{starttime} ]]>
+      </if>
+      <if test="endtime!=null and endtime!='' ">
+        <![CDATA[ and s.createTime <= #{endtime} ]]>
+      </if>
+    </where>
+    order by s.status,s.createTime desc
+  </select>
+
+  <delete id="deletePlatEventSingleOrBatch" parameterType="java.util.List">
+    update plat_event set display = 0
+    where id in
+    <foreach item="id" collection="list" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+  </delete>
 
 </mapper>

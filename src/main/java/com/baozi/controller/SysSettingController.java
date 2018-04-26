@@ -41,6 +41,11 @@ public class SysSettingController extends BaseController{
         return "/systemSetting/sysSetting";
     }
 
+    @RequestMapping("/icons")
+    public String icons(){
+        return "/systemSetting/icons";
+    }
+
     @RequestMapping("/modifySysSetting")
     @ResponseBody
     public CodeResult modifySysSetting(SysSetting sysSetting){

@@ -2,9 +2,11 @@ package com.baozi.mappers;
 
 import com.baozi.po.PlatEvent;
 import com.baozi.po.PlatEventExample;
+import com.baozi.vo.PlatEventVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PlatEventMapper {
     int countByExample(PlatEventExample example);
@@ -36,4 +38,8 @@ public interface PlatEventMapper {
     int updateByPrimaryKey(PlatEvent record);
 
     public List<PlatEvent> findAllPlatEvent();
+
+    public List<PlatEventVo> findPlatEventPage(Map<String, Object> paramMap);
+
+    public int deletePlatEventSingleOrBatch(List idList);
 }

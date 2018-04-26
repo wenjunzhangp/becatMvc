@@ -1,11 +1,10 @@
-package com.baozi.po;
-
+package com.baozi.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-public class PlatEvent {
+public class PlatEventVo {
     private Integer id;
 
     private String title;

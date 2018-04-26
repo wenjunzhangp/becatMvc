@@ -123,38 +123,39 @@
 
 					<div id="memberCenterson" class="hideCustom">
 						<shiro:hasPermission name="console:alluser">
-							<li class="layui-nav-item" lay-id="6"><a href="javascript:;"  data-url="/console/alluser.shtml"><i class="seraph icon-text" data-icon="icon-text"></i><cite>用户列表</cite></a></li>
+							<li class="layui-nav-item" lay-id="6"><a href="javascript:;"  data-url="/console/alluser.shtml"><i class="seraph icon-text" data-icon="&#xe612;"></i><cite>用户列表</cite></a></li>
 						</shiro:hasPermission>
 						<shiro:hasPermission name="console:allrole">
-							<li class="layui-nav-item" lay-id="7"><a href="javascript:;"  data-url="/console/allrole.shtml"><i class="seraph icon-text" data-icon="icon-text"></i><cite>角色列表</cite></a></li>
+							<li class="layui-nav-item" lay-id="7"><a href="javascript:;"  data-url="/console/allrole.shtml"><i class="seraph icon-text" data-icon="&#xe612;"></i><cite>角色列表</cite></a></li>
 						</shiro:hasPermission>
 						<shiro:hasPermission name="console:allauthc">
-							<li class="layui-nav-item" lay-id="8"><a href="javascript:;"  data-url="/console/allauthc.shtml"><i class="seraph icon-text" data-icon="icon-text"></i><cite>权限列表</cite></a></li>
+							<li class="layui-nav-item" lay-id="8"><a href="javascript:;"  data-url="/console/allauthc.shtml"><i class="seraph icon-text" data-icon="&#xe612;"></i><cite>权限列表</cite></a></li>
 						</shiro:hasPermission>
 						<shiro:hasPermission name="console:roledistribution">
-							<li class="layui-nav-item" lay-id="9"><a href="javascript:;"  data-url="/console/roledistribution.shtml"><i class="seraph icon-text" data-icon="icon-text"></i><cite>角色分配</cite></a></li>
+							<li class="layui-nav-item" lay-id="9"><a href="javascript:;"  data-url="/console/roledistribution.shtml"><i class="seraph icon-text" data-icon="&#xe612;"></i><cite>角色分配</cite></a></li>
 						</shiro:hasPermission>
 						<shiro:hasPermission name="console:authcdistribution">
-							<li class="layui-nav-item" lay-id="10"><a href="javascript:;"  data-url="/console/authcdistribution.shtml"><i class="seraph icon-text" data-icon="icon-text"></i><cite>权限分配</cite></a></li>
+							<li class="layui-nav-item" lay-id="10"><a href="javascript:;"  data-url="/console/authcdistribution.shtml"><i class="seraph icon-text" data-icon="&#xe612;"></i><cite>权限分配</cite></a></li>
 						</shiro:hasPermission>
 						<shiro:hasPermission name="console:myauthc">
-							<li class="layui-nav-item" lay-id="11"><a href="javascript:;"  data-url="/console/myauthc.shtml"><i class="seraph icon-text" data-icon="icon-text"></i><cite>我的权限</cite></a></li>
+							<li class="layui-nav-item" lay-id="11"><a href="javascript:;"  data-url="/console/myauthc.shtml"><i class="seraph icon-text" data-icon="&#xe612;"></i><cite>我的权限</cite></a></li>
 						</shiro:hasPermission>
 					</div>
 
 					<div id="systemeSttingsson" class="hideCustom">
 						<shiro:hasPermission name="console:syssetting">
-							<li class="layui-nav-item" lay-id="12"><a href="javascript:;"  data-url="/console/syssetting.shtml"><i class="seraph icon-text" data-icon="icon-text"></i><cite>系统基本参数</cite></a></li>
+							<li class="layui-nav-item" lay-id="12"><a href="javascript:;"  data-url="/console/syssetting.shtml"><i class="seraph icon-text" data-icon="&#xe631;"></i><cite>系统基本参数</cite></a></li>
 						</shiro:hasPermission>
 						<shiro:hasPermission name="console:userlog">
-							<li class="layui-nav-item" lay-id="13"><a href="javascript:;"  data-url="/console/userlog.shtml"><i class="seraph icon-text" data-icon="icon-text"></i><cite>用户登录日志</cite></a></li>
+							<li class="layui-nav-item" lay-id="13"><a href="javascript:;"  data-url="/console/userlog.shtml"><i class="seraph icon-text" data-icon="icon-log"></i><cite>用户登录日志</cite></a></li>
 						</shiro:hasPermission>
 						<shiro:hasPermission name="console:syslog">
-							<li class="layui-nav-item" lay-id="14"><a href="javascript:;"  data-url="/console/syslog.shtml"><i class="seraph icon-text" data-icon="icon-text"></i><cite>系统日志</cite></a></li>
+							<li class="layui-nav-item" lay-id="14"><a href="javascript:;"  data-url="/console/syslog.shtml"><i class="seraph icon-text" data-icon="icon-log"></i><cite>系统日志</cite></a></li>
 						</shiro:hasPermission>
 						<shiro:hasPermission name="console:friend">
-							<li class="layui-nav-item" lay-id="15"><a href="javascript:;"  data-url="/console/friend.shtml"><i class="seraph icon-text" data-icon="icon-text"></i><cite>友情链接</cite></a></li>
+							<li class="layui-nav-item" lay-id="15"><a href="javascript:;"  data-url="/console/friend.shtml"><i class="seraph icon-text" data-icon="&#xe64c;"></i><cite>友情链接</cite></a></li>
 						</shiro:hasPermission>
+						<li class="layui-nav-item" lay-id=""><a href="javascript:;"  data-url="/console/icons.shtml"><i class="seraph icon-text" data-icon="&#xe857;"></i><cite>图标管理</cite></a></li>
 					</div>
 				</ul>
 			</div>

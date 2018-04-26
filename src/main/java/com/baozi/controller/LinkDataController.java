@@ -34,8 +34,8 @@ public class LinkDataController extends BaseController{
         return "/systemSetting/linkData";
     }
 
-    @RequestMapping("/linkadd")
-    public String linkadd(){
+    @RequestMapping("/addOrUpdateLink")
+    public String addOrUpdatePlatEvent(){
         return "/systemSetting/linkModify";
     }
 
