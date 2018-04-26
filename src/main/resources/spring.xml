@@ -76,12 +76,23 @@
 		<property name="cacheManagerConfigFile" value="classpath:spring-ehcache.xml"/>
 	</bean>
 
+	<!-- 会话验证调度器 -->
+	<bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
+		<!-- 间隔多少时间检查，不配置是60分钟 -->
+		<property name="interval" value="1800000"/>
+		<property name="sessionManager" ref="sessionManager"/>
+	</bean>
+
 	<!-- 会话管理器 -->
 	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<!-- 相隔多久检查一次session的有效性   -->
+		<property name="sessionValidationInterval" value="1800000"/>
 		<!-- session的失效时长，单位毫秒 -->
-		<property name="globalSessionTimeout" value="86400000"/>
+		<property name="globalSessionTimeout" value="1800000"/>
 		<!-- 删除失效的session -->
 		<property name="deleteInvalidSessions" value="true"/>
+		<!-- 间隔多少时间检查，不配置是60分钟 -->
+		<property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
 	</bean>
 
 	<!-- rememberMeManager管理器，写cookie，取出cookie生成用户信息 -->
@@ -91,9 +102,10 @@
 	<!-- 记住我cookie -->
 	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
 		<!-- rememberMe是cookie的名字 -->
-		<constructor-arg value="SSM" />
+		<constructor-arg value="v_v-s-becat"/>
+		<property name="httpOnly" value="true"/>
 		<!-- 记住我cookie生效时间30天 -->
-		<property name="maxAge" value="2592000" />
+		<property name="maxAge" value="2592000"/>
 	</bean>
 
 	<!-- 自定义form认证过虑器 -->
@@ -134,11 +146,11 @@
 		<!-- Shiro的核心安全接口,这个属性是必须的 -->
 		<property name="securityManager" ref="securityManager"/>
 		<!-- 身份认证失败，则跳转到登录页面的配置 -->
-		<property name="loginUrl" value="/login.html"/>
+		<property name="loginUrl" value="/console/login.shtml"/>
 		<!--身份认证成功，跳转到首页-->
-		<property name="successUrl" value="/index" />
+		<property name="successUrl" value="/console/index.shtml" />
 		<!-- 权限认证失败，则跳转到指定页面 -->
-		<property name="unauthorizedUrl" value="/error.html"/>
+		<property name="unauthorizedUrl" value="/console/unauthorized.shtml"/>
 		<!-- 自定义filter配置 -->
 		<property name="filters">
 			<map>
