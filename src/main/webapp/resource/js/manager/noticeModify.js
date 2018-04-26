@@ -3,18 +3,33 @@ layui.use(['form','layer','layedit','upload'],function(){
         layer = parent.layer === undefined ? layui.layer : top.layer,
         $ = layui.jquery,layedit = layui.layedit,upload = layui.upload;
 
-    platEvent = layedit.build('content'),{
+    layedit.set({
+        uploadImage: {
+            url: '/open/uploadImg.shtml',
+            type: 'post'
+        }
+    });
+    notice = layedit.build('content'),{
         width:600,
         height: 300
     };
 
-    form.on("submit(modifyPlatEvent)",function(data){
+    //添加验证规则
+    form.verify({
+        noticeCategory: function (value, item) {
+            if (value == -1) {
+                return "不要忘记选公告分类";
+            }
+        }
+    })
+
+    form.on("submit(modifyNotice)",function(data){
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
-        layedit.sync(platEvent);
+        layedit.sync(notice);
         $.ajax({
-            url : "/console/modifyPlatEvent.shtml",
+            url : "/console/modifyNotice.shtml",
             type : "post",
-            data:$(".platEventForm").serialize(),
+            data:$(".noticeForm").serialize(),
             dataType : "json",
             success : function(data){
                 if(data.status==200){
@@ -23,7 +38,7 @@ layui.use(['form','layer','layedit','upload'],function(){
                         top.layer.msg("操作成功！");
                         layer.closeAll("iframe");
                         parent.location.reload();
-                    }, 1000);
+                    }, 2000);
                 }else{
                     layer.msg(data.msg);
                 }
@@ -31,4 +46,5 @@ layui.use(['form','layer','layedit','upload'],function(){
         })
         return false;
     })
+
 })

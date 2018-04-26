@@ -28,9 +28,9 @@ layui.use(['form','layer','layedit','upload'],function(){
             type: 'post'
         }
     });
-    layedit.build('content'),{
+    indus = layedit.build('content'),{
         width:600,
-        height: 180
+        height: 300
     };
 
     var uploadInst = upload.render({
@@ -72,6 +72,7 @@ layui.use(['form','layer','layedit','upload'],function(){
 
     form.on("submit(modifyIndus)",function(data){
         var index = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+        layedit.sync(indus);
         $.ajax({
             url : "/console/modifyIndus.shtml",
             type : "post",

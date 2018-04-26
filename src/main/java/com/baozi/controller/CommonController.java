@@ -20,6 +20,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -135,14 +136,22 @@ public class CommonController extends BaseController {
 
 	@RequestMapping("/uploadImg")
 	@ResponseBody
-	public CodeResult uploadUserFaceImg(HttpServletRequest request,MultipartHttpServletRequest multiRequest) {
+	public Map<String,Object> uploadUserFaceImg(HttpServletRequest request,MultipartHttpServletRequest multiRequest) {
+		Map<String,Object> map = new HashMap<String,Object>();
 		try {
 			String resultFilePaths = FileUploadUtil.uploadFile(multiRequest);
-			return CodeResult.ok(IConfig.get("becat.imgserver.prefix")+resultFilePaths);
+			map.put("code",0);
+			map.put("msg","上传成功！");
+			Map<String,Object> src = new HashMap<String,Object>();
+			src.put("src",IConfig.get("becat.imgserver.prefix")+resultFilePaths);
+			map.put("data",src);
 		} catch (Exception e) {
 			LogUtils.logError("图像文件长传失败",e);
-			return CodeResult.build(500,e.getMessage());
+			map.put("code",500);
+			map.put("msg","上传失败，接口异常！");
+			map.put("data","");
 		}
+		return map;
 	}
 
 }

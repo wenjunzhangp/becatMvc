@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.baozi.po.Notice" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="isDisplay" property="isdisplay" jdbcType="BIT" />
     <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="category" property="category" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
@@ -12,9 +11,6 @@
     <result column="lastModifyTime" property="lastmodifytime" jdbcType="TIMESTAMP" />
     <result column="display" property="display" jdbcType="INTEGER" />
     <result column="img" property="img" jdbcType="VARCHAR" />
-    <result column="userId" property="userid" jdbcType="INTEGER" />
-    <result column="person" property="person" jdbcType="BIT" />
-    <result column="platsource" property="platsource" jdbcType="INTEGER" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.baozi.po.Notice" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
@@ -78,8 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, title, isDisplay, createTime, category, status, publicTime, lastModifyTime, display, 
-    img, userId, person, platsource
+    id, title, createTime, category, status, publicTime, lastModifyTime, display, img
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -133,15 +128,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.baozi.po.Notice" >
-    insert into notice (id, title, isDisplay, 
-      createTime, category, status, 
-      publicTime, lastModifyTime, display, 
-      img, userId, person, platsource, 
+    insert into notice (id, title, createTime, 
+      category, `status`, publicTime,
+      lastModifyTime, display, img, 
       content)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{isdisplay,jdbcType=BIT}, 
-      #{createtime,jdbcType=TIMESTAMP}, #{category,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{publictime,jdbcType=TIMESTAMP}, #{lastmodifytime,jdbcType=TIMESTAMP}, #{display,jdbcType=INTEGER}, 
-      #{img,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{person,jdbcType=BIT}, #{platsource,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{category,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{publictime,jdbcType=TIMESTAMP}, 
+      #{lastmodifytime,jdbcType=TIMESTAMP}, #{display,jdbcType=INTEGER}, #{img,jdbcType=VARCHAR}, 
       #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.baozi.po.Notice" >
@@ -153,9 +146,6 @@
       <if test="title != null" >
         title,
       </if>
-      <if test="isdisplay != null" >
-        isDisplay,
-      </if>
       <if test="createtime != null" >
         createTime,
       </if>
@@ -163,7 +153,7 @@
         category,
       </if>
       <if test="status != null" >
-        status,
+        `status`,
       </if>
       <if test="publictime != null" >
         publicTime,
@@ -177,15 +167,6 @@
       <if test="img != null" >
         img,
       </if>
-      <if test="userid != null" >
-        userId,
-      </if>
-      <if test="person != null" >
-        person,
-      </if>
-      <if test="platsource != null" >
-        platsource,
-      </if>
       <if test="content != null" >
         content,
       </if>
@@ -196,9 +177,6 @@
       </if>
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="isdisplay != null" >
-        #{isdisplay,jdbcType=BIT},
       </if>
       <if test="createtime != null" >
         #{createtime,jdbcType=TIMESTAMP},
@@ -221,15 +199,6 @@
       <if test="img != null" >
         #{img,jdbcType=VARCHAR},
       </if>
-      <if test="userid != null" >
-        #{userid,jdbcType=INTEGER},
-      </if>
-      <if test="person != null" >
-        #{person,jdbcType=BIT},
-      </if>
-      <if test="platsource != null" >
-        #{platsource,jdbcType=INTEGER},
-      </if>
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
       </if>
@@ -250,9 +219,6 @@
       <if test="record.title != null" >
         title = #{record.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.isdisplay != null" >
-        isDisplay = #{record.isdisplay,jdbcType=BIT},
-      </if>
       <if test="record.createtime != null" >
         createTime = #{record.createtime,jdbcType=TIMESTAMP},
       </if>
@@ -260,7 +226,7 @@
         category = #{record.category,jdbcType=INTEGER},
       </if>
       <if test="record.status != null" >
-        status = #{record.status,jdbcType=INTEGER},
+        `status` = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.publictime != null" >
         publicTime = #{record.publictime,jdbcType=TIMESTAMP},
@@ -274,15 +240,6 @@
       <if test="record.img != null" >
         img = #{record.img,jdbcType=VARCHAR},
       </if>
-      <if test="record.userid != null" >
-        userId = #{record.userid,jdbcType=INTEGER},
-      </if>
-      <if test="record.person != null" >
-        person = #{record.person,jdbcType=BIT},
-      </if>
-      <if test="record.platsource != null" >
-        platsource = #{record.platsource,jdbcType=INTEGER},
-      </if>
       <if test="record.content != null" >
         content = #{record.content,jdbcType=LONGVARCHAR},
       </if>
@@ -295,17 +252,13 @@
     update notice
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
-      isDisplay = #{record.isdisplay,jdbcType=BIT},
       createTime = #{record.createtime,jdbcType=TIMESTAMP},
       category = #{record.category,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=INTEGER},
+    `status` = #{record.status,jdbcType=INTEGER},
       publicTime = #{record.publictime,jdbcType=TIMESTAMP},
       lastModifyTime = #{record.lastmodifytime,jdbcType=TIMESTAMP},
       display = #{record.display,jdbcType=INTEGER},
       img = #{record.img,jdbcType=VARCHAR},
-      userId = #{record.userid,jdbcType=INTEGER},
-      person = #{record.person,jdbcType=BIT},
-      platsource = #{record.platsource,jdbcType=INTEGER},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -315,17 +268,13 @@
     update notice
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
-      isDisplay = #{record.isdisplay,jdbcType=BIT},
       createTime = #{record.createtime,jdbcType=TIMESTAMP},
       category = #{record.category,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=INTEGER},
+    `status` = #{record.status,jdbcType=INTEGER},
       publicTime = #{record.publictime,jdbcType=TIMESTAMP},
       lastModifyTime = #{record.lastmodifytime,jdbcType=TIMESTAMP},
       display = #{record.display,jdbcType=INTEGER},
-      img = #{record.img,jdbcType=VARCHAR},
-      userId = #{record.userid,jdbcType=INTEGER},
-      person = #{record.person,jdbcType=BIT},
-      platsource = #{record.platsource,jdbcType=INTEGER}
+      img = #{record.img,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -336,9 +285,6 @@
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="isdisplay != null" >
-        isDisplay = #{isdisplay,jdbcType=BIT},
-      </if>
       <if test="createtime != null" >
         createTime = #{createtime,jdbcType=TIMESTAMP},
       </if>
@@ -346,7 +292,7 @@
         category = #{category,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
+        `status` = #{status,jdbcType=INTEGER},
       </if>
       <if test="publictime != null" >
         publicTime = #{publictime,jdbcType=TIMESTAMP},
@@ -360,15 +306,6 @@
       <if test="img != null" >
         img = #{img,jdbcType=VARCHAR},
       </if>
-      <if test="userid != null" >
-        userId = #{userid,jdbcType=INTEGER},
-      </if>
-      <if test="person != null" >
-        person = #{person,jdbcType=BIT},
-      </if>
-      <if test="platsource != null" >
-        platsource = #{platsource,jdbcType=INTEGER},
-      </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
@@ -378,34 +315,54 @@
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.baozi.po.Notice" >
     update notice
     set title = #{title,jdbcType=VARCHAR},
-      isDisplay = #{isdisplay,jdbcType=BIT},
       createTime = #{createtime,jdbcType=TIMESTAMP},
       category = #{category,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER},
       publicTime = #{publictime,jdbcType=TIMESTAMP},
       lastModifyTime = #{lastmodifytime,jdbcType=TIMESTAMP},
       display = #{display,jdbcType=INTEGER},
       img = #{img,jdbcType=VARCHAR},
-      userId = #{userid,jdbcType=INTEGER},
-      person = #{person,jdbcType=BIT},
-      platsource = #{platsource,jdbcType=INTEGER},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.baozi.po.Notice" >
     update notice
     set title = #{title,jdbcType=VARCHAR},
-      isDisplay = #{isdisplay,jdbcType=BIT},
       createTime = #{createtime,jdbcType=TIMESTAMP},
       category = #{category,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER},
       publicTime = #{publictime,jdbcType=TIMESTAMP},
       lastModifyTime = #{lastmodifytime,jdbcType=TIMESTAMP},
       display = #{display,jdbcType=INTEGER},
-      img = #{img,jdbcType=VARCHAR},
-      userId = #{userid,jdbcType=INTEGER},
-      person = #{person,jdbcType=BIT},
-      platsource = #{platsource,jdbcType=INTEGER}
+      img = #{img,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="findNoticePage" resultType="com.baozi.vo.NoticeVo" parameterType="map">
+    select * from notice i
+    <where>
+      i.display=1
+      <if test="title!=null and title!='' ">
+        and i.title like CONCAT('%', #{title}, '%')
+      </if>
+      <if test="category!=null and category!=-1 ">
+        and i.category = #{category}
+      </if>
+      <if test="starttime!=null and starttime!='' ">
+        <![CDATA[ and i.publicTime >= #{starttime} ]]>
+      </if>
+      <if test="endtime!=null and endtime!='' ">
+        <![CDATA[ and i.publicTime <= #{endtime} ]]>
+      </if>
+    </where>
+    order by i.status,i.lastModifyTime desc
+  </select>
+
+  <delete id="deleteNoticeSingleOrBatch" parameterType="java.util.List">
+    update notice set display = 0
+    where id in
+    <foreach item="id" collection="list" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+  </delete>
 </mapper>

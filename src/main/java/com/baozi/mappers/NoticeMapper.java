@@ -2,9 +2,11 @@ package com.baozi.mappers;
 
 import com.baozi.po.Notice;
 import com.baozi.po.NoticeExample;
+import com.baozi.vo.NoticeVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface NoticeMapper {
     int countByExample(NoticeExample example);
@@ -34,4 +36,8 @@ public interface NoticeMapper {
     int updateByPrimaryKeyWithBLOBs(Notice record);
 
     int updateByPrimaryKey(Notice record);
+
+    public List<NoticeVo> findNoticePage(Map<String, Object> paramMap);
+
+    public int deleteNoticeSingleOrBatch(List idList);
 }
