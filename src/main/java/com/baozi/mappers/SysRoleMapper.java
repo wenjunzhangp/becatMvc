@@ -28,4 +28,6 @@ public interface SysRoleMapper {
     int updateByPrimaryKeySelective(SysRole record);
 
     int updateByPrimaryKey(SysRole record);
+
+    List<SysRole> findNowAllPermission(@Param("userId")int userId);
 }

@@ -1,12 +1,11 @@
 package com.baozi.service.impl;
 
 import com.baozi.exception.CustomException;
+import com.baozi.mappers.SysPermissionMapper;
 import com.baozi.mappers.SysPermissionMapperCustom;
+import com.baozi.mappers.SysRoleMapper;
 import com.baozi.mappers.SysUserMapper;
-import com.baozi.po.ActiveUser;
-import com.baozi.po.SysPermission;
-import com.baozi.po.SysUser;
-import com.baozi.po.SysUserExample;
+import com.baozi.po.*;
 import com.baozi.service.SystemService;
 import com.baozi.util.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +27,9 @@ public class SystemServiceImpl implements SystemService {
 
     @Autowired
     private SysPermissionMapperCustom sysPermissionMapperCustom;
+
+    @Autowired
+    private SysRoleMapper sysRoleMapper;
 
     @Override
     public ActiveUser authenticat(String userCode, String password) throws Exception {
@@ -75,5 +77,10 @@ public class SystemServiceImpl implements SystemService {
     @Override
     public Set<String> findRolesListByUserId(int userId) {
         return sysPermissionMapperCustom.findRolesListByUserId(userId);
+    }
+
+    @Override
+    public List<SysRole> findNowAllPermission(int userId) {
+        return sysRoleMapper.findNowAllPermission(userId);
     }
 }

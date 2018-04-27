@@ -2,6 +2,7 @@ package com.baozi.service;
 
 import com.baozi.po.ActiveUser;
 import com.baozi.po.SysPermission;
+import com.baozi.po.SysRole;
 import com.baozi.po.SysUser;
 
 import java.util.List;
@@ -53,4 +54,11 @@ public interface SystemService {
      * @throws Exception
      */
     public Set<String> findRolesListByUserId(int userId);
+
+    /**
+     * 根据用户ID查询所属权限
+     * @param userId
+     * @return
+     */
+    List<SysRole> findNowAllPermission(int userId);
 }

@@ -178,4 +178,22 @@
       available = #{available,jdbcType=CHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <!-- 查询用户全部的role & permission -->
+  <resultMap id="findNowAllPermission_resultMap" extends="BaseResultMap" type="com.baozi.po.SysRole" >
+    <collection property="permissions" javaType="com.baozi.po.SysPermission">
+      <id column="pid" property="id" jdbcType="BIGINT" />
+      <result column="pname" property="name" jdbcType="VARCHAR" />
+      <result column="url" property="url" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+  <!-- 根据用户ID，查询所有权限 -->
+  <select id="findNowAllPermission" resultMap="findNowAllPermission_resultMap">
+    select ur.id,ur.name,up.id pid,up.url,up.name pname
+    from (select sys_role_id from sys_user_role where sys_user_id = #{userId}) uur
+    left join sys_role ur on uur.sys_role_id = ur.id
+    left join sys_role_permission urp on urp.sys_role_id = ur.id
+    left join sys_permission up on up.id = urp.sys_permission_id
+    where up.id is not null and up.type in ('permission','button')
+  </select>
 </mapper>
