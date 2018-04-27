@@ -1,16 +1,59 @@
-<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
-	<!--diskStore：缓存数据持久化的目录 地址  -->
-	<diskStore path="D:\ehcache" />
-	<defaultCache 
-		maxElementsInMemory="1000" 
-		maxElementsOnDisk="10000000"
-		eternal="false" 
-		overflowToDisk="false" 
-		diskPersistent="false"
-		timeToIdleSeconds="120"
-		timeToLiveSeconds="120" 
-		diskExpiryThreadIntervalSeconds="120"
-		memoryStoreEvictionPolicy="LRU">
-	</defaultCache>
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache updateCheck="false"  name="shirocache">
+	<diskStore path="java.io.tmpdir"/>
+	<!-- 登录记录缓存 锁定10分钟 -->
+	<cache name="passwordRetryCache"
+		   maxEntriesLocalHeap="2000"
+		   eternal="false"
+		   timeToIdleSeconds="3600"
+		   timeToLiveSeconds="0"
+		   overflowToDisk="false"
+		   statistics="true">
+	</cache>
+	<cache name="authorizationCache"
+		   maxEntriesLocalHeap="2000"
+		   eternal="false"
+		   timeToIdleSeconds="3600"
+		   timeToLiveSeconds="0"
+		   overflowToDisk="false"
+		   statistics="true">
+	</cache>
+	<cache name="authenticationCache"
+		   maxEntriesLocalHeap="2000"
+		   eternal="false"
+		   timeToIdleSeconds="3600"
+		   timeToLiveSeconds="0"
+		   overflowToDisk="false"
+		   statistics="true">
+	</cache>
+	<cache name="shiro-activeSessionCache"
+		   maxEntriesLocalHeap="2000"
+		   eternal="false"
+		   timeToIdleSeconds="3600"
+		   timeToLiveSeconds="0"
+		   overflowToDisk="false"
+		   statistics="true">
+	</cache>
+	<cache name="shiro_cache"
+		   maxElementsInMemory="2000"
+		   maxEntriesLocalHeap="2000"
+		   eternal="false"
+		   timeToIdleSeconds="0"
+		   timeToLiveSeconds="0"
+		   maxElementsOnDisk="0"
+		   overflowToDisk="true"
+		   memoryStoreEvictionPolicy="FIFO"
+		   statistics="true">
+	</cache>
+	<defaultCache name="defaultCache"
+	   maxElementsInMemory="10000"
+	   eternal="false"
+	   timeToIdleSeconds="600"
+	   timeToLiveSeconds="600"
+	   overflowToDisk="false"
+	   maxElementsOnDisk="100000"
+	   diskPersistent="false"
+	   diskExpiryThreadIntervalSeconds="120"
+	   memoryStoreEvictionPolicy="LRU"/>
+
 </ehcache>

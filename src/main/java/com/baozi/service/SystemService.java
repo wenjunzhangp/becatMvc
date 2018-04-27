@@ -4,8 +4,11 @@ import com.baozi.po.ActiveUser;
 import com.baozi.po.SysPermission;
 import com.baozi.po.SysRole;
 import com.baozi.po.SysUser;
+import com.baozi.vo.SysPermissionVo;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -61,4 +64,32 @@ public interface SystemService {
      * @return
      */
     List<SysRole> findNowAllPermission(int userId);
+
+    /**
+     * 分页查询权限
+     * @param paramMap
+     * @return
+     */
+    public PageInfo<SysPermissionVo> findSysPermissionPage(Map<String, Object> paramMap);
+
+    /**
+     * 批量删除权限
+     * @param idList
+     * @return
+     */
+    public int deleteSysPermissionSingleOrBatch(List idList);
+
+    /**
+     * 修改权限
+     * @param sysPermission
+     * @return
+     */
+    public int updateSysPermission(SysPermission sysPermission);
+
+    /**
+     * 新增权限
+     * @param sysPermission
+     * @return
+     */
+    public int insert(SysPermission sysPermission);
 }

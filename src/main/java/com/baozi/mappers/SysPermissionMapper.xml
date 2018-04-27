@@ -272,4 +272,24 @@
       available = #{available,jdbcType=CHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="findSysPermissionPage" resultType="com.baozi.vo.SysPermissionVo" parameterType="map">
+    select * from sys_permission s
+    <where>
+      <if test="name!=null and name!='' ">
+        or s.name like CONCAT('%', #{name}, '%')
+      </if>
+      <if test="type!=null and type!='' ">
+        or s.type = #{type}
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteSysPermissionSingleOrBatch" parameterType="java.util.List">
+    update sys_permission set available = 0
+    where id in
+    <foreach item="id" collection="list" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+  </delete>
 </mapper>

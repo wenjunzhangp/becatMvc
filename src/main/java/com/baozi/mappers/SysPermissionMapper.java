@@ -2,9 +2,11 @@ package com.baozi.mappers;
 
 import com.baozi.po.SysPermission;
 import com.baozi.po.SysPermissionExample;
+import com.baozi.vo.SysPermissionVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SysPermissionMapper {
     int countByExample(SysPermissionExample example);
@@ -28,4 +30,8 @@ public interface SysPermissionMapper {
     int updateByPrimaryKeySelective(SysPermission record);
 
     int updateByPrimaryKey(SysPermission record);
+
+    public List<SysPermissionVo> findSysPermissionPage(Map<String, Object> paramMap);
+
+    public int deleteSysPermissionSingleOrBatch(List idList);
 }

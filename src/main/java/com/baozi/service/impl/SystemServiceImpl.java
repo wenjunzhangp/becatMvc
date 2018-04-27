@@ -8,10 +8,14 @@ import com.baozi.mappers.SysUserMapper;
 import com.baozi.po.*;
 import com.baozi.service.SystemService;
 import com.baozi.util.MD5;
+import com.baozi.vo.SysPermissionVo;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -30,6 +34,9 @@ public class SystemServiceImpl implements SystemService {
 
     @Autowired
     private SysRoleMapper sysRoleMapper;
+
+    @Autowired
+    private SysPermissionMapper sysPermissionMapper;
 
     @Override
     public ActiveUser authenticat(String userCode, String password) throws Exception {
@@ -83,4 +90,27 @@ public class SystemServiceImpl implements SystemService {
     public List<SysRole> findNowAllPermission(int userId) {
         return sysRoleMapper.findNowAllPermission(userId);
     }
+
+    @Override
+    public PageInfo<SysPermissionVo> findSysPermissionPage(Map<String, Object> paramMap) {
+        PageHelper.startPage(Integer.valueOf(paramMap.get("page").toString()),Integer.valueOf(paramMap.get("limit").toString()),true);
+        List<SysPermissionVo> dataList = sysPermissionMapper.findSysPermissionPage(paramMap);
+        return new PageInfo<SysPermissionVo>(dataList);
+    }
+
+    @Override
+    public int deleteSysPermissionSingleOrBatch(List idList) {
+        return sysPermissionMapper.deleteSysPermissionSingleOrBatch(idList);
+    }
+
+    @Override
+    public int updateSysPermission(SysPermission sysPermission) {
+        return sysPermissionMapper.updateByPrimaryKeySelective(sysPermission);
+    }
+
+    @Override
+    public int insert(SysPermission sysPermission) {
+        return sysPermissionMapper.insertSelective(sysPermission);
+    }
+
 }
