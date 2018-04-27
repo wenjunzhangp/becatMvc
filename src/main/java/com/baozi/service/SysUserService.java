@@ -1,8 +1,12 @@
 package com.baozi.service;
 
 import com.baozi.po.SysUser;
+import com.baozi.vo.PlatEventVo;
+import com.baozi.vo.SysUserVo;
+import com.github.pagehelper.PageInfo;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  * @author wenjun.zhang
@@ -44,4 +48,19 @@ public interface SysUserService {
      * @return
      */
     public int updateUserPwd(int userId,String newpwd);
+
+    /**
+     * 分页查询平台用户数据
+     * @param paramMap
+     * @return
+     */
+    public PageInfo<SysUserVo> findSysUserPage (Map<String,Object> paramMap);
+
+    /**
+     * 启动或者禁用用户登录
+     * @param usercode
+     * @param lock
+     * @return
+     */
+    public void updateSysUserLock(String usercode,String lock);
 }

@@ -31,7 +31,7 @@ public class SysPermissionController extends BaseController{
 
     @RequestMapping("/myPermissionTree")
     @ResponseBody
-    public Map<String, Object> deletePlatEventSingleOrBatch(){
+    public Map<String, Object> myPermissionTree(){
         Map<String, Object> treeMap = new HashMap<String, Object>();
         try {
             ActiveUser activeUser = super.loginUser();

@@ -5,10 +5,16 @@ import com.baozi.po.SysUser;
 import com.baozi.po.SysUserExample;
 import com.baozi.service.SysUserService;
 import com.baozi.util.MD5Factory;
+import com.baozi.vo.SysUserVo;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author wenjun.zhang
@@ -48,6 +54,21 @@ public class SysUserServiceImpl implements SysUserService{
         String newPassWord = MD5Factory.genPassWordWithUserSalt(newpwd,sysUser.getSalt(),1);
         sysUser.setPassword(newPassWord);
         return sysUserMapper.updateByPrimaryKeySelective(sysUser);
+    }
+
+    @Override
+    public PageInfo<SysUserVo> findSysUserPage(Map<String, Object> paramMap) {
+        PageHelper.startPage(Integer.valueOf(paramMap.get("page").toString()),Integer.valueOf(paramMap.get("limit").toString()),true);
+        List<SysUserVo> dataList = sysUserMapper.findSysUserPage(paramMap);
+        return new PageInfo<SysUserVo>(dataList);
+    }
+
+    @Override
+    public void updateSysUserLock(String usercode, String lock) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("locked",lock);
+        paramMap.put("usercode",usercode);
+        sysUserMapper.updateSysUserLock(paramMap);
     }
 
 }

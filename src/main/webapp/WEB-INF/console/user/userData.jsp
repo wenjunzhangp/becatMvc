@@ -1,8 +1,4 @@
-<%@ page import="java.util.Date" %>
-<%@ page import="com.baozi.util.DateUtil" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
-<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -24,25 +20,28 @@
 		<form class="layui-form">
 			<div class="layui-inline">
 				<div class="layui-input-inline">
-					<input type="text" class="layui-input searchVal" placeholder="请输入搜索的内容" />
+					<input type="text" class="layui-input searchVal" placeholder="昵称/账号" />
+				</div>
+				<div class="layui-input-inline " style="width: 260px;">
+					<input id="time" name="time" type="text" placeholder="最近登陆时间" readonly class="layui-input">
 				</div>
 				<a class="layui-btn search_btn" data-type="reload">搜索</a>
-			</div>
-			<div class="layui-inline">
-				<a class="layui-btn layui-btn-normal addNews_btn">添加用户</a>
-			</div>
-			<div class="layui-inline">
-				<a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
 			</div>
 		</form>
 	</blockquote>
 	<table id="userList" lay-filter="userList"></table>
 
 	<!--操作-->
-	<script type="text/html" id="userListBar">
-		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-		<a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="usable">已启用</a>
-		<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
+	<script type="text/html" id="modifySysUserLock">
+		{{#  if(d.locked == "0"){ }}
+		<shiro:hasPermission name="console:updatePlatEventStatus">
+			<a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="usable">冻结</a>
+		</shiro:hasPermission>
+		{{#  } else { }}
+		<shiro:hasPermission name="console:updatePlatEventStatus">
+			<a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="usable">解锁</a>
+		</shiro:hasPermission>
+		{{#  }}}
 	</script>
 </form>
 <script type="text/javascript" src="/resource/js/layui/layui.js"></script>

@@ -389,4 +389,27 @@
       and id=#{userId}
     </if>
   </select>
+
+  <update id="updateSysUserLock" parameterType="map" >
+    update sys_user set locked=#{locked} where usercode=#{usercode}
+  </update>
+
+  <select id="findSysUserPage" resultType="com.baozi.vo.SysUserVo" parameterType="map">
+    select id,username,usercode,gender,phone,create_time as createTime,last_login_time as lastLoginTime,sourceimg,locked from sys_user s
+    <where>
+      <if test="filter!=null and filter!='' ">
+        or s.username like CONCAT('%', #{filter}, '%')
+      </if>
+      <if test="filter!=null and filter!='' ">
+        or s.usercode like CONCAT('%', #{filter}, '%')
+      </if>
+      <if test="starttime!=null and starttime!='' ">
+        <![CDATA[ and s.last_login_time >= #{starttime} ]]>
+      </if>
+      <if test="endtime!=null and endtime!='' ">
+        <![CDATA[ and s.last_login_time <= #{endtime} ]]>
+      </if>
+    </where>
+    order by s.last_login_time desc
+  </select>
 </mapper>

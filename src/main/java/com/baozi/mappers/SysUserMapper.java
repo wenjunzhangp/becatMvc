@@ -2,10 +2,12 @@ package com.baozi.mappers;
 
 import com.baozi.po.SysUser;
 import com.baozi.po.SysUserExample;
+import com.baozi.vo.SysUserVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface SysUserMapper {
     int countByExample(SysUserExample example);
@@ -31,4 +33,8 @@ public interface SysUserMapper {
     int updateByPrimaryKey(SysUser record);
 
     public Date findUserLastLoginTime(@Param("userId") int userId);
+
+    public List<SysUserVo> findSysUserPage(Map<String, Object> paramMap);
+
+    public void updateSysUserLock(Map<String, Object> paramMap);
 }

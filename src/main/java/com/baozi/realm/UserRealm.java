@@ -6,10 +6,7 @@ import com.baozi.po.SysPermission;
 import com.baozi.po.SysUser;
 import com.baozi.service.SystemService;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -39,9 +36,13 @@ public class UserRealm extends AuthorizingRealm {
         } catch (Exception e1) {
             e1.printStackTrace();
         }
-        // 如果查询不到返回null
-        if(sysUser==null){
-            return null;
+        //账号不存在
+        if ( null == sysUser ){
+            throw new UnknownAccountException();
+        }
+        //账号被限制登录
+        if ( sysUser.getLocked().equals("1") ){
+            throw new LockedAccountException();
         }
         // 从数据库查询到密码
         String password = sysUser.getPassword();
