@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.baozi.mappers.SysRoleMapper" >
   <resultMap id="BaseResultMap" type="com.baozi.po.SysRole" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="available" property="available" jdbcType="CHAR" />
   </resultMap>
@@ -85,11 +85,11 @@
     select 
     <include refid="Base_Column_List" />
     from sys_role
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from sys_role
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.baozi.po.SysRoleExample" >
     delete from sys_role
@@ -100,7 +100,7 @@
   <insert id="insert" parameterType="com.baozi.po.SysRole" >
     insert into sys_role (id, name, available
       )
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{available,jdbcType=CHAR}
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{available,jdbcType=CHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.baozi.po.SysRole" >
@@ -118,7 +118,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
@@ -170,13 +170,13 @@
         available = #{available,jdbcType=CHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.baozi.po.SysRole" >
     update sys_role
     set name = #{name,jdbcType=VARCHAR},
       available = #{available,jdbcType=CHAR}
-    where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 
   <!-- 查询用户全部的role & permission -->
@@ -187,6 +187,7 @@
       <result column="url" property="url" jdbcType="VARCHAR" />
     </collection>
   </resultMap>
+
   <!-- 根据用户ID，查询所有权限 -->
   <select id="findNowAllPermission" resultMap="findNowAllPermission_resultMap">
     select ur.id,ur.name,up.id pid,up.url,up.name pname
@@ -196,4 +197,15 @@
     left join sys_permission up on up.id = urp.sys_permission_id
     where up.id is not null and up.type in ('permission','button') and up.available=1
   </select>
+
+  <select id="findSysRolePage" resultType="com.baozi.vo.SysRoleVo" parameterType="map">
+    select * from sys_role s
+    <where>
+      <if test="name!=null and name!='' ">
+        and s.name like CONCAT('%', #{name}, '%')
+      </if>
+    </where>
+    order by s.id desc
+  </select>
+
 </mapper>

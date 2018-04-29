@@ -5,6 +5,7 @@ import com.baozi.po.SysPermission;
 import com.baozi.po.SysRole;
 import com.baozi.po.SysUser;
 import com.baozi.vo.SysPermissionVo;
+import com.baozi.vo.SysRoleVo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -85,4 +86,32 @@ public interface SystemService {
      * @return
      */
     public void insert(SysPermission sysPermission);
+
+    /**
+     * 分页查询角色
+     * @param paramMap
+     * @return
+     */
+    public PageInfo<SysRoleVo> findSysRolePage(Map<String, Object> paramMap);
+
+    /**
+     * 修改角色
+     * @param sysRole
+     * @return
+     */
+    public void updateSysRole(SysRole sysRole);
+
+    /**
+     * 新增角色
+     * @param sysRole
+     * @return
+     */
+    public void insert(SysRole sysRole);
+
+    /**
+     * 删除角色
+     * @param id
+     * @return
+     */
+    public boolean deleteSysRole(int id);
 }

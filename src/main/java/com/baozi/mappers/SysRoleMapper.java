@@ -2,9 +2,11 @@ package com.baozi.mappers;
 
 import com.baozi.po.SysRole;
 import com.baozi.po.SysRoleExample;
+import com.baozi.vo.SysRoleVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SysRoleMapper {
     int countByExample(SysRoleExample example);
@@ -30,4 +32,6 @@ public interface SysRoleMapper {
     int updateByPrimaryKey(SysRole record);
 
     List<SysRole> findNowAllPermission(@Param("userId")int userId);
+
+    public List<SysRoleVo> findSysRolePage(Map<String, Object> paramMap);
 }

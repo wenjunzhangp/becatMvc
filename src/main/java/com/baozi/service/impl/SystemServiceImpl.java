@@ -7,6 +7,7 @@ import com.baozi.service.SystemService;
 import com.baozi.util.LogUtils;
 import com.baozi.util.MD5;
 import com.baozi.vo.SysPermissionVo;
+import com.baozi.vo.SysRoleVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang.StringUtils;
@@ -109,6 +110,37 @@ public class SystemServiceImpl implements SystemService {
     public void insert(SysPermission sysPermission) {
         sysPermissionMapper.insertSelective(sysPermission);
         executePermission(String.valueOf(1),String.valueOf(sysPermission.getId()));
+    }
+
+    @Override
+    public PageInfo<SysRoleVo> findSysRolePage(Map<String, Object> paramMap) {
+        PageHelper.startPage(Integer.valueOf(paramMap.get("page").toString()),Integer.valueOf(paramMap.get("limit").toString()),true);
+        List<SysRoleVo> dataList = sysRoleMapper.findSysRolePage(paramMap);
+        return new PageInfo<SysRoleVo>(dataList);
+    }
+
+    @Override
+    public void updateSysRole(SysRole sysRole) {
+        sysRoleMapper.updateByPrimaryKeySelective(sysRole);
+    }
+
+    @Override
+    public void insert(SysRole sysRole) {
+        sysRoleMapper.insertSelective(sysRole);
+    }
+
+    @Override
+    public boolean deleteSysRole(int id) {
+        boolean flag = false;
+        try {
+            if ( id == 1) {
+                flag = false;
+            } else {
+                sysRoleMapper.deleteByPrimaryKey(id);
+                flag = true;
+            }
+        } catch ( Exception e ) { }
+        return flag;
     }
 
     /**
