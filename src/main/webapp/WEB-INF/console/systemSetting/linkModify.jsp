@@ -30,13 +30,13 @@
 	<div class="layui-form-item">
 		<label class="layui-form-label">网站名称</label>
 		<div class="layui-input-block">
-			<input type="text" class="layui-input domainname" name="domainname" lay-verify="required" placeholder="请输入网站名称" />
+			<input type="text" class="layui-input domainName" name="domainname" lay-verify="required" placeholder="请输入网站名称" />
 		</div>
 	</div>
 	<div class="layui-form-item">
 		<label class="layui-form-label">网站地址</label>
 		<div class="layui-input-block">
-			<input type="text" class="layui-input domainurl" name="domainurl" lay-verify="required|url" placeholder="请输入网站地址" />
+			<input type="text" class="layui-input domainUrl" name="domainurl" lay-verify="required|url" placeholder="请输入网站地址" />
 		</div>
 	</div>
 	<div class="layui-form-item">

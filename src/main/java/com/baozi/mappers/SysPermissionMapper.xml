@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.baozi.mappers.SysPermissionMapper" >
   <resultMap id="BaseResultMap" type="com.baozi.po.SysPermission" >
-    <id column="id" property="id" jdbcType="BIGINT" />
+    <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
@@ -91,11 +91,11 @@
     select 
     <include refid="Base_Column_List" />
     from sys_permission
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from sys_permission
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.baozi.po.SysPermissionExample" >
     delete from sys_permission
@@ -108,12 +108,12 @@
       url, percode, parentid, 
       parentids, sortstring, available
       )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{percode,jdbcType=VARCHAR}, #{parentid,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{percode,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER}, 
       #{parentids,jdbcType=VARCHAR}, #{sortstring,jdbcType=VARCHAR}, #{available,jdbcType=CHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.baozi.po.SysPermission" >
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="com.baozi.po.SysPermission" >
     insert into sys_permission
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -146,7 +146,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=BIGINT},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
@@ -161,7 +161,7 @@
         #{percode,jdbcType=VARCHAR},
       </if>
       <if test="parentid != null" >
-        #{parentid,jdbcType=BIGINT},
+        #{parentid,jdbcType=INTEGER},
       </if>
       <if test="parentids != null" >
         #{parentids,jdbcType=VARCHAR},
@@ -184,7 +184,7 @@
     update sys_permission
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=BIGINT},
+        id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
@@ -199,7 +199,7 @@
         percode = #{record.percode,jdbcType=VARCHAR},
       </if>
       <if test="record.parentid != null" >
-        parentid = #{record.parentid,jdbcType=BIGINT},
+        parentid = #{record.parentid,jdbcType=INTEGER},
       </if>
       <if test="record.parentids != null" >
         parentids = #{record.parentids,jdbcType=VARCHAR},
@@ -217,12 +217,12 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update sys_permission
-    set id = #{record.id,jdbcType=BIGINT},
+    set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR},
       percode = #{record.percode,jdbcType=VARCHAR},
-      parentid = #{record.parentid,jdbcType=BIGINT},
+      parentid = #{record.parentid,jdbcType=INTEGER},
       parentids = #{record.parentids,jdbcType=VARCHAR},
       sortstring = #{record.sortstring,jdbcType=VARCHAR},
       available = #{record.available,jdbcType=CHAR}
@@ -246,7 +246,7 @@
         percode = #{percode,jdbcType=VARCHAR},
       </if>
       <if test="parentid != null" >
-        parentid = #{parentid,jdbcType=BIGINT},
+        parentid = #{parentid,jdbcType=INTEGER},
       </if>
       <if test="parentids != null" >
         parentids = #{parentids,jdbcType=VARCHAR},
@@ -258,7 +258,7 @@
         available = #{available,jdbcType=CHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.baozi.po.SysPermission" >
     update sys_permission
@@ -266,20 +266,21 @@
       type = #{type,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
       percode = #{percode,jdbcType=VARCHAR},
-      parentid = #{parentid,jdbcType=BIGINT},
+      parentid = #{parentid,jdbcType=INTEGER},
       parentids = #{parentids,jdbcType=VARCHAR},
       sortstring = #{sortstring,jdbcType=VARCHAR},
       available = #{available,jdbcType=CHAR}
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 
   <select id="findSysPermissionPage" resultType="com.baozi.vo.SysPermissionVo" parameterType="map">
     select * from sys_permission s
     <where>
+      available = 1
       <if test="name!=null and name!='' ">
         or s.name like CONCAT('%', #{name}, '%')
       </if>
-      <if test="type!=null and type!='' ">
+      <if test="type!=null and type!='-1' ">
         or s.type = #{type}
       </if>
     </where>

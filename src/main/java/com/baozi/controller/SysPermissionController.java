@@ -1,10 +1,13 @@
 package com.baozi.controller;
 
 import com.baozi.po.ActiveUser;
+import com.baozi.po.SysPermission;
 import com.baozi.po.SysRole;
 import com.baozi.service.SystemService;
+import com.baozi.util.IConfig;
 import com.baozi.util.LogUtils;
 import com.baozi.util.PermissionDataFactory;
+import com.baozi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,7 +50,7 @@ public class SysPermissionController extends BaseController{
 
     @RequestMapping("/allauthc")
     public String allauthcUI(){
-        return "/permission/allauthc";
+        return "/permission/allAuthc";
     }
 
     @RequestMapping("/sysPermissionData")
@@ -75,4 +78,25 @@ public class SysPermissionController extends BaseController{
             return CodeResult.build(500,e.getMessage());
         }
     }
+
+    @RequestMapping("/addOrUpdateSysPermission")
+    public String addOrUpdateSysPermission(){
+        return "/permission/authcModify";
+    }
+
+    @RequestMapping("/modifySysPermission")
+    @ResponseBody
+    public CodeResult modifySysPermission(SysPermission sysPermission){
+        try {
+            sysPermission.setAvailable(String.valueOf(1));
+            //转换成系统规定好的权限code规则
+            sysPermission.setPercode(sysPermission.getUrl().replaceAll("/",":").substring(1,sysPermission.getUrl().indexOf(".")));
+            systemService.insert(sysPermission);
+            return CodeResult.ok();
+        } catch ( Exception e ) {
+            LogUtils.logError("新增权限出现异常",e);
+            return CodeResult.build(500,e.getMessage());
+        }
+    }
+
 }

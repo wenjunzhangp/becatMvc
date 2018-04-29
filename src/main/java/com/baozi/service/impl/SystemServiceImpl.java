@@ -1,16 +1,15 @@
 package com.baozi.service.impl;
 
 import com.baozi.exception.CustomException;
-import com.baozi.mappers.SysPermissionMapper;
-import com.baozi.mappers.SysPermissionMapperCustom;
-import com.baozi.mappers.SysRoleMapper;
-import com.baozi.mappers.SysUserMapper;
+import com.baozi.mappers.*;
 import com.baozi.po.*;
 import com.baozi.service.SystemService;
+import com.baozi.util.LogUtils;
 import com.baozi.util.MD5;
 import com.baozi.vo.SysPermissionVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +36,9 @@ public class SystemServiceImpl implements SystemService {
 
     @Autowired
     private SysPermissionMapper sysPermissionMapper;
+
+    @Autowired
+    private SysRolePermissionMapper sysRolePermissionMapper;
 
     @Override
     public ActiveUser authenticat(String userCode, String password) throws Exception {
@@ -104,13 +106,40 @@ public class SystemServiceImpl implements SystemService {
     }
 
     @Override
-    public int updateSysPermission(SysPermission sysPermission) {
-        return sysPermissionMapper.updateByPrimaryKeySelective(sysPermission);
+    public void insert(SysPermission sysPermission) {
+        sysPermissionMapper.insertSelective(sysPermission);
+        executePermission(String.valueOf(1),String.valueOf(sysPermission.getId()));
     }
 
-    @Override
-    public int insert(SysPermission sysPermission) {
-        return sysPermissionMapper.insertSelective(sysPermission);
+    /**
+     * 每次新增权限，都默认给超管添加一项，保证超管为最大权限
+     * @param roleId
+     * @param ids
+     */
+    private void executePermission(String roleId, String ids){
+        try {
+            if(StringUtils.isNotBlank(ids)){
+                String[] idArray = null;
+
+                if(StringUtils.contains(ids, ",")){
+                    idArray = ids.split(",");
+                }else{
+                    idArray = new String[]{ids};
+                }
+
+                for (String pid : idArray) {
+
+                    if(StringUtils.isNotBlank(pid)){
+                        SysRolePermission entity = new SysRolePermission(String.valueOf(roleId),pid);
+                        sysRolePermissionMapper.insertSelective(entity);
+                    }
+
+                }
+            }
+            LogUtils.logInfo("管理员赋予新权限成功");
+        } catch (Exception e) {
+            LogUtils.logError("管理员赋予新权限出错",e);
+        }
     }
 
 }

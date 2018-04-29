@@ -7,6 +7,11 @@ public class SysRolePermission {
 
     private String sysPermissionId;
 
+    public SysRolePermission(String s, String pid) {
+        this.sysRoleId=s;
+        this.sysPermissionId=pid;
+    }
+
     public int getId() {
         return id;
     }

@@ -194,6 +194,6 @@
     left join sys_role ur on uur.sys_role_id = ur.id
     left join sys_role_permission urp on urp.sys_role_id = ur.id
     left join sys_permission up on up.id = urp.sys_permission_id
-    where up.id is not null and up.type in ('permission','button')
+    where up.id is not null and up.type in ('permission','button') and up.available=1
   </select>
 </mapper>

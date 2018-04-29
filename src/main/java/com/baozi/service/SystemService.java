@@ -80,16 +80,9 @@ public interface SystemService {
     public int deleteSysPermissionSingleOrBatch(List idList);
 
     /**
-     * 修改权限
-     * @param sysPermission
-     * @return
-     */
-    public int updateSysPermission(SysPermission sysPermission);
-
-    /**
      * 新增权限
      * @param sysPermission
      * @return
      */
-    public int insert(SysPermission sysPermission);
+    public void insert(SysPermission sysPermission);
 }

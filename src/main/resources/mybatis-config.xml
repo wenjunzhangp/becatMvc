@@ -2,11 +2,12 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-  <settings>
-    <!--正式服务器需关闭此配置，不然会打爆你的服务器-->
-    <!--<setting name="logImpl" value="STDOUT_LOGGING" />-->
-    <setting name="defaultExecutorType" value="BATCH" />
-  </settings>
+  <!--<settings>
+    &lt;!&ndash;正式服务器需关闭此配置，不然会打爆你的服务器&ndash;&gt;
+    &lt;!&ndash;<setting name="logImpl" value="STDOUT_LOGGING" />&ndash;&gt;
+    &lt;!&ndash;这句不知道什么鬼，影响insert返回的id 暂且先注释&ndash;&gt;
+    &lt;!&ndash;<setting name="defaultExecutorType" value="BATCH" />&ndash;&gt;
+  </settings>-->
   <typeAliases>
     <package name="com.baozi.mappers"/>
   </typeAliases>
