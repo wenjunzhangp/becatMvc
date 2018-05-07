@@ -208,4 +208,21 @@
     order by s.id desc
   </select>
 
+  <select id="findUserRoleAllocationPage" resultType="com.baozi.vo.UserRoleAllocationVo" parameterType="map">
+    select u.id,u.username,u.email,u.create_time,u.last_login_time,u.locked ,group_concat(ur.name) roleNames,group_concat(ur.id)roleIds from
+	 sys_user u
+	left join sys_user_role uur on uur.sys_user_id = u.id
+	left join sys_role ur on ur.id = uur.sys_role_id
+    <where>
+    <if test="content != null and content !='' " >
+	    and (
+			u.usercode like  LOWER(CONCAT("%",#{content,jdbcType=VARCHAR},"%"))
+            or
+			u.username like  LOWER(CONCAT("%",#{content,jdbcType=VARCHAR},"%"))
+          )
+    </if>
+    </where>
+	group by u.id
+  </select>
+
 </mapper>

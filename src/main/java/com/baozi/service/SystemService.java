@@ -6,6 +6,7 @@ import com.baozi.po.SysRole;
 import com.baozi.po.SysUser;
 import com.baozi.vo.SysPermissionVo;
 import com.baozi.vo.SysRoleVo;
+import com.baozi.vo.UserRoleAllocationVo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -114,4 +115,11 @@ public interface SystemService {
      * @return
      */
     public boolean deleteSysRole(int id);
+
+    /**
+     * 角色分配列表
+     * @param paramMap
+     * @return
+     */
+    public PageInfo<UserRoleAllocationVo> findUserRoleAllocationPage(Map<String, Object> paramMap);
 }

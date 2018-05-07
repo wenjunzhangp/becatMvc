@@ -3,6 +3,7 @@ package com.baozi.mappers;
 import com.baozi.po.SysRole;
 import com.baozi.po.SysRoleExample;
 import com.baozi.vo.SysRoleVo;
+import com.baozi.vo.UserRoleAllocationVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -34,4 +35,6 @@ public interface SysRoleMapper {
     List<SysRole> findNowAllPermission(@Param("userId")int userId);
 
     public List<SysRoleVo> findSysRolePage(Map<String, Object> paramMap);
+
+    public List<UserRoleAllocationVo> findUserRoleAllocationPage(Map<String, Object> paramMap);
 }

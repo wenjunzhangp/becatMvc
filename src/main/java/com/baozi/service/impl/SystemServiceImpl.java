@@ -8,6 +8,7 @@ import com.baozi.util.LogUtils;
 import com.baozi.util.MD5;
 import com.baozi.vo.SysPermissionVo;
 import com.baozi.vo.SysRoleVo;
+import com.baozi.vo.UserRoleAllocationVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang.StringUtils;
@@ -141,6 +142,13 @@ public class SystemServiceImpl implements SystemService {
             }
         } catch ( Exception e ) { }
         return flag;
+    }
+
+    @Override
+    public PageInfo<UserRoleAllocationVo> findUserRoleAllocationPage(Map<String, Object> paramMap) {
+        PageHelper.startPage(Integer.valueOf(paramMap.get("page").toString()),Integer.valueOf(paramMap.get("limit").toString()),true);
+        List<UserRoleAllocationVo> dataList = sysRoleMapper.findUserRoleAllocationPage(paramMap);
+        return new PageInfo<UserRoleAllocationVo>(dataList);
     }
 
     /**
