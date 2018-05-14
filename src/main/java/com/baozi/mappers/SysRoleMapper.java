@@ -4,6 +4,7 @@ import com.baozi.po.SysRole;
 import com.baozi.po.SysRoleExample;
 import com.baozi.vo.SysRoleVo;
 import com.baozi.vo.UserRoleAllocationVo;
+import com.baozi.vo.UserRoleVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -37,4 +38,6 @@ public interface SysRoleMapper {
     public List<SysRoleVo> findSysRolePage(Map<String, Object> paramMap);
 
     public List<UserRoleAllocationVo> findUserRoleAllocationPage(Map<String, Object> paramMap);
+
+    public List<UserRoleVo> selectRoleByUserId(int userId);
 }

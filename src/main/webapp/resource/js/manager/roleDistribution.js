@@ -6,7 +6,7 @@ layui.use(['form','layer','table','laytpl'],function(){
         table = layui.table;
 
     var tableIns = table.render({
-        id : "id",
+        id : "roleIds",
         elem: '#userAndRoleList',
         url : '/console/userAndRolePage.shtml',
         cellMinWidth : 95,
@@ -27,7 +27,7 @@ layui.use(['form','layer','table','laytpl'],function(){
             }},
             {field: 'lastLoginTime', title: '最近登录时间', align:'center',minWidth:150},
             {field: 'roleNames', title: '拥有的角色', align:'center',minWidth:200},
-            {title: '操作', minWidth:175, templet:'#modifyUserRole',fixed:"right",align:"center"}
+            {title: '操作', minWidth:175, templet:'#userListBar',fixed:"right",align:"center"}
         ]]
     });
 
@@ -43,12 +43,45 @@ layui.use(['form','layer','table','laytpl'],function(){
     });
 
     //列表操作
-    table.on('tool(userList)', function(obj){
+    table.on('tool(userAndRoleList)', function(obj){
         var layEvent = obj.event,
             data = obj.data;
 
         if(layEvent === 'distri'){
-            alert("暂未开发");
+            $.ajax({
+                url : "/console/selectRoleByUserId.shtml",
+                type : "post",
+                data: {userId:data.id},
+                success : function(data){
+                    if(data.status==200){
+                        var html = [];
+                        $.each(data.data,function(i,v){
+                            html.push("<input type='checkbox' id='");
+                            html.push(this.id);
+                            html.push("'");
+                            if(this.check){
+                                html.push(" checked='checked'");
+                            }
+                            html.push("title='");
+                            html.push(this.name);
+                            html.push("'/>");
+                            html.push(this.name);
+                        });
+                        html.push("<a class='layui-btn search_btn layui-center' lay-submit lay-filter='settingRole'>设置</a>");
+                        layer.open({
+                            type: 1,
+                            area: ['500px', '300px'],
+                            title: '设置角色',
+                            shade: 0.6,
+                            maxmin: true,
+                            anim: 1,
+                            content: html.join('')
+                        });
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                }
+            })
         }
 
     });

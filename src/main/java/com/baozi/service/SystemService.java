@@ -7,6 +7,7 @@ import com.baozi.po.SysUser;
 import com.baozi.vo.SysPermissionVo;
 import com.baozi.vo.SysRoleVo;
 import com.baozi.vo.UserRoleAllocationVo;
+import com.baozi.vo.UserRoleVo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -122,4 +123,11 @@ public interface SystemService {
      * @return
      */
     public PageInfo<UserRoleAllocationVo> findUserRoleAllocationPage(Map<String, Object> paramMap);
+
+    /**
+     * 根据用户id查找角色 勾选
+     * @param userId
+     * @return
+     */
+    public List<UserRoleVo> selectRoleByUserId(int userId);
 }

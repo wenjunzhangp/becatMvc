@@ -1,3 +1,5 @@
+<%@ page import="java.util.Date" %>
+<%@ page import="com.baozi.util.DateUtil" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
@@ -31,7 +33,7 @@
 	<table id="userAndRoleList" lay-filter="userAndRoleList"></table>
 
 	<!--分配角色操作-->
-	<script type="text/html" id="modifyUserRole">
+	<script type="text/html" id="userListBar">
 		<shiro:hasPermission name="console:userRoleDistribution">
 			<a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="distri">分配角色</a>
 		</shiro:hasPermission>

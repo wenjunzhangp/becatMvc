@@ -2,12 +2,14 @@ package com.baozi.controller;
 
 import com.baozi.service.SystemService;
 import com.baozi.util.LogUtils;
+import com.baozi.vo.UserRoleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,4 +39,12 @@ public class RoleDistributionController extends BaseController{
         }
         return resultMap;
     }
+
+    @RequestMapping(value="selectRoleByUserId")
+    @ResponseBody
+    public CodeResult selectRoleByUserId(int userId){
+        return CodeResult.ok(systemService.selectRoleByUserId(userId));
+    }
+
+
 }
