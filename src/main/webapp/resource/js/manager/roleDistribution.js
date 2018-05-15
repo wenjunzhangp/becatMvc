@@ -1,6 +1,6 @@
 layui.use(['form','layer','table','laytpl'],function(){
     var form = layui.form,
-        layer = parent.layer === undefined ? layui.layer : top.layer,
+        layer = layui.layer ,
         $ = layui.jquery,
         laytpl = layui.laytpl,
         table = layui.table;
@@ -42,7 +42,6 @@ layui.use(['form','layer','table','laytpl'],function(){
         })
     });
 
-    //列表操作
     table.on('tool(userAndRoleList)', function(obj){
         var layEvent = obj.event,
             data = obj.data;
@@ -56,34 +55,51 @@ layui.use(['form','layer','table','laytpl'],function(){
                     if(data.status==200){
                         var html = [];
                         $.each(data.data,function(i,v){
-                            html.push("<input type='checkbox' id='");
+                            html.push("<input type='checkbox' value='");
                             html.push(this.id);
                             html.push("'");
                             if(this.check){
                                 html.push(" checked='checked'");
                             }
                             html.push("title='");
-                            html.push(this.name);
-                            html.push("'/>");
-                            html.push(this.name);
+                            html.push(this.name+"'");
+                            html.push("name='roles'");
+                            html.push("/>");
                         });
-                        html.push("<a class='layui-btn search_btn layui-center' lay-submit lay-filter='settingRole'>设置</a>");
-                        layer.open({
-                            type: 1,
-                            area: ['500px', '300px'],
+                        $(".checkboxdiv").html(html.join(''));
+                        var index = layer.open({
                             title: '设置角色',
-                            shade: 0.6,
-                            maxmin: true,
-                            anim: 1,
-                            content: html.join('')
+                            type : 1,
+                            area : ["466px","500px"],
+                            closeBtn: 1,
+                            btn: ['设置', '关闭'],
+                            content:$(".platEventForm"),
+                            success : function(layero, index){
+                                form.render();
+                            },
+                            yes: function(index,layero){
+                                $("input[name='roles']:checked").each(function() {
+                                   console.log($(this).val());
+                                });
+                                layer.close(index);
+                            },
+                            cancel: function(index){
+                                layer.close(index);
+                            }
                         });
+                        layui.layer.full(index);
+                        //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
+                        $(window).on("resize",function(){
+                            layui.layer.full(index);
+                        })
                     }else{
                         layer.msg(data.msg);
                     }
                 }
             })
         }
-
     });
+
+
 
 })

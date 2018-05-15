@@ -41,5 +41,12 @@
 </form>
 <script type="text/javascript" src="/resource/js/layui/layui.js"></script>
 <script type="text/javascript" src="/resource/js/manager/roleDistribution.js"></script>
+<form class="layui-form layui-row  platEventForm">
+	<div class="layui-col-xs12">
+		<div class="layui-form-item layui-row layui-col-xs12 checkboxdiv">
+
+		</div>
+	</div>
+</form>
 </body>
 </html>
