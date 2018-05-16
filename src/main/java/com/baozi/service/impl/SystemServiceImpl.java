@@ -3,6 +3,7 @@ package com.baozi.service.impl;
 import com.baozi.exception.CustomException;
 import com.baozi.mappers.*;
 import com.baozi.po.*;
+import com.baozi.realm.UserRealm;
 import com.baozi.service.SystemService;
 import com.baozi.statics.Constant;
 import com.baozi.util.LogUtils;
@@ -11,6 +12,7 @@ import com.baozi.vo.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -234,6 +236,7 @@ public class SystemServiceImpl implements SystemService {
 
                 }
             }
+            UserRealm.reloadUserAuthc(SecurityUtils.getSubject().getPrincipals());
             LogUtils.logInfo("角色【"+roleId+"】更新权限成功");
         } catch (Exception e) {
             LogUtils.logError("赋予新权限出错",e);
