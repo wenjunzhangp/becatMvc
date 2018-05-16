@@ -178,4 +178,28 @@
       sys_permission_id = #{sysPermissionId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <select id="findRolePermissionAllocationPage" resultType="com.baozi.vo.RolePermissionAllocationVo" parameterType="map">
+    select ur.id,ur.name,group_concat(up.name) permissionNames,group_concat(up.id)permissionIds from
+    sys_role ur
+    left join sys_role_permission urp on urp.sys_role_id = ur.id
+    left join sys_permission up on up.id = urp.sys_permission_id
+    <where>
+      <if test="content != null and content !='' " >
+        and ur.name like LOWER(CONCAT("%",#{content,jdbcType=VARCHAR},"%"))
+      </if>
+    </where>
+    group by ur.id
+  </select>
+
+  <select id="selectPermissionById" resultType="com.baozi.vo.RolePermissionVo" parameterType="java.lang.Integer">
+    select up.id,ur.id roleId,up.name,up.url,ifnull(ur.id,0)marker from sys_permission up
+    left join sys_role_permission urp on urp.sys_permission_id = up.id
+    left join (select id from sys_role where id = #{permissionId}) ur on ur.id = urp.sys_role_id
+    group by up.id
+  </select>
+
+  <delete id="deleteByRoleId" parameterType="java.lang.Integer">
+    delete from sys_role_permission where sys_role_id =  #{roleId}
+  </delete>
 </mapper>

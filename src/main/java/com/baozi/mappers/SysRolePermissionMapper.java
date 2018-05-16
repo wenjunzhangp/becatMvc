@@ -2,9 +2,12 @@ package com.baozi.mappers;
 
 import com.baozi.po.SysRolePermission;
 import com.baozi.po.SysRolePermissionExample;
+import com.baozi.vo.RolePermissionAllocationVo;
+import com.baozi.vo.RolePermissionVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SysRolePermissionMapper {
     int countByExample(SysRolePermissionExample example);
@@ -28,4 +31,10 @@ public interface SysRolePermissionMapper {
     int updateByPrimaryKeySelective(SysRolePermission record);
 
     int updateByPrimaryKey(SysRolePermission record);
+
+    public List<RolePermissionAllocationVo> findRolePermissionAllocationPage(Map<String, Object> paramMap);
+
+    public List<RolePermissionVo> selectPermissionById(int permissionId);
+
+    public void deleteByRoleId(int roleId);
 }

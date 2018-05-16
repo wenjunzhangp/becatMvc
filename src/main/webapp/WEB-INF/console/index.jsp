@@ -32,35 +32,41 @@
 					<li class="layui-nav-item" data-menu="contentManagement">
 						<a href="javascript:;"><i class="seraph icon-caidan"></i><cite>BeCat</cite></a>
 						<dl class="layui-nav-child">
-							<shiro:hasPermission name="console:nrgl">
-							<dd class="layui-this" data-menu="contentManagement"><a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i><cite>内容管理</cite></a></dd>
-							</shiro:hasPermission>
-							<shiro:hasPermission name="console:yhzx">
-							<dd data-menu="memberCenter"><a href="javascript:;"><i class="seraph icon-icon10" data-icon="icon-icon10"></i><cite>用户中心</cite></a></dd>
-							</shiro:hasPermission>
-							<shiro:hasPermission name="console:xtsz">
-							<dd data-menu="systemeSttings"><a href="javascript:;"><i class="layui-icon" data-icon="&#xe620;">&#xe620;</i><cite>系统设置</cite></a></dd>
-							</shiro:hasPermission>
+							<dd class="layui-this" data-menu="contentManagement">
+								<shiro:hasPermission name="console:nrgl">
+									<a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i><cite>内容管理</cite></a>
+								</shiro:hasPermission>
+							</dd>
+							<dd data-menu="memberCenter">
+								<shiro:hasPermission name="console:yhzx">
+									<a href="javascript:;"><i class="seraph icon-icon10" data-icon="icon-icon10"></i><cite>用户中心</cite></a>
+								</shiro:hasPermission>
+							</dd>
+							<dd data-menu="systemeSttings">
+								<shiro:hasPermission name="console:xtsz">
+									<a href="javascript:;"><i class="layui-icon" data-icon="&#xe620;">&#xe620;</i><cite>系统设置</cite></a>
+								</shiro:hasPermission>
+							</dd>
 						</dl>
 					</li>
 				</ul>
 				<shiro:hasAnyRoles name='超级管理员,系统维护员'>
 				<ul class="layui-nav topLevelMenus" pc>
-					<shiro:hasPermission name="console:nrgl">
 					<li class="layui-nav-item layui-this" data-menu="contentManagement">
-						<a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i><cite>内容管理</cite></a>
+						<shiro:hasPermission name="console:nrgl">
+							<a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i><cite>内容管理</cite></a>
+						</shiro:hasPermission>
 					</li>
-					</shiro:hasPermission>
-					<shiro:hasPermission name="console:yhzx">
 					<li class="layui-nav-item" data-menu="memberCenter" pc>
+						<shiro:hasPermission name="console:yhzx">
 						<a href="javascript:;"><i class="seraph icon-icon10" data-icon="icon-icon10"></i><cite>用户中心</cite></a>
+						</shiro:hasPermission>
 					</li>
-					</shiro:hasPermission>
-					<shiro:hasPermission name="console:xtsz">
 					<li class="layui-nav-item" data-menu="systemeSttings" pc>
-						<a href="javascript:;"><i class="layui-icon" data-icon="&#xe620;">&#xe620;</i><cite>系统设置</cite></a>
+						<shiro:hasPermission name="console:xtsz">
+							<a href="javascript:;"><i class="layui-icon" data-icon="&#xe620;">&#xe620;</i><cite>系统设置</cite></a>
+						</shiro:hasPermission>
 					</li>
-					</shiro:hasPermission>
 				</ul>
 				</shiro:hasAnyRoles>
 				<!-- 顶部右侧菜单 -->

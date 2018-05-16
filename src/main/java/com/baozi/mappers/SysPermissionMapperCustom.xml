@@ -4,12 +4,12 @@
   
   
   <!-- 根据用户id查询url -->
-  <select id="findPermissionListByUserId" parameterType="int" resultType="com.baozi.po.SysPermission">
+  <select id="findPermissionListByUserId" parameterType="java.lang.Integer" resultType="com.baozi.po.SysPermission">
 	  SELECT 
 	  * 
 	FROM
 	  sys_permission 
-	WHERE TYPE in ('url','menu','button') and available=1
+	WHERE TYPE in ('permission','menu','button') and available=1
 	  AND id IN 
 	  (SELECT 
 	    sys_permission_id 
@@ -24,7 +24,7 @@
   </select>
   
    <!-- 根据用户id查询菜单 -->
-  <select id="findMenuListByUserId"  parameterType="int" resultType="com.baozi.po.SysPermission">
+  <select id="findMenuListByUserId"  parameterType="java.lang.Integer" resultType="com.baozi.po.SysPermission">
   		SELECT 
 	  * 
 	FROM
@@ -44,8 +44,8 @@
   </select>
 
 	<!-- 根据用户id查询角色集合 -->
-	<select id="findRolesListByUserId"  parameterType="int" resultType="java.lang.String">
-		select r.name from sys_role r,sys_user_role ur where ur.id = r.id and ur.sys_user_id = #{id,jdbcType=INTEGER}
+	<select id="findRolesListByUserId"  parameterType="java.lang.Integer" resultType="java.lang.String">
+		select r.name from sys_role r,sys_user_role ur where ur.sys_role_id = r.id and ur.sys_user_id = #{id,jdbcType=INTEGER}
 	</select>
   
 </mapper>

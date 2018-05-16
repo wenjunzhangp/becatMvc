@@ -7,10 +7,7 @@ import com.baozi.service.SystemService;
 import com.baozi.statics.Constant;
 import com.baozi.util.LogUtils;
 import com.baozi.util.MD5;
-import com.baozi.vo.SysPermissionVo;
-import com.baozi.vo.SysRoleVo;
-import com.baozi.vo.UserRoleAllocationVo;
-import com.baozi.vo.UserRoleVo;
+import com.baozi.vo.*;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang.StringUtils;
@@ -190,6 +187,28 @@ public class SystemServiceImpl implements SystemService {
         }
     }
 
+    @Override
+    public PageInfo<RolePermissionAllocationVo> findRolePermissionAllocationPage(Map<String, Object> paramMap) {
+        PageHelper.startPage(Integer.valueOf(paramMap.get("page").toString()),Integer.valueOf(paramMap.get("limit").toString()),true);
+        List<RolePermissionAllocationVo> dataList = sysRolePermissionMapper.findRolePermissionAllocationPage(paramMap);
+        return new PageInfo<RolePermissionAllocationVo>(dataList);
+    }
+
+    @Override
+    public List<RolePermissionVo> selectPermissionById(int permissionId) {
+        return sysRolePermissionMapper.selectPermissionById(permissionId);
+    }
+
+    @Override
+    public void addPermissionToRole(int roleId, String ids) {
+        try {
+            sysRolePermissionMapper.deleteByRoleId(roleId);
+            executePermission(String.valueOf(roleId),ids);
+        } catch (Exception e) {
+            LogUtils.logError("为角色【"+roleId+"】赋予新角色失败",e);
+        }
+    }
+
     /**
      * 每次新增权限，都默认给超管添加一项，保证超管为最大权限
      * @param roleId
@@ -215,9 +234,9 @@ public class SystemServiceImpl implements SystemService {
 
                 }
             }
-            LogUtils.logInfo("管理员赋予新权限成功");
+            LogUtils.logInfo("角色【"+roleId+"】更新权限成功");
         } catch (Exception e) {
-            LogUtils.logError("管理员赋予新权限出错",e);
+            LogUtils.logError("赋予新权限出错",e);
         }
     }
 

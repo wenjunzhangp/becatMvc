@@ -8,7 +8,7 @@ layui.use(['form','layer','table','laytpl'],function(){
     var tableIns = table.render({
         id : "id",
         elem: '#userAndRoleList',
-        url : '/console/userAndRolePage.shtml',
+        url : '/console/rolePermissionAllocationPage.shtml',
         cellMinWidth : 95,
         page : true,
         height : "full-125",
@@ -16,17 +16,8 @@ layui.use(['form','layer','table','laytpl'],function(){
         limit : 10,
         id : "userListTable",
         cols : [[
-            {field: 'username', title: '昵称', minWidth:100, align:"center"},
-            {field: 'usercode', title: '账号', align:'center',minWidth:50},
-            {field: 'locked', title: '状态', minWidth:100, align:'center',templet:function(d){
-                if(d.locked == "0"){
-                    return "有效";
-                }else if(d.locked == "1"){
-                    return "冻结";
-                }
-            }},
-            {field: 'lastLoginTime', title: '最近登录时间', align:'center',minWidth:150},
-            {field: 'roleNames', title: '拥有的角色', align:'center',minWidth:200},
+            {field: 'name', title: '角色名称', minWidth:50, align:"center"},
+            {field: 'permissionNames', title: '拥有的权限', align:'center',minWidth:400},
             {title: '操作', minWidth:175, templet:'#userListBar',fixed:"right",align:"center"}
         ]]
     });
@@ -45,12 +36,12 @@ layui.use(['form','layer','table','laytpl'],function(){
     table.on('tool(userAndRoleList)', function(obj){
         var layEvent = obj.event,
             data = obj.data;
-        var userId = data.id;
+        var permissionId = data.id;
         if(layEvent === 'distri'){
             $.ajax({
-                url : "/console/selectRoleByUserId.shtml",
+                url : "/console/selectPermissionById.shtml",
                 type : "post",
-                data: {userId:userId},
+                data: {permissionId:permissionId},
                 success : function(data){
                     if(data.status==200){
                         var html = [];
@@ -63,13 +54,13 @@ layui.use(['form','layer','table','laytpl'],function(){
                             }
                             html.push("title='");
                             html.push(this.name+"'");
-                            html.push("name='roles'");
+                            html.push("name='permission'");
                             html.push("/>");
                         });
                         $(".checkboxdiv").removeClass("hideCustom");
                         $(".checkboxdiv").html(html.join(''));
                         var index = layer.open({
-                            title: '设置角色',
+                            title: '设置权限',
                             type : 1,
                             area : ["466px","500px"],
                             closeBtn: 1,
@@ -81,13 +72,13 @@ layui.use(['form','layer','table','laytpl'],function(){
                             yes: function(index,layero){
                                 var load = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
                                 var ids = [];
-                                $("input[name='roles']:checked").each(function() {
+                                $("input[name='permission']:checked").each(function() {
                                     ids.push($(this).val());
                                 });
                                 $.ajax({
-                                    url : "/console/addRoleToUser.shtml",
+                                    url : "/console/addPermissionToRole.shtml",
                                     type : "post",
-                                    data: {userId:userId,ids:ids.join(",")},
+                                    data: {roleId:permissionId,ids:ids.join(",")},
                                     success : function(data){
                                         if(data.status==200){
                                             top.layer.close(load);
@@ -110,7 +101,7 @@ layui.use(['form','layer','table','laytpl'],function(){
                         //改变窗口大小时，重置弹窗的宽高，防止超出可视区域（如F12调出debug的操作）
                         $(window).on("resize",function(){
                             layui.layer.full(index);
-                        })
+                        });
                     }else{
                         layer.msg(data.msg);
                     }

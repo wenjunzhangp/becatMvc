@@ -4,10 +4,7 @@ import com.baozi.po.ActiveUser;
 import com.baozi.po.SysPermission;
 import com.baozi.po.SysRole;
 import com.baozi.po.SysUser;
-import com.baozi.vo.SysPermissionVo;
-import com.baozi.vo.SysRoleVo;
-import com.baozi.vo.UserRoleAllocationVo;
-import com.baozi.vo.UserRoleVo;
+import com.baozi.vo.*;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -137,4 +134,25 @@ public interface SystemService {
      * @param ids
      */
     public void addRoleToUser(int userId, String ids);
+
+    /**
+     * 权限分配列表
+     * @param paramMap
+     * @return
+     */
+    public PageInfo<RolePermissionAllocationVo> findRolePermissionAllocationPage(Map<String, Object> paramMap);
+
+    /**
+     * 根据角色id查找权限 勾选
+     * @param permissionId
+     * @return
+     */
+    public List<RolePermissionVo> selectPermissionById(int permissionId);
+
+    /**
+     * 根据角色id  为角色赋予新权限
+     * @param roleId
+     * @param ids
+     */
+    public void addPermissionToRole(int roleId, String ids);
 }
