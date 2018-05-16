@@ -43,8 +43,22 @@ public class RoleDistributionController extends BaseController{
     @RequestMapping(value="selectRoleByUserId")
     @ResponseBody
     public CodeResult selectRoleByUserId(int userId){
-        return CodeResult.ok(systemService.selectRoleByUserId(userId));
+        try {
+            return CodeResult.ok(systemService.selectRoleByUserId(userId));
+        } catch ( Exception e ){
+            return CodeResult.build(500,"加载角色出错，请稍后再试");
+        }
     }
 
+    @RequestMapping(value="addRoleToUser")
+    @ResponseBody
+    public CodeResult addRoleToUser(int userId,String ids){
+        try {
+            systemService.addRoleToUser(userId,ids);
+            return CodeResult.build(200,"赋予角色成功");
+        } catch ( Exception e ){
+            return CodeResult.build(500,"为用户【"+userId+"】赋予新角色失败，请稍后再试");
+        }
+    }
 
 }

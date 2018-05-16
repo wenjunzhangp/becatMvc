@@ -37,4 +37,7 @@ public class Constant {
 
 	/**系统版本号**/
 	public static double VERSION = 1.0;
+
+	/*超级管理员的userid*/
+	public static final int SUPER_MANAGER_USERID = 1;
 }

@@ -40,4 +40,6 @@ public interface SysRoleMapper {
     public List<UserRoleAllocationVo> findUserRoleAllocationPage(Map<String, Object> paramMap);
 
     public List<UserRoleVo> selectRoleByUserId(int userId);
+
+    public int deleteByUserId(int userId);
 }

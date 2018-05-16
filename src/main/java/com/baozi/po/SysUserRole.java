@@ -30,4 +30,9 @@ public class SysUserRole {
     public void setSysRoleId(int sysRoleId) {
         this.sysRoleId = sysRoleId;
     }
+
+    public SysUserRole(int sysUserId, int sysRoleId) {
+        this.sysUserId = sysUserId;
+        this.sysRoleId = sysRoleId;
+    }
 }

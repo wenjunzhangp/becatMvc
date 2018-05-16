@@ -130,4 +130,11 @@ public interface SystemService {
      * @return
      */
     public List<UserRoleVo> selectRoleByUserId(int userId);
+
+    /**
+     * 根据用户id  为用户赋予新角色
+     * @param userId
+     * @param ids
+     */
+    public void addRoleToUser(int userId, String ids);
 }

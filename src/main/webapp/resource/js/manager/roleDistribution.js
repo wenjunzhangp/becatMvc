@@ -6,7 +6,7 @@ layui.use(['form','layer','table','laytpl'],function(){
         table = layui.table;
 
     var tableIns = table.render({
-        id : "roleIds",
+        id : "id",
         elem: '#userAndRoleList',
         url : '/console/userAndRolePage.shtml',
         cellMinWidth : 95,
@@ -45,12 +45,12 @@ layui.use(['form','layer','table','laytpl'],function(){
     table.on('tool(userAndRoleList)', function(obj){
         var layEvent = obj.event,
             data = obj.data;
-
+        var userId = data.id;
         if(layEvent === 'distri'){
             $.ajax({
                 url : "/console/selectRoleByUserId.shtml",
                 type : "post",
-                data: {userId:data.id},
+                data: {userId:userId},
                 success : function(data){
                     if(data.status==200){
                         var html = [];
@@ -66,6 +66,7 @@ layui.use(['form','layer','table','laytpl'],function(){
                             html.push("name='roles'");
                             html.push("/>");
                         });
+                        $(".checkboxdiv").removeClass("hideCustom");
                         $(".checkboxdiv").html(html.join(''));
                         var index = layer.open({
                             title: '设置角色',
@@ -78,13 +79,32 @@ layui.use(['form','layer','table','laytpl'],function(){
                                 form.render();
                             },
                             yes: function(index,layero){
+                                var load = top.layer.msg('数据提交中，请稍候',{icon: 16,time:false,shade:0.8});
+                                var ids = [];
                                 $("input[name='roles']:checked").each(function() {
-                                   console.log($(this).val());
+                                    ids.push($(this).val());
                                 });
-                                layer.close(index);
+                                $.ajax({
+                                    url : "/console/addRoleToUser.shtml",
+                                    type : "post",
+                                    data: {userId:userId,ids:ids.join(",")},
+                                    success : function(data){
+                                        if(data.status==200){
+                                            top.layer.close(load);
+                                            top.layer.msg(data.msg);
+                                            layer.close(index);
+                                            tableIns.reload();
+                                        }else{
+                                            layer.msg(data.msg);
+                                        }
+                                    }
+                                })
+                                $(".checkboxdiv").addClass("hideCustom");
                             },
                             cancel: function(index){
                                 layer.close(index);
+                                $(".checkboxdiv").addClass("hideCustom");
+                                console.log("取消");
                             }
                         });
                         layui.layer.full(index);

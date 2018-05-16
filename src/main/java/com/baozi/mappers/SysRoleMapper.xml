@@ -232,4 +232,8 @@
     group by ur.id
   </select>
 
+  <delete id="deleteByUserId" parameterType="java.lang.Integer">
+    delete from sys_user_role where sys_user_id=#{userId}
+  </delete>
+
 </mapper>

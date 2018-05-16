@@ -4,6 +4,7 @@ import com.baozi.exception.CustomException;
 import com.baozi.mappers.*;
 import com.baozi.po.*;
 import com.baozi.service.SystemService;
+import com.baozi.statics.Constant;
 import com.baozi.util.LogUtils;
 import com.baozi.util.MD5;
 import com.baozi.vo.SysPermissionVo;
@@ -42,6 +43,9 @@ public class SystemServiceImpl implements SystemService {
 
     @Autowired
     private SysRolePermissionMapper sysRolePermissionMapper;
+
+    @Autowired
+    private SysUserRoleMapper sysUserRoleMapper;
 
     @Override
     public ActiveUser authenticat(String userCode, String password) throws Exception {
@@ -111,7 +115,7 @@ public class SystemServiceImpl implements SystemService {
     @Override
     public void insert(SysPermission sysPermission) {
         sysPermissionMapper.insertSelective(sysPermission);
-        executePermission(String.valueOf(1),String.valueOf(sysPermission.getId()));
+        executePermission(String.valueOf(Constant.SUPER_MANAGER_USERID),String.valueOf(sysPermission.getId()));
     }
 
     @Override
@@ -135,7 +139,7 @@ public class SystemServiceImpl implements SystemService {
     public boolean deleteSysRole(int id) {
         boolean flag = false;
         try {
-            if ( id == 1) {
+            if ( id == Constant.SUPER_MANAGER_USERID) {
                 flag = false;
             } else {
                 sysRoleMapper.deleteByPrimaryKey(id);
@@ -155,6 +159,35 @@ public class SystemServiceImpl implements SystemService {
     @Override
     public List<UserRoleVo> selectRoleByUserId(int userId) {
         return sysRoleMapper.selectRoleByUserId(userId);
+    }
+
+    @Override
+    public void addRoleToUser(int userId, String ids) {
+        try {
+            sysRoleMapper.deleteByUserId(userId);
+
+            if(StringUtils.isNotBlank(ids)){
+                String[] idArray = null;
+
+                if(StringUtils.contains(ids, ",")){
+                    idArray = ids.split(",");
+                }else{
+                    idArray = new String[]{ids};
+                }
+
+                for (String rid : idArray) {
+
+                    if(StringUtils.isNotBlank(rid)){
+                        SysUserRole entity = new SysUserRole(userId,Integer.parseInt(rid));
+                        sysUserRoleMapper.insertSelective(entity);
+                    }
+
+                }
+            }
+            LogUtils.logInfo("用户【"+userId+"】赋予新角色成功");
+        } catch (Exception e) {
+            LogUtils.logError("为用户【"+userId+"】赋予新角色失败",e);
+        }
     }
 
     /**
