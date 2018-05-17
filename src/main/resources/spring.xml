@@ -69,6 +69,8 @@
 	<bean id="myRealm" class="com.baozi.realm.UserRealm">
 		<!-- 将凭证匹配器设置到realm中，realm按照凭证匹配器的要求进行散列 -->
 		<property name="credentialsMatcher" ref="credentialsMatcher"/>
+		<!--关闭缓存域-->
+		<property name="authorizationCachingEnabled" value="false"/>
 	</bean>
 
 	<!-- 缓存管理器 -->

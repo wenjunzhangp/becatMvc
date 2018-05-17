@@ -119,18 +119,4 @@ public class UserRealm extends AuthorizingRealm {
         super.clearCachedAuthorizationInfo(principals);
     }
 
-    public static void reloadUserAuthc(PrincipalCollection principalCollection){
-        RealmSecurityManager rsm = (RealmSecurityManager) SecurityUtils.getSecurityManager();
-        //AccountAuthorizationRealm为在项目中定义的realm类
-        UserRealm shiroRealm = (UserRealm)rsm.getRealms().iterator().next();
-        Subject subject = SecurityUtils.getSubject();
-        String realmName = subject.getPrincipals().getRealmNames().iterator().next();
-        SimplePrincipalCollection principals = new SimplePrincipalCollection(principalCollection,realmName);
-        subject.runAs(principals);
-        //用realm删除principle
-        shiroRealm.getAuthorizationCache().remove(subject.getPrincipals());
-        //切换身份也就是刷新了
-        subject.releaseRunAs();
-    }
-
 }

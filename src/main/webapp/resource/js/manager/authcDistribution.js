@@ -85,6 +85,7 @@ layui.use(['form','layer','table','laytpl'],function(){
                                             top.layer.msg(data.msg);
                                             layer.close(index);
                                             tableIns.reload();
+                                            parent.location.reload();
                                         }else{
                                             layer.msg(data.msg);
                                         }

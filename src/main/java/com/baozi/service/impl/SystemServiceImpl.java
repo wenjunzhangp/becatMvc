@@ -236,7 +236,9 @@ public class SystemServiceImpl implements SystemService {
 
                 }
             }
-            UserRealm.reloadUserAuthc(SecurityUtils.getSubject().getPrincipals());
+            UserRealm userRealm = new UserRealm();
+            userRealm.clearCachedAuthorizationInfo();
+            userRealm.clearCachedAuthorizationInfo(SecurityUtils.getSubject().getPrincipals());
             LogUtils.logInfo("角色【"+roleId+"】更新权限成功");
         } catch (Exception e) {
             LogUtils.logError("赋予新权限出错",e);
