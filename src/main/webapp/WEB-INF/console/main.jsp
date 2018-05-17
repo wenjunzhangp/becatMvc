@@ -54,7 +54,7 @@
 			</a>
 		</div>
 		<div class="panel layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg2">
-			<a href="javascript:;" data-url="page/user/userList.html">
+			<a href="javascript:;" data-url="/console/alluser.shtml">
 				<div class="panel_icon layui-bg-orange">
 					<i class="layui-anim seraph icon-icon10" data-icon="icon-icon10"></i>
 				</div>
@@ -66,7 +66,7 @@
 			</a>
 		</div>
 		<div class="panel layui-col-xs12 layui-col-sm6 layui-col-md4 layui-col-lg2">
-			<a href="javascript:;" data-url="page/systemSetting/icons.html">
+			<a href="javascript:;" data-url="">
 				<div class="panel_icon layui-bg-cyan">
 					<i class="layui-anim layui-icon" data-icon="&#xe857;">&#xe857;</i>
 				</div>

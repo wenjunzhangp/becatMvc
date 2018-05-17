@@ -91,6 +91,7 @@ public class SysPermissionController extends BaseController{
             sysPermission.setAvailable(String.valueOf(1));
             //转换成系统规定好的权限code规则
             sysPermission.setPercode(sysPermission.getUrl().replaceAll("/",":").substring(1,sysPermission.getUrl().indexOf(".")));
+            sysPermission.setUrl(sysPermission.getUrl().substring(0,sysPermission.getUrl().indexOf(".")));
             systemService.insert(sysPermission);
             return CodeResult.ok();
         } catch ( Exception e ) {

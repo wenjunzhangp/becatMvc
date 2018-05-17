@@ -143,6 +143,7 @@ public class CommonController extends BaseController {
 			map.put("code",0);
 			map.put("msg","上传成功！");
 			Map<String,Object> src = new HashMap<String,Object>();
+			src.put("filename",resultFilePaths.substring(resultFilePaths.indexOf("/")+1,resultFilePaths.length()));
 			src.put("src",IConfig.get("becat.imgserver.prefix")+resultFilePaths);
 			map.put("data",src);
 		} catch (Exception e) {

@@ -187,13 +187,13 @@ layui.use(['form','layer','laydate','table','upload'],function(){
             });
         },
         done: function(res, index, upload){
-            if (res.status==200) {
-                layer.msg("缩略图上传成功!");
+            if (res.code==0) {
+                layer.msg(res.msg);
                 $('#userFace').attr('src',res.data);
                 $("#logo").val(res.data);
                 $('.linkLogo').css("background","#fff");
             } else {
-                layer.msg("缩略图上传失败请稍后再试!");
+                layer.msg(res.msg);
             }
         },
         error: function(){

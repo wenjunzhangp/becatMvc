@@ -117,7 +117,7 @@
 							<li class="layui-nav-item" lay-id="2"><a href="javascript:;"  data-url="/console/article.shtml"><i class="seraph icon-text" data-icon="icon-text"></i><cite>文章列表</cite></a></li>
 						</shiro:hasPermission>
 						<shiro:hasPermission name="console:image">
-							<li class="layui-nav-item" lay-id="3"><a href="javascript:;"  data-url="/console/image.shtml"><i class="seraph icon-text" data-icon="icon-text"></i><cite>图片列表</cite></a></li>
+							<li class="layui-nav-item" lay-id="3"><a href="javascript:;"  data-url="/console/image.shtml"><i class="seraph icon-text" data-icon="icon-text"></i><cite>服务器图片列表</cite></a></li>
 						</shiro:hasPermission>
 						<shiro:hasPermission name="console:notice">
 							<li class="layui-nav-item" lay-id="4"><a href="javascript:;"  data-url="/console/notice.shtml"><i class="seraph icon-text" data-icon="icon-text"></i><cite>公告列表</cite></a></li>
