@@ -1,0 +1,317 @@
+/*
+**blog
+ */
+
+.blog{
+  margin-top: 50px;
+  .article{
+    margin: 0 0 100px;
+    .article-img{
+      overflow: hidden;
+      border-radius: 3px;
+      margin: 0 0 26px;
+      img{
+        width: 100%;
+      }
+
+    }
+    .article-header{
+      verflow: hidden;
+      border-radius: 3px;
+      margin: 0 0 13px;
+      h2{
+        font-size: 20px;
+        line-height: 8px;
+        font-weight: normal;
+        a{
+          color:#262626;
+        }
+      }
+      .article--meta{
+        padding:  0;
+      }
+      .article--meta_item{
+        display: inline-block;
+        position: relative;
+        font-size: 14px;
+        color: #969696;
+        margin: 10px 10px 0 0;
+      }
+    }
+    .article--content{
+      font-size: 16px;
+      line-height: 23px;
+      color: #969696;
+      p{
+        font-size: 14px;
+      }
+    }
+    .article--footer{
+      .link{
+        font-size: 16px;
+        color: #59bcdb;
+        &:after{
+          content: "\f178";
+          color: #59bcdb;
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+  .am-pagination{
+    margin: 0 auto;
+    width: 365px;
+  }
+}
+
+@media screen and (max-width:640px){
+  .blog{
+    .article{
+        margin: 0 0 50px !important;
+    }
+  }
+}
+
+
+
+/*-------------------------news-content paage----------------------*/
+.news-section{
+  .container{
+    overflow: auto;
+
+    /**
+    * article
+    */
+    .article{
+      padding: 0 35px 0 0;
+      border-bottom: 1px solid #e9e9e9;
+      padding-bottom: 50px;
+      .article--title {
+        a{
+          color: #262626;
+          font-size: 38px;
+          line-height: 60px;
+          font-weight: 300;
+        }
+      }
+      .article--meta {
+        padding: 14px 0 0;
+        .article--meta_item {
+          display: inline-block;
+          position: relative;
+          font-size: 14px;
+          color: #969696;
+          margin: 10px 20px 0 0;
+          i{
+            color: #59bcdb;
+            margin-right: 5px;
+          }
+        }
+      }
+      .article--content {
+        margin: 23px 0 0;
+        font-size: 16px;
+        line-height: 23px;
+        color: #969696;
+        img{
+          width: 100%;
+        }
+      }
+      .split-line{
+        margin: 50px;
+      }
+    }
+
+
+    /*
+    *comments
+    */
+   .comments{
+      margin: 0 35px 0 0;
+      padding: 36px 0 0 0;
+      position: relative;
+      .comments--title {
+      font-size: 20px;
+      padding: 0 0 21px;
+    }
+    .comment {
+      position: relative;
+      padding: 0px 0 0 80px;
+      list-style: none;
+      .comment--userpic {
+        position: absolute;
+        left: -13px;
+        top: -8px;
+        overflow: hidden;
+        width: 60px;
+        height: 60px;
+        border-radius: 60px;
+      }
+      .comment--username {
+        a{
+          display: block;
+          font-size: 16px;
+          font-weight: 600;
+          padding: 0 0 6px;
+          color: #262626;
+        }
+      }
+      .comment--date {
+        font-size: 14px;
+        color: #969696;
+      }
+    }
+    .comment--content {
+        margin: 10px 0 46px;
+        padding: 18px 20px;
+        position: relative;
+        background: #f5f5f5;
+        color: #969696;
+        font-size: 14px;
+        line-height: 23px;
+        border-radius: 3px;
+    }
+    .comment--reply{
+      &:before{
+        content: "\f064";
+        margin-right: 5px;
+      }
+    }
+   }
+  }
+}
+
+
+/*
+*comment_form
+*/
+.comment_form{
+  textarea {
+    width: 100%;
+    background: #fcfcfc;
+    border: 2px solid #e9e9e9;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 15px 20px;
+    border-radius: 3px;
+    vertical-align: top;
+    color: #262626;
+  }
+
+  input{
+    width: 100% !important;
+    background: #fcfcfc !important;
+    border: 2px solid #e9e9e9 !important;
+    font-size: 16px !important;
+    line-height: 20px !important;
+    padding: 15px 20px !important;
+    border-radius: 3px !important;
+    color: #262626 !important;
+    margin-bottom: 20px;
+  }
+  .am-u-md-4{
+    padding-left: 0;
+    &:nth-of-type(3){
+      padding-right: 0;
+    }
+  }
+  .comment-form-footer{
+    text-align: right;
+    margin-top: 20px;
+    .am-btn-secondary{
+      background-color: transparent;
+      color: #34c1e4;
+      border-color: #34c1e4;
+      border-width: 2px;
+      border-radius: 4px;
+      &:hover{
+        background: #34c1e4;
+        color: #fff;
+      }
+    }
+  }
+
+}
+
+
+/*
+*blog_sidebar
+ */
+.blog_sidebar{
+  .widget {
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 30px;
+    &:first-child{
+      margin-top: 20px;
+    }
+    .widget--title {
+      background: #fafafa;
+      position: relative;
+      font-size: 18px;
+      padding: 20px 10px 20px 24px;
+      margin: 0;
+      font-weight: normal;
+      i{
+        margin-right: 5px;
+        color: #59bcdb;
+      }
+    }
+    ul{
+      font-size: 15px;
+      line-height: 24px;
+      padding: 0px;
+      margin: 0px !important;
+      li{
+        border-top: 1px solid #e5e5e5;
+        padding: 17px 20px;
+        color: #9b9b9b;
+        list-style: none;
+        a{
+          color: #9b9b9b !important;
+          padding: 5px 0;
+        }
+        .rss-date{
+          display: block;
+          color: #262626;
+          padding: 4px 0 2px;
+          font-size: 15px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 769px){
+  .comment--content {
+      font-size: 14px;
+      line-height: 21px;
+      margin: 10px 0 30px;
+  }
+
+  .comment--content {
+    font-size: 14px;
+    line-height: 21px;
+    margin: 10px 0 30px;
+  }
+  .news-section .container .article{
+    padding: 0 0px 50px 0;
+  }
+  .news-section .container .article .article--title a {
+    font-size: 26px;
+    line-height: 50px;
+  }
+  .news-section .container .article .article--content {
+    font-size: 14px;
+  }
+  .comment--userpic {
+    position: relative !important;
+  }
+  .news-section .container .comments{
+    margin: 0px;
+  }
+  .news-section .container .comments .comment{
+    padding: 0px;
+  }
+}
