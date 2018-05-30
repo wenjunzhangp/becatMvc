@@ -28,12 +28,12 @@
 				</div>
 				<a class="layui-btn search_btn" data-type="reload">搜索</a>
 			</div>
-			<shiro:hasPermission name="console:addIndus">
+			<shiro:hasPermission name="console:addLink">
 				<div class="layui-inline">
 					<a class="layui-btn layui-btn-normal addLink_btn">添加友链</a>
 				</div>
 			</shiro:hasPermission>
-			<shiro:hasPermission name="console:deleteIndusSingleOrBatch">
+			<shiro:hasPermission name="console:deleteSysLinkSingleOrBatch">
 				<div class="layui-inline">
 					<a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
 				</div>

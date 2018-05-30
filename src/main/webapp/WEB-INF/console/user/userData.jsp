@@ -34,11 +34,11 @@
 	<!--操作-->
 	<script type="text/html" id="modifySysUserLock">
 		{{#  if(d.locked == "0"){ }}
-		<shiro:hasPermission name="console:updatePlatEventStatus">
+		<shiro:hasPermission name="console:updateUserStatus">
 			<a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="usable">冻结</a>
 		</shiro:hasPermission>
 		{{#  } else { }}
-		<shiro:hasPermission name="console:updatePlatEventStatus">
+		<shiro:hasPermission name="console:updateUserStatus">
 			<a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="usable">解锁</a>
 		</shiro:hasPermission>
 		{{#  }}}
