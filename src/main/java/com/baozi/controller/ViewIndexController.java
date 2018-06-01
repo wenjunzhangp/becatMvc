@@ -7,7 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ViewIndexController {
 
     @RequestMapping("/product")
-    public String viewIndex(){
+    public String product(){
         return "product";
+    }
+
+    @RequestMapping("/about")
+    public String about(){
+        return "about";
     }
 }

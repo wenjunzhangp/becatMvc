@@ -60,13 +60,28 @@
 			<value>org.springframework.web.servlet.view.InternalResourceView</value>
 		</property>
 	</bean>
-	<bean id="htmlviewResolver"
-		  class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="viewClass" value="com.baozi.view.HtmlResourceView"/>
-		<property name="order" value="0" />
-		<property name="prefix" value="/WEB-INF/view/"/>
-		<property name="suffix" value=".html" />
-		<property name="contentType" value="text/html;charset=UTF-8"></property>
+	<!-- 配置freeMarker视图解析器 -->
+	<bean id="viewResolverFtl" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+		<property name="contentType" value="text/html; charset=utf-8"/>
+		<property name="cache" value="false" />
+		<property name="suffix" value=".ftl" />
+		<property name="order" value="0"/>
+	</bean>
+
+	<!-- 配置freeMarker的模板路径 -->
+	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath">
+			<value>/WEB-INF/view/</value>
+		</property>
+		<property name="defaultEncoding">
+			<value>utf-8</value>
+		</property>
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">0</prop>
+			</props>
+		</property>
 	</bean>
 
 	<!--  上传文件定义大小 -->
