@@ -15,4 +15,15 @@ public class ViewIndexController {
     public String about(){
         return "about";
     }
+
+    @RequestMapping("/contact")
+    public String contact(){
+        return "contact";
+    }
+
+    @RequestMapping("/joinus")
+    public String joinus(){
+        return "join";
+    }
+
 }

@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="html/contact.html" class="contact-btn">
+                            <a href="/contact.shtml" class="contact-btn">
                                 <button type="button" class="am-btn am-btn-secondary am-radius">联系站长</button>
                             </a>
                         </div>
@@ -96,8 +96,8 @@
                         </ul>
                     </li>
                     <li><a href="/about.shtml">关于站长</a></li>
-                    <li><a href="#">加入BeCat</a></li>
-                    <li><a href="#">联系站长</a></li>
+                    <li><a href="/joinus.shtml">加入BeCat</a></li>
+                    <li><a href="/contact.shtml">联系站长</a></li>
                 </ul>
             </div>
         </div>
@@ -145,8 +145,8 @@
                                     </ul>
                                 </li>
                                 <li class=""><a href="/about.shtml" class="" >关于站长</a></li>
-                                <li class=""><a href="#" class="" >加入BeCat</a></li>
-                                <li class=""><a href="#" class="" >联系站长</a></li>
+                                <li class=""><a href="/joinus.shtml" class="" >加入BeCat</a></li>
+                                <li class=""><a href="/contact.shtml" class="" >联系站长</a></li>
                                 <li class="am-parent">
                                     <a href="#" class="nav-icon nav-icon-globe" >Language</a>
                                     <ul class="am-menu-sub am-collapse  ">
