@@ -23,14 +23,6 @@
 
     <div class="section">
       <div class="container">
-        <div class="section--header">
-					<h2 class="section--title">我们的优势</h2>
-					<p class="section--description">
-						我们开创了中国首个开源HTML5跨屏前端框架、可见即可得的IDE、无障碍网页我们是全球独一无二的
-						<br>云适配技术，我们的目标是打造极致的网页体验。
-					</p>
-				</div>
-
         <div class="join-container">
           <div class="am-g">
             <div class="am-u-md-3">
@@ -45,7 +37,6 @@
 													成员既有超级学霸（来自Harvard、Google、香港科技大学、中国科技大学），也有来自行业的技术大拿。
 												</p>
 											</div>
-											<div class="careers_article--footer"><a href="#" class="link">Learn More</a></div>
 										</div>
 										<div class="careers_article">
 											<i class="careers_article--icon am-icon-key"></i>
@@ -55,7 +46,6 @@
                           顶配iMac、MacBook Pro、MacBook Air 3台瑞士Air空气净化器，PM2.5常年低于50,大趴每月一次，周三享用不尽的免费零食、饮料、水果
 												</p>
 											</div>
-											<div class="careers_article--footer"><a href="#" class="link">Learn More</a></div>
 										</div>
 										<div class="careers_article">
 											<i class="careers_article--icon am-icon-paper-plane-o"></i>
@@ -65,7 +55,6 @@
 													充满热情的队友，也是一起撸串、篮球、足球、动感单车、甚至桌上足球组队互虐的好基友
 												</p>
 											</div>
-											<div class="careers_article--footer"><a href="#" class="link">Learn More</a></div>
 										</div>
 									</div>
 								</div>

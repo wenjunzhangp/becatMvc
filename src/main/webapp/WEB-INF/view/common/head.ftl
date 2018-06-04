@@ -88,9 +88,9 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#">新闻咨询</a>
+                        <a href="#">博文趣事</a>
                         <ul class="sub-menu">
-                            <li class="menu-item"><a href="#">大事记</a></li>
+                            <li class="menu-item"><a href="#">平台大事记</a></li>
                             <li class="menu-item"><a href="#">平台公告</a></li>
                             <li class="menu-item"><a href="#">文章趣事</a></li>
                         </ul>
@@ -131,10 +131,10 @@
                                     </ul>
                                 </li>
                                 <li class="am-parent">
-                                    <a href="#" class="" >新闻咨询</a>
+                                    <a href="#" class="" >博文趣事</a>
                                     <ul class="am-menu-sub am-collapse  ">
                                         <li class="">
-                                            <a href="#" class="" >大事记</a>
+                                            <a href="#" class="" >平台大事记</a>
                                         </li>
                                         <li class="">
                                             <a href="#" class="" >平台公告</a>
