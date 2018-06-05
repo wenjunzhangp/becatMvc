@@ -88,11 +88,12 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#">博文趣事</a>
+                        <a href="javascript:void(0);">博文趣事</a>
                         <ul class="sub-menu">
-                            <li class="menu-item"><a href="#">平台大事记</a></li>
-                            <li class="menu-item"><a href="#">平台公告</a></li>
-                            <li class="menu-item"><a href="#">文章趣事</a></li>
+                            <li class="menu-item"><a href="/blog.shtml">技术博客</a></li>
+                            <li class="menu-item"><a href="/event.shtml">平台大事记</a></li>
+                            <li class="menu-item"><a href="/notice.shtml">平台公告</a></li>
+                            <li class="menu-item"><a href="/news.shtml">文章趣事</a></li>
                         </ul>
                     </li>
                     <li><a href="/about.shtml">关于站长</a></li>
@@ -131,16 +132,19 @@
                                     </ul>
                                 </li>
                                 <li class="am-parent">
-                                    <a href="#" class="" >博文趣事</a>
+                                    <a href="javascript:void(0);" class="" >博文趣事</a>
                                     <ul class="am-menu-sub am-collapse  ">
                                         <li class="">
-                                            <a href="#" class="" >平台大事记</a>
+                                            <a href="/blog.shtml" class="" >技术博客</a>
                                         </li>
                                         <li class="">
-                                            <a href="#" class="" >平台公告</a>
+                                            <a href="/event.shtml" class="" >平台大事记</a>
                                         </li>
                                         <li class="">
-                                            <a href="#" class="" >文章趣事</a>
+                                            <a href="/notice.shtml" class="" >平台公告</a>
+                                        </li>
+                                        <li class="">
+                                            <a href="/news.shtml" class="" >文章趣事</a>
                                         </li>
                                     </ul>
                                 </li>
