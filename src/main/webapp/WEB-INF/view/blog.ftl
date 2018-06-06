@@ -224,24 +224,8 @@
               </div>
             </div>
 
-
-
-
-
-
-
-
-
-            <!-- pagination-->
-            <ul class="am-pagination">
-              <li class="am-disabled"><a href="#">&laquo;</a></li>
-              <li class="am-active"><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li><a href="#">&raquo;</a></li>
-            </ul>
+              <!-- pagination-->
+              <ul id="paginator" class="am-pagination"></ul>
           </div>
 
         </div>
@@ -249,3 +233,8 @@
     </div>
 
 <#include "common/footer.ftl">
+<script>
+    var total = "${total}";
+</script>
+<script src="/resource/js/view/page.js" charset="utf-8"></script>
+<script src="/resource/js/view/blog.js" charset="utf-8"></script>

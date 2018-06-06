@@ -1,6 +1,8 @@
 package com.baozi.controller;
 
 import com.baozi.service.IndustryConsultancyService;
+import com.baozi.service.NoticeService;
+import com.baozi.service.PlatEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,12 @@ public class ViewJumpController extends BaseController{
 
     @Autowired
     private IndustryConsultancyService industryConsultancyService;
+
+    @Autowired
+    private NoticeService noticeService;
+
+    @Autowired
+    private PlatEventService platEventService;
 
     @RequestMapping("/product")
     public String product(){
@@ -36,13 +44,23 @@ public class ViewJumpController extends BaseController{
     }
 
     @RequestMapping("/event")
-    public String event(){
-        return "event";
+    public ModelAndView event(){
+        ModelAndView mav = new ModelAndView("event");
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        paramMap.put("page",1);
+        paramMap.put("limit",1);
+        mav.addObject("total", platEventService.findPlatEventPage(paramMap).getTotal());
+        return mav;
     }
 
     @RequestMapping("/notice")
-    public String notice(){
-        return "notice";
+    public ModelAndView notice(){
+        ModelAndView mav = new ModelAndView("notice");
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        paramMap.put("page",1);
+        paramMap.put("limit",1);
+        mav.addObject("total", noticeService.findNoticePage(paramMap).getTotal());
+        return mav;
     }
 
     @RequestMapping("/news")
@@ -56,8 +74,13 @@ public class ViewJumpController extends BaseController{
     }
 
     @RequestMapping("/blog")
-    public String blog(){
-        return "blog";
+    public ModelAndView blog(){
+        ModelAndView mav = new ModelAndView("blog");
+        Map<String,Object> paramMap = new HashMap<String,Object>();
+        paramMap.put("page",1);
+        paramMap.put("limit",1);
+        mav.addObject("total", 5);
+        return mav;
     }
 
 }

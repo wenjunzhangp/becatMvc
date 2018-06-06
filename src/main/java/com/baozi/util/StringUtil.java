@@ -392,5 +392,45 @@ public class StringUtil extends StringUtils {
 			return serializable.toString();
 		}
 	}
+
+	/**
+	 * 截取长度  不加...
+	 * @param str
+	 * @param len
+	 * @return
+	 */
+	public static String shortStrEnd(String str,int len){
+		if(str == null || str.trim().isEmpty())
+			return "";
+		if(len < 1)
+			return str;
+		if(str.length() > len){
+			return str.substring(0, len)+"...";
+		}
+		return str;
+	}
+
+	public static String shortenStr(int maxLen, int shotLen, String str) {
+		if (str == null) {
+			return "";
+		}
+		if (str.length() <= maxLen) {
+			return str;
+		}
+
+		return str.substring(0, shotLen) + "...";
+	}
+	public static String shortStr(String str, int len, int suffixLen){
+		if(str == null || str.trim().isEmpty())
+			return "";
+		if(len < 1)
+			return str;
+		if(str.length() > len){
+			if(suffixLen < len)
+				len = suffixLen;
+			return str.substring(0, len) + "...";
+		}
+		return str;
+	}
    
 }
