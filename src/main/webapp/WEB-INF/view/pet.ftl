@@ -10,6 +10,108 @@
   <link rel="stylesheet" href="../assets/css/product.min.css" />
 </head>
 <body>
+<div data-am-widget="tabs"
+     class="am-tabs "
+>
+    <ul class="am-tabs-nav am-cf">
+        <li class="am-active"><a href="[data-tab-panel-0]">青春</a></li>
+        <li class=""><a href="[data-tab-panel-1]">彩虹</a></li>
+        <li class=""><a href="[data-tab-panel-2]">歌唱</a></li>
+        <li class=""><a href="[data-tab-panel-3]">歌唱</a></li>
+    </ul>
+    <div class="am-tabs-bd">
+        <div data-tab-panel-0 class="am-tab-panel am-active">
+            <div class="am-g">
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-1.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-2.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-3.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-4.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-5.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-6.png" alt="" /></a>
+                </div>
+            </div>
+        </div>
+        <div data-tab-panel-1 class="am-tab-panel ">
+            <div class="am-g">
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-1.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-2.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-3.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-4.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-5.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-6.png" alt="" /></a>
+                </div>
+            </div>
+        </div>
+        <div data-tab-panel-2 class="am-tab-panel ">
+            <div class="am-g">
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-1.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-2.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-3.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-4.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-5.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-6.png" alt="" /></a>
+                </div>
+            </div>
+        </div>
+        <div data-tab-panel-3 class="am-tab-panel ">
+            <div class="am-g">
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-1.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-2.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-3.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-4.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-5.png" alt="" /></a>
+                </div>
+                <div class="am-u-md-4 am-u-sm-6">
+                    <a href="#"><img src="../assets/images/solution/solution-show-6.png" alt="" /></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
   <div class="layout">
     <!--===========layout-header================-->
     <div class="layout-header am-hide-sm-only">
