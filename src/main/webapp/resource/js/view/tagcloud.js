@@ -213,7 +213,7 @@ $(function(){
             $.each(data.data,function(i,v){
                 html.push('<div class="qing-item-list">');
                 html.push('<a class="qing-item-link" href="/news/'+v.id+'.shtml">'+v.title+'</a>');
-                html.push('<span>'+v.looknumber+'</span>');
+                html.push('<span>'+v.looknumber+'阅</span>');
                 html.push('</div>');
             });
             $(".lastest-blogs").html(html.join(''));

@@ -24,7 +24,7 @@ public interface IndustryConsultancyMapper {
 
     List<IndustryConsultancy> selectByExample(IndustryConsultancyExample example);
 
-    IndustryConsultancy selectByPrimaryKey(Integer id);
+    IndustryConsultancyViewVo selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") IndustryConsultancy record, @Param("example") IndustryConsultancyExample example);
 
@@ -45,4 +45,6 @@ public interface IndustryConsultancyMapper {
     int deleteIndusSingleOrBatch(List idList);
 
     List<IndustryConsultancyViewVo> footerPagination();
+
+    int updateIndustryConsultancyLookNum(int id);
 }

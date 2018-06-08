@@ -10,17 +10,17 @@
                         <div class="am-dropdown" data-am-dropdown>
                             <button class="am-btn am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle>Language <span class="am-icon-caret-down"></span></button>
                             <ul class="am-dropdown-content">
-                                <li><a href="#">Chinese</a></li>
+                                <li><a href="javascript:void(0)">Chinese</a></li>
                                 <li class="am-divider"></li>
-                                <li><a href="#">English</a></li>
+                                <li><a href="javascript:void(0)">English</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="am-u-md-9">
                     <div class="topbar-right am-text-right am-fr">
-                        <a href="html/login.html">登录</a>
-                        <a href="html/register.html">注册</a>
+                        <a href="/pclogin.shtml">登录</a>
+                        <a href="/pcregister.shtml">注册</a>
                     </div>
                 </div>
             </div>
@@ -80,13 +80,7 @@
             <div class="nav-inner">
                 <ul class="am-nav am-nav-pills am-nav-justify">
                     <li class=""><a href="/product.shtml">首页</a></li>
-                    <li>
-                        <a href="#">在售宠物</a>
-                        <ul class="sub-menu">
-                            <li class="menu-item"><a href="#">英国短毛猫</a></li>
-                            <li class="menu-item"><a href="#">亚洲豹猫</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="/pet.shtml">在售宠物</a></li>
                     <li>
                         <a href="javascript:void(0);">博文趣事</a>
                         <ul class="sub-menu">
@@ -120,17 +114,7 @@
                         <div class="am-offcanvas-bar">
                             <ul class="am-menu-nav am-avg-sm-1">
                                 <li><a href="/product.shtml" class="" >首页</a></li>
-                                <li class="am-parent">
-                                    <a href="#" class="" >在售宠物</a>
-                                    <ul class="am-menu-sub am-collapse ">
-                                        <li class="">
-                                            <a href="#" class="" >英国短毛猫</a>
-                                        </li>
-                                        <li class="">
-                                            <a href="#" class="" >亚洲豹猫</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                <li class="am-parent"><a href="/pet.shtml" class="" >在售宠物</a></li>
                                 <li class="am-parent">
                                     <a href="javascript:void(0);" class="" >博文趣事</a>
                                     <ul class="am-menu-sub am-collapse  ">
@@ -152,18 +136,18 @@
                                 <li class=""><a href="/joinus.shtml" class="" >加入BeCat</a></li>
                                 <li class=""><a href="/contact.shtml" class="" >联系站长</a></li>
                                 <li class="am-parent">
-                                    <a href="#" class="nav-icon nav-icon-globe" >Language</a>
+                                    <a href="javascript:void(0)" class="nav-icon nav-icon-globe" >Language</a>
                                     <ul class="am-menu-sub am-collapse  ">
                                         <li>
-                                            <a href="#" >English</a>
+                                            <a href="javascript:void(0)" >English</a>
                                         </li>
                                         <li class="">
-                                            <a href="#" >Chinese</a>
+                                            <a href="javascript:void(0)" >Chinese</a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class=""><a href="#" class="" >登录</a></li>
-                                <li class=""><a href="#" class="" >注册</a></li>
+                                <li class=""><a href="/pclogin.shtml" class="" >登录</a></li>
+                                <li class=""><a href="/pcregister.shtml" class="" >注册</a></li>
                             </ul>
 
                         </div>

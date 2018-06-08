@@ -514,4 +514,8 @@
     order by i.publicTime desc
   </select>
 
+  <update id="updateIndustryConsultancyLookNum" parameterType="java.lang.Integer" >
+    update industry_consultancy set lookNumber = lookNumber+1 where id = #{id,jdbcType=INTEGER}
+  </update>
+
 </mapper>

@@ -104,7 +104,7 @@ public class NoticeViewVo {
     }
 
     public String getContent() {
-        return StringUtil.removeHtml(content.length()<50?content: StringUtil.shortStrEnd(content,40));
+        return StringUtil.removeHtml(content.length()<60?content.trim(): StringUtil.shortStrEnd(content.trim(),60));
     }
 
     public void setContent(String content) {

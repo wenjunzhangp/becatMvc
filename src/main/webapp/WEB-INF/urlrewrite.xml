@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+        "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+
+<urlrewrite>
+
+    <rule>
+        <note>BeCat首页静态化(配着装13玩的实则没卵用)</note>
+        <from>^/$</from>
+        <to>/product.shtml</to>
+    </rule>
+
+    <rule>
+        <note>BeCat文章详情页静态化</note>
+        <from>^/news/([0-9]+).shtml$</from>
+        <to>/newsdetail.shtml?id=$1</to>
+    </rule>
+
+</urlrewrite>

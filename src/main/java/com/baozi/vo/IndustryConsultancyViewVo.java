@@ -64,7 +64,7 @@ public class IndustryConsultancyViewVo {
     }
 
     public String getTitle() {
-        return title.length()<15?title: StringUtil.shortStrEnd(title,12);
+        return title.length()<15?title: StringUtil.shortStrEnd(title,15);
     }
 
     public void setTitle(String title) {
@@ -168,7 +168,7 @@ public class IndustryConsultancyViewVo {
     }
 
     public String getDescription() {
-        return description.length()<15?description: StringUtil.shortStrEnd(description,30);
+        return description.length()<15?description: StringUtil.shortStrEnd(description,50);
     }
 
     public void setDescription(String description) {

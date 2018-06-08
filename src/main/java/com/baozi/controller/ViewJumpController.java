@@ -1,11 +1,17 @@
 package com.baozi.controller;
 
+import com.baozi.po.IndustryConsultancy;
 import com.baozi.service.IndustryConsultancyService;
 import com.baozi.service.NoticeService;
 import com.baozi.service.PlatEventService;
+import com.baozi.util.IDEncryptor;
+import com.baozi.util.LogUtils;
+import com.baozi.vo.IndustryConsultancyViewVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -43,13 +49,28 @@ public class ViewJumpController extends BaseController{
         return "join";
     }
 
+    @RequestMapping("/pet")
+    public String pet(){
+        return "pet";
+    }
+
+    @RequestMapping("/pclogin")
+    public String pclogin(){
+        return "pclogin";
+    }
+
+    @RequestMapping("/pcregister")
+    public String pcregister(){
+        return "pcregister";
+    }
+
     @RequestMapping("/event")
     public ModelAndView event(){
         ModelAndView mav = new ModelAndView("event");
         Map<String,Object> paramMap = new HashMap<String,Object>();
         paramMap.put("page",1);
         paramMap.put("limit",1);
-        mav.addObject("total", platEventService.findPlatEventPage(paramMap).getTotal());
+        mav.addObject("total", platEventService.footerPagination(paramMap).getTotal());
         return mav;
     }
 
@@ -59,7 +80,7 @@ public class ViewJumpController extends BaseController{
         Map<String,Object> paramMap = new HashMap<String,Object>();
         paramMap.put("page",1);
         paramMap.put("limit",1);
-        mav.addObject("total", noticeService.findNoticePage(paramMap).getTotal());
+        mav.addObject("total", noticeService.footerPagination(paramMap).getTotal());
         return mav;
     }
 
@@ -69,7 +90,23 @@ public class ViewJumpController extends BaseController{
         Map<String,Object> paramMap = new HashMap<String,Object>();
         paramMap.put("page",1);
         paramMap.put("limit",1);
-        mav.addObject("total", industryConsultancyService.findIndustryConsultancyPage(paramMap).getTotal());
+        mav.addObject("total", industryConsultancyService.footerPagination(paramMap).getTotal());
+        return mav;
+    }
+
+    @RequestMapping("/newsdetail")
+    public ModelAndView newsdetail(String id){
+        ModelAndView mav = new ModelAndView("newscontent");
+        Integer indusId = IDEncryptor.getInstance().decryptWithoutException(id);
+        try {
+            //文章阅读数+1
+            industryConsultancyService.updateIndustryConsultancyLookNum(indusId);
+        } catch ( Exception e ) {
+            LogUtils.logError("文章【"+indusId+"】修改阅读数+1失败",e);
+        }
+        //取得当前文章
+        IndustryConsultancyViewVo industryConsultancy = industryConsultancyService.findIndustryConsultancyById(indusId);
+        mav.addObject("indusObject",industryConsultancy);
         return mav;
     }
 

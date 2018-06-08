@@ -67,4 +67,18 @@ import java.util.Map;
      * @return
      */
     PageInfo<IndustryConsultancyViewVo> footerPagination(Map<String,Object> paramMap);
+
+    /**
+     * 获取单篇文章，做详情页用
+     * @param id
+     * @return
+     */
+    IndustryConsultancyViewVo findIndustryConsultancyById(int id);
+
+    /**
+     * 文章阅读数+1
+     * @param id
+     * @return
+     */
+    int updateIndustryConsultancyLookNum(int id);
 }

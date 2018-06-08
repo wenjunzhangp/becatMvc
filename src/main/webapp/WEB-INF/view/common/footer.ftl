@@ -27,8 +27,8 @@
                             <div class="footer_main--column">
                                 <strong class="footer_main--column_title">在售宠物</strong>
                                 <ul class="footer_navigation">
-                                    <li class="footer_navigation--item"><a href="#" class="footer_navigation--link">英国短毛猫</a></li>
-                                    <li class="footer_navigation--item"><a href="#" class="footer_navigation--link">亚洲豹猫</a></li>
+                                    <li class="footer_navigation--item"><a href="javascript:void(0)" class="footer_navigation--link">英国短毛猫</a></li>
+                                    <li class="footer_navigation--item"><a href="javascript:void(0)" class="footer_navigation--link">亚洲豹猫</a></li>
                                 </ul>
                             </div>
                         </div>

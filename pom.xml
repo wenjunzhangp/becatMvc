@@ -227,10 +227,18 @@
       <version>1.0.23</version>
     </dependency>
 
+    <!--freemarker模板包-->
     <dependency>
       <groupId>org.freemarker</groupId>
       <artifactId>freemarker</artifactId>
       <version>2.3.23</version>
+    </dependency>
+
+    <!--urlrewritefilter url伪静态化-->
+    <dependency>
+      <groupId>org.tuckey</groupId>
+      <artifactId>urlrewritefilter</artifactId>
+      <version>4.0.4</version>
     </dependency>
 
   </dependencies>

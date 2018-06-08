@@ -2,6 +2,79 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
     <display-name>becat</display-name>
 
+    <!-- 编码过滤器 -->
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <async-supported>true</async-supported>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>*.shtml</url-pattern>
+    </filter-mapping>
+
+    <!--url 静态化-->
+    <filter>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+        <!--<init-param>
+            <param-name>confPath</param-name>
+            <param-value>classpath:urlrewrite.xml</param-value>
+        </init-param>-->
+        <init-param>
+            <param-name>logLevel</param-name>
+            <param-value>INFO</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <url-pattern>*.shtml</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>druidWebStatFilter</filter-name>
+        <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+        <init-param>
+            <param-name>exclusions</param-name>
+            <param-value>/public/*,*.js,*.css,/druid*,*.jsp,*.swf</param-value>
+        </init-param>
+        <init-param>
+            <param-name>principalSessionName</param-name>
+            <param-value>sessionInfo</param-value>
+        </init-param>
+        <init-param>
+            <param-name>profileEnable</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>druidWebStatFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- 添加shiro过滤器 -->
+    <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <!-- 该值缺省为false，表示声明周期由SpringApplicationContext管理，设置为true表示ServletContainer管理 -->
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>*.shtml</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
     <!-- 防止发生java.beans.Introspector内存泄露,应将它配置在ContextLoaderListener的前面 -->
     <listener>
         <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
@@ -25,26 +98,6 @@
         <servlet-name>DruidStatView</servlet-name>
         <url-pattern>/druid/*</url-pattern>
     </servlet-mapping>
-    <filter>
-        <filter-name>druidWebStatFilter</filter-name>
-        <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
-        <init-param>
-            <param-name>exclusions</param-name>
-            <param-value>/public/*,*.js,*.css,/druid*,*.jsp,*.swf</param-value>
-        </init-param>
-        <init-param>
-            <param-name>principalSessionName</param-name>
-            <param-value>sessionInfo</param-value>
-        </init-param>
-        <init-param>
-            <param-name>profileEnable</param-name>
-            <param-value>true</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>druidWebStatFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
 
     <!-- spring监听器 -->
     <listener>
@@ -54,36 +107,6 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:spring.xml</param-value>
     </context-param>
-
-    <!-- 添加shiro过滤器 -->
-    <filter>
-        <filter-name>shiroFilter</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-        <init-param>
-            <!-- 该值缺省为false，表示声明周期由SpringApplicationContext管理，设置为true表示ServletContainer管理 -->
-            <param-name>targetFilterLifecycle</param-name>
-            <param-value>true</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>shiroFilter</filter-name>
-        <url-pattern>*.shtml</url-pattern>
-    </filter-mapping>
-
-    <!-- 编码过滤器 -->
-    <filter>
-        <filter-name>encodingFilter</filter-name>
-        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-        <async-supported>true</async-supported>
-        <init-param>
-            <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>encodingFilter</filter-name>
-        <url-pattern>*</url-pattern>
-    </filter-mapping>
 
     <!-- 添加springmvc支持 -->
     <servlet>
@@ -99,19 +122,8 @@
         <url-pattern>*.shtml</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>kaptcha</servlet-name>
-        <servlet-class>
-            com.google.code.kaptcha.servlet.KaptchaServlet
-        </servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>kaptcha</servlet-name>
-        <url-pattern>/resource/images/kaptcha.jpg</url-pattern>
-    </servlet-mapping>
-
     <welcome-file-list>
-        <welcome-file>/view/index.vue</welcome-file>
+        <welcome-file>/product.shtml</welcome-file>
     </welcome-file-list>
 
     <session-config>

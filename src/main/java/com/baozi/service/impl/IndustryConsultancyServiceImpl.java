@@ -76,4 +76,14 @@ public class IndustryConsultancyServiceImpl implements IndustryConsultancyServic
         List<IndustryConsultancyViewVo> dataList = industryConsultancyMapper.footerPagination();
         return new PageInfo<IndustryConsultancyViewVo>(dataList);
     }
+
+    @Override
+    public IndustryConsultancyViewVo findIndustryConsultancyById(int id) {
+        return industryConsultancyMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateIndustryConsultancyLookNum(int id) {
+        return industryConsultancyMapper.updateIndustryConsultancyLookNum(id);
+    }
 }
