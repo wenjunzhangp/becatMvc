@@ -12,5 +12,5 @@ public interface PetService {
      * 获取平台在售宠物总数
      * @return
      */
-    public int findAllPetCount();
+    int findAllPetCount();
 }

@@ -93,7 +93,6 @@
                         }
                         output += nextBar;
                     } else {
-                        console.log("分页数据出错！");
                         return;
                     }
                 } else {
@@ -121,7 +120,6 @@
         //初始化装配分页按钮
         var init = function (fn) {
             if (typeof (fn) != "function") {
-                console.log("将不能正确的执行回调函数");
             } else {
                 opts.callback = fn;
             }
@@ -147,7 +145,6 @@
             }
             $(opts.pageParent).delegate("a","click", function () {
                 var offset = queryString($(this).attr("yxhref"));
-                console.log("ok");
                 pageCore(offset);
             });
             $(opts.pageParent).append(preBar + output + nextBar);

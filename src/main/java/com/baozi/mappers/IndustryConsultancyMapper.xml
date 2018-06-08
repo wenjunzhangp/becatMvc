@@ -482,8 +482,8 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="findIndustryConsultancyTop5" resultType="com.baozi.vo.IndustryConsultancyVo" >
-    select * from industry_consultancy where display=1 order by publicTime desc limit 5
+  <select id="findIndustryConsultancyTopLimit" resultType="com.baozi.vo.IndustryConsultancyViewVo" parameterType="java.lang.Integer">
+    select * from industry_consultancy where display=1 and `status`=1 order by publicTime desc limit #{limit}
   </select>
 
   <select id="findIndustryConsultancyPage" resultType="com.baozi.vo.IndustryConsultancyVo" parameterType="map">
@@ -507,5 +507,11 @@
     #{id}
     </foreach>
   </delete>
+
+  <select id="footerPagination" resultType="com.baozi.vo.IndustryConsultancyViewVo" >
+    select i.*,c.`name`,c.link from industry_consultancy i LEFT JOIN industry_consultancy_category c on i.category=c.id
+    where i.display=1 and `status`=1
+    order by i.publicTime desc
+  </select>
 
 </mapper>

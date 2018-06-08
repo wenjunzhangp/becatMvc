@@ -314,4 +314,9 @@
     </foreach>
   </delete>
 
+  <select id="footerPagination" resultType="com.baozi.vo.PlatEventViewVo" parameterType="map">
+    select * from plat_event s  where s.display=1 and s.`status`=1
+    order by s.createTime desc
+  </select>
+
 </mapper>

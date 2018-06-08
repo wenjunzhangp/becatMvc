@@ -13,12 +13,12 @@ public interface SysSettingService {
      * 根据主键获取系统基本配置信息
      * @return
      */
-    public SysSetting findSysSettingById();
+    SysSetting findSysSettingById();
 
     /**
      * 修改系统基本配置信息
      * @param sysSetting
      * @return
      */
-    public int updateSysSetting(SysSetting sysSetting);
+    int updateSysSetting(SysSetting sysSetting);
 }

@@ -25,12 +25,24 @@ public class ViewPageController extends BaseController{
     @Autowired
     private PlatEventService platEventService;
 
+    @RequestMapping("/newesttopten")
+    @ResponseBody
+    public CodeResult newesttopten(HttpServletRequest request){
+        try {
+            Map<String,Object> paramMap = genRequestMapSingle(request);
+            return CodeResult.ok(industryConsultancyService.findIndustryConsultancyTopLimit(10));
+        } catch ( Exception e ) {
+            LogUtils.logError("读取新闻文章前端分页异常",e);
+            return CodeResult.build(500,"读取新闻文章前端分页异常");
+        }
+    }
+
     @RequestMapping("/newsdata")
     @ResponseBody
     public Map<String,Object> newsdata(HttpServletRequest request){
         try {
             Map<String,Object> paramMap = genRequestMapSingle(request);
-            setResultMapOkByPage(industryConsultancyService.findIndustryConsultancyPage(paramMap));
+            setResultMapOkByPage(industryConsultancyService.footerPagination(paramMap));
         } catch ( Exception e ) {
             LogUtils.logError("读取新闻文章前端分页异常",e);
             setResultMapError(e);
@@ -43,7 +55,7 @@ public class ViewPageController extends BaseController{
     public Map<String,Object> noticedata(HttpServletRequest request){
         try {
             Map<String,Object> paramMap = genRequestMapSingle(request);
-            setResultMapOkByPage(noticeService.findNoticePage(paramMap));
+            setResultMapOkByPage(noticeService.footerPagination(paramMap));
         } catch ( Exception e ) {
             LogUtils.logError("读取平台公告前端分页异常",e);
             setResultMapError(e);
@@ -56,7 +68,7 @@ public class ViewPageController extends BaseController{
     public Map<String,Object> eventdata(HttpServletRequest request){
         try {
             Map<String,Object> paramMap = genRequestMapSingle(request);
-            setResultMapOkByPage(platEventService.findPlatEventPage(paramMap));
+            setResultMapOkByPage(platEventService.footerPagination(paramMap));
         } catch ( Exception e ) {
             LogUtils.logError("读取平台大事记前端分页异常",e);
             setResultMapError(e);

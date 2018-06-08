@@ -18,12 +18,12 @@ public interface UserLogService {
      * @param record
      * @return
      */
-    public int insert(UserLog record);
+    int insert(UserLog record);
 
     /**
      * 分页查询用户日志列表
      * @param paramMap
      * @return
      */
-    public PageInfo<UserLogVo> findUserLogPage(Map<String,Object> paramMap);
+    PageInfo<UserLogVo> findUserLogPage(Map<String,Object> paramMap);
 }

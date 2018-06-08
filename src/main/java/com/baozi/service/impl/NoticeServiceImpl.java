@@ -3,6 +3,7 @@ package com.baozi.service.impl;
 import com.baozi.mappers.NoticeMapper;
 import com.baozi.po.Notice;
 import com.baozi.service.NoticeService;
+import com.baozi.vo.NoticeViewVo;
 import com.baozi.vo.NoticeVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -54,5 +55,12 @@ public class NoticeServiceImpl implements NoticeService{
     @Override
     public int insert(Notice notice) {
         return noticeMapper.insertSelective(notice);
+    }
+
+    @Override
+    public PageInfo<NoticeViewVo> footerPagination(Map<String,Object> paramMap) {
+        PageHelper.startPage(Integer.valueOf(paramMap.get("page").toString()),Integer.valueOf(paramMap.get("limit").toString()),true);
+        List<NoticeViewVo> dataList = noticeMapper.footerPagination();
+        return new PageInfo<NoticeViewVo>(dataList);
     }
 }

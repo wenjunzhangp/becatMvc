@@ -1,12 +1,13 @@
 package com.baozi.vo;
 
 import com.baozi.enums.NoticeEnum;
+import com.baozi.util.IDEncryptor;
 import com.baozi.util.StringUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-public class NoticeVo {
+public class NoticeViewVo {
     private Integer id;
 
     private String title;
@@ -30,8 +31,8 @@ public class NoticeVo {
 
     private String content;
 
-    public Integer getId() {
-        return id;
+    public String getId() {
+        return IDEncryptor.getInstance().encryptWithoutException(id);
     }
 
     public void setId(Integer id) {
@@ -103,7 +104,7 @@ public class NoticeVo {
     }
 
     public String getContent() {
-        return content.length()<50?content: StringUtil.shortStrEnd(content,40);
+        return StringUtil.removeHtml(content.length()<50?content: StringUtil.shortStrEnd(content,40));
     }
 
     public void setContent(String content) {

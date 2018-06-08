@@ -1,6 +1,7 @@
 package com.baozi.service;
 
 import com.baozi.po.PlatEvent;
+import com.baozi.vo.PlatEventViewVo;
 import com.baozi.vo.PlatEventVo;
 import com.github.pagehelper.PageInfo;
 
@@ -18,21 +19,21 @@ public interface PlatEventService {
      * 获取所有平台大事记
      * @return
      */
-    public List<PlatEvent> findAllPlatEvent();
+    List<PlatEvent> findAllPlatEvent();
 
     /**
      * 分页查询大事记数据
      * @param paramMap
      * @return
      */
-    public PageInfo<PlatEventVo> findPlatEventPage (Map<String,Object> paramMap);
+    PageInfo<PlatEventVo> findPlatEventPage (Map<String,Object> paramMap);
 
     /**
      * 批量删除大事记
      * @param idList
      * @return
      */
-    public int deletePlatEventSingleOrBatch(List idList);
+    int deletePlatEventSingleOrBatch(List idList);
 
     /**
      * 启动或者禁用大事记
@@ -40,19 +41,25 @@ public interface PlatEventService {
      * @param status
      * @return
      */
-    public int updatePlatEventStatus(int id,int status);
+    int updatePlatEventStatus(int id,int status);
 
     /**
      * 修改大事记
      * @param platEvent
      * @return
      */
-    public int updatePlatEvent(PlatEvent platEvent);
+    int updatePlatEvent(PlatEvent platEvent);
 
     /**
      * 新增大事记
      * @param platEvent
      * @return
      */
-    public int insert(PlatEvent platEvent);
+    int insert(PlatEvent platEvent);
+
+    /**
+     * 前端页脚分页列表
+     * @return
+     */
+    PageInfo<PlatEventViewVo> footerPagination(Map<String,Object> paramMap);
 }

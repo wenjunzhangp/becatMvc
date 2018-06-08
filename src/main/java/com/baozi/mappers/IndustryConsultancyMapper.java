@@ -2,6 +2,7 @@ package com.baozi.mappers;
 
 import com.baozi.po.IndustryConsultancy;
 import com.baozi.po.IndustryConsultancyExample;
+import com.baozi.vo.IndustryConsultancyViewVo;
 import com.baozi.vo.IndustryConsultancyVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -37,9 +38,11 @@ public interface IndustryConsultancyMapper {
 
     int updateByPrimaryKey(IndustryConsultancy record);
 
-    public List<IndustryConsultancyVo> findIndustryConsultancyTop5();
+    List<IndustryConsultancyViewVo> findIndustryConsultancyTopLimit(int limit);
 
-    public List<IndustryConsultancyVo> findIndustryConsultancyPage(Map<String,Object> paramMap);
+    List<IndustryConsultancyVo> findIndustryConsultancyPage(Map<String,Object> paramMap);
 
-    public int deleteIndusSingleOrBatch(List idList);
+    int deleteIndusSingleOrBatch(List idList);
+
+    List<IndustryConsultancyViewVo> footerPagination();
 }

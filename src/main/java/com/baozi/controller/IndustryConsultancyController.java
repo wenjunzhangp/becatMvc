@@ -34,7 +34,7 @@ public class IndustryConsultancyController extends BaseController{
     @ResponseBody
     public CodeResult sysconfigData(){
         try {
-            return CodeResult.ok(industryConsultancyService.findIndustryConsultancyTop5());
+            return CodeResult.ok(industryConsultancyService.findIndustryConsultancyTopLimit(5));
         } catch ( Exception e ) {
             LogUtils.logError("调取最新文章错误",e);
             return CodeResult.build(500,e.getMessage());

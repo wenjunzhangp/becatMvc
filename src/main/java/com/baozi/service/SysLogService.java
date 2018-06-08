@@ -18,12 +18,12 @@ public interface SysLogService {
      * @param record
      * @return
      */
-    public int insert(SysLog record);
+    int insert(SysLog record);
 
     /**
      * 分页查询系统日志列表
      * @param paramMap
      * @return
      */
-    public PageInfo<SysLogVo> findSysLogPage(Map<String,Object> paramMap);
+    PageInfo<SysLogVo> findSysLogPage(Map<String,Object> paramMap);
 }

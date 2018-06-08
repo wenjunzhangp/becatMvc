@@ -365,4 +365,9 @@
       #{id}
     </foreach>
   </delete>
+
+  <select id="footerPagination" resultType="com.baozi.vo.NoticeViewVo" parameterType="map">
+    select * from notice i where i.display=1 and `status`=1
+    order by i.publicTime desc
+  </select>
 </mapper>

@@ -30,5 +30,5 @@ public interface IndustryConsultancyCategoryMapper {
 
     int updateByPrimaryKey(IndustryConsultancyCategory record);
 
-    public List<Map> selectAllCategory();
+    List<Map> selectAllCategory();
 }

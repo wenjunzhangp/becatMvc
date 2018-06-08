@@ -31,7 +31,7 @@ public interface SysPermissionMapper {
 
     int updateByPrimaryKey(SysPermission record);
 
-    public List<SysPermissionVo> findSysPermissionPage(Map<String, Object> paramMap);
+    List<SysPermissionVo> findSysPermissionPage(Map<String, Object> paramMap);
 
-    public int deleteSysPermissionSingleOrBatch(List idList);
+    int deleteSysPermissionSingleOrBatch(List idList);
 }

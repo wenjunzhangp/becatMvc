@@ -31,5 +31,5 @@ public interface UserLogMapper {
 
     int updateByPrimaryKey(UserLog record);
 
-    public List<UserLogVo> findUserLogPage(Map<String,Object> paramMap);
+    List<UserLogVo> findUserLogPage(Map<String,Object> paramMap);
 }

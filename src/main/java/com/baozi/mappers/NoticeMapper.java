@@ -2,6 +2,7 @@ package com.baozi.mappers;
 
 import com.baozi.po.Notice;
 import com.baozi.po.NoticeExample;
+import com.baozi.vo.NoticeViewVo;
 import com.baozi.vo.NoticeVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -37,7 +38,9 @@ public interface NoticeMapper {
 
     int updateByPrimaryKey(Notice record);
 
-    public List<NoticeVo> findNoticePage(Map<String, Object> paramMap);
+    List<NoticeVo> findNoticePage(Map<String, Object> paramMap);
 
-    public int deleteNoticeSingleOrBatch(List idList);
+    int deleteNoticeSingleOrBatch(List idList);
+
+    List<NoticeViewVo> footerPagination();
 }

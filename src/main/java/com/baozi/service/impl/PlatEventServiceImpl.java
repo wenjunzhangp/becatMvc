@@ -3,6 +3,7 @@ package com.baozi.service.impl;
 import com.baozi.mappers.PlatEventMapper;
 import com.baozi.po.PlatEvent;
 import com.baozi.service.PlatEventService;
+import com.baozi.vo.PlatEventViewVo;
 import com.baozi.vo.PlatEventVo;
 import com.baozi.vo.SysLinkVo;
 import com.github.pagehelper.PageHelper;
@@ -57,5 +58,12 @@ public class PlatEventServiceImpl implements PlatEventService {
     @Override
     public int insert(PlatEvent platEvent) {
         return platEventMapper.insertSelective(platEvent);
+    }
+
+    @Override
+    public PageInfo<PlatEventViewVo> footerPagination(Map<String, Object> paramMap) {
+        PageHelper.startPage(Integer.valueOf(paramMap.get("page").toString()),Integer.valueOf(paramMap.get("limit").toString()),true);
+        List<PlatEventViewVo> dataList = platEventMapper.footerPagination();
+        return new PageInfo<PlatEventViewVo>(dataList);
     }
 }

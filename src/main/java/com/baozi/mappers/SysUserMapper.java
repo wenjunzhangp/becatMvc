@@ -32,9 +32,9 @@ public interface SysUserMapper {
 
     int updateByPrimaryKey(SysUser record);
 
-    public Date findUserLastLoginTime(@Param("userId") int userId);
+    Date findUserLastLoginTime(@Param("userId") int userId);
 
-    public List<SysUserVo> findSysUserPage(Map<String, Object> paramMap);
+    List<SysUserVo> findSysUserPage(Map<String, Object> paramMap);
 
-    public void updateSysUserLock(Map<String, Object> paramMap);
+    void updateSysUserLock(Map<String, Object> paramMap);
 }

@@ -14,14 +14,14 @@ public interface SysLinkService {
      * @param paramMap
      * @return
      */
-    public PageInfo<SysLinkVo> findSysLinkPage (Map<String,Object> paramMap);
+    PageInfo<SysLinkVo> findSysLinkPage (Map<String,Object> paramMap);
 
     /**
      * 批量删除友链
      * @param idList
      * @return
      */
-    public int deleteSysLinkSingleOrBatch(List idList);
+    int deleteSysLinkSingleOrBatch(List idList);
 
     /**
      * 启动或者禁用友链
@@ -29,19 +29,19 @@ public interface SysLinkService {
      * @param status
      * @return
      */
-    public int updateSysLinkStatus(int id,int status);
+    int updateSysLinkStatus(int id,int status);
 
     /**
      * 修改友链
      * @param sysLink
      * @return
      */
-    public int updateSysLink(SysLink sysLink);
+    int updateSysLink(SysLink sysLink);
 
     /**
      * 新增友链
      * @param sysLink
      * @return
      */
-    public int insert(SysLink sysLink);
+    int insert(SysLink sysLink);
 }

@@ -12,7 +12,7 @@ import java.util.Date;
  * @create 2018-03-29 9:33
  * @description 文章表分页bean
  **/
-public class IndustryConsultancyVo {
+public class IndustryConsultancyViewVo {
 
     private Integer id;
 
@@ -55,8 +55,8 @@ public class IndustryConsultancyVo {
 
     private String name;
 
-    public Integer getId() {
-        return id;
+    public String getId() {
+        return IDEncryptor.getInstance().encryptWithoutException(id);
     }
 
     public void setId(Integer id) {
@@ -64,7 +64,7 @@ public class IndustryConsultancyVo {
     }
 
     public String getTitle() {
-        return title;
+        return title.length()<15?title: StringUtil.shortStrEnd(title,12);
     }
 
     public void setTitle(String title) {
@@ -168,7 +168,7 @@ public class IndustryConsultancyVo {
     }
 
     public String getDescription() {
-        return description;
+        return description.length()<15?description: StringUtil.shortStrEnd(description,30);
     }
 
     public void setDescription(String description) {

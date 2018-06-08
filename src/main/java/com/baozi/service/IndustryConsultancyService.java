@@ -1,6 +1,7 @@
 package com.baozi.service;
 
 import com.baozi.po.IndustryConsultancy;
+import com.baozi.vo.IndustryConsultancyViewVo;
 import com.baozi.vo.IndustryConsultancyVo;
 import com.github.pagehelper.PageInfo;
 
@@ -12,32 +13,32 @@ import java.util.Map;
  * @create 2018-03-07 16:31
  * @description 文章相关的service
  **/
-public interface IndustryConsultancyService {
+ public interface IndustryConsultancyService {
 
     /**
      * 查询最新的五篇文章
      */
-    public List<IndustryConsultancyVo> findIndustryConsultancyTop5();
+    List<IndustryConsultancyViewVo> findIndustryConsultancyTopLimit(int limit);
 
     /**
      * 分页查询文章列表
      * @param paramMap
      * @return
      */
-    public PageInfo<IndustryConsultancyVo> findIndustryConsultancyPage(Map<String,Object> paramMap);
+     PageInfo<IndustryConsultancyVo> findIndustryConsultancyPage(Map<String,Object> paramMap);
 
     /**
      * 加载所有文章分类
      * @return
      */
-    public List<Map> selectAllCategory();
+     List<Map> selectAllCategory();
 
     /**
      * 执行批量删除文章
      * @param idList
      * @return
      */
-    public int deleteIndusSingleOrBatch(List idList);
+     int deleteIndusSingleOrBatch(List idList);
 
     /**
      * 启动或者禁用文章
@@ -45,19 +46,25 @@ public interface IndustryConsultancyService {
      * @param status
      * @return
      */
-    public int updateIndusStatus(int id,int status);
+     int updateIndusStatus(int id,int status);
 
     /**
      * 修改文章表
      * @param industryConsultancy
      * @return
      */
-    public int updateIndustryConsultancy(IndustryConsultancy industryConsultancy);
+     int updateIndustryConsultancy(IndustryConsultancy industryConsultancy);
 
     /**
      * 新增文章
      * @param industryConsultancy
      * @return
      */
-    public int insert(IndustryConsultancy industryConsultancy);
+     int insert(IndustryConsultancy industryConsultancy);
+
+    /**
+     * 前台页脚分页列表
+     * @return
+     */
+    PageInfo<IndustryConsultancyViewVo> footerPagination(Map<String,Object> paramMap);
 }

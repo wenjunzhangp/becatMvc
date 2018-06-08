@@ -24,7 +24,7 @@ public interface SystemService {
      * @param password 密码
      * @return 用户信息实体类
      */
-    public ActiveUser authenticat(String userCode,String password) throws Exception;
+    ActiveUser authenticat(String userCode,String password) throws Exception;
 
     /**
      * 登录授权的公共接口
@@ -32,7 +32,7 @@ public interface SystemService {
      * @return
      * @throws Exception
      */
-    public SysUser findSysUserByUserCode(String userCode);
+    SysUser findSysUserByUserCode(String userCode);
 
     /**
      * 根据用户Id查询所拥有的菜单
@@ -40,7 +40,7 @@ public interface SystemService {
      * @return
      * @throws Exception
      */
-    public List<SysPermission> findMenuListByUserId(int userId);
+    List<SysPermission> findMenuListByUserId(int userId);
 
     /**
      * 根据用户Id查询用户所拥有的URL权限集合
@@ -48,7 +48,7 @@ public interface SystemService {
      * @return
      * @throws Exception
      */
-    public List<SysPermission> findPermissionListByUserId(int userId);
+    List<SysPermission> findPermissionListByUserId(int userId);
 
     /**
      * 根据用户Id查询用户所拥有的角色集合
@@ -56,7 +56,7 @@ public interface SystemService {
      * @return
      * @throws Exception
      */
-    public Set<String> findRolesListByUserId(int userId);
+    Set<String> findRolesListByUserId(int userId);
 
     /**
      * 根据用户ID查询所属权限
@@ -70,89 +70,89 @@ public interface SystemService {
      * @param paramMap
      * @return
      */
-    public PageInfo<SysPermissionVo> findSysPermissionPage(Map<String, Object> paramMap);
+    PageInfo<SysPermissionVo> findSysPermissionPage(Map<String, Object> paramMap);
 
     /**
      * 批量删除权限
      * @param idList
      * @return
      */
-    public int deleteSysPermissionSingleOrBatch(List idList);
+    int deleteSysPermissionSingleOrBatch(List idList);
 
     /**
      * 新增权限
      * @param sysPermission
      * @return
      */
-    public void insert(SysPermission sysPermission);
+    void insert(SysPermission sysPermission);
 
     /**
      * 分页查询角色
      * @param paramMap
      * @return
      */
-    public PageInfo<SysRoleVo> findSysRolePage(Map<String, Object> paramMap);
+    PageInfo<SysRoleVo> findSysRolePage(Map<String, Object> paramMap);
 
     /**
      * 修改角色
      * @param sysRole
      * @return
      */
-    public void updateSysRole(SysRole sysRole);
+    void updateSysRole(SysRole sysRole);
 
     /**
      * 新增角色
      * @param sysRole
      * @return
      */
-    public void insert(SysRole sysRole);
+    void insert(SysRole sysRole);
 
     /**
      * 删除角色
      * @param id
      * @return
      */
-    public boolean deleteSysRole(int id);
+    boolean deleteSysRole(int id);
 
     /**
      * 角色分配列表
      * @param paramMap
      * @return
      */
-    public PageInfo<UserRoleAllocationVo> findUserRoleAllocationPage(Map<String, Object> paramMap);
+    PageInfo<UserRoleAllocationVo> findUserRoleAllocationPage(Map<String, Object> paramMap);
 
     /**
      * 根据用户id查找角色 勾选
      * @param userId
      * @return
      */
-    public List<UserRoleVo> selectRoleByUserId(int userId);
+    List<UserRoleVo> selectRoleByUserId(int userId);
 
     /**
      * 根据用户id  为用户赋予新角色
      * @param userId
      * @param ids
      */
-    public void addRoleToUser(int userId, String ids);
+    void addRoleToUser(int userId, String ids);
 
     /**
      * 权限分配列表
      * @param paramMap
      * @return
      */
-    public PageInfo<RolePermissionAllocationVo> findRolePermissionAllocationPage(Map<String, Object> paramMap);
+    PageInfo<RolePermissionAllocationVo> findRolePermissionAllocationPage(Map<String, Object> paramMap);
 
     /**
      * 根据角色id查找权限 勾选
      * @param permissionId
      * @return
      */
-    public List<RolePermissionVo> selectPermissionById(int permissionId);
+    List<RolePermissionVo> selectPermissionById(int permissionId);
 
     /**
      * 根据角色id  为角色赋予新权限
      * @param roleId
      * @param ids
      */
-    public void addPermissionToRole(int roleId, String ids);
+    void addPermissionToRole(int roleId, String ids);
 }

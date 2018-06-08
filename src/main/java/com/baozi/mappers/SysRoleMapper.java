@@ -35,11 +35,11 @@ public interface SysRoleMapper {
 
     List<SysRole> findNowAllPermission(@Param("userId")int userId);
 
-    public List<SysRoleVo> findSysRolePage(Map<String, Object> paramMap);
+    List<SysRoleVo> findSysRolePage(Map<String, Object> paramMap);
 
-    public List<UserRoleAllocationVo> findUserRoleAllocationPage(Map<String, Object> paramMap);
+    List<UserRoleAllocationVo> findUserRoleAllocationPage(Map<String, Object> paramMap);
 
-    public List<UserRoleVo> selectRoleByUserId(int userId);
+    List<UserRoleVo> selectRoleByUserId(int userId);
 
-    public int deleteByUserId(int userId);
+    int deleteByUserId(int userId);
 }

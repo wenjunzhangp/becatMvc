@@ -2,6 +2,7 @@ package com.baozi.mappers;
 
 import com.baozi.po.PlatEvent;
 import com.baozi.po.PlatEventExample;
+import com.baozi.vo.PlatEventViewVo;
 import com.baozi.vo.PlatEventVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -37,9 +38,11 @@ public interface PlatEventMapper {
 
     int updateByPrimaryKey(PlatEvent record);
 
-    public List<PlatEvent> findAllPlatEvent();
+    List<PlatEvent> findAllPlatEvent();
 
-    public List<PlatEventVo> findPlatEventPage(Map<String, Object> paramMap);
+    List<PlatEventVo> findPlatEventPage(Map<String, Object> paramMap);
 
-    public int deletePlatEventSingleOrBatch(List idList);
+    int deletePlatEventSingleOrBatch(List idList);
+
+    List<PlatEventViewVo> footerPagination();
 }

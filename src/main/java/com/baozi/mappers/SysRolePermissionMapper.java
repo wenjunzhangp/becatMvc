@@ -32,9 +32,9 @@ public interface SysRolePermissionMapper {
 
     int updateByPrimaryKey(SysRolePermission record);
 
-    public List<RolePermissionAllocationVo> findRolePermissionAllocationPage(Map<String, Object> paramMap);
+    List<RolePermissionAllocationVo> findRolePermissionAllocationPage(Map<String, Object> paramMap);
 
-    public List<RolePermissionVo> selectPermissionById(int permissionId);
+    List<RolePermissionVo> selectPermissionById(int permissionId);
 
-    public void deleteByRoleId(int roleId);
+    void deleteByRoleId(int roleId);
 }

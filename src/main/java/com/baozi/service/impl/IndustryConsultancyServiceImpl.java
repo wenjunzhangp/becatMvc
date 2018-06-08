@@ -4,6 +4,7 @@ import com.baozi.mappers.IndustryConsultancyCategoryMapper;
 import com.baozi.mappers.IndustryConsultancyMapper;
 import com.baozi.po.IndustryConsultancy;
 import com.baozi.service.IndustryConsultancyService;
+import com.baozi.vo.IndustryConsultancyViewVo;
 import com.baozi.vo.IndustryConsultancyVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -29,8 +30,8 @@ public class IndustryConsultancyServiceImpl implements IndustryConsultancyServic
     private IndustryConsultancyCategoryMapper industryConsultancyCategoryMapper;
 
     @Override
-    public List<IndustryConsultancyVo> findIndustryConsultancyTop5() {
-        return industryConsultancyMapper.findIndustryConsultancyTop5();
+    public List<IndustryConsultancyViewVo> findIndustryConsultancyTopLimit(int limit) {
+        return industryConsultancyMapper.findIndustryConsultancyTopLimit(limit);
     }
 
     @Override
@@ -67,5 +68,12 @@ public class IndustryConsultancyServiceImpl implements IndustryConsultancyServic
     @Override
     public int insert(IndustryConsultancy industryConsultancy) {
         return industryConsultancyMapper.insertSelective(industryConsultancy);
+    }
+
+    @Override
+    public PageInfo<IndustryConsultancyViewVo> footerPagination(Map<String,Object> paramMap) {
+        PageHelper.startPage(Integer.valueOf(paramMap.get("page").toString()),Integer.valueOf(paramMap.get("limit").toString()),true);
+        List<IndustryConsultancyViewVo> dataList = industryConsultancyMapper.footerPagination();
+        return new PageInfo<IndustryConsultancyViewVo>(dataList);
     }
 }

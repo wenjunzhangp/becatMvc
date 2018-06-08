@@ -14,7 +14,7 @@ $(function(){
                 html.push('<img src="'+v.sourceimg+'" alt="" />');
                 html.push('</div>');
                 html.push('<div class="article-header">');
-                html.push('<h2><a href="#" rel="">'+v.title+'</a></h2>');
+                html.push('<h2><a href="/news/'+v.id+'.shtml" rel="">'+v.title+'</a></h2>');
                 html.push('<ul class="article--meta">');
                 html.push('<li class="article--meta_item -date">'+v.publictime+'</li>');
                 html.push('<li class="article--meta_item comments">'+v.looknumber+'</li>');
@@ -24,7 +24,7 @@ $(function(){
                 html.push('<p>'+v.description+'</p>');
                 html.push('</div>');
                 html.push('<div class="article--footer">');
-                html.push('<a href="#" class="link">详情</a>');
+                html.push('<a href="/news/'+v.id+'.shtml" class="link">详情</a>');
                 html.push('</div>');
                 html.push('</div>');
                 html.push('</div>');

@@ -31,5 +31,5 @@ public interface SysLogMapper {
 
     int updateByPrimaryKey(SysLog record);
 
-    public List<SysLogVo> findSysLogPage(Map<String,Object> paramMap);
+    List<SysLogVo> findSysLogPage(Map<String,Object> paramMap);
 }

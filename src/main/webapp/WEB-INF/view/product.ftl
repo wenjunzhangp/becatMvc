@@ -95,7 +95,7 @@
                     <li class="am-active">
                         <a href="[data-tab-panel-0] am-g">
                             <div class="am-u-md-3 am-u-sm-3 am-padding-right-0">
-                                <i class="am-icon-camera"></i>
+                                <i class="am-icon-cog"></i>
                             </div>
                             <div class="school-item-right am-u-md-9 am-u-sm-9 am-text-left">
                                 <strong class="promo_slider_nav--item_title">英国短毛猫</strong>
@@ -106,7 +106,7 @@
                     <li class="a">
                         <a href="[data-tab-panel-1] am-g">
                             <div class="am-u-md-3 am-u-sm-3 am-padding-right-0">
-                                <i class="am-icon-camera"></i>
+                                <i class="am-icon-lightbulb-o"></i>
                             </div>
                             <div class="school-item-right am-u-md-9 am-u-sm-9 am-text-left">
                                 <strong class="promo_slider_nav--item_title">亚洲豹猫</strong>
@@ -117,7 +117,7 @@
                     <li class="">
                         <a href="[data-tab-panel-2] am-g">
                             <div class="am-u-md-3 am-u-sm-3 am-padding-right-0">
-                                <i class="am-icon-camera"></i>
+                                <i class="am-icon-line-chart"></i>
                             </div>
                             <div class="school-item-right am-u-md-9 am-u-sm-9 am-text-left">
                                 <strong class="promo_slider_nav--item_title">雪橇三傻-哈士奇</strong>
@@ -128,7 +128,7 @@
                     <li class="">
                         <a href="[data-tab-panel-3] am-g">
                             <div class="am-u-md-3 am-u-sm-3 am-padding-right-0">
-                                <i class="am-icon-camera"></i>
+                                <i class="am-icon-hourglass-end"></i>
                             </div>
                             <div class="school-item-right am-u-md-9 am-u-sm-9 am-text-left">
                                 <strong class="promo_slider_nav--item_title">哈雪橇三傻-阿拉斯加</strong>

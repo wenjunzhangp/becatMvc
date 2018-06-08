@@ -1,11 +1,12 @@
 package com.baozi.vo;
 
+import com.baozi.util.IDEncryptor;
 import com.baozi.util.StringUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-public class PlatEventVo {
+public class PlatEventViewVo {
     private Integer id;
 
     private String title;
@@ -21,8 +22,8 @@ public class PlatEventVo {
 
     private String content;
 
-    public Integer getId() {
-        return id;
+    public String getId() {
+        return IDEncryptor.getInstance().encryptWithoutException(id);
     }
 
     public void setId(Integer id) {
