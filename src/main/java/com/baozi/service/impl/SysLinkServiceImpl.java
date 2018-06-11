@@ -47,5 +47,10 @@ public class SysLinkServiceImpl implements SysLinkService{
     public int insert(SysLink sysLink) {
         return sysLinkMapper.insertSelective(sysLink);
     }
+
+    @Override
+    public List<SysLinkVo> findSysLinkByLimitAndPosition(int position) {
+        return sysLinkMapper.findSysLinkByLimitAndPosition(position);
+    }
 }
 

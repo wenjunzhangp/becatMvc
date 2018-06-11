@@ -57,4 +57,16 @@ import java.util.Map;
      * @return
      */
     PageInfo<NoticeViewVo> footerPagination(Map<String,Object> paramMap);
+
+    /**
+     * 查询站内最新的五篇公告
+     */
+    List<NoticeViewVo> findNoticeTopLimit(int limit);
+
+    /**
+     * 获取单篇公告，做详情页用
+     * @param id
+     * @return
+     */
+    Notice findNoticeById(int id);
 }

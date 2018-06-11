@@ -63,4 +63,14 @@ public class NoticeServiceImpl implements NoticeService{
         List<NoticeViewVo> dataList = noticeMapper.footerPagination();
         return new PageInfo<NoticeViewVo>(dataList);
     }
+
+    @Override
+    public List<NoticeViewVo> findNoticeTopLimit(int limit) {
+        return noticeMapper.findNoticeTopLimit(limit);
+    }
+
+    @Override
+    public Notice findNoticeById(int id) {
+        return noticeMapper.selectByPrimaryKey(id);
+    }
 }

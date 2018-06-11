@@ -43,4 +43,6 @@ public interface NoticeMapper {
     int deleteNoticeSingleOrBatch(List idList);
 
     List<NoticeViewVo> footerPagination();
+
+    List<NoticeViewVo> findNoticeTopLimit(int limit);
 }

@@ -370,4 +370,9 @@
     select * from notice i where i.display=1 and `status`=1
     order by i.publicTime desc
   </select>
+
+  <select id="findNoticeTopLimit" resultType="com.baozi.vo.NoticeViewVo" parameterType="java.lang.Integer">
+    select * from notice i where i.display=1 and `status`=1
+    order by i.publicTime desc limit #{limit}
+  </select>
 </mapper>

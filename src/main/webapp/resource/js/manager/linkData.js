@@ -189,8 +189,8 @@ layui.use(['form','layer','laydate','table','upload'],function(){
         done: function(res, index, upload){
             if (res.code==0) {
                 layer.msg(res.msg);
-                $('#userFace').attr('src',res.data);
-                $("#logo").val(res.data);
+                $('#userFace').attr('src',res.data.src);
+                $("#logo").val(res.data.filename);
                 $('.linkLogo').css("background","#fff");
             } else {
                 layer.msg(res.msg);

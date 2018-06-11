@@ -298,4 +298,8 @@
     </foreach>
   </delete>
 
+  <select id="findSysLinkByLimitAndPosition" resultType="com.baozi.vo.SysLinkVo" parameterType="java.lang.Integer">
+    select domainname,domainurl from sys_link where display=1 and `status`=1 and `show` = #{position} limit 5
+  </select>
+
 </mapper>

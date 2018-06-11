@@ -71,7 +71,7 @@ public class PlatEventViewVo {
     }
 
     public String getContent() {
-        return content.length()<30?content: StringUtil.shortStrEnd(content,35);
+        return content;
     }
 
     public void setContent(String content) {

@@ -1,9 +1,13 @@
 package com.baozi.controller;
 
+import com.baozi.enums.NoticeEnum;
 import com.baozi.po.IndustryConsultancy;
+import com.baozi.po.Notice;
 import com.baozi.service.IndustryConsultancyService;
 import com.baozi.service.NoticeService;
 import com.baozi.service.PlatEventService;
+import com.baozi.service.SysLinkService;
+import com.baozi.statics.Constant;
 import com.baozi.util.IDEncryptor;
 import com.baozi.util.LogUtils;
 import com.baozi.vo.IndustryConsultancyViewVo;
@@ -28,6 +32,9 @@ public class ViewJumpController extends BaseController{
 
     @Autowired
     private PlatEventService platEventService;
+
+    @Autowired
+    private SysLinkService sysLinkService;
 
     @RequestMapping("/product")
     public String product(){
@@ -81,6 +88,17 @@ public class ViewJumpController extends BaseController{
         paramMap.put("page",1);
         paramMap.put("limit",1);
         mav.addObject("total", noticeService.footerPagination(paramMap).getTotal());
+        return mav;
+    }
+
+    @RequestMapping("/noticedetail")
+    public ModelAndView noticedetail(String id){
+        ModelAndView mav = new ModelAndView("noticecontent");
+        Integer noticeId = IDEncryptor.getInstance().decryptWithoutException(id);
+        //取得当前公告
+        Notice notice = noticeService.findNoticeById(noticeId);
+        mav.addObject("noticeObject",notice);
+        mav.addObject("noticeCategory", NoticeEnum.genNoticeCategory(notice.getCategory()).getName());
         return mav;
     }
 

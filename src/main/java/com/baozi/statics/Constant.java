@@ -40,4 +40,12 @@ public class Constant {
 
 	/*超级管理员的userid*/
 	public static final int SUPER_MANAGER_USERID = 1;
+
+	/*友链出现的展示位置 1 首页 0子页*/
+	public static final int LINK_POSITION_PARENT = 1;
+	public static final int LINK_POSITION_CHILDREN = 0;
+
+	/*数据取多少条在这里定义*/
+	public static final int SHOW_SIZE_NINE = 10;
+	public static final int SHOW_SIZE_FIVE = 5;
 }

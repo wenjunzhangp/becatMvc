@@ -58,4 +58,4 @@
 </script>
 <script src="/resource/js/view/page.js" charset="utf-8"></script>
 <script src="/resource/js/view/notice.js" charset="utf-8"></script>
-<script src="/resource/js/view/tagcloud.js" charset="utf-8"></script>
+<script src="/resource/js/view/right.js" charset="utf-8"></script>

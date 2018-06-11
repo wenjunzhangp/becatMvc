@@ -81,10 +81,6 @@ public class LinkDataController extends BaseController{
     @ResponseBody
     public CodeResult modifySysLink(SysLink sysLink){
         try {
-            if (StringUtil.isNotEmpty(sysLink.getLogo())) {
-                String imgUrl = sysLink.getLogo().substring(IConfig.get("becat.imgserver.prefix").lastIndexOf("/")+1,sysLink.getLogo().length());
-                sysLink.setLogo(imgUrl);
-            }
             if (null!=sysLink.getId()) {
                 sysLinkService.updateSysLink(sysLink);
             } else {

@@ -44,4 +44,9 @@ public interface SysLinkService {
      * @return
      */
     int insert(SysLink sysLink);
+
+    /**
+     * 根据友链展示位置查询友链
+     */
+    List<SysLinkVo> findSysLinkByLimitAndPosition(int position);
 }

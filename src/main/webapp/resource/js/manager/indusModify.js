@@ -46,8 +46,8 @@ layui.use(['form','layer','layedit','upload'],function(){
         done: function(res, index, upload){
             if (res.code==0) {
                 layer.msg(res.msg);
-                $('#userFace').attr('src',res.data);
-                $("#sourceimg").val(res.data);
+                $('#userFace').attr('src',res.data.src);
+                $("#sourceimg").val(res.data.filename);
             } else {
                 layer.msg(res.msg);
             }

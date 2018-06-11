@@ -16,4 +16,10 @@
         <to>/newsdetail.shtml?id=$1</to>
     </rule>
 
+    <rule>
+        <note>BeCat公告详情页静态化</note>
+        <from>^/notice/([0-9]+).shtml$</from>
+        <to>/noticedetail.shtml?id=$1</to>
+    </rule>
+
 </urlrewrite>

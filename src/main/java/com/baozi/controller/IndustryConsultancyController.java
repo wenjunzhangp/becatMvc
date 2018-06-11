@@ -34,7 +34,7 @@ public class IndustryConsultancyController extends BaseController{
     @ResponseBody
     public CodeResult sysconfigData(){
         try {
-            return CodeResult.ok(industryConsultancyService.findIndustryConsultancyTopLimit(5));
+            return CodeResult.ok(industryConsultancyService.findIndustryConsultancyTopLimit(Constant.SHOW_SIZE_FIVE));
         } catch ( Exception e ) {
             LogUtils.logError("调取最新文章错误",e);
             return CodeResult.build(500,e.getMessage());
@@ -104,10 +104,6 @@ public class IndustryConsultancyController extends BaseController{
     @ResponseBody
     public CodeResult modifyIndus(IndustryConsultancy industryConsultancy){
         try {
-            if (StringUtil.isNotEmpty(industryConsultancy.getSourceimg())) {
-                String imgUrl = industryConsultancy.getSourceimg().substring(IConfig.get("becat.imgserver.prefix").lastIndexOf("/")+1,industryConsultancy.getSourceimg().length());
-                industryConsultancy.setSourceimg(imgUrl);
-            }
             if (industryConsultancy.getStatus()==1) {
                industryConsultancy.setPublictime(new Date());
             }

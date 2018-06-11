@@ -41,7 +41,7 @@
             </div>
           </div>
 
-          <div class="comments">
+          <#--<div class="comments">
             <div class="comments">
 							<h2 class="comments--title">Comments (2)</h2>
 							<ul class="comments_list">
@@ -113,41 +113,14 @@
 
 							</div>
 						</div>
-          </div>
+          </div>-->
         </div>
         <!--news-section left end-->
 
-        <!--news-section right start-->
-        <div class="am-u-md-3">
-          <div class="blog_sidebar">
-            <div class="widget">
-              <h2 class="widget--title"><i class="am-icon-file-text-o"></i>最新资讯</h2>
-              <ul>
-								<li><a href="#">公司报道</a></li>
-								<li><a href="#">行业资讯</a></li>
-								<li><a href="#">云适配观点</a></li>
-							</ul>
-            </div>
-            <div class="widget">
-              <h2 class="widget--title"><i class="am-icon-comments-o"></i>热门动态</h2>
-              <ul>
-								<li><a href="#">科大讯飞严峻：借力HTML5 推进“智能语音技术”应用普及</a></li>
-								<li><a href="#">金山万勇：打破信息孤岛 HTML5优势凸显将成核心</a></li>
-								<li><a href="#">阿里吴志华：基于HTML5技术开发Native体验应用</a></li>
-							</ul>
-            </div>
-            <div class="widget">
-              <h2 class="widget--title"><i class="am-icon-rss"></i>站内公告</h2>
-              <ul>
-								<li><a href="#">今天的应用号只是用了HTML技术中无需下载安装、跨平台的功能， 并没有用到HTML开发互联的精髓。 它只是一个...</a><span class="rss-date">November 10, 2015</span></li>
-								<li><a href="#">云适配带来了一个全新的“互联网+政务”解决方案，我们可以非常好的利用你现有的IT系统，就是你还是用原来的PC网站一套系统，只要安装一下云适配的产品Xcloud网站跨屏...</a><span class="rss-date">November 10, 2015</span></li>
-							</ul>
-            </div>
-          </div>
-        </div>
-        <!--news-section right end-->
+      <#include "common/rightdetail.ftl">
       </div>
     </div>
   </div>
 
 <#include "common/footer.ftl">
+<script src="/resource/js/view/rightdetail.js" charset="utf-8"></script>

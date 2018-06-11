@@ -204,7 +204,7 @@ $(function(){
     tagcloud.amination(options);
 
     $.ajax({
-        url : "/view/page/newesttopten.shtml",
+        url : "/view/page/newslimit.shtml",
         type : "get",
         cache:true,
         dataType : "json",

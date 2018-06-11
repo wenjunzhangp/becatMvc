@@ -34,4 +34,6 @@ public interface SysLinkMapper {
     List<SysLinkVo> findSysLinkPage(Map<String, Object> paramMap);
 
     int deleteSysLinkSingleOrBatch(List idList);
+
+    List<SysLinkVo> findSysLinkByLimitAndPosition(int position);
 }
