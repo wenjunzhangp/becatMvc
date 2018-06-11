@@ -30,7 +30,8 @@
             <header class="article--header">
               <h2 class="article--title"><a href="#" rel="">${indusObject.title}</a></h2>
               <ul class="article--meta">
-                <li class="article--meta_item"><i class="am-icon-calendar"></i>${indusObject.publictime}</li>
+                <#setting date_format="yyyy-MM-dd HH:mm:ss">
+                <li class="article--meta_item"><i class="am-icon-calendar"></i>${indusObject.publictime?date}</li>
                 <li class="article--meta_item"><i class="am-icon-user"></i>BeCat</li>
                 <li class="article--meta_item"><i class="am-icon-commenting-o"></i>${indusObject.looknumber}</li>
               </ul>

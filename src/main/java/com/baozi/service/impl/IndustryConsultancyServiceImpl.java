@@ -78,7 +78,7 @@ public class IndustryConsultancyServiceImpl implements IndustryConsultancyServic
     }
 
     @Override
-    public IndustryConsultancyViewVo findIndustryConsultancyById(int id) {
+    public IndustryConsultancy findIndustryConsultancyById(int id) {
         return industryConsultancyMapper.selectByPrimaryKey(id);
     }
 

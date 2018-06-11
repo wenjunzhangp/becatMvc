@@ -105,7 +105,7 @@ public class ViewJumpController extends BaseController{
             LogUtils.logError("文章【"+indusId+"】修改阅读数+1失败",e);
         }
         //取得当前文章
-        IndustryConsultancyViewVo industryConsultancy = industryConsultancyService.findIndustryConsultancyById(indusId);
+        IndustryConsultancy industryConsultancy = industryConsultancyService.findIndustryConsultancyById(indusId);
         mav.addObject("indusObject",industryConsultancy);
         return mav;
     }

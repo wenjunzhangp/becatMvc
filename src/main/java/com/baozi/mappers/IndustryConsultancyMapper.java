@@ -24,7 +24,7 @@ public interface IndustryConsultancyMapper {
 
     List<IndustryConsultancy> selectByExample(IndustryConsultancyExample example);
 
-    IndustryConsultancyViewVo selectByPrimaryKey(Integer id);
+    IndustryConsultancy selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") IndustryConsultancy record, @Param("example") IndustryConsultancyExample example);
 

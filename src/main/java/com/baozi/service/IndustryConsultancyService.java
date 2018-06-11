@@ -73,7 +73,7 @@ import java.util.Map;
      * @param id
      * @return
      */
-    IndustryConsultancyViewVo findIndustryConsultancyById(int id);
+    IndustryConsultancy findIndustryConsultancyById(int id);
 
     /**
      * 文章阅读数+1
