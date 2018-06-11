@@ -168,7 +168,7 @@ public class IndustryConsultancyViewVo {
     }
 
     public String getDescription() {
-        return description.length()<15?description: StringUtil.shortStrEnd(description,50);
+        return description;
     }
 
     public void setDescription(String description) {

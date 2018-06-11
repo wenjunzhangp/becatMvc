@@ -8,28 +8,20 @@ $(function(){
         callback: function (data) {
             var html = [];
             $.each(data.data,function(i,v){
-                html.push('<div class="am-u-lg-4 am-u-md-6">');
-                html.push('<div class="article">');
-                html.push('<div class="article-img">');
-                html.push('<img src="'+v.sourceimg+'" alt="" />');
+                html.push('<article class="am-g blog-entry-article">');
+                html.push('<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">');
+                html.push('<img src="'+v.sourceimg+'" alt="'+v.sourceimg+'" class="am-u-sm-12">');
                 html.push('</div>');
-                html.push('<div class="article-header">');
-                html.push('<h2><a href="/news/'+v.id+'.shtml" rel="">'+v.title+'</a></h2>');
-                html.push('<ul class="article--meta">');
-                html.push('<li class="article--meta_item -date">'+v.publictime+'</li>');
-                html.push('<li class="article--meta_item comments">'+v.looknumber+'</li>');
-                html.push('</ul>');
-                html.push('</div>');
-                html.push('<div class="article--content">');
+                html.push('<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">');
+                html.push('<span><a href="/news/'+v.id+'.shtml" class="blog-color">'+v.looknumber+'阅&nbsp;</a></span>');
+                html.push('<span> BeCat &nbsp;</span>');
+                html.push('<span>'+v.publictime+'</span>');
+                html.push('<h1><a href="/news/'+v.id+'.shtml">'+v.title+'</a></h1>');
                 html.push('<p>'+v.description+'</p>');
                 html.push('</div>');
-                html.push('<div class="article--footer">');
-                html.push('<a href="/news/'+v.id+'.shtml" class="link">详情</a>');
-                html.push('</div>');
-                html.push('</div>');
-                html.push('</div>');
+                html.push('</article>');
             });
-            $(".datalist").html(html.join(''));
+            $(".articledata").html(html.join(''));
         }
     });
 })
