@@ -5721,7 +5721,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	              slide.attr('data-thumb-alt', '');
 	            }
 	            var altText = ('' !== slide.attr('data-thumb-alt')) ? altText = ' alt="' + slide.attr('data-thumb-alt') + '"' : '';
-	            item = (slider.vars.controlNav === "thumbnails") ? '<img src="' + slide.attr( 'data-thumb' ) + '"' + altText + '/>' : '<a href="#">' + j + '</a>';
+	            item = (slider.vars.controlNav === "thumbnails") ? '<img src="' + slide.attr( 'data-thumb' ) + '"' + altText + '/>' : '<a href="href="javascript:void(0)">' + j + '</a>';
 	            if ('thumbnails' === slider.vars.controlNav && true === slider.vars.thumbCaptions) {
 	              var captn = slide.attr('data-thumbcaption');
 	              if ('' !== captn && undefined !== captn) {item += '<span class="' + namespace + 'caption">' + captn + '</span>';}
@@ -5792,7 +5792,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      },
 	      update: function(action, pos) {
 	        if (slider.pagingCount > 1 && action === "add") {
-	          slider.controlNavScaffold.append($('<li><a href="#">' + slider.count + '</a></li>'));
+	          slider.controlNavScaffold.append($('<li><a href="href="javascript:void(0)">' + slider.count + '</a></li>'));
 	        } else if (slider.pagingCount === 1) {
 	          slider.controlNavScaffold.find('li').remove();
 	        } else {
@@ -5804,7 +5804,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    directionNav: {
 	      setup: function() {
-	        var directionNavScaffold = $('<ul class="' + namespace + 'direction-nav"><li class="' + namespace + 'nav-prev"><a class="' + namespace + 'prev" href="#">' + slider.vars.prevText + '</a></li><li class="' + namespace + 'nav-next"><a class="' + namespace + 'next" href="#">' + slider.vars.nextText + '</a></li></ul>');
+	        var directionNavScaffold = $('<ul class="' + namespace + 'direction-nav"><li class="' + namespace + 'nav-prev"><a class="' + namespace + 'prev" href="href="javascript:void(0)">' + slider.vars.prevText + '</a></li><li class="' + namespace + 'nav-next"><a class="' + namespace + 'next" href="#">' + slider.vars.nextText + '</a></li></ul>');
 
 	        // CUSTOM DIRECTION NAV:
 	        if (slider.customDirectionNav) {
@@ -5854,7 +5854,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    pausePlay: {
 	      setup: function() {
-	        var pausePlayScaffold = $('<div class="' + namespace + 'pauseplay"><a href="#"></a></div>');
+	        var pausePlayScaffold = $('<div class="' + namespace + 'pauseplay"><a href="href="javascript:void(0)"></a></div>');
 
 	        // CONTROLSCONTAINER:
 	        if (slider.controlsContainer) {

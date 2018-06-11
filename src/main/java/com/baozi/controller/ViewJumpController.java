@@ -1,12 +1,10 @@
 package com.baozi.controller;
 
 import com.baozi.enums.NoticeEnum;
+import com.baozi.po.Blog;
 import com.baozi.po.IndustryConsultancy;
 import com.baozi.po.Notice;
-import com.baozi.service.IndustryConsultancyService;
-import com.baozi.service.NoticeService;
-import com.baozi.service.PlatEventService;
-import com.baozi.service.SysLinkService;
+import com.baozi.service.*;
 import com.baozi.statics.Constant;
 import com.baozi.util.IDEncryptor;
 import com.baozi.util.LogUtils;
@@ -34,7 +32,7 @@ public class ViewJumpController extends BaseController{
     private PlatEventService platEventService;
 
     @Autowired
-    private SysLinkService sysLinkService;
+    private BlogService blogService;
 
     @RequestMapping("/product")
     public String product(){
@@ -134,7 +132,23 @@ public class ViewJumpController extends BaseController{
         Map<String,Object> paramMap = new HashMap<String,Object>();
         paramMap.put("page",1);
         paramMap.put("limit",1);
-        mav.addObject("total", 5);
+        mav.addObject("total", blogService.footerPagination(paramMap).getTotal());
+        return mav;
+    }
+
+    @RequestMapping("/blogdetail")
+    public ModelAndView blogdetail(String id){
+        ModelAndView mav = new ModelAndView("blogcontent");
+        Integer indusId = IDEncryptor.getInstance().decryptWithoutException(id);
+        try {
+            //文章阅读数+1
+            blogService.updateBlogLookNum(indusId);
+        } catch ( Exception e ) {
+            LogUtils.logError("技术博客【"+indusId+"】修改阅读数+1失败",e);
+        }
+        //取得当前技术博客
+        Blog blog = blogService.findBlogById(indusId);
+        mav.addObject("blogObject",blog);
         return mav;
     }
 

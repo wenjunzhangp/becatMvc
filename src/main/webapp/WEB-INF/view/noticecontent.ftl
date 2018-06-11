@@ -28,7 +28,7 @@
             <div class="am-u-md-9">
                 <div class="article">
                     <header class="article--header">
-                        <h2 class="article--title"><a href="#" rel="">${noticeObject.title}</a></h2>
+                        <h2 class="article--title"><a href="href="javascript:void(0)" rel="">${noticeObject.title}</a></h2>
                         <ul class="article--meta">
                         <#setting date_format="yyyy-MM-dd HH:mm:ss">
                             <li class="article--meta_item"><i class="am-icon-calendar"></i>${noticeObject.publictime?date}</li>

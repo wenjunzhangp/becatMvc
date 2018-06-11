@@ -24,28 +24,36 @@
 		<form class="layui-form">
 			<div class="layui-inline">
 				<div class="layui-input-inline">
-					<input type="text" class="layui-input searchVal" placeholder="请输入公告标题" />
+					<input type="text" class="layui-input searchVal" placeholder="请输入博客标题" />
 				</div>
-				<div class="layui-input-inline component">
-					<select name="category" id="category" lay-search lay-filter="searchPage">
+				<div class="layui-input-inline type">
+					<select name="type" id="type" lay-search lay-filter="searchPage">
 						<option value="-1">全部</option>
-						<option value="0">通告</option>
-						<option value="1">活动</option>
-						<option value="2">放假</option>
-						<option value="3">交易</option>
+						<option value="0">未知来源</option>
+						<option value="1">原创</option>
+						<option value="2">转载</option>
 					</select>
 				</div>
-				<div class="layui-input-inline " style="width: 260px;">
-					<input id="time" name="time" type="text" placeholder="时间筛选" readonly class="layui-input">
+				<div class="layui-input-inline category">
+					<select name="category" id="category" lay-search lay-filter="searchPage">
+						<option value="-1">全部</option>
+						<option value="0">未知来源</option>
+						<option value="1">Java</option>
+						<option value="2">技术</option>
+						<option value="3">Linux</option>
+						<option value="4">c#</option>
+						<option value="5">Python</option>
+						<option value="6">Php</option>
+					</select>
 				</div>
 				<a class="layui-btn search_btn" data-type="reload">搜索</a>
 			</div>
-			<shiro:hasPermission name="console:addNotice">
+			<shiro:hasPermission name="console:addBlog">
 			<div class="layui-inline">
 				<a class="layui-btn layui-btn-normal addNews_btn">添加文章</a>
 			</div>
 			</shiro:hasPermission>
-			<shiro:hasPermission name="console:deleteNoticeSingleOrBatch">
+			<shiro:hasPermission name="console:deleteBlogSingleOrBatch">
 			<div class="layui-inline">
 				<a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
 			</div>
@@ -56,28 +64,39 @@
 
 	<!--操作-->
 	<script type="text/html" id="userListBar">
-		<shiro:hasPermission name="console:updateNotice">
+		<shiro:hasPermission name="console:updateBlog">
 		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
 		</shiro:hasPermission>
-		<shiro:hasPermission name="console:deleteNoticeSingleOrBatch">
+		<shiro:hasPermission name="console:deleteBlogSingleOrBatch">
 		<a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="del">删除</a>
 		</shiro:hasPermission>
 	</script>
 
 	<!--操作-->
-	<script type="text/html" id="modifyNotice">
+	<script type="text/html" id="modifyStatus">
 		{{#  if(d.status == "0"){ }}
-			<shiro:hasPermission name="console:updateNoticeStatus">
+			<shiro:hasPermission name="console:updateBlogStatus">
 				<a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="usable">启用</a>
 			</shiro:hasPermission>
 		{{#  } else { }}
-			<shiro:hasPermission name="console:updateNoticeStatus">
+			<shiro:hasPermission name="console:updateBlogStatus">
 				<a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="usable">禁用</a>
 			</shiro:hasPermission>
 		{{#  }}}
 	</script>
+	<script type="text/html" id="modifyStick">
+		{{#  if(d.stick == "0"){ }}
+		<shiro:hasPermission name="console:updateBlogStick">
+			<a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="pullstick">置顶</a>
+		</shiro:hasPermission>
+		{{#  } else { }}
+		<shiro:hasPermission name="console:updateBlogStick">
+			<a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="pullstick">下顶</a>
+		</shiro:hasPermission>
+		{{#  }}}
+	</script>
 </form>
 <script type="text/javascript" src="/resource/js/layui/layui.js"></script>
-<script type="text/javascript" src="/resource/js/manager/noticeData.js"></script>
+<script type="text/javascript" src="/resource/js/manager/blogData.js"></script>
 </body>
 </html>

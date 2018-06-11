@@ -113,6 +113,9 @@
 					<li class="layui-nav-item layui-this" lay-id="1"><a href="javascript:;" data-url="/console/main.shtml"><i class="layui-icon" data-icon=""></i><cite>后台首页</cite></a></li>
 
 					<div id="contentManagementson" class="hideCustom">
+						<shiro:hasPermission name="console:blog">
+							<li class="layui-nav-item" lay-id="2"><a href="javascript:;"  data-url="/console/blog.shtml"><i class="seraph icon-text" data-icon="icon-text"></i><cite>技术博客列表</cite></a></li>
+						</shiro:hasPermission>
 						<shiro:hasPermission name="console:article">
 							<li class="layui-nav-item" lay-id="2"><a href="javascript:;"  data-url="/console/article.shtml"><i class="seraph icon-text" data-icon="icon-text"></i><cite>文章列表</cite></a></li>
 						</shiro:hasPermission>

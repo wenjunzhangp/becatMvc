@@ -8,7 +8,7 @@
     <div class="layout-container">
       <div class="page-header">
         <div class="am-container">
-          <h1 class="page-header-title">文章详情</h1>
+          <h1 class="page-header-title">博客详情</h1>
         </div>
       </div>
 
@@ -16,7 +16,7 @@
         <div class="am-container">
           <ol class="am-breadcrumb">
             <li><a href="/product.shtml">首页</a></li>
-            <li class="am-active">文章详情</li>
+            <li class="am-active">博客详情</li>
           </ol>
         </div>
       </div>
@@ -28,16 +28,16 @@
         <div class="am-u-md-9">
           <div class="article">
             <header class="article--header">
-              <h2 class="article--title"><a href="href="javascript:void(0)" rel="">${indusObject.title}</a></h2>
+              <h2 class="article--title"><a href="javascript:void(0)" rel="">${blogObject.title}</a></h2>
               <ul class="article--meta">
                 <#setting date_format="yyyy-MM-dd HH:mm:ss">
-                <li class="article--meta_item"><i class="am-icon-calendar"></i>${indusObject.publictime?date}</li>
-                <li class="article--meta_item"><i class="am-icon-user"></i>BeCat</li>
-                <li class="article--meta_item"><i class="am-icon-commenting-o"></i>${indusObject.looknumber}</li>
+                <li class="article--meta_item"><i class="am-icon-calendar"></i>${blogObject.createtime?date}</li>
+                <li class="article--meta_item"><i class="am-icon-user"></i>${blogObject.author}</li>
+                <li class="article--meta_item"><i class="am-icon-commenting-o"></i>${blogObject.looknum}</li>
               </ul>
             </header>
             <div class="article--content">
-                ${indusObject.content}
+                ${blogObject.content}
             </div>
           </div>
 

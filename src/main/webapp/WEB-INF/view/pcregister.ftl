@@ -23,9 +23,9 @@
                 <div class="am-dropdown" data-am-dropdown>
                   <button class="am-btn am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle>Language <span class="am-icon-caret-down"></span></button>
                   <ul class="am-dropdown-content">
-                    <li><a href="#">English</a></li>
+                    <li><a href="href="javascript:void(0)">English</a></li>
                     <li class="am-divider"></li>
-                    <li><a href="#">Chinese</a></li>
+                    <li><a href="href="javascript:void(0)">Chinese</a></li>
                   </ul>
                 </div>
               </div>
@@ -102,7 +102,7 @@
             <ul class="am-nav am-nav-pills am-nav-justify">
               <li class=""><a href="../index.html">首页</a></li>
               <li>
-                <a href="#">产品中心</a>
+                <a href="href="javascript:void(0)">产品中心</a>
                 <!-- sub-menu start-->
                 <ul class="sub-menu">
 									<li class="menu-item"><a href="./product1.html">产品展示1</a></li>
@@ -148,7 +148,7 @@
                   <ul class="am-menu-nav am-avg-sm-1">
                     <li><a href="../index.html" class="" >首页</a></li>
                     <li class="am-parent">
-                      <a href="#" class="" >产品中心</a>
+                      <a href="href="javascript:void(0)" class="" >产品中心</a>
                       <ul class="am-menu-sub am-collapse ">
                         <li class="">
                           <a href="./product1.html" class="" >产品展示1</a>
@@ -184,10 +184,10 @@
                       <a href="./news.html" class="nav-icon nav-icon-globe" >Language</a>
                       <ul class="am-menu-sub am-collapse  ">
                         <li>
-                          <a href="#" >English</a>
+                          <a href="href="javascript:void(0)" >English</a>
                         </li>
                         <li class="">
-                          <a href="#" >Chinese</a>
+                          <a href="href="javascript:void(0)" >Chinese</a>
                         </li>
                       </ul>
                     </li>

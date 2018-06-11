@@ -1,9 +1,6 @@
 package com.baozi.controller;
 
-import com.baozi.service.IndustryConsultancyService;
-import com.baozi.service.NoticeService;
-import com.baozi.service.PlatEventService;
-import com.baozi.service.SysLinkService;
+import com.baozi.service.*;
 import com.baozi.statics.Constant;
 import com.baozi.util.LogUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +26,9 @@ public class ViewDataController extends BaseController{
 
     @Autowired
     private SysLinkService sysLinkService;
+
+    @Autowired
+    private BlogService blogService;
 
     @RequestMapping("/newslimit")
     @ResponseBody
@@ -86,7 +86,7 @@ public class ViewDataController extends BaseController{
     public Map<String,Object> blogdata(HttpServletRequest request){
         try {
             Map<String,Object> paramMap = genRequestMapSingle(request);
-            setResultMapOkByPage(null);
+            setResultMapOkByPage(blogService.footerPagination(paramMap));
         } catch ( Exception e ) {
             LogUtils.logError("读取技术博客前端分页异常",e);
             setResultMapError(e);

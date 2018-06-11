@@ -38,8 +38,10 @@
 					<select name="category" id="category" class="category" lay-verify="required|noticeCategory"
 							lay-filter="category">
 						<option value="-1">请选择分类<option>
-						<option value="1">公告</option>
-						<option value="2">活动<option>
+						<option value="0">通告</option>
+						<option value="1">活动</option>
+						<option value="2">放假</option>
+						<option value="3">交易</option>
 					</select>
 				</div>
 			</div>

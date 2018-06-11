@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baozi.mappers.BlogMapper" >
+  <resultMap id="BaseResultMap" type="com.baozi.po.Blog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="fabulous" property="fabulous" jdbcType="INTEGER" />
+    <result column="looknum" property="looknum" jdbcType="INTEGER" />
+    <result column="category" property="category" jdbcType="INTEGER" />
+    <result column="sharenum" property="sharenum" jdbcType="INTEGER" />
+    <result column="abstractremark" property="abstractremark" jdbcType="VARCHAR" />
+    <result column="stick" property="stick" jdbcType="BIT" />
+    <result column="display" property="display" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="lastmodifytime" property="lastmodifytime" jdbcType="TIMESTAMP" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.baozi.po.Blog" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, title, author, fabulous, looknum, category, sharenum, abstractremark, stick, 
+    display, status, createtime, lastmodifytime, source, type
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.baozi.po.BlogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from blog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.baozi.po.BlogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from blog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from blog
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from blog
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.baozi.po.BlogExample" >
+    delete from blog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.baozi.po.Blog" >
+    insert into blog (id, title, author, 
+      fabulous, looknum, category, 
+      sharenum, abstractremark, stick, 
+      display, status, createtime, 
+      lastmodifytime, source, type, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{fabulous,jdbcType=INTEGER}, #{looknum,jdbcType=INTEGER}, #{category,jdbcType=INTEGER}, 
+      #{sharenum,jdbcType=INTEGER}, #{abstractremark,jdbcType=VARCHAR}, #{stick,jdbcType=BIT}, 
+      #{display,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{lastmodifytime,jdbcType=TIMESTAMP}, #{source,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.baozi.po.Blog" >
+    insert into blog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="fabulous != null" >
+        fabulous,
+      </if>
+      <if test="looknum != null" >
+        looknum,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="sharenum != null" >
+        sharenum,
+      </if>
+      <if test="abstractremark != null" >
+        abstractremark,
+      </if>
+      <if test="stick != null" >
+        stick,
+      </if>
+      <if test="display != null" >
+        display,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="lastmodifytime != null" >
+        lastmodifytime,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="fabulous != null" >
+        #{fabulous,jdbcType=INTEGER},
+      </if>
+      <if test="looknum != null" >
+        #{looknum,jdbcType=INTEGER},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=INTEGER},
+      </if>
+      <if test="sharenum != null" >
+        #{sharenum,jdbcType=INTEGER},
+      </if>
+      <if test="abstractremark != null" >
+        #{abstractremark,jdbcType=VARCHAR},
+      </if>
+      <if test="stick != null" >
+        #{stick,jdbcType=BIT},
+      </if>
+      <if test="display != null" >
+        #{display,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifytime != null" >
+        #{lastmodifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.baozi.po.BlogExample" resultType="java.lang.Integer" >
+    select count(*) from blog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update blog
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null" >
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fabulous != null" >
+        fabulous = #{record.fabulous,jdbcType=INTEGER},
+      </if>
+      <if test="record.looknum != null" >
+        looknum = #{record.looknum,jdbcType=INTEGER},
+      </if>
+      <if test="record.category != null" >
+        category = #{record.category,jdbcType=INTEGER},
+      </if>
+      <if test="record.sharenum != null" >
+        sharenum = #{record.sharenum,jdbcType=INTEGER},
+      </if>
+      <if test="record.abstractremark != null" >
+        abstractremark = #{record.abstractremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stick != null" >
+        stick = #{record.stick,jdbcType=BIT},
+      </if>
+      <if test="record.display != null" >
+        display = #{record.display,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastmodifytime != null" >
+        lastmodifytime = #{record.lastmodifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update blog
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      fabulous = #{record.fabulous,jdbcType=INTEGER},
+      looknum = #{record.looknum,jdbcType=INTEGER},
+      category = #{record.category,jdbcType=INTEGER},
+      sharenum = #{record.sharenum,jdbcType=INTEGER},
+      abstractremark = #{record.abstractremark,jdbcType=VARCHAR},
+      stick = #{record.stick,jdbcType=BIT},
+      display = #{record.display,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      lastmodifytime = #{record.lastmodifytime,jdbcType=TIMESTAMP},
+      source = #{record.source,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update blog
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      fabulous = #{record.fabulous,jdbcType=INTEGER},
+      looknum = #{record.looknum,jdbcType=INTEGER},
+      category = #{record.category,jdbcType=INTEGER},
+      sharenum = #{record.sharenum,jdbcType=INTEGER},
+      abstractremark = #{record.abstractremark,jdbcType=VARCHAR},
+      stick = #{record.stick,jdbcType=BIT},
+      display = #{record.display,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      lastmodifytime = #{record.lastmodifytime,jdbcType=TIMESTAMP},
+      source = #{record.source,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baozi.po.Blog" >
+    update blog
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="fabulous != null" >
+        fabulous = #{fabulous,jdbcType=INTEGER},
+      </if>
+      <if test="looknum != null" >
+        looknum = #{looknum,jdbcType=INTEGER},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=INTEGER},
+      </if>
+      <if test="sharenum != null" >
+        sharenum = #{sharenum,jdbcType=INTEGER},
+      </if>
+      <if test="abstractremark != null" >
+        abstractremark = #{abstractremark,jdbcType=VARCHAR},
+      </if>
+      <if test="stick != null" >
+        stick = #{stick,jdbcType=BIT},
+      </if>
+      <if test="display != null" >
+        display = #{display,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastmodifytime != null" >
+        lastmodifytime = #{lastmodifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.baozi.po.Blog" >
+    update blog
+    set title = #{title,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      fabulous = #{fabulous,jdbcType=INTEGER},
+      looknum = #{looknum,jdbcType=INTEGER},
+      category = #{category,jdbcType=INTEGER},
+      sharenum = #{sharenum,jdbcType=INTEGER},
+      abstractremark = #{abstractremark,jdbcType=VARCHAR},
+      stick = #{stick,jdbcType=BIT},
+      display = #{display,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      lastmodifytime = #{lastmodifytime,jdbcType=TIMESTAMP},
+      source = #{source,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baozi.po.Blog" >
+    update blog
+    set title = #{title,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      fabulous = #{fabulous,jdbcType=INTEGER},
+      looknum = #{looknum,jdbcType=INTEGER},
+      category = #{category,jdbcType=INTEGER},
+      sharenum = #{sharenum,jdbcType=INTEGER},
+      abstractremark = #{abstractremark,jdbcType=VARCHAR},
+      stick = #{stick,jdbcType=BIT},
+      display = #{display,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      lastmodifytime = #{lastmodifytime,jdbcType=TIMESTAMP},
+      source = #{source,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="findBlogPage" resultType="com.baozi.vo.BlogVo" parameterType="map">
+    select * from blog
+    <where>
+      display=1
+      <if test="title!=null and title!='' ">
+        and title like CONCAT('%', #{title}, '%')
+      </if>
+      <if test="category!=null and category!=-1 ">
+        and category = #{category}
+      </if>
+      <if test="type!=null and type!=-1 ">
+        and type = #{type}
+      </if>
+    </where>
+    order by `status`,lastModifyTime desc
+  </select>
+
+  <delete id="deleteBlogSingleOrBatch" parameterType="java.util.List">
+    update blog set display = 0
+    where id in
+    <foreach item="id" collection="list" open="(" close=")" separator=",">
+      #{id}
+    </foreach>
+  </delete>
+
+  <select id="footerPagination" resultType="com.baozi.vo.BlogViewVo" >
+    select * from blog where display=1 and `status`=1 order by stick desc,looknum desc
+  </select>
+
+  <update id="updateBlogLookNum" parameterType="java.lang.Integer" >
+    update blog set looknum = looknum+1 where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

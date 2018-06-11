@@ -22,4 +22,10 @@
         <to>/noticedetail.shtml?id=$1</to>
     </rule>
 
+    <rule>
+        <note>BeCat技术博客详情页静态化</note>
+        <from>^/blog/([0-9]+).shtml$</from>
+        <to>/blogdetail.shtml?id=$1</to>
+    </rule>
+
 </urlrewrite>
