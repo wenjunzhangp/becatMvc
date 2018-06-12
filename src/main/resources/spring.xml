@@ -173,6 +173,8 @@
 				/login.html=anon
 				/register.html=anon
 				<!--URL的权限配置-->
+				/login.shtml=anon
+				/logout.shtml=anon
 				/open/**=anon
 				/console/login.shtml=anon
 				/console/userLogin.shtml=authc

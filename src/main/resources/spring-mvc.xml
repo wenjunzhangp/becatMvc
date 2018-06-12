@@ -27,8 +27,16 @@
 	<!-- 这个一定得有，注意了，如果其他配置也有需要这个，已经配置了，那不必了 -->
 	<mvc:annotation-driven  />
 
+	<!-- 配置拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.baozi.interceptor.LoginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
 	<!-- 定义统一异常处理器 -->
-	<!--<bean class="com.baozi.exception.CustomExceptionResolver"></bean>-->
+	<bean class="com.baozi.exception.CustomExceptionResolver"></bean>
 
 	<!-- 避免IE执行ajax时，返回json出现下载文件 -->
 	<bean id="mappingJacksonHttpMessageConverter"

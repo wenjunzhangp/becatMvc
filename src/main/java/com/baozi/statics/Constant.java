@@ -32,6 +32,9 @@ public class Constant {
 	/**当前年份**/
 	public static final int NOW_YEAY = Calendar.getInstance().get(Calendar.YEAR);
 
+	/**常亮 0**/
+	public static final Long ZERO = 0L;
+
 	/**地址**/
 	public static final String WWW_DOMAIN = IConfig.get("www.becat.domain");//前端域名
 

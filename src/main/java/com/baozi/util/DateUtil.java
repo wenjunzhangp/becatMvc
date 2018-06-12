@@ -794,4 +794,28 @@ public class DateUtil
 		int betweenDays = (int)((endTime - beginTime) / (1000 * 60 * 60 *24));
 		return betweenDays;
 	}
+
+	/**
+	 * @return
+	 * @param pattern
+	 * @param date
+	 */
+	public static String dateToString(Date date, String pattern) {
+
+		if (date == null) {
+
+			return null;
+		}
+
+		try {
+
+			SimpleDateFormat sfDate = new SimpleDateFormat(pattern);
+			sfDate.setLenient(false);
+
+			return sfDate.format(date);
+		} catch (Exception e) {
+
+			return null;
+		}
+	}
 }

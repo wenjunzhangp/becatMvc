@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 /**
  * String工具
  * 主要对 StringUtils 的一些方法进行重写,达到更方便的使用
- * @author zhou-baicheng
+ * @author zhangwenjun
  *
  */
 public class StringUtil extends StringUtils {
@@ -23,7 +23,7 @@ public class StringUtil extends StringUtils {
 	/**
 	 * 一次性判断多个或单个对象为空。
 	 * @param objects
-	 * @author zhou-baicheng
+	 * @author zhangwenjun
 	 * @return 只要有一个元素为Blank，则返回true
 	 */
 	public static boolean isBlank(Object...objects){
@@ -58,7 +58,7 @@ public class StringUtil extends StringUtils {
 	/**
 	 * 一次性判断多个或单个对象不为空。
 	 * @param objects
-     * @author zhou-baicheng
+     * @author zhangwenjun
 	 * @return 只要有一个元素不为Blank，则返回true
 	 */
 	public static boolean isNotBlank(Object...objects){

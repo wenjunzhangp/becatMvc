@@ -1,5 +1,6 @@
 package com.baozi.exception;
 
+import com.baozi.util.LogUtils;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,6 +43,7 @@ public class CustomExceptionResolver implements HandlerExceptionResolver  {
 		
 		//错误 信息
 		message = customException.getMessage();
+		LogUtils.logInfo("系统出现致命错误"+message);
 		
 		request.setAttribute("message", message);
 
