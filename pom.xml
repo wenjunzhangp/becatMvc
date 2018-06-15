@@ -263,11 +263,11 @@
     注意这个是qq第三方的包，我是安装在本地仓库了，有多种方式你们自行解决
     https://blog.csdn.net/yifanSJ/article/details/79478840
     -->
-    <!--<dependency>
-      <groupId>com.qq.connect</groupId>
-      <artifactId>qq</artifactId>
+    <dependency>
+      <groupId>com.qq</groupId>
+      <artifactId>connect</artifactId>
       <version>1.0</version>
-    </dependency>-->
+    </dependency>
 
     <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
