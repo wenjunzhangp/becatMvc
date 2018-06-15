@@ -8,6 +8,7 @@ import com.baozi.po.SOMessageAuthor
 import com.baozi.service.MessageAuthorService
 import com.baozi.service.MessageLikeService
 import com.baozi.service.MessageService
+import com.baozi.statics.Constant
 import com.baozi.util.LogUtils
 import com.baozi.util.VCache
 import com.qq.connect.QQConnectException
@@ -33,18 +34,7 @@ import javax.servlet.http.HttpServletResponse
 import kotlin.collections.HashMap
 
 /**
- *
- * 开发公司：SOJSON在线工具 <p>
- * 版权所有：© www.sojson.com<p>
- * 博客地址：http://www.sojson.com/blog/  <p>
- * <p>
- * ====
- * <p>
- * 区分　责任人　日期　　　　说明<br/>
- * 创建　周柏成　2017年08月30日 23:38 　<br/>
- *
- * @author zhou-baicheng
- * @email  so@sojson.com
+ * @author zhangwenjun
  * @version 1.0<br/>
  *
  */
@@ -69,7 +59,7 @@ class UserController @Autowired constructor(
         /**
          * Callback url
          */
-        var redirect: String? = "http://shuo.itboy.net/"
+        var redirect: String? = Constant.WWW_DOMAIN
 
 
         /**获取token url */
@@ -154,7 +144,7 @@ class UserController @Autowired constructor(
                 weiboUserInfoBean = weiboUserInfo.userInfo
                 var nickname: String? = userInfoBean.nickname
                 if (null == nickname) {
-                    nickname = "请设置昵称"
+                    nickname = "未知昵称"
                 }
                 //处理空格
                 nickname = nickname.replace("([\\s])".toRegex(), "")

@@ -11,23 +11,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * 
- * 开发公司：SOJSON在线工具 <p>
- * 版权所有：© www.sojson.com<p>
- * 博客地址：http://www.sojson.com/blog/  <p>
- * <p>
- * 
- * 模拟多说评论实体
- * 
- * <p>
- * 
- * 区分　责任人　日期　　　　说明<br/>
- * 创建　周柏成　2017年5月2日 19:48 　<br/>
- *
- * @author zhou-baicheng
- * @email  so@sojson.com
- * @version 1.0,2017年5月2日 19:48 <br/>
- * 
+ * @author 张文君
+ * @version 1.0,2018年6月15日 19:48 <br/>
  */
 public class SOMessage implements Serializable{
 	private static final long serialVersionUID = 1434473283877857750L;

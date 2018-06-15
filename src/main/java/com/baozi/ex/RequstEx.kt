@@ -5,20 +5,9 @@ import com.baozi.util.LogUtils
 import javax.servlet.http.HttpServletRequest
 
 /**
- *
- * 开发公司：SOJSON在线工具 <p>
- * 版权所有：© www.sojson.com<p>
- * 博客地址：http://www.sojson.com/blog/  <p>
- * <p>
- * Request 的拓展方法，expand
- * <p>
- * 区分　责任人　日期　　　　说明<br/>
- * 创建　周柏成　2017年09月17日 21:32 　<br/>
- *
- * @author zhou-baicheng
- * @email  so@sojson.com
+ * @author 张文君
  * @version 1.0<br/>
- *
+ * qq互联登录扩展方法
  */
 class RequstEx {}
 

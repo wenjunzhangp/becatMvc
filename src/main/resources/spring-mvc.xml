@@ -30,7 +30,7 @@
 	<!-- 配置拦截器 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/**"/>
+			<mvc:mapping path="/product.shtml"/>
 			<bean class="com.baozi.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
