@@ -59,16 +59,6 @@ public class ViewJumpController extends BaseController{
         return "pet";
     }
 
-    @RequestMapping("/pclogin")
-    public String pclogin(){
-        return "pclogin";
-    }
-
-    @RequestMapping("/pcregister")
-    public String pcregister(){
-        return "pcregister";
-    }
-
     @RequestMapping("/event")
     public ModelAndView event(){
         ModelAndView mav = new ModelAndView("event");

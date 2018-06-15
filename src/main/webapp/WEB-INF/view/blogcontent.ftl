@@ -1,5 +1,6 @@
 <#include "common/source.ftl">
 <link rel="stylesheet" href="/resource/css/assets/css/news.min.css" />
+<link rel="stylesheet" href="/resource/css/assets/css/embed.default.css" />
 
 <#include "common/head.ftl">
 
@@ -41,79 +42,14 @@
             </div>
           </div>
 
-          <#--<div class="comments">
-            <div class="comments">
-							<h2 class="comments--title">Comments (2)</h2>
-							<ul class="comments_list">
-								<li class="comment">
-									<header class="comment--header">
-										<figure class="comment--userpic"><img src="../assets/images/news/av01.jpg" alt=""></figure>
-										<strong class="comment--username"><a href="href="javascript:void(0)">Brad Bukovsky</a></strong>
-										<time datetime="2001-05-15T19:00" class="comment--date">30th of January, 2016</time>
-									</header>
-									<div class="comment--content">
-										<p>
-                      评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论
-										</p>
-										<a href="href="javascript:void(0)" class="comment--reply">回复</a>
-									</div>
-									<ul class="comments_list">
-										<li class="comment">
-											<header class="comment--header">
-												<figure class="comment--userpic"><img src="../assets/images/news/av02.jpg" alt=""></figure>
-												<strong class="comment--username"><a href="href="javascript:void(0)">Brad Bukovsky</a></strong>
-												<time datetime="2001-05-15T19:00" class="comment--date">30th of January, 2016</time>
-											</header>
-											<div class="comment--content">
-												<p>
-                          评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评
-												</p>
-												<a href="href="javascript:void(0)" class="comment--reply">回复</a>
-											</div>
-										</li>
-									</ul>
-								</li>
-								<li class="comment">
-									<header class="comment--header">
-										<figure class="comment--userpic"><img src="../assets/images/news/av01.jpg" alt=""></figure>
-										<strong class="comment--username"><a href="href="javascript:void(0)">Brad Bukovsky</a></strong>
-										<time datetime="2001-05-15T19:00" class="comment--date">30th of January, 2016</time>
-									</header>
-									<div class="comment--content">
-										<p>
-                      评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论
-										</p>
-										<a href="href="javascript:void(0)" class="comment--reply">回复</a>
-									</div>
-								</li>
-							</ul>
-							<div class="comment_form">
-								<h2 class="comment_form--title">Leave Comment</h2>
-                <form class="am-form am-form-horizontal">
-                  <div class="am-form-group">
-                    <div class="am-g">
-                      <div class="am-u-md-4">
-                        <input type="text"   placeholder="Full Name">
-                      </div>
-                      <div class="am-u-md-4">
-                        <input type="Email"  placeholder="Email" >
-                      </div>
-                      <div class="am-u-md-4">
-                        <input type="url" placeholder="Website URL">
-                      </div>
-                    </div>
-                    <div class="am-g">
-                      <textarea name="comment" cols="30" rows="10" placeholder="Type in here..."></textarea>
-                    </div>
-                    <div class="comment-form-footer">
-                      <button type="button" class="am-btn am-btn-secondary">确认提交</button>
-                    </div>
-                  </div>
-                </form>
+          <div class="row">
+              <#--评论输入
+              固定写法：class="ds-thread"  id="ds-thread"
+              data-key= url 这里是用这个URL来做key，你看你自己的业务，因为多说也是这样做，就这样下来了
+              -->
+              <div class="ds-thread"  id="ds-thread" data-key="http://www.becat.shop"></div>
+          </div>
 
-							</div>
-						</div>
-          </div>-->
         </div>
         <!--news-section left end-->
 
@@ -124,3 +60,4 @@
 
 <#include "common/footer.ftl">
 <script src="/resource/js/view/rightdetail.js" charset="utf-8"></script>
+<script src="/resource/js/view/message.js" charset="utf-8"></script>

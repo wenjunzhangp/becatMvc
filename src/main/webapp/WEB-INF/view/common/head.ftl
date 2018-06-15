@@ -19,8 +19,7 @@
                 </div>
                 <div class="am-u-md-9">
                     <div class="topbar-right am-text-right am-fr">
-                        <a href="/pclogin.shtml">登录</a>
-                        <a href="/pcregister.shtml">注册</a>
+                        <a href="/login.shtml" title="QQ快速登录" class="am-icon-qq am-icon-fw am-icon-sm am-animation-shake" ></a>
                     </div>
                 </div>
             </div>
