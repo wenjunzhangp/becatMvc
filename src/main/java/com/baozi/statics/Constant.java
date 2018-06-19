@@ -1,6 +1,7 @@
 package com.baozi.statics;
 
-import com.baozi.util.IConfig;
+
+import com.baozi.config.IConfig;
 
 import java.util.Calendar;
 

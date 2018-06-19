@@ -1,6 +1,6 @@
 package com.baozi.vo;
 
-import com.baozi.util.IConfig;
+import com.baozi.config.IConfig;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;

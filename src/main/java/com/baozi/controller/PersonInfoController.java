@@ -1,5 +1,6 @@
 package com.baozi.controller;
 
+import com.baozi.config.IConfig;
 import com.baozi.po.ActiveUser;
 import com.baozi.po.SysUser;
 import com.baozi.service.SysUserService;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Set;
 
 /**
  * @author wenjun.zhang
@@ -36,7 +36,7 @@ public class PersonInfoController extends BaseController{
     public String personInfo(HttpServletRequest request) {
         SysUser sysUser = sysUserService.findSysUserByUserId(super.loginUser().getUserid());
         setValueRequest(request,"userInfo",sysUser);
-        setValueRequest(request,"userImg",IConfig.get("becat.imgserver.prefix")+sysUser.getSourceimg());
+        setValueRequest(request,"userImg", IConfig.get("becat.imgserver.prefix")+sysUser.getSourceimg());
         return "/user/personInfo";
     }
 

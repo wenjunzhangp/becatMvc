@@ -3,7 +3,6 @@ package com.baozi.controller;
 import com.baozi.po.ActiveUser;
 import com.baozi.po.SysLink;
 import com.baozi.service.SysLinkService;
-import com.baozi.util.IConfig;
 import com.baozi.util.LogUtils;
 import com.baozi.util.StringUtil;
 import com.baozi.vo.SysLinkVo;

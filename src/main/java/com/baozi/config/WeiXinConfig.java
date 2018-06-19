@@ -1,9 +1,9 @@
-package com.baozi.util;
+package com.baozi.config;
 
 import java.io.IOException;
 import java.util.Properties;
 
-public class IConfig {
+public class WeiXinConfig {
 
 	/**
 	 * 同步锁
@@ -18,19 +18,19 @@ public class IConfig {
 	/**
 	 * 配置对象单例模式
 	 */
-	private static IConfig config = null;
+	private static WeiXinConfig config = null;
 	
 	/**
 	 * 配置文件名称
 	 */
-	private final static String FILE_NAME = "/config.properties";
+	private final static String FILE_NAME = "/weixinconfig.properties";
 	
 	static{
 		prop = new Properties();
 		try {
-			prop.load(IConfig.class.getResourceAsStream(FILE_NAME));
+			prop.load(WeiXinConfig.class.getResourceAsStream(FILE_NAME));
 		} catch (IOException e) {
-			LogUtils.logError("加载文件异常，文件路径：%s", e);
+			e.printStackTrace();
 		}
 		
 	}
@@ -39,10 +39,10 @@ public class IConfig {
 	 * 获取单例模式对象实例
 	 * @return 唯一对象实例
 	 */
-	public static IConfig getInstance(){
+	public static WeiXinConfig getInstance(){
 		if(null==config){
 			synchronized (obj) {
-				config = new IConfig();
+				config = new WeiXinConfig();
 			}
 		}
 		return config;

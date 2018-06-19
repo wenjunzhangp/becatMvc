@@ -1,7 +1,7 @@
 package com.baozi.controller;
 
+import com.baozi.config.IConfig;
 import com.baozi.util.FileUploadUtil;
-import com.baozi.util.IConfig;
 import com.baozi.util.LogUtils;
 import com.baozi.util.vcode.Captcha;
 import com.baozi.util.vcode.GifCaptcha;
@@ -144,7 +144,7 @@ public class CommonController extends BaseController {
 			map.put("msg","上传成功！");
 			Map<String,Object> src = new HashMap<String,Object>();
 			src.put("filename",resultFilePaths.substring(resultFilePaths.indexOf("/")+1,resultFilePaths.length()));
-			src.put("src",IConfig.get("becat.imgserver.prefix")+resultFilePaths);
+			src.put("src", IConfig.get("becat.imgserver.prefix")+resultFilePaths);
 			map.put("data",src);
 		} catch (Exception e) {
 			LogUtils.logError("图像文件长传失败",e);

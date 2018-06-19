@@ -5,7 +5,6 @@ import com.baozi.po.IndustryConsultancy;
 import com.baozi.po.Notice;
 import com.baozi.service.IndustryConsultancyService;
 import com.baozi.service.NoticeService;
-import com.baozi.util.IConfig;
 import com.baozi.util.LogUtils;
 import com.baozi.util.StringUtil;
 import org.apache.shiro.SecurityUtils;

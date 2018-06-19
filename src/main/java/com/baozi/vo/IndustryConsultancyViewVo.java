@@ -1,6 +1,6 @@
 package com.baozi.vo;
 
-import com.baozi.util.IConfig;
+import com.baozi.config.IConfig;
 import com.baozi.util.IDEncryptor;
 import com.baozi.util.StringUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;

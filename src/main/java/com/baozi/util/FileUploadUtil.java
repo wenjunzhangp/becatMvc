@@ -1,5 +1,6 @@
 package com.baozi.util;
 
+import com.baozi.config.IConfig;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
