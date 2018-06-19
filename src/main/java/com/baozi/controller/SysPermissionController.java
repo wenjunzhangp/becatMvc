@@ -8,6 +8,9 @@ import com.baozi.util.IConfig;
 import com.baozi.util.LogUtils;
 import com.baozi.util.PermissionDataFactory;
 import com.baozi.util.StringUtil;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,8 +73,11 @@ public class SysPermissionController extends BaseController{
     @ResponseBody
     public CodeResult deleteSysPermissionSingleOrBatch(String ids){
         try {
+            ActiveUser activeUser = super.loginUser();
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
             List idList = Arrays.asList(ids.split(","));
-            systemService.deleteSysPermissionSingleOrBatch(idList);
+            systemService.deleteSysPermissionSingleOrBatch(idList,activeUser,session);
             return CodeResult.build(200,"批量操作成功");
         } catch ( Exception e ) {
             LogUtils.logError("删除权限出现异常",e);
@@ -88,11 +94,14 @@ public class SysPermissionController extends BaseController{
     @ResponseBody
     public CodeResult modifySysPermission(SysPermission sysPermission){
         try {
+            ActiveUser activeUser = super.loginUser();
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
             sysPermission.setAvailable(String.valueOf(1));
             //转换成系统规定好的权限code规则
             sysPermission.setPercode(sysPermission.getUrl().replaceAll("/",":").substring(1,sysPermission.getUrl().indexOf(".")));
             sysPermission.setUrl(sysPermission.getUrl().substring(0,sysPermission.getUrl().indexOf(".")));
-            systemService.insert(sysPermission);
+            systemService.insert(sysPermission,activeUser,session);
             return CodeResult.ok();
         } catch ( Exception e ) {
             LogUtils.logError("新增权限出现异常",e);

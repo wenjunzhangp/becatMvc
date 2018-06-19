@@ -6,6 +6,7 @@ import com.baozi.po.*;
 import com.baozi.realm.UserRealm;
 import com.baozi.service.SystemService;
 import com.baozi.statics.Constant;
+import com.baozi.util.GenerateLogFactory;
 import com.baozi.util.LogUtils;
 import com.baozi.util.MD5;
 import com.baozi.vo.*;
@@ -13,6 +14,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +47,9 @@ public class SystemServiceImpl implements SystemService {
 
     @Autowired
     private SysUserRoleMapper sysUserRoleMapper;
+
+    @Autowired
+    private SysLogMapper sysLogMapper;
 
     @Override
     public ActiveUser authenticat(String userCode, String password) throws Exception {
@@ -107,12 +112,14 @@ public class SystemServiceImpl implements SystemService {
     }
 
     @Override
-    public int deleteSysPermissionSingleOrBatch(List idList) {
+    public int deleteSysPermissionSingleOrBatch(List idList,ActiveUser activeUser,Session session) {
+        sysLogMapper.insertSelective(GenerateLogFactory.buildSysLogCurrency(activeUser,"删除权限",(short) 0,activeUser.getUsername()+"删除权限",session.getHost()));
         return sysPermissionMapper.deleteSysPermissionSingleOrBatch(idList);
     }
 
     @Override
-    public void insert(SysPermission sysPermission) {
+    public void insert(SysPermission sysPermission,ActiveUser activeUser,Session session) {
+        sysLogMapper.insertSelective(GenerateLogFactory.buildSysLogCurrency(activeUser,"新增权限",(short) 0,activeUser.getUsername()+"新增权限",session.getHost()));
         sysPermissionMapper.insertSelective(sysPermission);
         executePermission(String.valueOf(Constant.SUPER_MANAGER_USERID),String.valueOf(sysPermission.getId()));
     }
@@ -125,22 +132,25 @@ public class SystemServiceImpl implements SystemService {
     }
 
     @Override
-    public void updateSysRole(SysRole sysRole) {
+    public void updateSysRole(SysRole sysRole, ActiveUser activeUser, Session session) {
+        sysLogMapper.insertSelective(GenerateLogFactory.buildSysLogCurrency(activeUser,"修改角色",(short) 0,activeUser.getUsername()+"修改角色",session.getHost()));
         sysRoleMapper.updateByPrimaryKeySelective(sysRole);
     }
 
     @Override
-    public void insert(SysRole sysRole) {
+    public void insert(SysRole sysRole, ActiveUser activeUser, Session session) {
+        sysLogMapper.insertSelective(GenerateLogFactory.buildSysLogCurrency(activeUser,"新增角色",(short) 0,activeUser.getUsername()+"新增角色",session.getHost()));
         sysRoleMapper.insertSelective(sysRole);
     }
 
     @Override
-    public boolean deleteSysRole(int id) {
+    public boolean deleteSysRole(int id, ActiveUser activeUser, Session session) {
         boolean flag = false;
         try {
             if ( id == Constant.SUPER_MANAGER_USERID) {
                 flag = false;
             } else {
+                sysLogMapper.insertSelective(GenerateLogFactory.buildSysLogCurrency(activeUser,"删除角色",(short) 0,activeUser.getUsername()+"删除角色",session.getHost()));
                 sysRoleMapper.deleteByPrimaryKey(id);
                 flag = true;
             }
@@ -161,7 +171,7 @@ public class SystemServiceImpl implements SystemService {
     }
 
     @Override
-    public void addRoleToUser(int userId, String ids) {
+    public void addRoleToUser(int userId, String ids,ActiveUser activeUser,Session session) {
         try {
             sysRoleMapper.deleteByUserId(userId);
 
@@ -183,6 +193,7 @@ public class SystemServiceImpl implements SystemService {
 
                 }
             }
+            sysLogMapper.insertSelective(GenerateLogFactory.buildSysLogCurrency(activeUser,"用户【"+userId+"】赋予新角色成功",(short) 0,"用户【"+userId+"】赋予新角色成功，操作人"+activeUser.getUsername(),session.getHost()));
             LogUtils.logInfo("用户【"+userId+"】赋予新角色成功");
         } catch (Exception e) {
             LogUtils.logError("为用户【"+userId+"】赋予新角色失败",e);
@@ -202,10 +213,11 @@ public class SystemServiceImpl implements SystemService {
     }
 
     @Override
-    public void addPermissionToRole(int roleId, String ids) {
+    public void addPermissionToRole(int roleId, String ids,ActiveUser activeUser,Session session) {
         try {
             sysRolePermissionMapper.deleteByRoleId(roleId);
             executePermission(String.valueOf(roleId),ids);
+            sysLogMapper.insertSelective(GenerateLogFactory.buildSysLogCurrency(activeUser,"赋予角色ID【"+roleId+"】权限成功",(short) 0,"赋予角色ID【"+roleId+"】权限成功，操作人"+activeUser.getUsername(),session.getHost()));
         } catch (Exception e) {
             LogUtils.logError("为角色【"+roleId+"】赋予新角色失败",e);
         }

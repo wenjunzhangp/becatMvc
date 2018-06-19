@@ -1,13 +1,18 @@
 package com.baozi.service.impl;
 
+import com.baozi.mappers.SysLogMapper;
 import com.baozi.mappers.SysUserMapper;
+import com.baozi.mappers.UserLogMapper;
+import com.baozi.po.ActiveUser;
 import com.baozi.po.SysUser;
 import com.baozi.po.SysUserExample;
 import com.baozi.service.SysUserService;
+import com.baozi.util.GenerateLogFactory;
 import com.baozi.util.MD5Factory;
 import com.baozi.vo.SysUserVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +32,12 @@ public class SysUserServiceImpl implements SysUserService{
     @Autowired
     private SysUserMapper sysUserMapper;
 
+    @Autowired
+    private UserLogMapper userLogMapper;
+
+    @Autowired
+    private SysLogMapper sysLogMapper;
+
     @Override
     public int findAllUserCount() {
         SysUserExample sysUserExample=new SysUserExample();
@@ -44,15 +55,17 @@ public class SysUserServiceImpl implements SysUserService{
     }
 
     @Override
-    public int updateUserInfo(SysUser sysUser) {
+    public int updateUserInfo(SysUser sysUser,ActiveUser activeUser,Session session) {
+        userLogMapper.insertSelective(GenerateLogFactory.buildUserLogCurrency(activeUser,"修改个人资料",(short) 0,activeUser.getUsername()+"修改个人资料",session.getHost()));
         return sysUserMapper.updateByPrimaryKeySelective(sysUser);
     }
 
     @Override
-    public int updateUserPwd(int userId, String newpwd) {
+    public int updateUserPwd(int userId, String newpwd,ActiveUser activeUser,Session session) {
         SysUser sysUser = sysUserMapper.selectByPrimaryKey(userId);
         String newPassWord = MD5Factory.genPassWordWithUserSalt(newpwd,sysUser.getSalt(),1);
         sysUser.setPassword(newPassWord);
+        userLogMapper.insertSelective(GenerateLogFactory.buildUserLogCurrency(activeUser,"【敏感操作修改密码】",(short) 0,activeUser.getUsername()+"【敏感操作修改密码】",session.getHost()));
         return sysUserMapper.updateByPrimaryKeySelective(sysUser);
     }
 
@@ -64,10 +77,12 @@ public class SysUserServiceImpl implements SysUserService{
     }
 
     @Override
-    public void updateSysUserLock(String usercode, String lock) {
+    public void updateSysUserLock(String usercode, String lock,ActiveUser activeUser,Session session) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("locked",lock);
         paramMap.put("usercode",usercode);
+        String str = lock.equals("0")?"解锁成功":"已锁定登录";
+        sysLogMapper.insertSelective(GenerateLogFactory.buildSysLogCurrency(activeUser,"用户"+activeUser.getUsername()+str,(short) 0,activeUser.getUsername()+str+activeUser.getUsercode(),session.getHost()));
         sysUserMapper.updateSysUserLock(paramMap);
     }
 

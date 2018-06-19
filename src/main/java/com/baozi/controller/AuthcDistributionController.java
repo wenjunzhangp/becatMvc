@@ -1,7 +1,11 @@
 package com.baozi.controller;
 
+import com.baozi.po.ActiveUser;
 import com.baozi.service.SystemService;
 import com.baozi.util.LogUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,7 +56,10 @@ public class AuthcDistributionController extends BaseController{
     @ResponseBody
     public CodeResult addPermissionToRole(int roleId,String ids){
         try {
-            systemService.addPermissionToRole(roleId,ids);
+            ActiveUser activeUser = super.loginUser();
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
+            systemService.addPermissionToRole(roleId,ids,activeUser,session);
             return CodeResult.build(200,"赋予权限成功");
         } catch ( Exception e ){
             return CodeResult.build(500,"为角色【"+roleId+"】赋予新权限失败，请稍后再试");

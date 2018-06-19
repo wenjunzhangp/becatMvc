@@ -1,10 +1,14 @@
 package com.baozi.controller;
 
+import com.baozi.po.ActiveUser;
 import com.baozi.po.PlatEvent;
 import com.baozi.po.SysRole;
 import com.baozi.service.PlatEventService;
 import com.baozi.service.SystemService;
 import com.baozi.util.LogUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +59,10 @@ public class SysRoleController extends BaseController{
     @ResponseBody
     public CodeResult deleteSysRole(int id){
         try {
-            boolean flag = systemService.deleteSysRole(id);
+            ActiveUser activeUser = super.loginUser();
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
+            boolean flag = systemService.deleteSysRole(id,activeUser,session);
             if (flag)
                 return CodeResult.build(200,"操作成功");
             if (!flag)
@@ -71,11 +78,14 @@ public class SysRoleController extends BaseController{
     @ResponseBody
     public CodeResult modifySysRole(SysRole sysRole){
         try {
+            ActiveUser activeUser = super.loginUser();
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
             if ( sysRole.getId() > 0 ) {
-                systemService.updateSysRole(sysRole);
+                systemService.updateSysRole(sysRole,activeUser,session);
             } else {
                 sysRole.setAvailable("1");
-                systemService.insert(sysRole);
+                systemService.insert(sysRole,activeUser,session);
             }
             return CodeResult.ok();
         } catch ( Exception e ) {

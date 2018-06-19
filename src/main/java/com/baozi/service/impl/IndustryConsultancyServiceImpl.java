@@ -2,12 +2,16 @@ package com.baozi.service.impl;
 
 import com.baozi.mappers.IndustryConsultancyCategoryMapper;
 import com.baozi.mappers.IndustryConsultancyMapper;
+import com.baozi.mappers.SysLogMapper;
+import com.baozi.po.ActiveUser;
 import com.baozi.po.IndustryConsultancy;
 import com.baozi.service.IndustryConsultancyService;
+import com.baozi.util.GenerateLogFactory;
 import com.baozi.vo.IndustryConsultancyViewVo;
 import com.baozi.vo.IndustryConsultancyVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +33,9 @@ public class IndustryConsultancyServiceImpl implements IndustryConsultancyServic
     @Autowired
     private IndustryConsultancyCategoryMapper industryConsultancyCategoryMapper;
 
+    @Autowired
+    private SysLogMapper sysLogMapper;
+
     @Override
     public List<IndustryConsultancyViewVo> findIndustryConsultancyTopLimit(int limit) {
         return industryConsultancyMapper.findIndustryConsultancyTopLimit(limit);
@@ -47,26 +54,31 @@ public class IndustryConsultancyServiceImpl implements IndustryConsultancyServic
     }
 
     @Override
-    public int deleteIndusSingleOrBatch(List idList) {
+    public int deleteIndusSingleOrBatch(List idList, ActiveUser activeUser, Session session) {
+        sysLogMapper.insertSelective(GenerateLogFactory.buildSysLogCurrency(activeUser,"删除新闻文章",(short) 0,activeUser.getUsername()+"删除新闻文章",session.getHost()));
         return industryConsultancyMapper.deleteIndusSingleOrBatch(idList);
     }
 
     @Override
-    public int updateIndusStatus(int id, int status) {
+    public int updateIndusStatus(int id, int status,ActiveUser activeUser,Session session) {
         IndustryConsultancy industryConsultancy = new IndustryConsultancy();
         industryConsultancy.setId(id);
         industryConsultancy.setStatus(status);
         industryConsultancy.setLastmodifytime(new Date());
+        String str = status==0?"禁用成功":"启用成功";
+        sysLogMapper.insertSelective(GenerateLogFactory.buildSysLogCurrency(activeUser,"新闻文章"+str,(short) 0,activeUser.getUsername()+str+"新闻文章",session.getHost()));
         return industryConsultancyMapper.updateByPrimaryKeySelective(industryConsultancy);
     }
 
     @Override
-    public int updateIndustryConsultancy(IndustryConsultancy industryConsultancy) {
+    public int updateIndustryConsultancy(IndustryConsultancy industryConsultancy,ActiveUser activeUser,Session session) {
+        sysLogMapper.insertSelective(GenerateLogFactory.buildSysLogCurrency(activeUser,"修改新闻文章",(short) 0,activeUser.getUsername()+"修改新闻文章",session.getHost()));
         return industryConsultancyMapper.updateByPrimaryKeySelective(industryConsultancy);
     }
 
     @Override
-    public int insert(IndustryConsultancy industryConsultancy) {
+    public int insert(IndustryConsultancy industryConsultancy,ActiveUser activeUser,Session session) {
+        sysLogMapper.insertSelective(GenerateLogFactory.buildSysLogCurrency(activeUser,"新增新闻文章",(short) 0,activeUser.getUsername()+"新增新闻文章",session.getHost()));
         return industryConsultancyMapper.insertSelective(industryConsultancy);
     }
 

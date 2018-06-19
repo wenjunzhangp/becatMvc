@@ -1,6 +1,8 @@
 package com.baozi.service;
 
+import com.baozi.po.ActiveUser;
 import com.baozi.po.SysSetting;
+import org.apache.shiro.session.Session;
 
 /**
  * @author wenjun.zhang
@@ -20,5 +22,5 @@ public interface SysSettingService {
      * @param sysSetting
      * @return
      */
-    int updateSysSetting(SysSetting sysSetting);
+    int updateSysSetting(SysSetting sysSetting, ActiveUser activeUser, Session session);
 }

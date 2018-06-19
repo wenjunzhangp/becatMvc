@@ -6,6 +6,7 @@ import com.baozi.po.SysRole;
 import com.baozi.po.SysUser;
 import com.baozi.vo.*;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.session.Session;
 
 import java.util.List;
 import java.util.Map;
@@ -77,14 +78,14 @@ public interface SystemService {
      * @param idList
      * @return
      */
-    int deleteSysPermissionSingleOrBatch(List idList);
+    int deleteSysPermissionSingleOrBatch(List idList,ActiveUser activeUser, Session session);
 
     /**
      * 新增权限
      * @param sysPermission
      * @return
      */
-    void insert(SysPermission sysPermission);
+    void insert(SysPermission sysPermission,ActiveUser activeUser, Session session);
 
     /**
      * 分页查询角色
@@ -98,21 +99,21 @@ public interface SystemService {
      * @param sysRole
      * @return
      */
-    void updateSysRole(SysRole sysRole);
+    void updateSysRole(SysRole sysRole,ActiveUser activeUser, Session session);
 
     /**
      * 新增角色
      * @param sysRole
      * @return
      */
-    void insert(SysRole sysRole);
+    void insert(SysRole sysRole,ActiveUser activeUser, Session session);
 
     /**
      * 删除角色
      * @param id
      * @return
      */
-    boolean deleteSysRole(int id);
+    boolean deleteSysRole(int id,ActiveUser activeUser, Session session);
 
     /**
      * 角色分配列表
@@ -133,7 +134,7 @@ public interface SystemService {
      * @param userId
      * @param ids
      */
-    void addRoleToUser(int userId, String ids);
+    void addRoleToUser(int userId, String ids,ActiveUser activeUser,Session session);
 
     /**
      * 权限分配列表
@@ -154,5 +155,5 @@ public interface SystemService {
      * @param roleId
      * @param ids
      */
-    void addPermissionToRole(int roleId, String ids);
+    void addPermissionToRole(int roleId, String ids,ActiveUser activeUser,Session session);
 }

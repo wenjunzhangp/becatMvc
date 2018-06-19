@@ -63,11 +63,10 @@ public class PersonInfoController extends BaseController{
             StringBuilder sb = new StringBuilder(sysUser.getHobby());
             sb.replace(0,1,"");
             sysUser.setHobby(sb.toString());
-            sysUserService.updateUserInfo(sysUser);
             ActiveUser activeUser = super.loginUser();
             Subject subject = SecurityUtils.getSubject();
             Session session = subject.getSession();
-            userLogService.insert(GenerateLogFactory.buildUserLogCurrency(activeUser,"修改个人资料",(short) 0,activeUser.getUsername()+"修改个人资料",session.getHost()));
+            sysUserService.updateUserInfo(sysUser,activeUser,session);
             return CodeResult.ok();
         } catch ( Exception e ) {
             LogUtils.logError("个人资料更新失败!用户id是"+sysUser.getId(),e);
@@ -105,10 +104,9 @@ public class PersonInfoController extends BaseController{
     public CodeResult updatepassword(HttpServletRequest request,String newpwd) {
         ActiveUser activeUser = super.loginUser();
         try {
-            sysUserService.updateUserPwd(activeUser.getUserid(),newpwd);
             Subject subject = SecurityUtils.getSubject();
             Session session = subject.getSession();
-            userLogService.insert(GenerateLogFactory.buildUserLogCurrency(activeUser,"【敏感操作修改密码】",(short) 0,activeUser.getUsername()+"【敏感操作修改密码】",session.getHost()));
+            sysUserService.updateUserPwd(activeUser.getUserid(),newpwd,activeUser,session);
             return CodeResult.ok();
         } catch ( Exception e ) {
             LogUtils.logError("个人密码更新失败!用户id是"+activeUser.getUserid(),e);
@@ -125,7 +123,9 @@ public class PersonInfoController extends BaseController{
             SysUser sysUser = new SysUser();
             sysUser.setId(activeUser.getUserid());
             sysUser.setSourceimg(resultFilePaths);
-            sysUserService.updateUserInfo(sysUser);
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
+            sysUserService.updateUserInfo(sysUser,activeUser,session);
             return CodeResult.ok(IConfig.get("becat.imgserver.prefix")+resultFilePaths);
         } catch (Exception e) {
             LogUtils.logError("用户头像文件长传失败",e);

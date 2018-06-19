@@ -1,5 +1,6 @@
 package com.baozi.controller;
 
+import com.baozi.po.ActiveUser;
 import com.baozi.po.IndustryConsultancy;
 import com.baozi.service.IndustryConsultancyService;
 import com.baozi.statics.Constant;
@@ -7,6 +8,9 @@ import com.baozi.util.IConfig;
 import com.baozi.util.LogUtils;
 import com.baozi.util.StringUtil;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -79,8 +83,11 @@ public class IndustryConsultancyController extends BaseController{
     @ResponseBody
     public CodeResult deleteIndusSingleOrBatch(String ids){
         try {
+            ActiveUser activeUser = super.loginUser();
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
             List idList = Arrays.asList(ids.split(","));
-            industryConsultancyService.deleteIndusSingleOrBatch(idList);
+            industryConsultancyService.deleteIndusSingleOrBatch(idList,activeUser,session);
             return CodeResult.build(200,"批量操作成功");
         } catch ( Exception e ) {
             LogUtils.logError("删除文章出现异常",e);
@@ -92,7 +99,10 @@ public class IndustryConsultancyController extends BaseController{
     @ResponseBody
     public CodeResult updateIndusStatus(int id,int status){
         try {
-            industryConsultancyService.updateIndusStatus(id,status);
+            ActiveUser activeUser = super.loginUser();
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
+            industryConsultancyService.updateIndusStatus(id,status,activeUser,session);
             return CodeResult.build(200,status==0?"禁用成功":"启用成功");
         } catch ( Exception e ) {
             LogUtils.logError("删除文章出现异常",e);
@@ -104,16 +114,19 @@ public class IndustryConsultancyController extends BaseController{
     @ResponseBody
     public CodeResult modifyIndus(IndustryConsultancy industryConsultancy){
         try {
+            ActiveUser activeUser = super.loginUser();
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
             if (industryConsultancy.getStatus()==1) {
                industryConsultancy.setPublictime(new Date());
             }
             if (null!=industryConsultancy.getId()) {
                 industryConsultancy.setLastmodifytime(new Date());
-                industryConsultancyService.updateIndustryConsultancy(industryConsultancy);
+                industryConsultancyService.updateIndustryConsultancy(industryConsultancy,activeUser,session);
             } else {
                 industryConsultancy.setDisplay(true);
                 industryConsultancy.setCreatetime(new Date());
-                industryConsultancyService.insert(industryConsultancy);
+                industryConsultancyService.insert(industryConsultancy,activeUser,session);
             }
             return CodeResult.ok();
         } catch ( Exception e ) {

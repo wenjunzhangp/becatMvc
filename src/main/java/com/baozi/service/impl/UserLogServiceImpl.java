@@ -26,7 +26,7 @@ public class UserLogServiceImpl implements UserLogService {
 
     @Override
     public int insert(UserLog record) {
-        return userLogMapper.insert(record);
+        return userLogMapper.insertSelective(record);
     }
 
     @Override

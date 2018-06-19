@@ -1,9 +1,13 @@
 package com.baozi.service.impl;
 
+import com.baozi.mappers.SysLogMapper;
 import com.baozi.mappers.SysSettingMapper;
+import com.baozi.po.ActiveUser;
 import com.baozi.po.SysSetting;
 import com.baozi.po.SysSettingExample;
 import com.baozi.service.SysSettingService;
+import com.baozi.util.GenerateLogFactory;
+import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +22,9 @@ public class SysSettingServiceImpl implements SysSettingService{
     @Autowired
     private SysSettingMapper sysSettingMapper;
 
+    @Autowired
+    private SysLogMapper sysLogMapper;
+
     @Override
     public SysSetting findSysSettingById() {
         SysSettingExample sysSettingExample = new SysSettingExample();
@@ -25,7 +32,8 @@ public class SysSettingServiceImpl implements SysSettingService{
     }
 
     @Override
-    public int updateSysSetting(SysSetting sysSetting) {
+    public int updateSysSetting(SysSetting sysSetting, ActiveUser activeUser, Session session) {
+        sysLogMapper.insertSelective(GenerateLogFactory.buildSysLogCurrency(activeUser,"编辑系统基本设置",(short) 0,activeUser.getUsername()+"编辑系统基本设置",session.getHost()));
         return sysSettingMapper.updateByPrimaryKeySelective(sysSetting);
     }
 

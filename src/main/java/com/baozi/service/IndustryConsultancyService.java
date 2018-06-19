@@ -1,9 +1,11 @@
 package com.baozi.service;
 
+import com.baozi.po.ActiveUser;
 import com.baozi.po.IndustryConsultancy;
 import com.baozi.vo.IndustryConsultancyViewVo;
 import com.baozi.vo.IndustryConsultancyVo;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.session.Session;
 
 import java.util.List;
 import java.util.Map;
@@ -38,7 +40,7 @@ import java.util.Map;
      * @param idList
      * @return
      */
-     int deleteIndusSingleOrBatch(List idList);
+     int deleteIndusSingleOrBatch(List idList,ActiveUser activeUser,Session session);
 
     /**
      * 启动或者禁用文章
@@ -46,21 +48,21 @@ import java.util.Map;
      * @param status
      * @return
      */
-     int updateIndusStatus(int id,int status);
+     int updateIndusStatus(int id, int status, ActiveUser activeUser, Session session);
 
     /**
      * 修改文章表
      * @param industryConsultancy
      * @return
      */
-     int updateIndustryConsultancy(IndustryConsultancy industryConsultancy);
+     int updateIndustryConsultancy(IndustryConsultancy industryConsultancy,ActiveUser activeUser,Session session);
 
     /**
      * 新增文章
      * @param industryConsultancy
      * @return
      */
-     int insert(IndustryConsultancy industryConsultancy);
+     int insert(IndustryConsultancy industryConsultancy,ActiveUser activeUser,Session session);
 
     /**
      * 前台页脚分页列表

@@ -1,9 +1,11 @@
 package com.baozi.service;
 
+import com.baozi.po.ActiveUser;
 import com.baozi.po.Blog;
 import com.baozi.vo.BlogViewVo;
 import com.baozi.vo.BlogVo;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.session.Session;
 
 import java.util.List;
 import java.util.Map;
@@ -29,7 +31,7 @@ public interface BlogService {
      * @param idList
      * @return
      */
-    int deleteBlogSingleOrBatch(List idList);
+    int deleteBlogSingleOrBatch(List idList, ActiveUser activeUser, Session session);
 
     /**
      * 启动或者禁用博客
@@ -37,21 +39,21 @@ public interface BlogService {
      * @param status
      * @return
      */
-    int updateBlogStatus(int id,int status);
+    int updateBlogStatus(int id,int status,ActiveUser activeUser,Session session);
 
     /**
      * 修改博客表
      * @param blog
      * @return
      */
-    int updateBlog(Blog blog);
+    int updateBlog(Blog blog,ActiveUser activeUser,Session session);
 
     /**
      * 新增博客
      * @param blog
      * @return
      */
-    int insert(Blog blog);
+    int insert(Blog blog,ActiveUser activeUser,Session session);
 
     /**
      * 前台页脚分页列表
@@ -78,5 +80,5 @@ public interface BlogService {
      * @param id
      * @param status
      */
-    int updateBlogStick(int id, int status);
+    int updateBlogStick(int id, int status,ActiveUser activeUser,Session session);
 }

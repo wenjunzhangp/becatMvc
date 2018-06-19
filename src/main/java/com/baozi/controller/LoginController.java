@@ -13,6 +13,10 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,6 +34,9 @@ public class LoginController extends BaseController{
 
     @Autowired
     private SysUserService sysUserService;
+
+    @Autowired
+    private PlatformTransactionManager transactionManager;
 
     /**
      * 跳转到登录界面
@@ -60,6 +67,10 @@ public class LoginController extends BaseController{
     @RequestMapping("/userLogin")
     @ResponseBody
     public CodeResult userLogin(HttpServletRequest request) {
+        DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
+        defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        TransactionStatus status = transactionManager.getTransaction(defaultTransactionDefinition);
+
         //如果登陆失败从request中获取认证异常信息，shiroLoginFailure就是shiro异常类的全限定名
         String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
         if(exceptionClassName!=null){
@@ -90,8 +101,9 @@ public class LoginController extends BaseController{
                 Session session = subject.getSession();
                 SysUser sysUser = sysUserService.findSysUserByUserId(activeUser.getUserid());
                 sysUser.setLastLoginTime(new Date());
-                sysUserService.updateUserInfo(sysUser);
-                userLogService.insert(GenerateLogFactory.buildUserLogCurrency(activeUser,"登陆",(short) 0,activeUser.getUsername()+"登陆后台系统",session.getHost()));
+                sysUserService.updateUserInfo(sysUser,activeUser,session);
+                userLogService.insert(GenerateLogFactory.buildUserLogCurrency(activeUser,"登陆BeCat后台系统",(short) 0,activeUser.getUsername()+"登陆BeCat后台系统",session.getHost()));
+                transactionManager.commit(status);
                 return CodeResult.ok();
             } catch (IncorrectCredentialsException e) {
                 return CodeResult.build(500,"用户名或者密码错误");
@@ -111,6 +123,7 @@ public class LoginController extends BaseController{
                 return CodeResult.build(500,e.getMessage());
             }
         }
+        transactionManager.rollback(status);
         return CodeResult.build(500,"发生未知错误");
     }
 

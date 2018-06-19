@@ -11,6 +11,10 @@ import com.baozi.util.LogUtils;
 import com.baozi.vo.IndustryConsultancyViewVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,6 +37,9 @@ public class ViewJumpController extends BaseController{
 
     @Autowired
     private BlogService blogService;
+
+    @Autowired
+    private PlatformTransactionManager transactionManager;
 
     @RequestMapping("/product")
     public String product(){
@@ -102,12 +109,18 @@ public class ViewJumpController extends BaseController{
 
     @RequestMapping("/newsdetail")
     public ModelAndView newsdetail(String id){
+        DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
+        defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        TransactionStatus status = transactionManager.getTransaction(defaultTransactionDefinition);
+
         ModelAndView mav = new ModelAndView("newscontent");
         Integer indusId = IDEncryptor.getInstance().decryptWithoutException(id);
         try {
             //文章阅读数+1
             industryConsultancyService.updateIndustryConsultancyLookNum(indusId);
+            transactionManager.commit(status);
         } catch ( Exception e ) {
+            transactionManager.rollback(status);
             LogUtils.logError("文章【"+indusId+"】修改阅读数+1失败",e);
         }
         //取得当前文章
@@ -128,12 +141,18 @@ public class ViewJumpController extends BaseController{
 
     @RequestMapping("/blogdetail")
     public ModelAndView blogdetail(String id){
+        DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
+        defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+        TransactionStatus status = transactionManager.getTransaction(defaultTransactionDefinition);
+
         ModelAndView mav = new ModelAndView("blogcontent");
         Integer indusId = IDEncryptor.getInstance().decryptWithoutException(id);
         try {
             //文章阅读数+1
             blogService.updateBlogLookNum(indusId);
+            transactionManager.commit(status);
         } catch ( Exception e ) {
+            transactionManager.rollback(status);
             LogUtils.logError("技术博客【"+indusId+"】修改阅读数+1失败",e);
         }
         //取得当前技术博客

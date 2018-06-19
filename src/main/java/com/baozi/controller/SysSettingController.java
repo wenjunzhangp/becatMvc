@@ -1,8 +1,12 @@
 package com.baozi.controller;
 
+import com.baozi.po.ActiveUser;
 import com.baozi.po.SysSetting;
 import com.baozi.service.SysSettingService;
 import com.baozi.util.LogUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,8 +54,11 @@ public class SysSettingController extends BaseController{
     @ResponseBody
     public CodeResult modifySysSetting(SysSetting sysSetting){
         try {
+            ActiveUser activeUser = super.loginUser();
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
             sysSetting.setLastModifyTime(new Date());
-            sysSettingService.updateSysSetting(sysSetting);
+            sysSettingService.updateSysSetting(sysSetting,activeUser,session);
             return CodeResult.ok();
         } catch ( Exception e ) {
             LogUtils.logError("系统基本配置信息修改失败",e);

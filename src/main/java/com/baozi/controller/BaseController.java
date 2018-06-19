@@ -25,9 +25,6 @@ public class BaseController {
 	@Autowired
 	protected UserLogService userLogService;
 
-	@Autowired
-	protected SysLogService sysLogService;
-	
 	protected int pageNo =1;
 	protected int pageSize = 10;
 	private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);

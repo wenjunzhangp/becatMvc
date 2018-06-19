@@ -1,9 +1,11 @@
 package com.baozi.service;
 
+import com.baozi.po.ActiveUser;
 import com.baozi.po.PlatEvent;
 import com.baozi.vo.PlatEventViewVo;
 import com.baozi.vo.PlatEventVo;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.session.Session;
 
 import java.util.List;
 import java.util.Map;
@@ -33,7 +35,7 @@ public interface PlatEventService {
      * @param idList
      * @return
      */
-    int deletePlatEventSingleOrBatch(List idList);
+    int deletePlatEventSingleOrBatch(List idList, ActiveUser activeUser, Session session);
 
     /**
      * 启动或者禁用大事记
@@ -41,21 +43,21 @@ public interface PlatEventService {
      * @param status
      * @return
      */
-    int updatePlatEventStatus(int id,int status);
+    int updatePlatEventStatus(int id,int status,ActiveUser activeUser,Session session);
 
     /**
      * 修改大事记
      * @param platEvent
      * @return
      */
-    int updatePlatEvent(PlatEvent platEvent);
+    int updatePlatEvent(PlatEvent platEvent,ActiveUser activeUser,Session session);
 
     /**
      * 新增大事记
      * @param platEvent
      * @return
      */
-    int insert(PlatEvent platEvent);
+    int insert(PlatEvent platEvent,ActiveUser activeUser,Session session);
 
     /**
      * 前端页脚分页列表

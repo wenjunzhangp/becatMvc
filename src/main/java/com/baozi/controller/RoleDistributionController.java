@@ -1,8 +1,12 @@
 package com.baozi.controller;
 
+import com.baozi.po.ActiveUser;
 import com.baozi.service.SystemService;
 import com.baozi.util.LogUtils;
 import com.baozi.vo.UserRoleVo;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +58,10 @@ public class RoleDistributionController extends BaseController{
     @ResponseBody
     public CodeResult addRoleToUser(int userId,String ids){
         try {
-            systemService.addRoleToUser(userId,ids);
+            ActiveUser activeUser = super.loginUser();
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
+            systemService.addRoleToUser(userId,ids,activeUser,session);
             return CodeResult.build(200,"赋予角色成功");
         } catch ( Exception e ){
             return CodeResult.build(500,"为用户【"+userId+"】赋予新角色失败，请稍后再试");

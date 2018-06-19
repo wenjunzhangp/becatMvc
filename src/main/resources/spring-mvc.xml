@@ -27,7 +27,7 @@
 	<!-- 这个一定得有，注意了，如果其他配置也有需要这个，已经配置了，那不必了 -->
 	<mvc:annotation-driven  />
 
-	<!-- 配置拦截器 -->
+	<!-- 配置QQ互联登录拦截器 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/product.shtml"/>
@@ -59,24 +59,14 @@
 	</bean>
 
 	<!--===============通用视图解析器 begin===============-->
-	<bean id="viewResolverCommon"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="order" value="1" />
-		<property name="prefix" value="/WEB-INF/console/" />
-		<property name="suffix" value=".jsp" />
-		<property name="viewClass">
-			<value>org.springframework.web.servlet.view.InternalResourceView</value>
-		</property>
-	</bean>
 	<!-- 配置freeMarker视图解析器 -->
 	<bean id="viewResolverFtl" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
 		<property name="contentType" value="text/html; charset=utf-8"/>
-		<property name="cache" value="false" />
+		<property name="cache" value="true" />
 		<property name="suffix" value=".ftl" />
 		<property name="order" value="0"/>
 	</bean>
-
 	<!-- 配置freeMarker的模板路径 -->
 	<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
 		<property name="templateLoaderPath">
@@ -87,8 +77,20 @@
 		</property>
 		<property name="freemarkerSettings">
 			<props>
-				<prop key="template_update_delay">0</prop>
+				<prop key="template_update_delay">3600</prop><!--刷新模板的周期，单位为秒-->
+				<prop key="classic_compatible">true</prop><!-- 此属性可以防止模板解析空值时的错误  -->
+				<prop key="defaultEncoding">utf-8</prop><!--模板的编码格式 -->
 			</props>
+		</property>
+	</bean>
+
+	<bean id="viewResolverCommon"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="1" />
+		<property name="prefix" value="/WEB-INF/console/" />
+		<property name="suffix" value=".jsp" />
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.InternalResourceView</value>
 		</property>
 	</bean>
 

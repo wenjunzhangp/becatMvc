@@ -1,11 +1,15 @@
 package com.baozi.controller;
 
+import com.baozi.po.ActiveUser;
 import com.baozi.po.Blog;
 import com.baozi.po.IndustryConsultancy;
 import com.baozi.service.BlogService;
 import com.baozi.service.IndustryConsultancyService;
 import com.baozi.statics.Constant;
 import com.baozi.util.LogUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,8 +60,11 @@ public class BlogController extends BaseController{
     @ResponseBody
     public CodeResult deleteBlogSingleOrBatch(String ids){
         try {
+            ActiveUser activeUser = super.loginUser();
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
             List idList = Arrays.asList(ids.split(","));
-            blogService.deleteBlogSingleOrBatch(idList);
+            blogService.deleteBlogSingleOrBatch(idList,activeUser,session);
             return CodeResult.build(200,"批量操作成功");
         } catch ( Exception e ) {
             LogUtils.logError("删除博客出现异常",e);
@@ -69,7 +76,10 @@ public class BlogController extends BaseController{
     @ResponseBody
     public CodeResult updateBlogStatus(int id,int status){
         try {
-            blogService.updateBlogStatus(id,status);
+            ActiveUser activeUser = super.loginUser();
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
+            blogService.updateBlogStatus(id,status,activeUser,session);
             return CodeResult.build(200,status==0?"禁用成功":"启用成功");
         } catch ( Exception e ) {
             LogUtils.logError("出现异常",e);
@@ -81,7 +91,10 @@ public class BlogController extends BaseController{
     @ResponseBody
     public CodeResult updateBlogStick(int id,int status){
         try {
-            blogService.updateBlogStick(id,status);
+            ActiveUser activeUser = super.loginUser();
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
+            blogService.updateBlogStick(id,status,activeUser,session);
             return CodeResult.build(200,status==0?"下顶成功":"置顶成功");
         } catch ( Exception e ) {
             LogUtils.logError("出现异常",e);
@@ -93,13 +106,16 @@ public class BlogController extends BaseController{
     @ResponseBody
     public CodeResult modifyBlog(Blog blog){
         try {
+            ActiveUser activeUser = super.loginUser();
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
             if (null!=blog.getId()) {
                 blog.setLastmodifytime(new Date());
-                blogService.updateBlog(blog);
+                blogService.updateBlog(blog,activeUser,session);
             } else {
                 blog.setDisplay(1);
                 blog.setCreatetime(new Date());
-                blogService.insert(blog);
+                blogService.insert(blog,activeUser,session);
             }
             return CodeResult.ok();
         } catch ( Exception e ) {

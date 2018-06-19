@@ -3,6 +3,9 @@ package com.baozi.controller;
 import com.baozi.po.ActiveUser;
 import com.baozi.service.SysUserService;
 import com.baozi.util.LogUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,7 +49,9 @@ public class SysUserController extends BaseController{
     public CodeResult updateSysUserLock(String lock){
         ActiveUser activeUser = super.loginUser();
         try {
-            sysUserService.updateSysUserLock(activeUser.getUsercode(),lock);
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
+            sysUserService.updateSysUserLock(activeUser.getUsercode(),lock,activeUser,session);
             return CodeResult.build(200,lock.equals("0")?"解锁成功":"已锁定登录");
         } catch ( Exception e ) {
             LogUtils.logError(lock.equals("0")?"解锁用户【"+activeUser.getUsercode()+"】":"锁定用户【"+activeUser.getUsercode()+"】"+"出现异常",e);

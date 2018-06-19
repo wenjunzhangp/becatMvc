@@ -1,9 +1,11 @@
 package com.baozi.service;
 
+import com.baozi.po.ActiveUser;
 import com.baozi.po.SysUser;
 import com.baozi.vo.PlatEventVo;
 import com.baozi.vo.SysUserVo;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.session.Session;
 
 import java.util.Date;
 import java.util.Map;
@@ -39,7 +41,7 @@ public interface SysUserService {
      * 修改个人资料
      * @param sysUser
      */
-    int updateUserInfo(SysUser sysUser);
+    int updateUserInfo(SysUser sysUser, ActiveUser activeUser, Session session);
 
     /**
      * 修改个人密码
@@ -47,7 +49,7 @@ public interface SysUserService {
      * @param newpwd
      * @return
      */
-    int updateUserPwd(int userId,String newpwd);
+    int updateUserPwd(int userId,String newpwd,ActiveUser activeUser,Session session);
 
     /**
      * 分页查询平台用户数据
@@ -62,5 +64,5 @@ public interface SysUserService {
      * @param lock
      * @return
      */
-    void updateSysUserLock(String usercode,String lock);
+    void updateSysUserLock(String usercode,String lock,ActiveUser activeUser,Session session);
 }

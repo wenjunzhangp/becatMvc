@@ -1,10 +1,12 @@
 package com.baozi.service;
 
+import com.baozi.po.ActiveUser;
 import com.baozi.po.Notice;
 import com.baozi.po.PlatEvent;
 import com.baozi.vo.NoticeViewVo;
 import com.baozi.vo.NoticeVo;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.session.Session;
 
 import java.util.List;
 import java.util.Map;
@@ -28,7 +30,7 @@ import java.util.Map;
      * @param idList
      * @return
      */
-     int deleteNoticeSingleOrBatch(List idList);
+     int deleteNoticeSingleOrBatch(List idList,ActiveUser activeUser,Session session);
 
     /**
      * 启动或者禁用平台公告
@@ -36,21 +38,21 @@ import java.util.Map;
      * @param status
      * @return
      */
-     int updateNoticeStatus(int id,int status);
+     int updateNoticeStatus(int id,int status,ActiveUser activeUser,Session session);
 
     /**
      * 修改平台公告
      * @param notice
      * @return
      */
-     int updateNotice(Notice notice);
+     int updateNotice(Notice notice,ActiveUser activeUser,Session session);
 
     /**
      * 新增平台公告
      * @param notice
      * @return
      */
-     int insert(Notice notice);
+     int insert(Notice notice, ActiveUser activeUser, Session session);
 
     /**
      * 前台页脚分页列表

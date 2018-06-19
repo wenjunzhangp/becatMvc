@@ -1,10 +1,14 @@
 package com.baozi.controller;
 
+import com.baozi.po.ActiveUser;
 import com.baozi.po.PlatEvent;
 import com.baozi.service.PlatEventService;
 import com.baozi.util.IConfig;
 import com.baozi.util.LogUtils;
 import com.baozi.util.StringUtil;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,8 +70,11 @@ public class PlatEventController extends BaseController{
     @ResponseBody
     public CodeResult deletePlatEventSingleOrBatch(String ids){
         try {
+            ActiveUser activeUser = super.loginUser();
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
             List idList = Arrays.asList(ids.split(","));
-            platEventService.deletePlatEventSingleOrBatch(idList);
+            platEventService.deletePlatEventSingleOrBatch(idList,activeUser,session);
             return CodeResult.build(200,"批量操作成功");
         } catch ( Exception e ) {
             LogUtils.logError("删除平台大事记出现异常",e);
@@ -79,7 +86,10 @@ public class PlatEventController extends BaseController{
     @ResponseBody
     public CodeResult updatePlatEventStatus(int id,int status){
         try {
-            platEventService.updatePlatEventStatus(id,status);
+            ActiveUser activeUser = super.loginUser();
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
+            platEventService.updatePlatEventStatus(id,status,activeUser,session);
             return CodeResult.build(200,status==0?"禁用成功":"启用成功");
         } catch ( Exception e ) {
             LogUtils.logError(status==0?"禁用成功":"启用成功"+"大事记出现异常",e);
@@ -91,13 +101,16 @@ public class PlatEventController extends BaseController{
     @ResponseBody
     public CodeResult modifyPlatEvent(PlatEvent platEvent){
         try {
+            ActiveUser activeUser = super.loginUser();
+            Subject subject = SecurityUtils.getSubject();
+            Session session = subject.getSession();
             if (null!=platEvent.getId()) {
-                platEventService.updatePlatEvent(platEvent);
+                platEventService.updatePlatEvent(platEvent,activeUser,session);
             } else {
                 platEvent.setDisplay(1);
                 platEvent.setCreatetime(new Date());
                 platEvent.setEdate(new Date());
-                platEventService.insert(platEvent);
+                platEventService.insert(platEvent,activeUser,session);
             }
             return CodeResult.ok();
         } catch ( Exception e ) {
