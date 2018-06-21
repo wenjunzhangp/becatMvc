@@ -21,7 +21,7 @@ import java.util.*
 
 @RestController
 @RequestMapping(value = "message")
-class ShuoApiController @Autowired constructor(
+open class ShuoApiController @Autowired constructor(
         //评论信息
         val  messageService: MessageService,
         //评论人信息

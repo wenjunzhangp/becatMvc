@@ -40,7 +40,7 @@ import kotlin.collections.HashMap
  */
 @Controller
 @RequestMapping()
-class UserController @Autowired constructor(
+open class UserController @Autowired constructor(
         //评论信息
         val  messageService: MessageService,
         //评论人信息

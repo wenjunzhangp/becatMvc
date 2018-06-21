@@ -19,13 +19,24 @@
 
 	<!-- 开启aop，对类代理 -->
 	<aop:config proxy-target-class="true"></aop:config>
+	<!--*************** 支持aop切面 实现controller耗时统计 **************** -->
+	<aop:aspectj-autoproxy />
 
- 	<mvc:annotation-driven  />
+	<!-- 定义切面 -->
+	<bean class="com.baozi.aspect.ControllerTimeConsumingAspect" />
 
 	<mvc:resources mapping="/resource/**/**" location="/resource/" />
 
 	<!-- 这个一定得有，注意了，如果其他配置也有需要这个，已经配置了，那不必了 -->
-	<mvc:annotation-driven  />
+	<mvc:annotation-driven >
+		<!-- 自定义消息转换器 -->
+		<mvc:message-converters register-defaults="true">
+			<!-- 自定义消息转换器，设置编码为utf-8，防止responseEntity<String>转换成json对象输出乱码 -->
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<constructor-arg index="0" value="utf-8"></constructor-arg>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
 
 	<!-- 配置QQ互联登录拦截器 -->
 	<mvc:interceptors>
