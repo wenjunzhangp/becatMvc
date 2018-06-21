@@ -1,10 +1,19 @@
 package com.baozi.util;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.baozi.config.IConfig;
+import com.baozi.config.WeiXinConfig;
 import com.baozi.vo.weixin.TextMessage;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +28,6 @@ import java.util.Map;
 public class WeiXinMessageFactory {
 
     public static String handleWeiXinTextMessage( String fromUserName,String toUserName,String msgType,String content ){
-        String respMessage = "";
         StringBuffer sb = new StringBuffer();
         //这里根据关键字执行相应的逻辑，只有你想不到的，没有做不到的
         if(content.equals("你好")){
@@ -27,7 +35,8 @@ public class WeiXinMessageFactory {
             sb.append("该公众号已实现以下功能：\n");
             sb.append("回复“天气”将有该功能的介绍与使用，\n");
             sb.append("如您在使用该订阅号有任何宝贵意见，欢迎反馈！\n\n");
-            sb.append("反馈邮箱：zhangwenjunp@126.com");
+            sb.append("反馈邮箱：zhangwenjunp@126.com\n\n");
+            sb.append("官网链接是“https://www.becat.shop/about.shtml”");
         } else if(content.equals("天气")){
             sb.append("目前支持查看昨天、今天和未来4 天的天气预报\n");
             sb.append("回复“您要查询的省份”后面跟上天气即可\n");
@@ -60,20 +69,15 @@ public class WeiXinMessageFactory {
                 sb.append("天气信息被外星人劫走了呢，请稍后再试~");
             }
         } else {
-            sb.append("您说的太高深了，小编搞不懂了...囧");
+            sb.append(getTulingResult(content));
         }
-        respMessage = MessageUtil.textMessageToXml(responseTextMessage(fromUserName,toUserName,msgType,sb.toString()));
-        return respMessage;
-    }
-
-    private static TextMessage responseTextMessage(String fromUserName,String toUserName,String msgType,String replayContent){
         TextMessage text = new TextMessage();
-        text.setContent(replayContent);
+        text.setContent(sb.toString());
         text.setToUserName(fromUserName);
         text.setFromUserName(toUserName);
         text.setCreateTime(new Date().getTime() + "");
         text.setMsgType(msgType);
-        return text;
+        return MessageUtil.textMessageToXml(text);
     }
 
     public static String handleWeiXinVoiceMessage( Map<String, String> requestMap ){
@@ -81,7 +85,7 @@ public class WeiXinMessageFactory {
         String recvMessage = requestMap.get("Recognition");
         if(StringUtil.isNotEmpty(recvMessage)){
             //进行语音解析
-            respMessage = recvMessage;
+            respMessage = getTulingResult(recvMessage);
         }else{
             respMessage = "您说的太模糊了，能不能重新说下呢？";
         }
@@ -97,10 +101,11 @@ public class WeiXinMessageFactory {
             sb.append("欢迎关注，BeCat撸猫订阅号\n\n");
             sb.append("该公众号已实现以下功能：\n");
             sb.append("1.回复“天气”将有该功能的介绍与使用，\n");
-            sb.append("2.图灵机器人智能聊天，回复“机器人”使用...\n");
+            sb.append("2.图灵机器人实现智能聊天\n");
             sb.append("3.更多功能尽在开发中...\n");
             sb.append("如您在使用该订阅号有任何宝贵意见，欢迎反馈！\n\n");
-            sb.append("反馈邮箱：zhangwenjunp@126.com");
+            sb.append("反馈邮箱：zhangwenjunp@126.com\n\n");
+            sb.append("官网链接是“https://www.becat.shop/about.shtml”");
             text.setContent(sb.toString());
             text.setToUserName(fromUserName);
             text.setFromUserName(toUserName);
@@ -123,5 +128,46 @@ public class WeiXinMessageFactory {
             }
         }
         return respMessage;
+    }
+
+    /**
+     * 调用图灵机器人api接口，获取智能回复内容，解析获取自己所需结果
+     * @param content
+     * @return
+     */
+    public static String getTulingResult(String content){
+        //图灵机器人数据库接口
+        StringBuffer sb = new StringBuffer();
+        String result = "";
+        try {
+            String INFO = URLEncoder.encode(content, "utf-8");
+            String getURL = WeiXinConfig.get("tuling_robot_url")+"?key=" + WeiXinConfig.get("tuling_robot_appkey") + "&info=" + INFO;
+            URL getUrl = new URL(getURL);
+            HttpURLConnection connection = (HttpURLConnection) getUrl
+                    .openConnection();
+            connection.connect();
+
+            // 取得输入流，并使用Reader读取
+            BufferedReader reader = new BufferedReader(new InputStreamReader(
+                    connection.getInputStream(), "utf-8"));
+
+            String line = "";
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+            reader.close();
+            // 断开连接
+            connection.disconnect();
+            JSONObject json = JSONObject.parseObject(sb.toString());
+            result = json.getString("text");
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
