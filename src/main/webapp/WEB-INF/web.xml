@@ -124,6 +124,7 @@
 
     <welcome-file-list>
         <welcome-file>/product.shtml</welcome-file>
+        <welcome-file>/about.shtml</welcome-file>
     </welcome-file-list>
 
     <session-config>
