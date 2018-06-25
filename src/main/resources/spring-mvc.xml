@@ -30,10 +30,29 @@
 	<!-- 这个一定得有，注意了，如果其他配置也有需要这个，已经配置了，那不必了 -->
 	<mvc:annotation-driven >
 		<!-- 自定义消息转换器 -->
-		<mvc:message-converters register-defaults="true">
-			<!-- 自定义消息转换器，设置编码为utf-8，防止responseEntity<String>转换成json对象输出乱码 -->
+		<mvc:message-converters register-defaults="false">
+			<!--spring消息转换器 -->
+			<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+			<bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
+
+			<!--解决@Responcebody中文乱码问题 -->
 			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
-				<constructor-arg index="0" value="utf-8"></constructor-arg>
+				<constructor-arg value="UTF-8"/>
+			</bean>
+			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+				<property name="supportedMediaTypes" value="text/html;charset=UTF-8"/>
+				<property name="features">
+					<array>
+						<value>QuoteFieldNames</value>
+						<value>WriteDateUseDateFormat</value>
+						<!-- 将Collection类型字段的字段空值输出为[] -->
+						<value>WriteNullListAsEmpty</value>
+						<!-- 将字符串类型字段的空值输出为空字符串 "" -->
+						<value>WriteNullStringAsEmpty</value>
+						<!-- 将Boolean类型字段的空值输出为false -->
+						<value>WriteNullBooleanAsFalse</value>
+					</array>
+				</property>
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
@@ -49,32 +68,12 @@
 	<!-- 定义统一异常处理器 -->
 	<bean class="com.baozi.exception.CustomExceptionResolver"></bean>
 
-	<!-- 避免IE执行ajax时，返回json出现下载文件 -->
-	<bean id="mappingJacksonHttpMessageConverter"
-		  class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-		<property name="supportedMediaTypes">
-			<list>
-				<value>text/html;charset=UTF-8</value>
-			</list>
-		</property>
-	</bean>
-
-	<!-- 启动SpringMVC的注解功能，完成请求和注解POJO的映射 -->
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-		<property name="messageConverters">
-			<list>
-				<!-- json转换器 -->
-				<ref bean="mappingJacksonHttpMessageConverter" />
-			</list>
-		</property>
-	</bean>
-
 	<!--===============通用视图解析器 begin===============-->
 	<!-- 配置freeMarker视图解析器 -->
 	<bean id="viewResolverFtl" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
 		<property name="contentType" value="text/html; charset=utf-8"/>
-		<property name="cache" value="true" />
+		<property name="cache" value="false" />
 		<property name="suffix" value=".ftl" />
 		<property name="order" value="0"/>
 	</bean>
@@ -88,7 +87,7 @@
 		</property>
 		<property name="freemarkerSettings">
 			<props>
-				<prop key="template_update_delay">3600</prop><!--刷新模板的周期，单位为秒-->
+				<prop key="template_update_delay">0</prop><!--刷新模板的周期，单位为秒-->
 				<prop key="classic_compatible">true</prop><!-- 此属性可以防止模板解析空值时的错误  -->
 				<prop key="defaultEncoding">utf-8</prop><!--模板的编码格式 -->
 			</props>

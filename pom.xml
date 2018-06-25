@@ -246,7 +246,7 @@
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
-      <version>1.2.47</version>
+      <version>1.2.12</version>
     </dependency>
 
     <!--freemarker模板包-->
@@ -288,6 +288,24 @@
       <version>1.4.9</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>3.9</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.16.10</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.abel533</groupId>
+      <artifactId>ECharts</artifactId>
+      <version>3.0.0.3</version>
+    </dependency>
+
     <!--
     注意这个是qq第三方的包，我是安装在本地仓库了，有多种方式你们自行解决
     https://blog.csdn.net/yifanSJ/article/details/79478840
@@ -309,6 +327,11 @@
         <version>${kotlin.version}</version>
         <scope>test</scope>
     </dependency>
+      <dependency>
+          <groupId>org.junit.jupiter</groupId>
+          <artifactId>junit-jupiter-api</artifactId>
+          <version>RELEASE</version>
+      </dependency>
 
   </dependencies>
 

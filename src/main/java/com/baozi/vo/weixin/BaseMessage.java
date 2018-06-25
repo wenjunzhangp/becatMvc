@@ -1,5 +1,7 @@
 package com.baozi.vo.weixin;
 
+import lombok.Data;
+
 /**
  * Copyright:   互融云
  * 封装微信交互消息基类
@@ -13,6 +15,7 @@ package com.baozi.vo.weixin;
  * @version: V1.0
  * @Date: 2018-06-21 17:26
  */
+@Data
 public class BaseMessage {
 
     private String ToUserName;
@@ -21,43 +24,4 @@ public class BaseMessage {
     private String MsgType;
     private String MsgId;
 
-    public String getToUserName() {
-        return ToUserName;
-    }
-
-    public void setToUserName(String toUserName) {
-        ToUserName = toUserName;
-    }
-
-    public String getFromUserName() {
-        return FromUserName;
-    }
-
-    public void setFromUserName(String fromUserName) {
-        FromUserName = fromUserName;
-    }
-
-    public String getCreateTime() {
-        return CreateTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        CreateTime = createTime;
-    }
-
-    public String getMsgType() {
-        return MsgType;
-    }
-
-    public void setMsgType(String msgType) {
-        MsgType = msgType;
-    }
-
-    public String getMsgId() {
-        return MsgId;
-    }
-
-    public void setMsgId(String msgId) {
-        MsgId = msgId;
-    }
 }
