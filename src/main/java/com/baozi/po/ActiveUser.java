@@ -13,12 +13,17 @@ import java.util.Set;
  */
 @Data
 public class ActiveUser implements java.io.Serializable {
-	private int userid;//用户id（主键）
-	private String usercode;// 用户账号
-	private String username;// 用户名称
-
-	private Set<String> roles;//角色
-	private List<SysPermission> menus;// 菜单
-	private List<SysPermission> permissions;// 权限
+	//用户id（主键）
+	private int userid;
+	// 用户账号
+	private String usercode;
+	// 用户名称
+	private String username;
+	//角色
+	private Set<String> roles;
+	// 菜单
+	private List<SysPermission> menus;
+	// 权限
+	private List<SysPermission> permissions;
 
 }

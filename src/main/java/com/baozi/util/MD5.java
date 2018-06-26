@@ -12,6 +12,7 @@ import java.lang.reflect.*;
  * md5 类实现了RSA Data Security, Inc.在提交给IETF 的RFC1321中的MD5 message-digest 算法。
  ******************************************************************************/
 
+@SuppressWarnings("ALL")
 public class MD5 {
 	/*
 	 * 下面这些S11-S44实际上是一个4*4的矩阵，在原始的C实现中是用#define 实现的， 这里把它们实现成为static
@@ -45,10 +46,9 @@ public class MD5 {
 	 * 下面的三个成员是MD5计算过程中用到的3个核心数据，在原始的C实现中 被定义到MD5_CTX结构中
 	 * 
 	 */
-	private long[] state = new long[4]; // state (ABCD)
-	private long[] count = new long[2]; // number of bits, modulo 2^64 (lsb
-										// first)
-	private byte[] buffer = new byte[64]; // input buffer
+	private long[] state = new long[4];
+	private long[] count = new long[2];
+	private byte[] buffer = new byte[64];
 
 	/*
 	 * digestHexStr是MD5的唯一一个公共成员，是最新一次计算结果的 16进制ASCII表示.
@@ -164,8 +164,11 @@ public class MD5 {
 		byte[] block = new byte[64];
 		index = (int) (count[0] >>> 3) & 0x3F;
 		// /* Update number of bits */
-		if ((count[0] += (inputLen << 3)) < (inputLen << 3))
-			count[1]++;
+		if ((count[0] += (inputLen << 3)) < (inputLen << 3)) {
+			{
+				count[1]++;
+			}
+		}
 		count[1] += (inputLen >>> 29);
 
 		partLen = 64 - index;
@@ -184,7 +187,11 @@ public class MD5 {
 
 		} else
 
-			i = 0;
+		{
+			{
+				i = 0;
+			}
+		}
 
 		// /* Buffer remaining input */
 		md5Memcpy(buffer, inbuf, index, i, inputLen - i);
@@ -223,90 +230,93 @@ public class MD5 {
 			int len) {
 		int i;
 
-		for (i = 0; i < len; i++)
-			output[outpos + i] = input[inpos + i];
+		for (i = 0; i < len; i++) {
+			{
+				output[outpos + i] = input[inpos + i];
+			}
+		}
 	}
 
 	/*
 	 * md5Transform是MD5核心变换程序，有md5Update调用，block是分块的原始字节
 	 */
-	private void md5Transform(byte block[]) {
+	private void md5Transform(byte[] block) {
 		long a = state[0], b = state[1], c = state[2], d = state[3];
 		long[] x = new long[16];
 
 		Decode(x, block, 64);
 
 		/* Round 1 */
-		a = FF(a, b, c, d, x[0], S11, 0xd76aa478L); /* 1 */
-		d = FF(d, a, b, c, x[1], S12, 0xe8c7b756L); /* 2 */
-		c = FF(c, d, a, b, x[2], S13, 0x242070dbL); /* 3 */
-		b = FF(b, c, d, a, x[3], S14, 0xc1bdceeeL); /* 4 */
-		a = FF(a, b, c, d, x[4], S11, 0xf57c0fafL); /* 5 */
-		d = FF(d, a, b, c, x[5], S12, 0x4787c62aL); /* 6 */
-		c = FF(c, d, a, b, x[6], S13, 0xa8304613L); /* 7 */
-		b = FF(b, c, d, a, x[7], S14, 0xfd469501L); /* 8 */
-		a = FF(a, b, c, d, x[8], S11, 0x698098d8L); /* 9 */
-		d = FF(d, a, b, c, x[9], S12, 0x8b44f7afL); /* 10 */
-		c = FF(c, d, a, b, x[10], S13, 0xffff5bb1L); /* 11 */
-		b = FF(b, c, d, a, x[11], S14, 0x895cd7beL); /* 12 */
-		a = FF(a, b, c, d, x[12], S11, 0x6b901122L); /* 13 */
-		d = FF(d, a, b, c, x[13], S12, 0xfd987193L); /* 14 */
-		c = FF(c, d, a, b, x[14], S13, 0xa679438eL); /* 15 */
-		b = FF(b, c, d, a, x[15], S14, 0x49b40821L); /* 16 */
+		a = FF(a, b, c, d, x[0], S11, 0xd76aa478L);
+		d = FF(d, a, b, c, x[1], S12, 0xe8c7b756L);
+		c = FF(c, d, a, b, x[2], S13, 0x242070dbL);
+		b = FF(b, c, d, a, x[3], S14, 0xc1bdceeeL);
+		a = FF(a, b, c, d, x[4], S11, 0xf57c0fafL);
+		d = FF(d, a, b, c, x[5], S12, 0x4787c62aL);
+		c = FF(c, d, a, b, x[6], S13, 0xa8304613L);
+		b = FF(b, c, d, a, x[7], S14, 0xfd469501L);
+		a = FF(a, b, c, d, x[8], S11, 0x698098d8L);
+		d = FF(d, a, b, c, x[9], S12, 0x8b44f7afL);
+		c = FF(c, d, a, b, x[10], S13, 0xffff5bb1L);
+		b = FF(b, c, d, a, x[11], S14, 0x895cd7beL);
+		a = FF(a, b, c, d, x[12], S11, 0x6b901122L);
+		d = FF(d, a, b, c, x[13], S12, 0xfd987193L);
+		c = FF(c, d, a, b, x[14], S13, 0xa679438eL);
+		b = FF(b, c, d, a, x[15], S14, 0x49b40821L);
 
 		/* Round 2 */
-		a = GG(a, b, c, d, x[1], S21, 0xf61e2562L); /* 17 */
-		d = GG(d, a, b, c, x[6], S22, 0xc040b340L); /* 18 */
-		c = GG(c, d, a, b, x[11], S23, 0x265e5a51L); /* 19 */
-		b = GG(b, c, d, a, x[0], S24, 0xe9b6c7aaL); /* 20 */
-		a = GG(a, b, c, d, x[5], S21, 0xd62f105dL); /* 21 */
-		d = GG(d, a, b, c, x[10], S22, 0x2441453L); /* 22 */
-		c = GG(c, d, a, b, x[15], S23, 0xd8a1e681L); /* 23 */
-		b = GG(b, c, d, a, x[4], S24, 0xe7d3fbc8L); /* 24 */
-		a = GG(a, b, c, d, x[9], S21, 0x21e1cde6L); /* 25 */
-		d = GG(d, a, b, c, x[14], S22, 0xc33707d6L); /* 26 */
-		c = GG(c, d, a, b, x[3], S23, 0xf4d50d87L); /* 27 */
-		b = GG(b, c, d, a, x[8], S24, 0x455a14edL); /* 28 */
-		a = GG(a, b, c, d, x[13], S21, 0xa9e3e905L); /* 29 */
-		d = GG(d, a, b, c, x[2], S22, 0xfcefa3f8L); /* 30 */
-		c = GG(c, d, a, b, x[7], S23, 0x676f02d9L); /* 31 */
-		b = GG(b, c, d, a, x[12], S24, 0x8d2a4c8aL); /* 32 */
+		a = GG(a, b, c, d, x[1], S21, 0xf61e2562L);
+		d = GG(d, a, b, c, x[6], S22, 0xc040b340L);
+		c = GG(c, d, a, b, x[11], S23, 0x265e5a51L);
+		b = GG(b, c, d, a, x[0], S24, 0xe9b6c7aaL);
+		a = GG(a, b, c, d, x[5], S21, 0xd62f105dL);
+		d = GG(d, a, b, c, x[10], S22, 0x2441453L);
+		c = GG(c, d, a, b, x[15], S23, 0xd8a1e681L);
+		b = GG(b, c, d, a, x[4], S24, 0xe7d3fbc8L);
+		a = GG(a, b, c, d, x[9], S21, 0x21e1cde6L);
+		d = GG(d, a, b, c, x[14], S22, 0xc33707d6L);
+		c = GG(c, d, a, b, x[3], S23, 0xf4d50d87L);
+		b = GG(b, c, d, a, x[8], S24, 0x455a14edL);
+		a = GG(a, b, c, d, x[13], S21, 0xa9e3e905L);
+		d = GG(d, a, b, c, x[2], S22, 0xfcefa3f8L);
+		c = GG(c, d, a, b, x[7], S23, 0x676f02d9L);
+		b = GG(b, c, d, a, x[12], S24, 0x8d2a4c8aL);
 
 		/* Round 3 */
-		a = HH(a, b, c, d, x[5], S31, 0xfffa3942L); /* 33 */
-		d = HH(d, a, b, c, x[8], S32, 0x8771f681L); /* 34 */
-		c = HH(c, d, a, b, x[11], S33, 0x6d9d6122L); /* 35 */
-		b = HH(b, c, d, a, x[14], S34, 0xfde5380cL); /* 36 */
-		a = HH(a, b, c, d, x[1], S31, 0xa4beea44L); /* 37 */
-		d = HH(d, a, b, c, x[4], S32, 0x4bdecfa9L); /* 38 */
-		c = HH(c, d, a, b, x[7], S33, 0xf6bb4b60L); /* 39 */
-		b = HH(b, c, d, a, x[10], S34, 0xbebfbc70L); /* 40 */
-		a = HH(a, b, c, d, x[13], S31, 0x289b7ec6L); /* 41 */
-		d = HH(d, a, b, c, x[0], S32, 0xeaa127faL); /* 42 */
-		c = HH(c, d, a, b, x[3], S33, 0xd4ef3085L); /* 43 */
-		b = HH(b, c, d, a, x[6], S34, 0x4881d05L); /* 44 */
-		a = HH(a, b, c, d, x[9], S31, 0xd9d4d039L); /* 45 */
-		d = HH(d, a, b, c, x[12], S32, 0xe6db99e5L); /* 46 */
-		c = HH(c, d, a, b, x[15], S33, 0x1fa27cf8L); /* 47 */
-		b = HH(b, c, d, a, x[2], S34, 0xc4ac5665L); /* 48 */
+		a = HH(a, b, c, d, x[5], S31, 0xfffa3942L);
+		d = HH(d, a, b, c, x[8], S32, 0x8771f681L);
+		c = HH(c, d, a, b, x[11], S33, 0x6d9d6122L);
+		b = HH(b, c, d, a, x[14], S34, 0xfde5380cL);
+		a = HH(a, b, c, d, x[1], S31, 0xa4beea44L);
+		d = HH(d, a, b, c, x[4], S32, 0x4bdecfa9L);
+		c = HH(c, d, a, b, x[7], S33, 0xf6bb4b60L);
+		b = HH(b, c, d, a, x[10], S34, 0xbebfbc70L);
+		a = HH(a, b, c, d, x[13], S31, 0x289b7ec6L);
+		d = HH(d, a, b, c, x[0], S32, 0xeaa127faL);
+		c = HH(c, d, a, b, x[3], S33, 0xd4ef3085L);
+		b = HH(b, c, d, a, x[6], S34, 0x4881d05L);
+		a = HH(a, b, c, d, x[9], S31, 0xd9d4d039L);
+		d = HH(d, a, b, c, x[12], S32, 0xe6db99e5L);
+		c = HH(c, d, a, b, x[15], S33, 0x1fa27cf8L);
+		b = HH(b, c, d, a, x[2], S34, 0xc4ac5665L);
 
 		/* Round 4 */
-		a = II(a, b, c, d, x[0], S41, 0xf4292244L); /* 49 */
-		d = II(d, a, b, c, x[7], S42, 0x432aff97L); /* 50 */
-		c = II(c, d, a, b, x[14], S43, 0xab9423a7L); /* 51 */
-		b = II(b, c, d, a, x[5], S44, 0xfc93a039L); /* 52 */
-		a = II(a, b, c, d, x[12], S41, 0x655b59c3L); /* 53 */
-		d = II(d, a, b, c, x[3], S42, 0x8f0ccc92L); /* 54 */
-		c = II(c, d, a, b, x[10], S43, 0xffeff47dL); /* 55 */
-		b = II(b, c, d, a, x[1], S44, 0x85845dd1L); /* 56 */
-		a = II(a, b, c, d, x[8], S41, 0x6fa87e4fL); /* 57 */
-		d = II(d, a, b, c, x[15], S42, 0xfe2ce6e0L); /* 58 */
-		c = II(c, d, a, b, x[6], S43, 0xa3014314L); /* 59 */
-		b = II(b, c, d, a, x[13], S44, 0x4e0811a1L); /* 60 */
-		a = II(a, b, c, d, x[4], S41, 0xf7537e82L); /* 61 */
-		d = II(d, a, b, c, x[11], S42, 0xbd3af235L); /* 62 */
-		c = II(c, d, a, b, x[2], S43, 0x2ad7d2bbL); /* 63 */
-		b = II(b, c, d, a, x[9], S44, 0xeb86d391L); /* 64 */
+		a = II(a, b, c, d, x[0], S41, 0xf4292244L);
+		d = II(d, a, b, c, x[7], S42, 0x432aff97L);
+		c = II(c, d, a, b, x[14], S43, 0xab9423a7L);
+		b = II(b, c, d, a, x[5], S44, 0xfc93a039L);
+		a = II(a, b, c, d, x[12], S41, 0x655b59c3L);
+		d = II(d, a, b, c, x[3], S42, 0x8f0ccc92L);
+		c = II(c, d, a, b, x[10], S43, 0xffeff47dL);
+		b = II(b, c, d, a, x[1], S44, 0x85845dd1L);
+		a = II(a, b, c, d, x[8], S41, 0x6fa87e4fL);
+		d = II(d, a, b, c, x[15], S42, 0xfe2ce6e0L);
+		c = II(c, d, a, b, x[6], S43, 0xa3014314L);
+		b = II(b, c, d, a, x[13], S44, 0x4e0811a1L);
+		a = II(a, b, c, d, x[4], S41, 0xf7537e82L);
+		d = II(d, a, b, c, x[11], S42, 0xbd3af235L);
+		c = II(c, d, a, b, x[2], S43, 0x2ad7d2bbL);
+		b = II(b, c, d, a, x[9], S44, 0xeb86d391L);
 
 		state[0] += a;
 		state[1] += b;
@@ -336,9 +346,12 @@ public class MD5 {
 	private void Decode(long[] output, byte[] input, int len) {
 		int i, j;
 
-		for (i = 0, j = 0; j < len; i++, j += 4)
-			output[i] = b2iu(input[j]) | (b2iu(input[j + 1]) << 8)
-					| (b2iu(input[j + 2]) << 16) | (b2iu(input[j + 3]) << 24);
+		for (i = 0, j = 0; j < len; i++, j += 4) {
+			{
+				output[i] = b2iu(input[j]) | (b2iu(input[j + 1]) << 8)
+						| (b2iu(input[j + 2]) << 16) | (b2iu(input[j + 3]) << 24);
+			}
+		}
 
 		return;
 	}
@@ -364,7 +377,7 @@ public class MD5 {
 		return s;
 	}
 
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 
 		MD5 m = new MD5();
 		if (Array.getLength(args) == 0) { // 如果没有参数，执行标准的Test Suite
@@ -381,9 +394,12 @@ public class MD5 {
 					.println("MD5(\"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\"):"
 							+ m
 									.getMD5ofStr("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"));
-		} else
-			System.out
-					.println("MD5(" + args[0] + ")=" + m.getMD5ofStr(args[0]));
+		} else {
+			{
+				System.out
+						.println("MD5(" + args[0] + ")=" + m.getMD5ofStr(args[0]));
+			}
+		}
 
 	}
 

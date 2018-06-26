@@ -96,7 +96,7 @@ public class MessageUtil {
      */
     @SuppressWarnings("unchecked")
     public static Map<String, String> xmlToMap(HttpServletRequest request) throws IOException {
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>(256);
         SAXReader reader = new SAXReader();
 
         InputStream ins = null;
@@ -130,16 +130,19 @@ public class MessageUtil {
      * 扩展xstream，使其支持CDATA块
      */
     private static XStream xstream = new XStream(new XppDriver() {
+        @Override
         public HierarchicalStreamWriter createWriter(Writer out) {
         return new PrettyPrintWriter(out) {
             // 对所有xml节点的转换都增加CDATA标记
             boolean cdata = true;
 
+            @Override
             @SuppressWarnings("unchecked")
             public void startNode(String name, Class clazz) {
                 super.startNode(name, clazz);
             }
 
+            @Override
             protected void writeText(QuickWriter writer, String text) {
                 if (cdata) {
                     writer.write("<![CDATA[");

@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-public class QQManager {
-	public static final String REDIRECT_URL = QQConfig.get("redirect_URI");
-	public static final String APP_KEY = QQConfig.get("app_KEY");
-	public static final String APP_ID = QQConfig.get("app_ID");
+public class QqManager {
+	public static final String REDIRECT_URL = QqConfig.get("redirect_URI");
+	public static final String APP_KEY = QqConfig.get("app_KEY");
+	public static final String APP_ID = QqConfig.get("app_ID");
 
 	/**
 	  * 获取用户token信息
@@ -51,8 +51,8 @@ public class QQManager {
 	public static String getAuth2URL(String state, String redirectUrl, String code){
 		String url = "https://graph.qq.com/oauth2.0/token";
 		url += "?grant_type=authorization_code";
-		url += "&client_id="+QQManager.APP_ID;
-		url += "&client_secret="+QQManager.APP_KEY;
+		url += "&client_id="+ QqManager.APP_ID;
+		url += "&client_secret="+ QqManager.APP_KEY;
 		url += "&code="+code;
 		url += "&redirect_uri="+redirectUrl;
 		return url;

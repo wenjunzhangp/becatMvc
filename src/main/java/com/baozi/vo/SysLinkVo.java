@@ -1,6 +1,6 @@
 package com.baozi.vo;
 
-import com.baozi.config.IConfig;
+import com.baozi.config.Iconfig;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
@@ -34,7 +34,7 @@ public class SysLinkVo {
     }
 
     public String getLogo() {
-        return IConfig.get("becat.imgserver.prefix")+logo;
+        return Iconfig.get("becat.imgserver.prefix")+logo;
     }
 
     public void setLogo(String logo) {

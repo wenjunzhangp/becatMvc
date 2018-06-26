@@ -1,6 +1,6 @@
 package com.baozi.controller;
 
-import com.baozi.config.IConfig;
+import com.baozi.config.Iconfig;
 import com.baozi.po.ActiveUser;
 import com.baozi.po.SysUser;
 import com.baozi.service.SysUserService;
@@ -36,7 +36,7 @@ public class PersonInfoController extends BaseController{
     public String personInfo(HttpServletRequest request) {
         SysUser sysUser = sysUserService.findSysUserByUserId(super.loginUser().getUserid());
         setValueRequest(request,"userInfo",sysUser);
-        setValueRequest(request,"userImg", IConfig.get("becat.imgserver.prefix")+sysUser.getSourceimg());
+        setValueRequest(request,"userImg", Iconfig.get("becat.imgserver.prefix")+sysUser.getSourceimg());
         return "/user/personInfo";
     }
 
@@ -126,7 +126,7 @@ public class PersonInfoController extends BaseController{
             Subject subject = SecurityUtils.getSubject();
             Session session = subject.getSession();
             sysUserService.updateUserInfo(sysUser,activeUser,session);
-            return CodeResult.ok(IConfig.get("becat.imgserver.prefix")+resultFilePaths);
+            return CodeResult.ok(Iconfig.get("becat.imgserver.prefix")+resultFilePaths);
         } catch (Exception e) {
             LogUtils.logError("用户头像文件长传失败",e);
             return CodeResult.build(500,e.getMessage());

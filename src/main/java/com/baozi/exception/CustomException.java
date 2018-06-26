@@ -20,7 +20,8 @@ public class CustomException extends Exception {
 		
 	}
 
-	public String getMessage() {
+	@Override
+    public String getMessage() {
 		return message;
 	}
 

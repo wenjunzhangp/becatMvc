@@ -3,8 +3,9 @@ package com.baozi.util;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
-import com.baozi.config.IConfig;
+import com.baozi.config.Iconfig;
 import com.baozi.config.WeiXinConfig;
+import com.baozi.statics.Constant;
 import com.baozi.vo.weixin.TextMessage;
 
 import java.io.BufferedReader;
@@ -14,7 +15,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,24 +30,24 @@ public class WeiXinMessageFactory {
     public static String handleWeiXinTextMessage( String fromUserName,String toUserName,String msgType,String content ){
         StringBuffer sb = new StringBuffer();
         //这里根据关键字执行相应的逻辑，只有你想不到的，没有做不到的
-        if(content.equals("你好")){
+        if(Constant.WECHAT_HELLO.equals(content)){
             sb.append("你好\n\n");
             sb.append("该公众号已实现以下功能：\n");
             sb.append("回复“天气”将有该功能的介绍与使用，\n");
             sb.append("如您在使用该订阅号有任何宝贵意见，欢迎反馈！\n\n");
             sb.append("反馈邮箱：zhangwenjunp@126.com\n\n");
             sb.append("官网链接是“https://www.becat.shop/about.shtml”");
-        } else if(content.equals("天气")){
+        } else if(Constant.WECHAT_WEATHER.equals(content)){
             sb.append("目前支持查看昨天、今天和未来4 天的天气预报\n");
             sb.append("回复“您要查询的省份”后面跟上天气即可\n");
             sb.append("例如查看北京天气：“北京天气”");
-        } else if (content.endsWith("天气")) {
-            Map<String, String> param = new HashMap<String, String>();
-            String city = content.substring(0,"天气".length());
+        } else if (content.endsWith(Constant.WECHAT_WEATHER)) {
+            Map<String, String> param = new HashMap<>(256);
+            String city = content.substring(0,Constant.WECHAT_WEATHER.length());
             param.put("city",city);
-            String responStr = HttpclientUtil.doGet(IConfig.get("weather_api_url"),param);
+            String responStr = HttpclientUtil.doGet(Iconfig.get("weather_api_url"),param);
             JSONObject jsonObject = JSONObject.parseObject(responStr);
-            if ("200".equals(jsonObject.getString("status"))) {
+            if (String.valueOf(Constant.HTTP_OK).equals(jsonObject.getString("status"))) {
                 JSONObject data = jsonObject.getJSONObject("data");
                 sb.append("今日温度"+data.get("wendu")+"℃，湿度"+data.get("shidu")+"，空气等级“"+data.get("quality")+"“，PM2.5："+data.get("pm25")+"\n");
                 sb.append("小编温馨提示:"+data.get("ganmao"));
@@ -75,7 +75,7 @@ public class WeiXinMessageFactory {
         text.setContent(sb.toString());
         text.setToUserName(fromUserName);
         text.setFromUserName(toUserName);
-        text.setCreateTime(new Date().getTime() + "");
+        text.setCreateTime(System.currentTimeMillis() + "");
         text.setMsgType(msgType);
         return MessageUtil.textMessageToXml(text);
     }
@@ -94,8 +94,10 @@ public class WeiXinMessageFactory {
 
     public static String handleWeiXinEventPush( String fromUserName,String toUserName,Map<String, String> requestMap ){
         String respMessage = "";
-        String eventType = requestMap.get("Event");// 事件类型
-        if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {// 订阅
+        // 事件类型
+        String eventType = requestMap.get("Event");
+        // 订阅
+        if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
             TextMessage text = new TextMessage();
             StringBuffer sb = new StringBuffer();
             sb.append("欢迎关注，BeCat撸猫订阅号\n\n");
@@ -109,20 +111,21 @@ public class WeiXinMessageFactory {
             text.setContent(sb.toString());
             text.setToUserName(fromUserName);
             text.setFromUserName(toUserName);
-            text.setCreateTime(new Date().getTime() + "");
+            text.setCreateTime(System.currentTimeMillis() + "");
             text.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
             respMessage = MessageUtil.textMessageToXml(text);
-        } else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {// 取消订阅
+        } else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
             // TODO 取消订阅后用户再收不到公众号发送的消息，因此不需要回复消息
             LogUtils.logInfo("用户:" + fromUserName + ",取消订阅");
-        } else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {// 自定义菜单点击事件
-            String eventKey = requestMap.get("EventKey");// 事件KEY值，与创建自定义菜单时指定的KEY值对应
-            if (eventKey.equals("about")) {
+        } else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {
+            // 事件KEY值，与创建自定义菜单时指定的KEY值对应
+            String eventKey = requestMap.get("EventKey");
+            if (Constant.WECHAT_CLICK_EVENT_ABOUT.equals(eventKey)) {
                 TextMessage text = new TextMessage();
                 text.setContent("18811359094");
                 text.setToUserName(fromUserName);
                 text.setFromUserName(toUserName);
-                text.setCreateTime(new Date().getTime() + "");
+                text.setCreateTime(System.currentTimeMillis() + "");
                 text.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
                 respMessage = MessageUtil.textMessageToXml(text);
             }
@@ -140,8 +143,8 @@ public class WeiXinMessageFactory {
         StringBuffer sb = new StringBuffer();
         String result = "";
         try {
-            String INFO = URLEncoder.encode(content, "utf-8");
-            String getURL = WeiXinConfig.get("tuling_robot_url")+"?key=" + WeiXinConfig.get("tuling_robot_appkey") + "&info=" + INFO;
+            String info = URLEncoder.encode(content, "utf-8");
+            String getURL = WeiXinConfig.get("tuling_robot_url")+"?key=" + WeiXinConfig.get("tuling_robot_appkey") + "&info=" + info;
             URL getUrl = new URL(getURL);
             HttpURLConnection connection = (HttpURLConnection) getUrl
                     .openConnection();

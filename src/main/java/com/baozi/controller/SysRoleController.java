@@ -63,10 +63,16 @@ public class SysRoleController extends BaseController{
             Subject subject = SecurityUtils.getSubject();
             Session session = subject.getSession();
             boolean flag = systemService.deleteSysRole(id,activeUser,session);
-            if (flag)
-                return CodeResult.build(200,"操作成功");
-            if (!flag)
-                return CodeResult.build(500,"超级管理员不能删除!");
+            if (flag) {
+                {
+                    return CodeResult.build(200, "操作成功");
+                }
+            }
+            if (!flag) {
+                {
+                    return CodeResult.build(500, "超级管理员不能删除!");
+                }
+            }
         } catch ( Exception e ) {
             LogUtils.logError("删除平台大事记出现异常",e);
             return CodeResult.build(500,e.getMessage());

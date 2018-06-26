@@ -9,9 +9,66 @@ import java.util.*;
  * @history
  * @see
  */
-public class DateUtil
-{
-	public static SimpleDateFormat sdfyyyyMMdd = new SimpleDateFormat("yyyy-MM-dd");
+public class DateUtil {
+
+	/**
+	 * 锁对象
+	 */
+	private static final Object LOCKOBJECT = new Object();
+	/**
+	 * 存放不同的日期模板格式的sdf的Map
+	 */
+	private static Map<String, ThreadLocal<SimpleDateFormat>> sdfMap = new HashMap<String, ThreadLocal<SimpleDateFormat>>();
+
+	/**
+	 * 返回一个ThreadLocal的sdf,每个线程只会new一次sdf
+	 *
+	 * @param pattern
+	 * @return
+	 */
+	private static SimpleDateFormat getSdf(final String pattern) {
+		ThreadLocal<SimpleDateFormat> tl = sdfMap.get(pattern);
+
+		// 此处的双重判断和同步是为了防止sdfMap这个单例被多次put重复的sdf
+		if (tl == null) {
+			synchronized (LOCKOBJECT) {
+				tl = sdfMap.get(pattern);
+				if (tl == null) {
+					// 只有Map中还没有这个pattern的sdf才会生成新的sdf并放入map
+					LogUtils.logInfo("put new sdf of pattern " + pattern + " to map");
+
+					// 这里是关键,使用ThreadLocal<SimpleDateFormat>替代原来直接new SimpleDateFormat
+					tl = new ThreadLocal<SimpleDateFormat>() {
+
+						@Override
+						protected SimpleDateFormat initialValue() {
+							LogUtils.logInfo("thread: " + Thread.currentThread() + " init pattern: " + pattern);
+							return new SimpleDateFormat(pattern);
+						}
+					};
+					sdfMap.put(pattern, tl);
+				}
+			}
+		}
+
+		return tl.get();
+	}
+
+	/**
+	 * 使用ThreadLocal<SimpleDateFormat>来获取SimpleDateFormat,这样每个线程只会有一个SimpleDateFormat
+	 * 如果新的线程中没有SimpleDateFormat，才会new一个
+	 * @param date
+	 * @param pattern
+	 * @return
+	 */
+	public static String format(Date date, String pattern) {
+		return getSdf(pattern).format(date);
+	}
+
+	public static Date parse(String dateStr, String pattern) throws ParseException {
+		return getSdf(pattern).parse(dateStr);
+	}
+
 	private static Map<Integer,String> weekMap = new HashMap<Integer,String>();
 	
 	static{
@@ -193,8 +250,8 @@ public class DateUtil
         long todayMs = newerDate.getTime();
         long returnMs = olderDate.getTime();
         long intervalMs = todayMs - returnMs;
-        
-        long time=intervalMs/1000;//转化成多少秒
+		//转化成多少秒
+        long time=intervalMs/1000;
         
         
         return  time/(60*60)+":"+((time%(60*60))/60+":"+time%60); 
@@ -206,7 +263,8 @@ public class DateUtil
         long todayMs = newerDate.getTime();
         long returnMs = olderDate.getTime();
         long intervalMs = todayMs - returnMs;
-        long time=intervalMs/1000;//转化成多少秒
+		//转化成多少秒
+        long time=intervalMs/1000;
         if( time <60 ){
         	return "";
         }
@@ -280,17 +338,17 @@ public class DateUtil
     }
     
     /**
-     * 
-     * @param _date
-     * @param _day
      * @return
      */
-    public static Date addDay(Date _date, int _day) {
-		if (_day == 0)
-			return _date;
+    public static Date addDay(Date date, int day) {
+		if (day == 0) {
+			{
+				return date;
+			}
+		}
 		java.util.Calendar c = java.util.Calendar.getInstance();
-		c.setTime(_date);
-		c.add(java.util.Calendar.DAY_OF_YEAR, _day);
+		c.setTime(date);
+		c.add(java.util.Calendar.DAY_OF_YEAR, day);
 		return c.getTime();
 	}
 
@@ -306,26 +364,29 @@ public class DateUtil
     }
 
     /**
-     *
-     * @param _date
-     * @param _day
      * @return
      */
-    public static Date addDay2(Date _date, int _day) {
-		if (_day == 0)
-			return _date;
+    public static Date addDay2(Date date, int day) {
+		if (day == 0) {
+			{
+				return date;
+			}
+		}
 		java.util.Calendar c = java.util.Calendar.getInstance();
-		c.setTime(_date);
-		c.add(java.util.Calendar.DATE, _day);
+		c.setTime(date);
+		c.add(java.util.Calendar.DATE, day);
 		return c.getTime();
 	}
 
-    public static Date addMonth(Date _date, int _day){
-		if (_day == 0)
-			return _date;
+    public static Date addMonth(Date date, int day){
+		if (day == 0) {
+			{
+				return date;
+			}
+		}
 		java.util.Calendar c = java.util.Calendar.getInstance();
-		c.setTime(_date);
-		c.add(java.util.Calendar.MONTH, _day);
+		c.setTime(date);
+		c.add(java.util.Calendar.MONTH, day);
 		return c.getTime();
 	}
     
@@ -367,39 +428,43 @@ public class DateUtil
 		case 3:
 			totalDay = termCount * 30;
 			break;
+		default:
+			totalDay = 0;
+			break;
 		}
+
     	return totalDay;
     }
     
     public static String getWeekDesc(Date date){
     	Calendar c = Calendar.getInstance();
     	c.setTime(date);
-    	int day_of_week = c.get(Calendar.DAY_OF_WEEK);
-    	return weekMap.get(day_of_week);
-    	
+    	int dayOfweek = c.get(Calendar.DAY_OF_WEEK);
+    	return weekMap.get(dayOfweek);
+
     }
-    
+
     public static Date getRapeseedExpireDate(Date date){
     	Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		cal.add(Calendar.YEAR, 1);
 		cal.set(Calendar.MONTH, 11);
 		cal.set(Calendar.DAY_OF_MONTH, 31);
-		
+
 		return getDateNoTime(cal.getTime());
     }
-    
+
     public static Date getNextYear(Date date, int year){
     	Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		cal.add(Calendar.YEAR, 1);
 		return cal.getTime();
     }
-    
+
     public static Date getDateNoTime(Date date) {
     	return DateUtil.parseDate( DateUtil.formatDate(date, "yyyy-MM-dd"), "yyyy-MM-dd");
     }
-    
+
     public static Date getNextDateNoTime(Date date, int day) {
     	Date nd = DateUtil.parseDate( DateUtil.formatDate(date, "yyyy-MM-dd"), "yyyy-MM-dd");
     	return getNextDate(nd, day);
@@ -409,13 +474,13 @@ public class DateUtil
 		cal.setTime(date);
 		cal.add(Calendar.DAY_OF_MONTH, day);
 		return cal.getTime();
-	}    
+	}
 
     public static String getTimeKey() {
 		String timeKey = System.currentTimeMillis() + "";
 		return timeKey;
 	}
-    
+
     public static Boolean isBetweenHours(int startHours, int endHours, Date nextRepayTime) {
     	if(nextRepayTime==null){
     		return false;
@@ -427,22 +492,31 @@ public class DateUtil
     			Calendar calendar = Calendar.getInstance();
     			calendar.setTime(new Date());
     			int hour = calendar.get(Calendar.HOUR_OF_DAY);
-    			if(hour >= endHours)
-    				return false;
-    			if(hour < startHours)
-    				return false;
+    			if(hour >= endHours) {
+					{
+						return false;
+					}
+				}
+    			if(hour < startHours) {
+					{
+						return false;
+					}
+				}
     			if(hour == startHours){
     				int min = calendar.get(Calendar.MINUTE);
-    				if(min < 30)
-    					return false;
+    				if(min < 30) {
+						{
+							return false;
+						}
+					}
     			}
     			return true;
     		}
     	}
 	}
-    
+
     /**
-     * 获取某日期最后一天 
+     * 获取某日期最后一天
      * @param date
      * @return
      */
@@ -451,15 +525,15 @@ public class DateUtil
 		  cal.setTime(date);
 	      cal.set(Calendar.DAY_OF_MONTH,cal.getActualMaximum(Calendar.DATE));
 	      return  new SimpleDateFormat( "yyyy-MM-dd ").format(cal.getTime());
-	   } 
-    
+	   }
+
     public static Date getLastDayOfMonthExt(Date date){
     	  Calendar cal = Calendar.getInstance();
 		  cal.setTime(date);
 	      cal.set(Calendar.DAY_OF_MONTH,cal.getActualMaximum(Calendar.DATE));
 	      return  cal.getTime();
     }
-    
+
     public static Date getFirstDayOfMonthExt(Date date){
     	  Calendar cal = Calendar.getInstance();
 	      cal.setTime(date);
@@ -467,7 +541,7 @@ public class DateUtil
 	      return cal.getTime();
     }
     /**
-     * 获取某日期第一天	
+     * 获取某日期第一天
      * @param date
      * @return
      */
@@ -477,9 +551,9 @@ public class DateUtil
 	       cal.set(Calendar.DAY_OF_MONTH,cal.getMinimum(Calendar.DATE));
 	       return   new SimpleDateFormat( "yyyy-MM-dd ").format(cal.getTime());
 	  }
-	 
+
 	 public static Map<String,Object> getHbiDate(Date edate, int days, int diff, int internalDay){
-		 Map<String,Object> map = new HashMap<String,Object>();
+		 Map<String,Object> map = new HashMap<>(256);
 		 Calendar cal = Calendar.getInstance();
 		 if(internalDay == 7){
 			 edate = addDay(edate,-1*internalDay);
@@ -499,80 +573,80 @@ public class DateUtil
 		 map.put("days", days);
 		 return map;
 	 }
-	 
+
 	 public static Map<String,Object> getTbiDate(Date sdate, int days, int diff){
-		 Map<String,Object> map = new HashMap<String,Object>();
+		 Map<String,Object> map = new HashMap<>(256);
 		 Calendar cal = Calendar.getInstance();
 		 cal.setTime(sdate);
 		 cal.add(Calendar.YEAR, -1);
 		 map.put("sdate", cal.getTime());
-		 
+
 		 sdate = addDay(cal.getTime(),diff);
 		 map.put("edate", sdate);
 		 map.put("days", days);
 		 return map;
 	 }
-	 
+
 	 public static Map<String,Object> getPreWeekInfo(Date date){
 		 Calendar cal = Calendar.getInstance();
 	     cal.setTime(date);
-	     int day_of_week = cal.get(Calendar.DAY_OF_WEEK);
-	     if(day_of_week == 1){
+	     int dayofWeek = cal.get(Calendar.DAY_OF_WEEK);
+	     if(dayofWeek == 1){
 	    	 cal.setTime(addDay(date,-1));
 	     }
 	     Date day = addDay(cal.getTime(),-7);
 	     cal.setTime(day);
-	    Map<String,Object> map = new HashMap<String,Object>();
+	    Map<String,Object> map = new HashMap<>(256);
 	    cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 	    map.put("sdate", cal.getTime());
 	    map.put("edate", addDay(cal.getTime(),6));
 	    map.put("diff", 6);
 	    map.put("days", 7);
-	    
+
 	    return map;
 	 }
-	 
+
 	 public static Date getComFirstDayOfWeek(Date date){
 		 Calendar cal = Calendar.getInstance();
 	     cal.setTime(date);
-	     int day_of_week = cal.get(Calendar.DAY_OF_WEEK);
-	     if(day_of_week == 1){
+	     int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+	     if(dayOfWeek == 1){
 	    	 date = addDay(date,-1);
 	     }
 	     return getFirstDayOfWeek(date);
 	 }
-	 
+
 	 public static Date getFirstDayOfWeek(Date date){
 		 Calendar cal = Calendar.getInstance();
 	     cal.setTime(date);
 	     cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 	     return   cal.getTime();
 	 }
-	 
+
 	 public static Date getFirstDateOfMonth(Date date) {
 	       Calendar cal = Calendar.getInstance();
 	       cal.setTime(date);
 	       cal.set(Calendar.DAY_OF_MONTH,cal.getMinimum(Calendar.DATE));
 	       return  cal.getTime();
 	  }
-	 
+
 	 /**
-	  * 
+	  *
 	  * @param startTime  --时间 HH:mm:ss
 	  * @param endTime	  --结束时间  HH:mm:ss
 	  * @return
 	  */
-	 public static boolean TimeBetween (Date startTime , Date endTime , Date current){
+	 public static boolean timeBetween (Date startTime , Date endTime , Date current){
 		 if ( current.after( startTime ) && current.before( endTime ) ){
 			 return true ;
 		 }
 		 return false ;
 	 }
-	 
+
 	 public static List<HashMap<String,Object>> getAllWeekBeginAndEndTime(Date beginTime , Date endTime){
 		 List<HashMap<String, Object>> list =  new ArrayList<HashMap<String,Object>>();
-		 HashMap<String, Object> m = new HashMap<String, Object>();
-		 //判断beginTime是否是周日 
+		 HashMap<String, Object> m = new HashMap<>(256);
+		 //判断beginTime是否是周日
 		 Calendar cal = Calendar.getInstance();
 		 cal.setTime(beginTime);
 		 int week=cal.get(Calendar.DAY_OF_WEEK)-1;
@@ -592,10 +666,10 @@ public class DateUtil
 	 }
 	 
 	 
-	 public static final Date ninthMonth = DateUtil.parseDate( "2016-09-01", "yyyy-MM-dd");
+	 public static final Date NINTHMONTH = DateUtil.parseDate( "2016-09-01", "yyyy-MM-dd");
 	 public static boolean isOnlineWithdraw (){
 		 Date now = new Date();
-		 return now.after( ninthMonth );
+		 return now.after( NINTHMONTH );
 	 }
 	 
 	 /**
@@ -612,16 +686,14 @@ public class DateUtil
 		 if(date == null){
 			 return null;
 		 }
-		 SimpleDateFormat sdfyyyyMMdd = new SimpleDateFormat("yyyy-MM-dd");
-		 return sdfyyyyMMdd.format(date);
+		 return getSdf("yyyy-MM-dd").format(date);
 	 }
 	 
 	 public static String sqlFormatyyyyMMddHHmmss(Date date){
 		 if(date == null){
 			 return null;
 		 }
-		 SimpleDateFormat sdfyyyyMMddHHmmss = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		 return "'" + sdfyyyyMMddHHmmss.format(date) + "'";
+		 return getSdf("yyyy-MM-dd HH:mm:ss").format(date);
 	 }
 	 
 	 public static String dateFormatyyyyMM(Date date){
@@ -651,14 +723,13 @@ public class DateUtil
 		 return c.getTime();
 	 }
 	 
-	 public static String DateFormatyyyyMMdd(Date date){
-    	return sdfyyyyMMdd.format(date);
-	 }
-
 	public static  boolean isToday (Date date) {
 
-		if (date == null)
-			return false;
+		if (date == null) {
+			{
+				return false;
+			}
+		}
 
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
@@ -673,8 +744,11 @@ public class DateUtil
 		int month2 = cal.get(Calendar.MONTH)+1;
 		int day2 = cal.get(Calendar.DAY_OF_MONTH);
 
-		if(year1 == year2 && month1 == month2 && day1 == day2)
-			return true;
+		if(year1 == year2 && month1 == month2 && day1 == day2) {
+			{
+				return true;
+			}
+		}
 
 		return false;
 	}
@@ -721,15 +795,16 @@ public class DateUtil
     	Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
 		int hour = calendar.get(Calendar.HOUR_OF_DAY);
-		if(hour >= endHours)
-			return false;
-		if(hour < startHours)
-			return false;
-		/*if(hour == startHours){
-			int min = calendar.get(Calendar.MINUTE);
-			if(min < 30)
+		if(hour >= endHours) {
+			{
 				return false;
-		}*/
+			}
+		}
+		if(hour < startHours) {
+			{
+				return false;
+			}
+		}
 		return true;
 	}
 
@@ -738,17 +813,29 @@ public class DateUtil
 		calendar.setTime(new Date());
 		int hour = calendar.get(Calendar.HOUR_OF_DAY);
 		int min = calendar.get(Calendar.MINUTE);
-		if(hour > endHours)
-			return false;
-		if(hour < startHours)
-			return false;
-		if(hour == startHours){
-			if(min < startMin)
+		if(hour > endHours) {
+			{
 				return false;
+			}
+		}
+		if(hour < startHours) {
+			{
+				return false;
+			}
+		}
+		if(hour == startHours){
+			if(min < startMin) {
+				{
+					return false;
+				}
+			}
 		}
 		if(hour == endHours){
-			if(min >= endMin)
-				return false;
+			if(min >= endMin) {
+				{
+					return false;
+				}
+			}
 		}
 		return true;
 	}

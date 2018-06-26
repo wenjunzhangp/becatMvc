@@ -58,10 +58,10 @@ public class SystemServiceImpl implements SystemService {
             throw new CustomException("账号不存在");
         }
         //数据库的密码
-        String pwd_db=user.getPassword();
+        String pwdDb=user.getPassword();
         //将用户输入的密码加密进行比对
-        String pwd_user=new MD5().getMD5ofStr(password);
-        if(!pwd_db.equalsIgnoreCase(pwd_user)){
+        String pwdUser=new MD5().getMD5ofStr(password);
+        if(!pwdDb.equalsIgnoreCase(pwdUser)){
             throw new CustomException("账号或者密码错误");
         }
         //认证通过，可以将用户信息返回

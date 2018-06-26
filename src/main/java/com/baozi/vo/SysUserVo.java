@@ -1,6 +1,6 @@
 package com.baozi.vo;
 
-import com.baozi.config.IConfig;
+import com.baozi.config.Iconfig;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
@@ -91,7 +91,7 @@ public class SysUserVo {
     }
 
     public String getSourceimg() {
-        return IConfig.get("becat.imgserver.prefix")+sourceimg;
+        return Iconfig.get("becat.imgserver.prefix")+sourceimg;
     }
 
     public void setSourceimg(String sourceimg) {

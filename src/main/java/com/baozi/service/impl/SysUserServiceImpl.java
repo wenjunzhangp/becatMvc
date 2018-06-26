@@ -78,10 +78,10 @@ public class SysUserServiceImpl implements SysUserService{
 
     @Override
     public void updateSysUserLock(String usercode, String lock,ActiveUser activeUser,Session session) {
-        Map<String, Object> paramMap = new HashMap<String, Object>();
+        Map<String, Object> paramMap = new HashMap<>(256);
         paramMap.put("locked",lock);
         paramMap.put("usercode",usercode);
-        String str = lock.equals("0")?"解锁成功":"已锁定登录";
+        String str = "0".equals(lock) ?"解锁成功":"已锁定登录";
         sysLogMapper.insertSelective(GenerateLogFactory.buildSysLogCurrency(activeUser,"用户"+activeUser.getUsername()+str,(short) 0,activeUser.getUsername()+str+activeUser.getUsercode(),session.getHost()));
         sysUserMapper.updateSysUserLock(paramMap);
     }

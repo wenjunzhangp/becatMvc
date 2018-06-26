@@ -14,15 +14,17 @@ import java.util.Date;
  * @author 张文君
  * @version 1.0,2018年6月15日 19:48 <br/>
  */
-public class SOMessage implements Serializable{
+public class SoMessage implements Serializable{
 	private static final long serialVersionUID = 1434473283877857750L;
 	/**评论id**/
 	private Long id;
 	/**创建时间**/
     private Date createdTime;
     private String createdTimeStr;
-    private String createdYMDHMSStr;//年月日，时分秒全时间
-    private String createdTimeZooe;//年月日，时分秒全时间，带时区，如：2017-04-26T14:22:27+08:00
+    //年月日，时分秒全时间
+    private String createdYMDHMSStr;
+    //年月日，时分秒全时间，带时区，如：2017-04-26T14:22:27+08:00
+    private String createdTimeZooe;
     /**父类id**/
     private Long parentId = Constant.ZERO;
     /**顶的次数**/
@@ -46,7 +48,7 @@ public class SOMessage implements Serializable{
     /**层级ID*/
     private Integer level;
     
-    public SOMessage(JsonObject jsonObj, Integer level, String pids, Long parentId, Long authorId) {
+    public SoMessage(JsonObject jsonObj, Integer level, String pids, Long parentId, Long authorId) {
     	
     	if(null != jsonObj.get("message") && !jsonObj.get("message").isJsonNull()){
     		this.message = jsonObj.get("message").getAsString();
@@ -80,7 +82,7 @@ public class SOMessage implements Serializable{
 		this.parentId = parentId;
 		
 	}
-    public SOMessage() {
+    public SoMessage() {
     	
     }
 
@@ -88,7 +90,7 @@ public class SOMessage implements Serializable{
         return createdTime;
     }
 
-    public SOMessage setCreatedTime(Date createdTime) {
+    public SoMessage setCreatedTime(Date createdTime) {
         this.createdTime = createdTime;
         
         Calendar calendar = Calendar.getInstance();
@@ -100,10 +102,11 @@ public class SOMessage implements Serializable{
         }else{
         	this.createdTimeStr = DateUtil.dateToString(createdTime, "yyyy年MM月dd日");
         }
-        this.createdYMDHMSStr = DateUtil.dateToString(createdTime, "yyyy-MM-dd ahh:mm:ss");//title 显示
+        this.createdYMDHMSStr = DateUtil.dateToString(createdTime, "yyyy-MM-dd ahh:mm:ss");
         //时间转换
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX"); 
-		this.createdTimeZooe = df.format(createdTime);//带时区的格式化
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
+        //带时区的格式化
+		this.createdTimeZooe = df.format(createdTime);
         return this;
     }
 
@@ -111,7 +114,7 @@ public class SOMessage implements Serializable{
     public String getCreatedTimeStr() {
 		return createdTimeStr;
 	}
-	public SOMessage setCreatedTimeStr(String createdTimeStr) {
+	public SoMessage setCreatedTimeStr(String createdTimeStr) {
 		this.createdTimeStr = createdTimeStr;
 		return this;
 	}
@@ -120,7 +123,7 @@ public class SOMessage implements Serializable{
         return likes;
     }
 
-    public SOMessage setLikes(Integer likes) {
+    public SoMessage setLikes(Integer likes) {
         this.likes = likes;
         return this;
     }
@@ -129,7 +132,7 @@ public class SOMessage implements Serializable{
         return agent;
     }
 
-    public SOMessage setAgent(String agent) {
+    public SoMessage setAgent(String agent) {
         this.agent = agent;
         return this;
     }
@@ -138,7 +141,7 @@ public class SOMessage implements Serializable{
         return ip;
     }
 
-    public SOMessage setIp(String ip) {
+    public SoMessage setIp(String ip) {
         this.ip = ip;
         return this;
     }
@@ -147,7 +150,7 @@ public class SOMessage implements Serializable{
         return iplocation;
     }
 
-    public SOMessage setIplocation(String iplocation) {
+    public SoMessage setIplocation(String iplocation) {
         this.iplocation = iplocation;
         return this;
     }
@@ -156,21 +159,21 @@ public class SOMessage implements Serializable{
 	public Long getId() {
 		return id;
 	}
-	public SOMessage setId(Long id) {
+	public SoMessage setId(Long id) {
 		this.id = id;
 		return this;
 	}
 	public Long getParentId() {
 		return parentId;
 	}
-	public SOMessage setParentId(Long parentId) {
+	public SoMessage setParentId(Long parentId) {
 		this.parentId = parentId;
 		return this;
 	}
 	public Long getAuthorId() {
 		return authorId;
 	}
-	public SOMessage setAuthorId(Long authorId) {
+	public SoMessage setAuthorId(Long authorId) {
 		this.authorId = authorId;
 		return this;
 	}
@@ -178,7 +181,7 @@ public class SOMessage implements Serializable{
         return pkey;
     }
 
-    public SOMessage setPkey(String pkey) {
+    public SoMessage setPkey(String pkey) {
         this.pkey = pkey;
         return this;
     }
@@ -187,7 +190,7 @@ public class SOMessage implements Serializable{
         return referer;
     }
 
-    public SOMessage setReferer(String referer) {
+    public SoMessage setReferer(String referer) {
         this.referer = referer;
         return this;
     }
@@ -196,21 +199,21 @@ public class SOMessage implements Serializable{
         return message;
     }
 
-    public SOMessage setMessage(String message) {
+    public SoMessage setMessage(String message) {
         this.message = message;
         return this;
     }
 	public String getPids() {
 		return pids;
 	}
-	public SOMessage setPids(String pids) {
+	public SoMessage setPids(String pids) {
 		this.pids = pids;
 		return this;
 	}
 	public Integer getLevel() {
 		return level;
 	}
-	public SOMessage setLevel(Integer level) {
+	public SoMessage setLevel(Integer level) {
 		this.level = level;
 		return this;
 	}

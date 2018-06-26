@@ -48,11 +48,13 @@ public class WeixinSignatureController extends BaseController{
             @RequestParam(value = "echostr", required = true) String echostr,
             HttpServletResponse response) throws IOException {
         String[] values = { WeiXinConfig.get("weixin_Token"), timestamp, nonce };
-        Arrays.sort(values); // 字典序排序
+        // 字典序排序
+        Arrays.sort(values);
         String value = values[0] + values[1] + values[2];
-        String sign = DigestUtils.shaHex(value);
+        String sign = DigestUtils.sha1Hex(value);
         PrintWriter writer = response.getWriter();
-        if (signature.equals(sign)) {// 验证成功返回ehcostr
+        // 验证成功返回ehcostr
+        if (signature.equals(sign)) {
             writer.print(echostr);
         } else {
             writer.print("error");
@@ -86,13 +88,13 @@ public class WeixinSignatureController extends BaseController{
 
             LogUtils.logInfo("FromUserName is:" + fromUserName + ", ToUserName is:" + toUserName + ", MsgType is:" + msgType);
 
-            if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {// 文本消息
+            if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
                 respMessage = WeiXinMessageFactory.handleWeiXinTextMessage(fromUserName,toUserName,msgType,content);
-            } else if(msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_VOICE)) {//语音消息
+            } else if(msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_VOICE)) {
                 respMessage = WeiXinMessageFactory.handleWeiXinVoiceMessage(requestMap);
-            } else if(msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_PHOTO)) {//拍照功能
+            } else if(msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_PHOTO)) {
                 // TODO 拍照功能暂不实现，以后再说 2018-06-21 11:15
-            } else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) { // 事件推送
+            } else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {
                 respMessage = WeiXinMessageFactory.handleWeiXinEventPush(fromUserName,toUserName,requestMap);
             } else {
                 respMessage = "BeCat还有很多不完善的地方，请您多多理解~";

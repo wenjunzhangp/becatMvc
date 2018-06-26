@@ -39,7 +39,8 @@ public class GifCaptcha extends Captcha
     {
         try
         {
-            GifEncoder gifEncoder = new GifEncoder();   // gif编码类，这个利用了洋人写的编码类，所有类都在附件中
+            // gif编码类，这个利用了洋人写的编码类，所有类都在附件中
+            GifEncoder gifEncoder = new GifEncoder();
             //生成字符
             gifEncoder.start(os);
             gifEncoder.setQuality(180);
@@ -47,7 +48,7 @@ public class GifCaptcha extends Captcha
             gifEncoder.setRepeat(0);
             BufferedImage frame;
             char[] rands =alphas();
-            Color fontcolor[]=new Color[len];
+            Color[] fontcolor = new Color[len];
             for(int i=0;i<len;i++)
             {
                 fontcolor[i]=new Color(20 + num(110), 20 + num(110), 20 + num(110));
@@ -82,7 +83,6 @@ public class GifCaptcha extends Captcha
     {
         BufferedImage image = new BufferedImage(width, height,BufferedImage.TYPE_INT_RGB);
         //或得图形上下文
-        //Graphics2D g2d=image.createGraphics();
         Graphics2D g2d = (Graphics2D)image.getGraphics();
         //利用指定颜色填充背景
         g2d.setColor(Color.WHITE);

@@ -9,11 +9,22 @@ package com.baozi.enums;
  */
 public enum BlogTypeEnum {
 
+    /**
+     * 未知来源
+     */
     BLOG_TYPE_NORMAL("未知来源",0),
+    /**
+     * 原创
+     */
     BLOG_TYPE_YUANCHAUNG("原创",1),
+    /**
+     * 转载
+     */
     BLOG_TYPE_ZHUANZAI("转载",2);
-    private String name;  //用于获取说明，
-    private Integer index;  //获取数值
+    //用于获取说明，
+    private String name;
+    //获取数值
+    private Integer index;
     private BlogTypeEnum(String name, Integer index) {
         this.name = name;
         this.index = index;

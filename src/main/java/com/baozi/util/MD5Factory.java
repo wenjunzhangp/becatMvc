@@ -19,7 +19,7 @@ public class MD5Factory {
      */
     public static String genPassWordWithUserSalt(String source,String salt,int hashIterations){
         Md5Hash md5Hash = new Md5Hash(source, salt, hashIterations);
-        String password_md5 =  md5Hash.toString();
+        String passwordMd5 =  md5Hash.toString();
         SimpleHash simpleHash = new SimpleHash("md5", source, salt, hashIterations);
         return simpleHash.toString();
     }
@@ -29,8 +29,8 @@ public class MD5Factory {
         String salt = "uiwueylm";
         int hashIterations = 1;
         Md5Hash md5Hash = new Md5Hash(source, salt, hashIterations);
-        String password_md5 =  md5Hash.toString();
-        System.out.println(password_md5);
+        String passwordMd5 =  md5Hash.toString();
+        System.out.println(passwordMd5);
         SimpleHash simpleHash = new SimpleHash("md5", source, salt, hashIterations);
         System.out.println(simpleHash.toString());
     }

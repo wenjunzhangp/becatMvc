@@ -2,7 +2,7 @@ package com.baozi.service.impl
 
 import com.baozi.mappers.SOMessageLikeMapper
 import com.baozi.mappers.SOMessageMapper
-import com.baozi.po.SOMessage
+import com.baozi.po.SoMessage
 import com.baozi.po.SOMessageAuthor
 import com.baozi.po.SOMessageLike
 import com.baozi.service.MessageService
@@ -35,9 +35,9 @@ open class MessageServiceImpl @Autowired constructor(
     override fun deleteByPrimaryKey(id: Long?): Int
         = messageMapper.deleteByPrimaryKey(id)
 
-    override fun insert(entity: SOMessage): Int
+    override fun insert(entity: SoMessage): Int
         = messageMapper.insert(entity)
-    override fun insertSelective(entity: SOMessage): Int{
+    override fun insertSelective(entity: SoMessage): Int{
 
         val result = messageMapper.insertSelective(entity)
         //更新父-当前id节点串
@@ -52,19 +52,19 @@ open class MessageServiceImpl @Autowired constructor(
         return result
     }
 
-    override fun selectByPrimaryKey(id: Long): SOMessage?
+    override fun selectByPrimaryKey(id: Long): SoMessage?
         = messageMapper.selectByPrimaryKey(id)
 
-    override fun selectByMessageAndKey(entity: SOMessage): Long?
+    override fun selectByMessageAndKey(entity: SoMessage): Long?
         = messageMapper.selectByMessageAndKey(entity)
 
-    override fun updateByPrimaryKeySelective(entity: SOMessage): Int
+    override fun updateByPrimaryKeySelective(entity: SoMessage): Int
         = messageMapper.updateByPrimaryKeySelective(entity)
 
-    override fun updateByPrimaryKeyWithBLOBs(entity: SOMessage): Int
+    override fun updateByPrimaryKeyWithBLOBs(entity: SoMessage): Int
         = messageMapper.updateByPrimaryKeyWithBLOBs(entity)
 
-    override fun updateByPrimaryKey(entity: SOMessage): Int
+    override fun updateByPrimaryKey(entity: SoMessage): Int
         = messageMapper.updateByPrimaryKey(entity)
 
     /**
@@ -178,7 +178,7 @@ open class MessageServiceImpl @Autowired constructor(
      * @param entity
      * @return
      */
-    override fun selectByIdAndAuthorId(entity: SOMessage): SOMessage? {
+    override fun selectByIdAndAuthorId(entity: SoMessage): SoMessage? {
         return messageMapper.selectByIdAndAuthorId(entity)
     }
 

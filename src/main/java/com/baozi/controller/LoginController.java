@@ -3,6 +3,7 @@ package com.baozi.controller;
 import com.baozi.po.ActiveUser;
 import com.baozi.po.SysUser;
 import com.baozi.service.SysUserService;
+import com.baozi.statics.Constant;
 import com.baozi.util.GenerateLogFactory;
 import com.baozi.util.LogUtils;
 import org.apache.shiro.SecurityUtils;
@@ -78,7 +79,7 @@ public class LoginController extends BaseController{
                 return CodeResult.build(500,"账号不存在");
             } else if (IncorrectCredentialsException.class.getName().equals(exceptionClassName)) {
                 return CodeResult.build(500,"用户名或者密码错误");
-            }else if("randomCodeError".equals(exceptionClassName)){
+            }else if(Constant.RANDOMCODEERROR.equals(exceptionClassName)){
                 return CodeResult.build(500,"验证码错误");
             }
         }else{
@@ -94,9 +95,6 @@ public class LoginController extends BaseController{
             }
             try {
                 subject.login(token);
-                /*System.out.println("session的Id"+session.getId());
-                System.out.println("session主机地址"+session.getHost());
-                System.out.println("session有效期间"+session.getId());*/
                 ActiveUser activeUser = super.loginUser();
                 Session session = subject.getSession();
                 SysUser sysUser = sysUserService.findSysUserByUserId(activeUser.getUserid());
@@ -163,7 +161,7 @@ public class LoginController extends BaseController{
     @ResponseBody
     public CodeResult unlock(HttpServletRequest request) {
         String lockPwd = request.getParameter("lockPwd");
-        if ( "admin".equalsIgnoreCase(lockPwd)) {
+        if ( Constant.LOCK_DESKTOP_PASSWORD.equalsIgnoreCase(lockPwd)) {
             return CodeResult.ok();
         }
         return CodeResult.build(500,"解锁失败");

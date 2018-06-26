@@ -52,9 +52,9 @@ public class SysUserController extends BaseController{
             Subject subject = SecurityUtils.getSubject();
             Session session = subject.getSession();
             sysUserService.updateSysUserLock(activeUser.getUsercode(),lock,activeUser,session);
-            return CodeResult.build(200,lock.equals("0")?"解锁成功":"已锁定登录");
+            return CodeResult.build(200, "0".equals(lock) ?"解锁成功":"已锁定登录");
         } catch ( Exception e ) {
-            LogUtils.logError(lock.equals("0")?"解锁用户【"+activeUser.getUsercode()+"】":"锁定用户【"+activeUser.getUsercode()+"】"+"出现异常",e);
+            LogUtils.logError("0".equals(lock) ?"解锁用户【"+activeUser.getUsercode()+"】":"锁定用户【"+activeUser.getUsercode()+"】"+"出现异常",e);
             return CodeResult.build(500,e.getMessage());
         }
     }

@@ -19,6 +19,9 @@ import org.apache.poi.hssf.util.HSSFColor;
  * */
 
 public class ExportExcel<T> {
+
+    private static Pattern p = Pattern.compile("^//d+(//.//d+)?$");
+
 	   /** 
 	     * @param path 图片路径
 	     * 			      传入图片路径
@@ -28,7 +31,7 @@ public class ExportExcel<T> {
 	     *            表格标题名 
 	     * @param headers 
 	     *            表格属性列名数组 （第一行标题）
-	     * @param Col 
+	     * @param col
 	     *            需要显示的表格属性列名数组 如果是javabean 必须和字段名字一直 如果为Map 必须为Map的key名字对应
 	     * @param dataset 
 	     *            需要显示的数据集合,集合泛型支持两种，1：符合javabean风格的类的对象 2：Map类型。此方法支持的 
@@ -36,10 +39,14 @@ public class ExportExcel<T> {
 	     * @param pattern 
 	     *            如果有时间数据，设定输出格式。默认为"yyy-MM-dd" 
 	     */ 
-	public HSSFWorkbook exportExcel(String path,OutputStream out,String title, String[] headers,String[] Col,Collection<T> dataset, String pattern) {
+	public HSSFWorkbook exportExcel(String path,OutputStream out,String title, String[] headers,String[] col,Collection<T> dataset, String pattern) {
 		FileOutputStream fileOut = null;     
         BufferedImage bufferImg = null; 
-		if(pattern == null || pattern.equals("")) pattern = "yyy-MM-dd";
+		if(pattern == null || "".equals(pattern)) {
+            {
+                pattern = "yyy-MM-dd";
+            }
+        }
         // 声明一个工作薄
         HSSFWorkbook workbook = new HSSFWorkbook();
         // 生成一个表格
@@ -84,13 +91,13 @@ public class ExportExcel<T> {
         // 产生表格标题行
         HSSFRow row = sheet.createRow(0);
         
-        int Cell = 0;
+        int cellbig = 0;
         for (short i = 0; i < headers.length; i++) {
-            HSSFCell cell = row.createCell(Cell);
+            HSSFCell cell = row.createCell(cellbig);
             cell.setCellStyle(style);
             HSSFRichTextString text = new HSSFRichTextString(headers[i]);
             cell.setCellValue(text);
-            Cell ++ ;
+            cellbig ++ ;
         }
         // 插入图片   
         try {  
@@ -98,7 +105,7 @@ public class ExportExcel<T> {
             bufferImg = ImageIO.read(new File(path));     
             ImageIO.write(bufferImg, "png", byteArrayOut);  
             //anchor主要用于设置图片的属性  
-            HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 250, 255,(short) 0, 1, (short) Col.length,20);     
+            HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 250, 255,(short) 0, 1, (short) col.length,20);
             anchor.setAnchorType(3);     
             patriarch.createPicture(anchor, workbook.addPicture(byteArrayOut.toByteArray(), HSSFWorkbook.PICTURE_TYPE_PNG));   
         } catch (Exception e) {  
@@ -119,11 +126,11 @@ public class ExportExcel<T> {
             index++;
             row = sheet.createRow(index);
             T t = (T) it.next();
-            String[] fields = Col;
-            Cell = 0;
+            String[] fields = col;
+            cellbig = 0;
             for (short i = 0; i < fields.length; i++) {
                 String fieldName = fields[i];
-                HSSFCell cell = row.createCell(Cell);
+                HSSFCell cell = row.createCell(cellbig);
                 cell.setCellStyle(style2);
                 try {
                     Object value = "";
@@ -140,7 +147,11 @@ public class ExportExcel<T> {
                         Method getMethod = tCls.getMethod(getMethodName,new Class[] {});
                         value = getMethod.invoke(t, new Object[] {});
                     }
-                    if(value == null ) value = "";
+                    if(value == null ) {
+                        {
+                            value = "";
+                        }
+                    }
                     // 判断值的类型后进行强制类型转换
                     String textValue = null;
                     if (value instanceof Date) {
@@ -153,7 +164,6 @@ public class ExportExcel<T> {
                     }
                     // 利用正则表达式判断textValue是否全部由数字组成
                     if (textValue != null) {
-                        Pattern p = Pattern.compile("^//d+(//.//d+)?$");
                         Matcher matcher = p.matcher(textValue);
                         if (matcher.matches()) {
                             // 是数字当作double处理
@@ -167,7 +177,7 @@ public class ExportExcel<T> {
                             cell.setCellValue(richString);
                         }
                     }
-                    Cell ++ ;
+                    cellbig ++ ;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

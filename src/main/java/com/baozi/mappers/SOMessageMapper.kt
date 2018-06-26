@@ -1,6 +1,6 @@
 package com.baozi.mappers
 
-import com.baozi.po.SOMessage
+import com.baozi.po.SoMessage
 import com.baozi.vo.ResultMessage
 import com.baozi.vo.UserTips
 
@@ -13,17 +13,17 @@ import com.baozi.vo.UserTips
 open  interface SOMessageMapper {
     fun deleteByPrimaryKey(id: Long?): Int
 
-    fun insert(record: SOMessage): Int
+    fun insert(record: SoMessage): Int
 
-    fun insertSelective(record: SOMessage): Int
+    fun insertSelective(record: SoMessage): Int
 
-    fun selectByPrimaryKey(id: Long?): SOMessage
+    fun selectByPrimaryKey(id: Long?): SoMessage
 
-    fun updateByPrimaryKeySelective(record: SOMessage): Int
+    fun updateByPrimaryKeySelective(record: SoMessage): Int
 
-    fun updateByPrimaryKeyWithBLOBs(record: SOMessage): Int
+    fun updateByPrimaryKeyWithBLOBs(record: SoMessage): Int
 
-    fun updateByPrimaryKey(record: SOMessage): Int
+    fun updateByPrimaryKey(record: SoMessage): Int
 
     fun findAll(resultMap: Map<String, Any>): List<ResultMessage>
 
@@ -33,11 +33,11 @@ open  interface SOMessageMapper {
 
     fun selectLikesByPrimaryKey(id: Long?): Int
 
-    fun selectByMessageAndKey(entity: SOMessage): Long?
+    fun selectByMessageAndKey(entity: SoMessage): Long?
 
     fun findMessageById(id: Long?): ResultMessage
 
-    fun selectByIdAndAuthorId(entity: SOMessage): SOMessage
+    fun selectByIdAndAuthorId(entity: SoMessage): SoMessage
 
     fun deleteByPids(pids: String): Int
 

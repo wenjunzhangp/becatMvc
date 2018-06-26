@@ -57,7 +57,8 @@ public class SpecCaptcha extends Captcha
             for(int i=0;i<15;i++){
                 color = color(150, 250);
                 g.setColor(color);
-                g.drawOval(num(width), num(height), 5+num(10), 5+num(10));// 画蛋蛋，有蛋的生活才精彩
+                // 画蛋蛋，有蛋的生活才精彩
+                g.drawOval(num(width), num(height), 5+num(10), 5+num(10));
                 color = null;
             }
             g.setFont(font);
@@ -67,9 +68,11 @@ public class SpecCaptcha extends Captcha
             /* 画字符串 */
             for(int i=0;i<len;i++)
             {
-                ac3 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f);// 指定透明度
+                // 指定透明度
+                ac3 = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f);
                 g.setComposite(ac3);
-                color = new Color(20 + num(110), 20 + num(110), 20 + num(110));// 对每个字符都用随机颜色
+                // 对每个字符都用随机颜色
+                color = new Color(20 + num(110), 20 + num(110), 20 + num(110));
                 g.setColor(color);
                 g.drawString(strs[i]+"",(width-(len-i)*w)+size, h-4);
                 color = null;

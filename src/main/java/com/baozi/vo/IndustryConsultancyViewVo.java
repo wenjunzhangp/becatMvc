@@ -1,6 +1,6 @@
 package com.baozi.vo;
 
-import com.baozi.config.IConfig;
+import com.baozi.config.Iconfig;
 import com.baozi.util.IDEncryptor;
 import com.baozi.util.StringUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -160,7 +160,7 @@ public class IndustryConsultancyViewVo {
     }
 
     public String getSourceimg() {
-        return IConfig.get("becat.imgserver.prefix")+sourceimg;
+        return Iconfig.get("becat.imgserver.prefix")+sourceimg;
     }
 
     public void setSourceimg(String sourceimg) {

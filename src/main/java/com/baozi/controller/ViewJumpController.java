@@ -69,7 +69,7 @@ public class ViewJumpController extends BaseController{
     @RequestMapping("/event")
     public ModelAndView event(){
         ModelAndView mav = new ModelAndView("event");
-        Map<String,Object> paramMap = new HashMap<String,Object>();
+        Map<String,Object> paramMap = new HashMap<>(256);
         paramMap.put("page",1);
         paramMap.put("limit",1);
         mav.addObject("total", platEventService.footerPagination(paramMap).getTotal());
@@ -79,7 +79,7 @@ public class ViewJumpController extends BaseController{
     @RequestMapping("/notice")
     public ModelAndView notice(){
         ModelAndView mav = new ModelAndView("notice");
-        Map<String,Object> paramMap = new HashMap<String,Object>();
+        Map<String,Object> paramMap = new HashMap<>(256);
         paramMap.put("page",1);
         paramMap.put("limit",1);
         mav.addObject("total", noticeService.footerPagination(paramMap).getTotal());
@@ -100,7 +100,7 @@ public class ViewJumpController extends BaseController{
     @RequestMapping("/news")
     public ModelAndView news(){
         ModelAndView mav = new ModelAndView("news");
-        Map<String,Object> paramMap = new HashMap<String,Object>();
+        Map<String,Object> paramMap = new HashMap<>(256);
         paramMap.put("page",1);
         paramMap.put("limit",1);
         mav.addObject("total", industryConsultancyService.footerPagination(paramMap).getTotal());
@@ -132,7 +132,7 @@ public class ViewJumpController extends BaseController{
     @RequestMapping("/blog")
     public ModelAndView blog(){
         ModelAndView mav = new ModelAndView("blog");
-        Map<String,Object> paramMap = new HashMap<String,Object>();
+        Map<String,Object> paramMap = new HashMap<>(256);
         paramMap.put("page",1);
         paramMap.put("limit",1);
         mav.addObject("total", blogService.footerPagination(paramMap).getTotal());

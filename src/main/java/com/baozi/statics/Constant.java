@@ -1,7 +1,7 @@
 package com.baozi.statics;
 
 
-import com.baozi.config.IConfig;
+import com.baozi.config.Iconfig;
 
 import java.util.Calendar;
 
@@ -27,7 +27,8 @@ public class Constant {
 
 	/**cache常用变量 begin**/
 	public static final String CACHE_NAME = "shiro_cache";
-	public static final String CACHE_MANAGER = "cacheManager" ;//cacheManager bean name
+	//cacheManager bean name
+	public static final String CACHE_MANAGER = "cacheManager" ;
 	/**cache常用变量 end**/
 	
 	/**当前年份**/
@@ -36,8 +37,8 @@ public class Constant {
 	/**常亮 0**/
 	public static final Long ZERO = 0L;
 
-	/**地址**/
-	public static final String WWW_DOMAIN = IConfig.get("www.becat.domain");//前端域名
+	/**地址 前端域名**/
+	public static final String WWW_DOMAIN = Iconfig.get("www.becat.domain");
 
 	/**系统版本号**/
 	public static double VERSION = 1.0;
@@ -52,4 +53,19 @@ public class Constant {
 	/*数据取多少条在这里定义*/
 	public static final int SHOW_SIZE_NINE = 10;
 	public static final int SHOW_SIZE_FIVE = 5;
+
+	/*IPUtil类相关配置*/
+	public static final String UNKNOWN = "unknown";
+	public static final String INTEGER_NUM = "0:0:0:0:0:0:0:1";
+
+	/*自定义验证码错误常量*/
+	public static final String RANDOMCODEERROR = "randomCodeError";
+
+	/*后台锁屏密码的密码   额这里因为服务器配置的原因  redis就不装了  所以缓存机制目前没实现*/
+	public static final String LOCK_DESKTOP_PASSWORD = "admin";
+
+	/*微信订阅号 关键字交互定义*/
+	public static final String WECHAT_HELLO = "你好";
+	public static final String WECHAT_WEATHER = "天气";
+	public static final String WECHAT_CLICK_EVENT_ABOUT = "about";
 }

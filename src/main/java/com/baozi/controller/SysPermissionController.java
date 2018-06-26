@@ -37,7 +37,7 @@ public class SysPermissionController extends BaseController{
     @RequestMapping("/myPermissionTree")
     @ResponseBody
     public Map<String, Object> myPermissionTree(){
-        Map<String, Object> treeMap = new HashMap<String, Object>();
+        Map<String, Object> treeMap = new HashMap<>(256);
         try {
             ActiveUser activeUser = super.loginUser();
             List<SysRole> roles = systemService.findNowAllPermission(activeUser.getUserid());

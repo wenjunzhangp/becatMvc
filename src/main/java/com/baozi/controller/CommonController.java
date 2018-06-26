@@ -1,6 +1,6 @@
 package com.baozi.controller;
 
-import com.baozi.config.IConfig;
+import com.baozi.config.Iconfig;
 import com.baozi.util.FileUploadUtil;
 import com.baozi.util.LogUtils;
 import com.baozi.util.vcode.Captcha;
@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.UrlPathHelper;
 
-import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +31,7 @@ public class CommonController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("404")
-	public ModelAndView _404(HttpServletRequest request){
+	public ModelAndView notFound(HttpServletRequest request){
 		ModelAndView view = new ModelAndView("/404");
 		return view;
 	}
@@ -43,7 +41,7 @@ public class CommonController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("500")
-	public ModelAndView _500(HttpServletRequest request){
+	public ModelAndView exceptionPage(HttpServletRequest request){
 		ModelAndView view = new ModelAndView("/500");
 		
 		Throwable t = (Throwable)request.getAttribute("javax.servlet.error.exception");
@@ -54,16 +52,19 @@ public class CommonController extends BaseController {
 			view.addObject("methodName",defaultMessage);
 			return view;
 		}
-		String message = t.getMessage() ;//错误信息
+		//错误信息
+		String message = t.getMessage() ;
 		StackTraceElement[] stack = t.getStackTrace();
 		view.addObject("message", message);
 		if(null != stack && stack.length != 0 ){
 			StackTraceElement element = stack[0];
-			int line = element.getLineNumber();//错误行号
-			String clazz = element.getClassName();//错误java类
+			//错误行号
+			int line = element.getLineNumber();
+			//错误java类
+			String clazz = element.getClassName();
 			String fileName = element.getFileName();
-			
-			String methodName = element.getMethodName() ;//错误方法
+			//错误方法
+			String methodName = element.getMethodName() ;
 			view.addObject("line", line);
 			view.addObject("clazz", clazz);
 			view.addObject("methodName",methodName);
@@ -137,14 +138,14 @@ public class CommonController extends BaseController {
 	@RequestMapping("/uploadImg")
 	@ResponseBody
 	public Map<String,Object> uploadUserFaceImg(HttpServletRequest request,MultipartHttpServletRequest multiRequest) {
-		Map<String,Object> map = new HashMap<String,Object>();
+		Map<String,Object> map = new HashMap<>(256);
 		try {
 			String resultFilePaths = FileUploadUtil.uploadFile(multiRequest);
 			map.put("code",0);
 			map.put("msg","上传成功！");
-			Map<String,Object> src = new HashMap<String,Object>();
+			Map<String,Object> src = new HashMap<>(256);
 			src.put("filename",resultFilePaths.substring(resultFilePaths.indexOf("/")+1,resultFilePaths.length()));
-			src.put("src", IConfig.get("becat.imgserver.prefix")+resultFilePaths);
+			src.put("src", Iconfig.get("becat.imgserver.prefix")+resultFilePaths);
 			map.put("data",src);
 		} catch (Exception e) {
 			LogUtils.logError("图像文件长传失败",e);

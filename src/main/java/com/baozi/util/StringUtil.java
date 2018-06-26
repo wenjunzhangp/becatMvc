@@ -19,6 +19,12 @@ import java.util.regex.Pattern;
  *
  */
 public class StringUtil extends StringUtils {
+
+	private static Pattern patterncomma = Pattern.compile("(&[^;]+;)",Pattern.DOTALL);
+
+	private static Pattern pattern = Pattern.compile("<(span)?\\sstyle.*?style>|(span)?\\sstyle=.*?>", Pattern.DOTALL);
+
+	private static Pattern pattern2 = Pattern.compile("(<[^>]+>)",Pattern.DOTALL);
 	
 	/**
 	 * 一次性判断多个或单个对象为空。
@@ -26,16 +32,16 @@ public class StringUtil extends StringUtils {
 	 * @author zhangwenjun
 	 * @return 只要有一个元素为Blank，则返回true
 	 */
-	public static boolean isBlank(Object...objects){
+	public static Boolean isBlank(Object...objects){
 		Boolean result = false ;
 		for (Object object : objects) {
 			if(null == object || "".equals(object.toString().trim()) 
 					|| "null".equals(object.toString().trim())){
-				result = true ; 
+				result = true ;
 				break ; 
 			}
 		}
-		return result ; 
+		return result ;
 	}
 	
 	public static String getRandom(int length) {
@@ -49,7 +55,7 @@ public class StringUtil extends StringUtils {
 				// 取得大写字母还是小写字母
 				int choice = random.nextInt(2) % 2 == 0 ? 65 : 97;
 				val += (char) (choice + random.nextInt(26));
-			} else if ("num".equalsIgnoreCase(charOrNum)) { // 数字
+			} else if ("num".equalsIgnoreCase(charOrNum)) {
 				val += String.valueOf(random.nextInt(10));
 			}
 		}
@@ -152,7 +158,11 @@ public class StringUtil extends StringUtils {
 	 * @return
 	 */
     public static String getBASE64(String str,boolean...bf) { 
-       if (StringUtils.isBlank(str)) return null; 
+       if (StringUtils.isBlank(str)) {
+		   {
+			   return null;
+		   }
+	   }
        String base64 = new sun.misc.BASE64Encoder().encode(str.getBytes()) ;
        //去掉 '='
        if(isBlank(bf) && bf[0]){
@@ -163,7 +173,11 @@ public class StringUtil extends StringUtils {
 
     /** 将 BASE64 编码的字符串 s 进行解码**/
     public static String getStrByBASE64(String s) { 
-       if (isBlank(s)) return ""; 
+       if (isBlank(s)) {
+		   {
+			   return "";
+		   }
+	   }
        BASE64Decoder decoder = new BASE64Decoder(); 
        try { 
           byte[] b = decoder.decodeBuffer(s); 
@@ -205,7 +219,7 @@ public class StringUtil extends StringUtils {
     	}
     	String[] argsArray = args.split("&");
     	
-    	Map<String,Object> result = new HashMap<String,Object>();
+    	Map<String,Object> result = new HashMap<>(256);
     	for (String ag : argsArray) {
 			if(!isBlank(ag) && ag.indexOf("=")>0){
 				
@@ -232,18 +246,18 @@ public class StringUtil extends StringUtils {
 	 * @return
 	 */
     public static String toUnicode(String str) {
-        String as[] = new String[str.length()];
-        String s1 = "";
+        String[] as = new String[str.length()];
+        StringBuilder s1 = new StringBuilder("");
         for (int i = 0; i < str.length(); i++) {
         	int v = str.charAt(i);
         	if(v >=19968 && v <= 171941){
 	            as[i] = Integer.toHexString(str.charAt(i) & 0xffff);
-	            s1 = s1 + "\\u" + as[i];
+				s1.append( "\\u" + as[i] );
         	}else{
-        		 s1 = s1 + str.charAt(i);
+				s1.append( str.charAt(i) );
         	}
         }
-        return s1;
+        return s1.toString();
      }
     /**
      * 合并数据
@@ -301,8 +315,11 @@ public class StringUtil extends StringUtils {
     		String bb = txt.substring(i, i + 1); 
 
     		boolean cc = Pattern.matches("[\u4E00-\u9FA5]", bb);
-    		if(cc)
-    		return cc ;
+    		if(cc) {
+				{
+					return cc;
+				}
+			}
     	}
 		return false;
     }
@@ -314,11 +331,11 @@ public class StringUtil extends StringUtils {
     public static String removeHtml(String news) {
       String s = news.replaceAll("amp;", "").replaceAll("<","<").replaceAll(">", ">");
       
-      Pattern pattern = Pattern.compile("<(span)?\\sstyle.*?style>|(span)?\\sstyle=.*?>", Pattern.DOTALL);
+
       Matcher matcher = pattern.matcher(s);
       String str = matcher.replaceAll("");
       
-      Pattern pattern2 = Pattern.compile("(<[^>]+>)",Pattern.DOTALL);
+
       Matcher matcher2 = pattern2.matcher(str);
       String strhttp = matcher2.replaceAll(" ");
       
@@ -339,7 +356,6 @@ public class StringUtil extends StringUtils {
       String strnew = matchhttp.replaceAll("").replaceAll("(if[\\s]*\\(|else|elseif[\\s]*\\().*?;", " ");
       
       
-      Pattern patterncomma = Pattern.compile("(&[^;]+;)",Pattern.DOTALL);
       Matcher matchercomma = patterncomma.matcher(strnew);
       String strout = matchercomma.replaceAll(" ");
       String answer = strout.replaceAll("[\\pP‘’“”]", " ")
@@ -400,10 +416,16 @@ public class StringUtil extends StringUtils {
 	 * @return
 	 */
 	public static String shortStrEnd(String str,int len){
-		if(str == null || str.trim().isEmpty())
-			return "";
-		if(len < 1)
-			return str;
+		if(str == null || str.trim().isEmpty()) {
+			{
+				return "";
+			}
+		}
+		if(len < 1) {
+			{
+				return str;
+			}
+		}
 		if(str.length() > len){
 			return str.substring(0, len)+"...";
 		}
@@ -421,13 +443,22 @@ public class StringUtil extends StringUtils {
 		return str.substring(0, shotLen) + "...";
 	}
 	public static String shortStr(String str, int len, int suffixLen){
-		if(str == null || str.trim().isEmpty())
-			return "";
-		if(len < 1)
-			return str;
+		if(str == null || str.trim().isEmpty()) {
+			{
+				return "";
+			}
+		}
+		if(len < 1) {
+			{
+				return str;
+			}
+		}
 		if(str.length() > len){
-			if(suffixLen < len)
-				len = suffixLen;
+			if(suffixLen < len) {
+				{
+					len = suffixLen;
+				}
+			}
 			return str.substring(0, len) + "...";
 		}
 		return str;

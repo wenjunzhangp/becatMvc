@@ -9,15 +9,38 @@ package com.baozi.enums;
  */
 public enum BlogCategoryEnum {
 
+    /**
+     * 未知来源
+     */
     BLOG_CATEGORY_NORMAL("未知来源",0),
+    /**
+     * java
+     */
     BLOG_CATEGORY_JAVA("Java",1),
+    /**
+     * 技术
+     */
     BLOG_CATEGORY_TECHNOLOGY("技术",2),
+    /**
+     * linux
+     */
     BLOG_CATEGORY_LINUX("Linux",3),
+    /**
+     * c#
+     */
     BLOG_CATEGORY_NET("c#",4),
+    /**
+     * python
+     */
     BLOG_CATEGORY_PYTHON("Python",5),
+    /**
+     * php
+     */
     BLOG_CATEGORY_PHP("Php",6);
-    private String name;  //用于获取说明，
-    private Integer index;  //获取数值
+    //用于获取说明，
+    private String name;
+    //获取数值
+    private Integer index;
     private BlogCategoryEnum(String name, Integer index) {
         this.name = name;
         this.index = index;

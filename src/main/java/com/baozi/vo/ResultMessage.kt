@@ -1,11 +1,11 @@
 package com.baozi.vo
 
-import com.baozi.po.SOMessage
+import com.baozi.po.SoMessage
 import com.baozi.po.SOMessageAuthor
 import java.util.*
 
 
-class ResultMessage : SOMessage() {
+class ResultMessage : SoMessage() {
 
     /**评论的作者信息，需要考关联查询 */
     var author: SOMessageAuthor? = null

@@ -94,7 +94,7 @@ public class BaseController {
 	 * @return
 	 */
 	protected Map<String, Object> genRequestMapSingle(HttpServletRequest request) {
-		Map<String, Object> conditions = new HashMap<String, Object>();
+		Map<String, Object> conditions = new HashMap<>(256);
 		Map map = request.getParameterMap();
 		for (Object o : map.keySet()) {
 			String key = (String) o;

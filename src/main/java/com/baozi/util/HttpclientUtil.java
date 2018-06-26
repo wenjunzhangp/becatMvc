@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.baozi.statics.Constant;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -51,7 +52,7 @@ public class HttpclientUtil {
             // 执行请求
             response = httpclient.execute(httpGet);
             // 判断返回状态是否为200
-            if (response.getStatusLine().getStatusCode() == 200) {
+            if (response.getStatusLine().getStatusCode() == Constant.HTTP_OK) {
                 resultString = EntityUtils.toString(response.getEntity(), "UTF-8");
             }
         } catch (Exception e) {

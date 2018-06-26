@@ -8,7 +8,7 @@ public class WeiXinConfig {
 	/**
 	 * 同步锁
 	 */
-	private static final Object obj = new Object();
+	private static final Object OBJECT = new Object();
 	
 	/**
 	 * 配置文件
@@ -41,7 +41,7 @@ public class WeiXinConfig {
 	 */
 	public static WeiXinConfig getInstance(){
 		if(null==config){
-			synchronized (obj) {
+			synchronized (OBJECT) {
 				config = new WeiXinConfig();
 			}
 		}

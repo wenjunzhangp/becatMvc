@@ -1,14 +1,16 @@
 package com.baozi.util;
 
+import com.baozi.statics.Constant;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IPUtil {
-	private static IPUtil instance = new IPUtil();
-	private IPUtil(){}
+public class IpUtil {
+	private static IpUtil instance = new IpUtil();
+	private IpUtil(){}
 	
-	public static IPUtil getInstance(){
+	public static IpUtil getInstance(){
 		return instance;
 	}
 	
@@ -16,29 +18,28 @@ public class IPUtil {
 	
 	public String getRealIp(HttpServletRequest request){
 		String ip = request.getHeader("x-forwarded-for");
-		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+		if (ip == null || ip.length() == 0 || Constant.UNKNOWN.equalsIgnoreCase(ip)) {
 			ip = request.getHeader("Proxy-Client-IP");
 		}
 
 
-		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+		if (ip == null || ip.length() == 0 || Constant.UNKNOWN.equalsIgnoreCase(ip)) {
 			ip = request.getHeader("WL-Proxy-Client-IP");
 		}
 
-		if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+		if(ip == null || ip.length() == 0 || Constant.UNKNOWN.equalsIgnoreCase(ip)) {
 			ip = request.getRemoteAddr();
-			if("0:0:0:0:0:0:0:1".equals(ip))
-				ip = ERROR_IP;
+			if(Constant.INTEGER_NUM.equals(ip)) {
+				{
+					ip = ERROR_IP;
+				}
+			}
 		}
 		
-		if ("unknown".equalsIgnoreCase(ip)) {
+		if ( Constant.UNKNOWN.equalsIgnoreCase(ip)) {
 			ip = ERROR_IP;
 			return ip;
 		}
-		
-//		if (ip.contains("127.0.0.1")) {
-//			System.out.println("ip is:" + ip);
-//		}
 		
 		int pos = ip.indexOf(',');
 		if (pos >= 0) {

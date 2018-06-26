@@ -32,7 +32,8 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             /*图形验证码验证*/
             doCaptchaValidate((HttpServletRequest) request, token);
             Subject subject = getSubject(request, response);
-            subject.login(token);//正常验证
+            //正常验证
+            subject.login(token);
             LOG.info(token.getUsername()+"登录成功");
             return onLoginSuccess(token, subject, request, response);
         }catch (AuthenticationException e) {
@@ -44,10 +45,10 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     // 验证码校验
     protected void doCaptchaValidate(HttpServletRequest request,
                                      CaptchaUsernamePasswordToken token) {
-//session中的图形码字符串
+        //session中的图形码字符串
         String captcha = (String) request.getSession().getAttribute(
                 com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
-//比对
+        //比对
         if (captcha != null && !captcha.equalsIgnoreCase(token.getCaptcha())) {
             throw new IncorrectCaptchaException("验证码错误！");
         }

@@ -1,15 +1,13 @@
 package com.baozi.util;
 
-import com.baozi.config.IConfig;
+import com.baozi.config.Iconfig;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 
 /**
  * @author wenjun.zhang
@@ -19,11 +17,15 @@ import java.util.Set;
 public class FileUploadUtil {
 
     public static String uploadFile(MultipartHttpServletRequest multiRequest) throws IOException {
-        String filePath = IConfig.get("becat.ftp.filepath");
+        String filePath = Iconfig.get("becat.ftp.filepath");
         String resultFilePath = "";
         String imgPath = "";
         File dir = new File(filePath);
-        if(!dir.exists()) dir.mkdirs();
+        if(!dir.exists()) {
+            {
+                dir.mkdirs();
+            }
+        }
         Iterator<String> filesNames = multiRequest.getFileNames();
         while (filesNames.hasNext()) {
             String fileName = filesNames.next();
@@ -33,8 +35,7 @@ public class FileUploadUtil {
                 String imgname = IDUtils.genImageName()+originalFilename;
                 String dick = DateUtil.formatDate(new Date(),"yyyyMMdd");
                 resultFilePath = dick +"/" + imgname;
-                //FileUtils.copyInputStreamToFile(file.getInputStream(), new File(filePath, resultFilePath));
-                FtpUtil.uploadFile(IConfig.get("becat.ftp.ip"),Integer.valueOf(IConfig.get("becat.ftp.port")),IConfig.get("becat.ftp.user"),IConfig.get("becat.ftp.password"),
+                FtpUtil.uploadFile(Iconfig.get("becat.ftp.ip"),Integer.valueOf(Iconfig.get("becat.ftp.port")), Iconfig.get("becat.ftp.user"), Iconfig.get("becat.ftp.password"),
                         filePath,dick,imgname,file.getInputStream());
             }
         }

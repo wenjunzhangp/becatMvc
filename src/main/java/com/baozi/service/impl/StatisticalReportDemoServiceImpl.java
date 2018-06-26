@@ -140,16 +140,16 @@ public class StatisticalReportDemoServiceImpl implements StatisticalReportDemoSe
                 yElse++;
             }
         }
-        Map<String,String> dataMap90 = new HashMap<>();
+        Map<String,String> dataMap90 = new HashMap<>(256);
         dataMap90.put("name","90年代");
         dataMap90.put("value",String.valueOf(y90));
-        Map<String,String> dataMap00 = new HashMap<>();
+        Map<String,String> dataMap00 = new HashMap<>(256);
         dataMap00.put("name","00年代");
         dataMap00.put("value",String.valueOf(y00));
-        Map<String,String> dataMap10 = new HashMap<>();
+        Map<String,String> dataMap10 = new HashMap<>(256);
         dataMap10.put("name","10年代");
         dataMap10.put("value",String.valueOf(y10));
-        Map<String,String> dataMapElse = new HashMap<>();
+        Map<String,String> dataMapElse = new HashMap<>(256);
         dataMapElse.put("name","其他");
         dataMapElse.put("value",String.valueOf(yElse));
         //封装pie

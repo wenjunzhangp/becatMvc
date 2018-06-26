@@ -16,10 +16,12 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class MovieVo {
-
-    private String title;//电影名称
-    private Integer looknum;//观影人数
-    private String year;//生产年份
+    //电影名称
+    private String title;
+    //观影人数
+    private Integer looknum;
+    //生产年份
+    private String year;
 
     public static List<MovieVo> genMovieFactory(){
         List<MovieVo> list = new ArrayList<MovieVo>();

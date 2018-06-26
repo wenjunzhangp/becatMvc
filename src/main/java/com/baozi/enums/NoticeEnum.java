@@ -9,13 +9,27 @@ package com.baozi.enums;
  */
 public enum NoticeEnum {
 
+    /**
+     * 通告
+     */
     NOTICE_NORMAL("通告",0),
+    /**
+     * 活动
+     */
     NOTICE_ACTIVITY("活动",1),
+    /**
+     * 放假
+     */
     NOTICE_HOLIDAY("放假",2),
+    /**
+     * 交易
+     */
     NOTICE_TRADE("交易",3)
     ;
-    private String name;  //用于获取说明，
-    private Integer index;  //获取数值
+    //用于获取说明，
+    private String name;
+    //获取数值
+    private Integer index;
     private NoticeEnum(String name, Integer index) {
         this.name = name;
         this.index = index;

@@ -23,8 +23,9 @@ public class CustomExceptionResolver implements HandlerExceptionResolver  {
 	//前端控制器DispatcherServlet在进行HandlerMapping、调用HandlerAdapter执行Handler过程中，如果遇到异常就会执行此方法
 	//handler最终要执行的Handler，它的真实身份是HandlerMethod
 	//Exception ex就是接收到异常信息
-	public ModelAndView resolveException(HttpServletRequest request,
-			HttpServletResponse response, Object handler, Exception ex) {
+	@Override
+    public ModelAndView resolveException(HttpServletRequest request,
+                                         HttpServletResponse response, Object handler, Exception ex) {
 		//输出异常
 		ex.printStackTrace();
 		

@@ -1,7 +1,7 @@
 package com.baozi.controller
 
 import com.baozi.config.MessageManager
-import com.baozi.config.QQManager
+import com.baozi.config.QqManager
 import com.baozi.ex.subLogin
 import com.baozi.ex.subLogout
 import com.baozi.po.SOMessageAuthor
@@ -63,7 +63,7 @@ open class UserController @Autowired constructor(
 
 
         /**获取token url */
-        val redirect_url = QQManager.getAuth2URL(state, redirect, code)
+        val redirect_url = QqManager.getAuth2URL(state, redirect, code)
         /**获取用户 token 信息  */
         //TODO  待改善
         val url = URL(redirect_url)
@@ -79,7 +79,7 @@ open class UserController @Autowired constructor(
          * 腾讯接口 code不能重用 ,当用户在刷新的时候,直接跳转到初始选择QQ界面
          */
         if (totalString.indexOf("code is reused error") != -1) {
-            QQManager.qq(request, response, redirect)
+            QqManager.qq(request, response, redirect)
             return null
         }
         connection.disconnect()

@@ -9,6 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import static sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl.ThreadStateMap.Byte0.runnable;
 
 public class WeiXinManager {
 
@@ -22,7 +27,7 @@ public class WeiXinManager {
 	public static String httpToken() {
 		try {
 			// 获取当前客户端对象
-			Map<String, String> param = new HashMap<String, String>();
+			Map<String, String> param = new HashMap<>(256);
 			param.put("grant_type",WeiXinManager.GRANT_TYPE);
 			param.put("appid",WeiXinManager.APP_ID);
 			param.put("secret",WeiXinManager.APP_SECRET);
@@ -40,13 +45,16 @@ public class WeiXinManager {
 	}
 
 	static {
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
+		Runnable runnable = new Runnable() {
 			@Override
 			public void run() {
+				LogUtils.logInfo("*****************************获取微信token*****************************");
 				//定期一小时获取一次token
 				token = httpToken();
 			}
-		}, 0, 3600000);
+		};
+		ScheduledExecutorService service = Executors.newScheduledThreadPool(2);
+		// 第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间
+		service.scheduleAtFixedRate(runnable, 0, 1, TimeUnit.HOURS);
 	}
 }

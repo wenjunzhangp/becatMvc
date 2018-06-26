@@ -44,7 +44,7 @@ public class UserRealm extends AuthorizingRealm {
             throw new UnknownAccountException();
         }
         //账号被限制登录
-        if ( sysUser.getLocked().equals("1") ){
+        if ("1".equals(sysUser.getLocked())){
             throw new LockedAccountException();
         }
         // 从数据库查询到密码
@@ -113,6 +113,7 @@ public class UserRealm extends AuthorizingRealm {
     /**
      * 指定principalCollection 清除
      */
+    @Override
     public void clearCachedAuthorizationInfo(PrincipalCollection principalCollection) {
         SimplePrincipalCollection principals = new SimplePrincipalCollection(
                 principalCollection, getName());
