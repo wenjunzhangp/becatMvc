@@ -7,21 +7,17 @@ import com.baozi.vo.MovieVo;
 import com.github.abel533.echarts.*;
 import com.github.abel533.echarts.axis.CategoryAxis;
 import com.github.abel533.echarts.axis.ValueAxis;
-import com.github.abel533.echarts.code.Magic;
-import com.github.abel533.echarts.code.Orient;
-import com.github.abel533.echarts.code.Tool;
-import com.github.abel533.echarts.code.Trigger;
+import com.github.abel533.echarts.code.*;
 import com.github.abel533.echarts.feature.MagicType;
 import com.github.abel533.echarts.series.Bar;
 import com.github.abel533.echarts.series.Line;
 import com.github.abel533.echarts.series.Pie;
+import com.github.abel533.echarts.series.Series;
+import com.github.abel533.echarts.style.ItemStyle;
 import org.junit.jupiter.api.Test;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Copyright:   互融云
@@ -160,6 +156,46 @@ public class StatisticalReportDemoServiceImpl implements StatisticalReportDemoSe
         pie.setCenter(centerArray);
 
         option.series(pie);
+
+        return option;
+    }
+
+    @Override
+    public Option getEchartMapGraphOption() {
+        Option option = new Option();
+        //标题
+        Title title = new Title();
+        title.setText("香港18区人口密度");
+        title.setSubtext("人口密度数据来自echarts");
+        title.setX("center");
+        option.setTitle(title);
+        //提示工具
+        Tooltip tooltip = new Tooltip();
+        tooltip.setTrigger(Trigger.item);
+        tooltip.setFormatter("{b}<br/>{c} (p / km2)");
+        option.setTooltip(tooltip);
+        //地图比例尺
+        List<VisualMap> visualMap = new ArrayList<>();
+        VisualMap map = new VisualMap();
+        map.setMin(800);
+        map.setMax(5000);
+        Object[] obj = {"最低","最高"};
+        map.setText(obj);
+        map.setRealtime(false);
+        map.setCalculable(true);
+        map.setInRange(VisualMapType.colorAlpha);
+        visualMap.add(map);
+        option.setVisualMap(visualMap);
+        //series数据集合
+        List<Series> series = new ArrayList<>();
+        com.github.abel533.echarts.series.Map mapgithub = new com.github.abel533.echarts.series.Map();
+        mapgithub.setName("香港18区人口密度");
+        mapgithub.setType(SeriesType.map);
+        ItemStyle itemStyle = new ItemStyle();
+        /*itemStyle.setNormal();
+        mapgithub.setItemStyle();
+        series.add();
+        option.series();*/
 
         return option;
     }

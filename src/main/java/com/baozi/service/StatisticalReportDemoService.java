@@ -33,4 +33,11 @@ public interface StatisticalReportDemoService {
      * @return
      */
     Option getEchartPancakeGraphOption();
+
+    /**
+     * 地图demo
+     * @param
+     * @return
+     */
+    Option getEchartMapGraphOption();
 }

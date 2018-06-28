@@ -67,4 +67,6 @@ public class StatisticalReportDemoController extends BaseController{
         }
         return str;
     }
+
+
 }
