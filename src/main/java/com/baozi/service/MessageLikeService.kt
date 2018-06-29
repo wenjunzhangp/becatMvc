@@ -9,15 +9,15 @@ import com.baozi.po.SOMessageLike
  *
  */
 open interface MessageLikeService {
-    abstract fun deleteByPrimaryKey(id: Long?): Int
+    open abstract fun deleteByPrimaryKey(id: Long?): Int
 
-    abstract fun insert(record: SOMessageLike): Int
+    open abstract fun insert(record: SOMessageLike): Int
 
-    abstract fun insertSelective(record: SOMessageLike): Int
+    open abstract fun insertSelective(record: SOMessageLike): Int
 
-    abstract fun selectByPrimaryKey(id: Long?): SOMessageLike
+    open abstract fun selectByPrimaryKey(id: Long?): SOMessageLike
 
-    abstract fun updateByPrimaryKeySelective(record: SOMessageLike): Int
+    open abstract fun updateByPrimaryKeySelective(record: SOMessageLike): Int
 
-    abstract fun updateByPrimaryKey(record: SOMessageLike): Int
+    open abstract fun updateByPrimaryKey(record: SOMessageLike): Int
 }

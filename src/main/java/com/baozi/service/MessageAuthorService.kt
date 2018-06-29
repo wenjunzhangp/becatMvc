@@ -9,20 +9,20 @@ import com.baozi.po.SOMessageAuthor
  *
  */
 open interface MessageAuthorService {
-     fun deleteByPrimaryKey(id: Long?): Int
+     open fun deleteByPrimaryKey(id: Long?): Int
 
-     fun insert(entity: SOMessageAuthor): Int
+     open fun insert(entity: SOMessageAuthor): Int
 
-     fun insertSelective(entity: SOMessageAuthor): Int
+     open fun insertSelective(entity: SOMessageAuthor): Int
 
-     fun selectByPrimaryKey(id: Long?): SOMessageAuthor
+     open fun selectByPrimaryKey(id: Long?): SOMessageAuthor
 
-     fun updateByPrimaryKeySelective(entity: SOMessageAuthor): Int
+     open fun updateByPrimaryKeySelective(entity: SOMessageAuthor): Int
 
-     fun updateByPrimaryKey(entity: SOMessageAuthor): Int
-     fun selectByNickname(nickname: String): Long?
+     open fun updateByPrimaryKey(entity: SOMessageAuthor): Int
+     open fun selectByNickname(nickname: String): Long?
 
-     fun findAll(): List<SOMessageAuthor>
+     open fun findAll(): List<SOMessageAuthor>
 
-     fun findByOpenId(openId: String): SOMessageAuthor?
+     open fun findByOpenId(openId: String): SOMessageAuthor?
 }
