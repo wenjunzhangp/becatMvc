@@ -2,7 +2,7 @@ package com.baozi.config
 
 import com.baozi.ex.ip
 import com.baozi.ex.token
-import com.baozi.po.SoMessage
+import com.baozi.po.SOMessage
 import com.baozi.util.LogUtils
 import com.baozi.util.VCache
 import org.apache.commons.lang.StringUtils
@@ -29,10 +29,10 @@ class MessageManager {
         internal val OFTEN_CHECK_IP = "often_check:ip[%s]"
         internal val OFTEN_CHECK_USER = "often_check:uid[%s]"
 
-        fun checkPullMessage(request: HttpServletRequest, entity: SoMessage): APIResult<SoMessage> {
+        fun checkPullMessage(request: HttpServletRequest, entity: SOMessage): APIResult<SOMessage> {
             var m = 30
 
-            val result = APIResult<SoMessage>()
+            val result = APIResult<SOMessage>()
             result.setStatus(500)//先标记不合法
 
             val ip = request.ip()//ip地址

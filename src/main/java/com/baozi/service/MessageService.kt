@@ -1,6 +1,6 @@
 package com.baozi.service
 
-import com.baozi.po.SoMessage
+import com.baozi.po.SOMessage
 import com.baozi.po.SOMessageLike
 import com.baozi.vo.ResultMessage
 
@@ -14,20 +14,20 @@ open interface MessageService {
 
     open fun deleteByPrimaryKey(id: Long?): Int
 
-    open fun insert(entity: SoMessage): Int
+    open fun insert(entity: SOMessage): Int
 
-    open fun insertSelective(entity: SoMessage): Int
+    open fun insertSelective(entity: SOMessage): Int
 
-    open fun selectByPrimaryKey(id: Long): SoMessage?
+    open fun selectByPrimaryKey(id: Long): SOMessage?
 
-    open fun selectByMessageAndKey(entity: SoMessage): Long?
+    open fun selectByMessageAndKey(entity: SOMessage): Long?
 
 
-    open fun updateByPrimaryKeySelective(entity: SoMessage): Int
+    open fun updateByPrimaryKeySelective(entity: SOMessage): Int
 
-    open fun updateByPrimaryKeyWithBLOBs(entity: SoMessage): Int
+    open fun updateByPrimaryKeyWithBLOBs(entity: SOMessage): Int
 
-    open fun updateByPrimaryKey(entity: SoMessage): Int
+    open fun updateByPrimaryKey(entity: SOMessage): Int
     /**
      * 加载评论列表
      * @param resultMap
@@ -52,7 +52,7 @@ open interface MessageService {
      * @param entity
      * @return
      */
-    open fun selectByIdAndAuthorId(entity: SoMessage): SoMessage?
+    open fun selectByIdAndAuthorId(entity: SOMessage): SOMessage?
 
     /**
      * 根据层级删除

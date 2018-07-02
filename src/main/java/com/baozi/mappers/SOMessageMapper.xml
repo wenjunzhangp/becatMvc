@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baozi.mappers.SOMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.baozi.po.SOMessage" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="likes" property="likes" jdbcType="INTEGER" />
+    <result column="agent" property="agent" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="iplocation" property="iplocation" jdbcType="VARCHAR" />
+    <result column="author_id" property="authorId" jdbcType="BIGINT" />
+    <result column="pkey" property="pkey" jdbcType="VARCHAR" />
+    <result column="referer" property="referer" jdbcType="VARCHAR" />
+    <result column="pids" property="pids" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.baozi.po.SOMessage" extends="BaseResultMap" >
+    <result column="message" property="message" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <resultMap id="messageBo" type="com.baozi.vo.ResultMessage" extends="ResultMapWithBLOBs" >
+  	   <result column="liked" property="liked" jdbcType="BOOLEAN" />
+	  <association property="author"  javaType="com.baozi.po.SOMessageAuthor">
+	  	<id  column="aid" property="id" jdbcType="BIGINT"/>
+	    <result column="thread_id" property="threadId" jdbcType="VARCHAR" />
+	    <result column="thread_type" property="threadType" jdbcType="INTEGER" />
+	    <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR" />
+	    <result column="url" property="url" jdbcType="VARCHAR" />
+	    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+	  </association>
+  </resultMap>
+  
+ <select id="findChildren" resultMap="messageBo" useCache="true">
+	SELECT a.id,a.message, a.created_time, a.parent_id, a.likes, a.agent, a.ip, a.iplocation, a.author_id, a.pkey, a.referer,
+  	<!-- 
+		b. id AS aid, b.thread_id, b.thread_type,b.avatar_url, b.url, b.nickname
+		 -->
+		b. id AS aid,b.avatar_url ,concat('http://www.sojson.com/blog/user_',b.id,'.html') as url,b.nickname
+		
+	 	FROM `so_message` a  
+	 	LEFT JOIN `so_message_author` b ON  a.author_id = b.id
+	 	<!-- 把 so_message_author 换成  so_user表
+		LEFT JOIN `so_message_author` b ON  a.author_id = b.id
+		 -->
+    where parent_id = #{id,jdbcType=BIGINT}
+    order by created_time
+ </select>
+ 
+  <sql id="Base_Column_List" >
+    id, created_time, parent_id, likes, agent, ip, iplocation, author_id, pkey, referer, 
+    pids, level
+  </sql>
+  <sql id="Blob_Column_List" >
+    message
+  </sql>
+  <!-- 查询列表 -->
+  <select id="findAll" resultMap="messageBo">
+		SELECT 
+  		<!-- 用户没登录当作为false -->
+		<choose>
+			<when test="userId == null">
+				false as liked,
+			</when>
+			<otherwise>
+				IF(IFNULL(c.id,0)=0,false,true) liked,
+			</otherwise>
+		</choose>
+
+		a.id,a.message, a.created_time, a.parent_id, a.likes, a.agent, a.ip, a.iplocation, a.author_id, a.pkey, a.referer,a.pids, a.level,
+
+
+		b. id AS aid,b.avatar_url ,concat('http://www.sojson.com/blog/user_',b.id,'.html') as url,b.nickname
+
+	 	FROM `so_message` a
+	 	LEFT JOIN `so_message_author` b ON  a.author_id = b.id
+
+		<!-- 是否点赞,用户没有登录当作为false -->
+		<if test="userId != null ">
+			LEFT JOIN (SELECT id,message_id FROM `so_message_like` WHERE user_id =#{userId,jdbcType=INTEGER} ) c ON c.message_id = a.id
+		</if>
+		WHERE a.pkey = #{pkey,jdbcType=VARCHAR}
+
+		<if test="orderMarker == 'hotList' "><!-- 被顶起来的数据 -->
+				and a.likes &gt; 0
+		</if>
+
+		ORDER BY
+		<choose>
+			<when test="orderMarker == 'asc' ">
+				a.parent_id,a.created_time ASC
+			</when>
+			<when test="orderMarker == 'hot' ">
+				a.parent_id,a.likes
+			</when>
+			<when test="orderMarker == 'hotList' "><!-- 被顶起来 -->
+				a.likes DESC  LIMIT #{page,jdbcType=INTEGER}
+			</when>
+			<otherwise>
+				a.parent_id,a.created_time DESC
+			</otherwise>
+		</choose>
+
+  </select>
+  <select id="findMessageById" resultMap="messageBo">
+		SELECT  false as liked,
+		a.id,a.message, a.created_time, a.parent_id, a.likes, a.agent, a.ip, a.iplocation, a.author_id, a.pkey, a.referer,a.pids, a.level,
+		<!-- 
+		b. id AS aid, b.thread_id, b.thread_type,b.avatar_url, b.url, b.nickname
+		 -->
+		b. id AS aid,b.avatar_url ,concat('http://www.sojson.com/blog/user_',b.id,'.html') as url,b.nickname
+		
+	 	FROM `so_message` a  
+	 	LEFT JOIN `so_message_author` b ON a.author_id = b.id
+	 	<!-- 把 so_message_author 换成  so_user表
+		LEFT JOIN `so_message_author` b ON  a.author_id = b.id
+		 -->
+		WHERE a.id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="findHot" resultMap="messageBo">
+  	SELECT a.id,a.message, a.created_time, a.parent_id, a.likes, a.agent, a.ip, a.iplocation, a.author_id, a.pkey, a.referer,
+	  	<!-- 
+		b. id AS aid, b.thread_id, b.thread_type,b.avatar_url, b.url, b.nickname
+		 -->
+		b. id AS aid,b.avatar_url ,concat('http://www.sojson.com/blog/user_',b.id,'.html') as url,b.nickname
+		
+	 	FROM `so_message` a  
+	 	LEFT JOIN `so_message_author` b ON  a.author_id = b.id
+	 	<!-- 把 so_message_author 换成  so_user表
+		LEFT JOIN `so_message_author` b ON  a.author_id = b.id
+		 -->
+		WHERE a.pkey =#{pkey,jdbcType=VARCHAR}
+		ORDER BY a.likes DESC LIMIT #{page,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 根据Key和message来查询，用来确认评论是否存在（下策），因为我要重新把ID编号 -->
+  <select id="selectByMessageAndKey" resultType="java.lang.Long">
+  	  select id from  so_message where pkey = #{pkey,jdbcType=VARCHAR} and message = #{message,jdbcType=LONGVARCHAR}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from so_message
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectLikesByPrimaryKey" resultType="java.lang.Integer" parameterType="java.lang.Long" >
+    select likes  from so_message  where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectUserTips"    parameterType="java.util.Map"     resultType="com.baozi.vo.UserTips">
+  		SELECT COUNT(1)  count,a.author_id as authorId FROM `so_message` a    WHERE a.author_id IN (SELECT DISTINCT author_id FROM `so_message` 
+		WHERE pkey = #{pkey,jdbcType=VARCHAR}
+		) GROUP BY a.author_id
+  </select>
+  
+  <select id="selectByIdAndAuthorId" resultMap="BaseResultMap" parameterType="com.baozi.po.SOMessage">
+  	 select <include refid="Base_Column_List" />  from so_message  where id = #{id,jdbcType=BIGINT} and author_id =  #{authorId,jdbcType=BIGINT}
+  </select>
+  
+  <update id="updateLike" parameterType="java.util.Map">
+  	<!-- 
+  	 update so_message set likes = 
+  		<if test="maker == 1">
+  			likes+1  
+  			where id = #{id,jdbcType=BIGINT}
+  		</if>
+  		<if test="maker == -1">
+  			likes-1 where likes &gt; 1  and id = #{id,jdbcType=BIGINT}
+  		</if>
+  	 -->
+	update so_message set likes = (select count(1) from so_message_like where message_id = #{id,jdbcType=BIGINT}) where id = #{id,jdbcType=BIGINT}  		
+  </update>
+  
+  <delete id="deleteByPids" parameterType="java.util.Map" >
+    delete from so_message where pids like CONCAT(#{pids,jdbcType=VARCHAR},'%')
+  </delete>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from so_message
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.baozi.po.SOMessage" >
+    insert into so_message (id, created_time, parent_id, 
+      likes, agent, ip, iplocation, 
+      author_id, pkey, referer, 
+      pids, level,message)
+    values (#{id,jdbcType=BIGINT}, #{createdTime,jdbcType=TIMESTAMP}, #{parentId,jdbcType=BIGINT}, 
+      #{likes,jdbcType=INTEGER}, #{agent,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{iplocation,jdbcType=VARCHAR}, 
+      #{authorId,jdbcType=BIGINT}, #{pkey,jdbcType=VARCHAR}, #{referer,jdbcType=VARCHAR}, 
+       #{pids,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER},#{message,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.baozi.po.SOMessage" >
+    insert into so_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="likes != null" >
+        likes,
+      </if>
+      <if test="agent != null" >
+        agent,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="iplocation != null" >
+        iplocation,
+      </if>
+      <if test="authorId != null" >
+        author_id,
+      </if>
+      <if test="pkey != null" >
+        pkey,
+      </if>
+      <if test="referer != null" >
+        referer,
+      </if>
+      <if test="pids != null" >
+        pids,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="likes != null" >
+        #{likes,jdbcType=INTEGER},
+      </if>
+      <if test="agent != null" >
+        #{agent,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="iplocation != null" >
+        #{iplocation,jdbcType=VARCHAR},
+      </if>
+      <if test="authorId != null" >
+        #{authorId,jdbcType=BIGINT},
+      </if>
+      <if test="pkey != null" >
+        #{pkey,jdbcType=VARCHAR},
+      </if>
+      <if test="referer != null" >
+        #{referer,jdbcType=VARCHAR},
+      </if>
+       <if test="pids != null" >
+        #{pids,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baozi.po.SOMessage" >
+    update so_message
+    <set >
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="likes != null" >
+        likes = #{likes,jdbcType=INTEGER},
+      </if>
+      <if test="agent != null" >
+        agent = #{agent,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="iplocation != null" >
+        iplocation = #{iplocation,jdbcType=VARCHAR},
+      </if>
+      <if test="authorId != null" >
+        author_id = #{authorId,jdbcType=BIGINT},
+      </if>
+      <if test="pkey != null" >
+        pkey = #{pkey,jdbcType=VARCHAR},
+      </if>
+      <if test="referer != null" >
+        referer = #{referer,jdbcType=VARCHAR},
+      </if>
+      <if test="pids != null" >
+        pids = #{pids,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.baozi.po.SOMessage" >
+    update so_message
+    set created_time = #{createdTime,jdbcType=TIMESTAMP},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      likes = #{likes,jdbcType=INTEGER},
+      agent = #{agent,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      iplocation = #{iplocation,jdbcType=VARCHAR},
+      author_id = #{authorId,jdbcType=BIGINT},
+      pkey = #{pkey,jdbcType=VARCHAR},
+      referer = #{referer,jdbcType=VARCHAR},
+      pids = #{pids,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER},
+      message = #{message,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baozi.po.SOMessage" >
+    update so_message
+    set created_time = #{createdTime,jdbcType=TIMESTAMP},
+      parent_id = #{parentId,jdbcType=BIGINT},
+      likes = #{likes,jdbcType=INTEGER},
+      agent = #{agent,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      iplocation = #{iplocation,jdbcType=VARCHAR},
+      author_id = #{authorId,jdbcType=BIGINT},
+      pkey = #{pkey,jdbcType=VARCHAR},
+      referer = #{referer,jdbcType=VARCHAR},
+       pids = #{pids,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

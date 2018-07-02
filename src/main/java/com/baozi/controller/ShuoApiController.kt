@@ -3,7 +3,7 @@ package com.baozi.controller
 import com.baozi.config.MessageManager
 import com.baozi.ex.ip
 import com.baozi.ex.token
-import com.baozi.po.SoMessage
+import com.baozi.po.SOMessage
 import com.baozi.po.SOMessageLike
 import com.baozi.service.MessageAuthorService
 import com.baozi.service.MessageLikeService
@@ -54,7 +54,7 @@ open class ShuoApiController @Autowired constructor(
      * @return
      */
     @RequestMapping(value = "deleteMessage", method = arrayOf(RequestMethod.POST))
-    fun deleteMessage(request: HttpServletRequest, entity: SoMessage?): Map<String, Any>? {
+    fun deleteMessage(request: HttpServletRequest, entity: SOMessage?): Map<String, Any>? {
         var resultMap = LinkedHashMap<String,Any>()
         //entity = messageService.selectByIdAndAuthorId(entity);
         var entityx = messageService.selectByPrimaryKey(entity!!.id as Long)
@@ -102,7 +102,7 @@ open class ShuoApiController @Autowired constructor(
      * @return
      */
     @RequestMapping(value = "pushMessage", method = arrayOf(RequestMethod.POST))
-    fun pushMessage(request: HttpServletRequest, entity: SoMessage): Map<String, Any>? {
+    fun pushMessage(request: HttpServletRequest, entity: SOMessage): Map<String, Any>? {
         var resultMap = LinkedHashMap<String,Any>()
         //各种校验
         val result = MessageManager.checkPullMessage(request, entity)

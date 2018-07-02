@@ -4,14 +4,12 @@ import com.baozi.mappers.SOMessageAuthorMapper
 import com.baozi.po.SOMessageAuthor
 import com.baozi.service.MessageAuthorService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 
 /**
  * @author zhangwenjun
  * @version 1.0<br/>
  *
  */
-@Service
 open class MessageAuthorServiceImpl   @Autowired constructor(val  messageAuthorMapper: SOMessageAuthorMapper) : MessageAuthorService {
     override fun findByOpenId(openId: String): SOMessageAuthor? {
         return messageAuthorMapper.findByOpenId(openId)

@@ -14,7 +14,7 @@ import java.util.Date;
  * @author 张文君
  * @version 1.0,2018年6月15日 19:48 <br/>
  */
-public class SoMessage implements Serializable{
+public class SOMessage implements Serializable{
 	private static final long serialVersionUID = 1434473283877857750L;
 	/**评论id**/
 	private Long id;
@@ -48,7 +48,7 @@ public class SoMessage implements Serializable{
     /**层级ID*/
     private Integer level;
     
-    public SoMessage(JsonObject jsonObj, Integer level, String pids, Long parentId, Long authorId) {
+    public SOMessage(JsonObject jsonObj, Integer level, String pids, Long parentId, Long authorId) {
     	
     	if(null != jsonObj.get("message") && !jsonObj.get("message").isJsonNull()){
     		this.message = jsonObj.get("message").getAsString();
@@ -82,7 +82,7 @@ public class SoMessage implements Serializable{
 		this.parentId = parentId;
 		
 	}
-    public SoMessage() {
+    public SOMessage() {
     	
     }
 
@@ -90,7 +90,7 @@ public class SoMessage implements Serializable{
         return createdTime;
     }
 
-    public SoMessage setCreatedTime(Date createdTime) {
+    public SOMessage setCreatedTime(Date createdTime) {
         this.createdTime = createdTime;
         
         Calendar calendar = Calendar.getInstance();
@@ -114,7 +114,7 @@ public class SoMessage implements Serializable{
     public String getCreatedTimeStr() {
 		return createdTimeStr;
 	}
-	public SoMessage setCreatedTimeStr(String createdTimeStr) {
+	public SOMessage setCreatedTimeStr(String createdTimeStr) {
 		this.createdTimeStr = createdTimeStr;
 		return this;
 	}
@@ -123,7 +123,7 @@ public class SoMessage implements Serializable{
         return likes;
     }
 
-    public SoMessage setLikes(Integer likes) {
+    public SOMessage setLikes(Integer likes) {
         this.likes = likes;
         return this;
     }
@@ -132,7 +132,7 @@ public class SoMessage implements Serializable{
         return agent;
     }
 
-    public SoMessage setAgent(String agent) {
+    public SOMessage setAgent(String agent) {
         this.agent = agent;
         return this;
     }
@@ -141,7 +141,7 @@ public class SoMessage implements Serializable{
         return ip;
     }
 
-    public SoMessage setIp(String ip) {
+    public SOMessage setIp(String ip) {
         this.ip = ip;
         return this;
     }
@@ -150,7 +150,7 @@ public class SoMessage implements Serializable{
         return iplocation;
     }
 
-    public SoMessage setIplocation(String iplocation) {
+    public SOMessage setIplocation(String iplocation) {
         this.iplocation = iplocation;
         return this;
     }
@@ -159,21 +159,21 @@ public class SoMessage implements Serializable{
 	public Long getId() {
 		return id;
 	}
-	public SoMessage setId(Long id) {
+	public SOMessage setId(Long id) {
 		this.id = id;
 		return this;
 	}
 	public Long getParentId() {
 		return parentId;
 	}
-	public SoMessage setParentId(Long parentId) {
+	public SOMessage setParentId(Long parentId) {
 		this.parentId = parentId;
 		return this;
 	}
 	public Long getAuthorId() {
 		return authorId;
 	}
-	public SoMessage setAuthorId(Long authorId) {
+	public SOMessage setAuthorId(Long authorId) {
 		this.authorId = authorId;
 		return this;
 	}
@@ -181,7 +181,7 @@ public class SoMessage implements Serializable{
         return pkey;
     }
 
-    public SoMessage setPkey(String pkey) {
+    public SOMessage setPkey(String pkey) {
         this.pkey = pkey;
         return this;
     }
@@ -190,7 +190,7 @@ public class SoMessage implements Serializable{
         return referer;
     }
 
-    public SoMessage setReferer(String referer) {
+    public SOMessage setReferer(String referer) {
         this.referer = referer;
         return this;
     }
@@ -199,21 +199,21 @@ public class SoMessage implements Serializable{
         return message;
     }
 
-    public SoMessage setMessage(String message) {
+    public SOMessage setMessage(String message) {
         this.message = message;
         return this;
     }
 	public String getPids() {
 		return pids;
 	}
-	public SoMessage setPids(String pids) {
+	public SOMessage setPids(String pids) {
 		this.pids = pids;
 		return this;
 	}
 	public Integer getLevel() {
 		return level;
 	}
-	public SoMessage setLevel(Integer level) {
+	public SOMessage setLevel(Integer level) {
 		this.level = level;
 		return this;
 	}

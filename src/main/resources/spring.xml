@@ -187,6 +187,9 @@
 
 	<!-- 自动扫描 -->
 	<context:component-scan base-package="com.baozi.service" />
+	<bean id="messageServiceImpl" class="com.baozi.service.impl.MessageServiceImpl"></bean>
+	<bean id="messageAuthorServiceImpl" class="com.baozi.service.impl.MessageAuthorServiceImpl"></bean>
+	<bean id="messageLikeServiceImpl" class="com.baozi.service.impl.MessageLikeServiceImpl"></bean>
 
 	<!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
 	<bean id="transactionManager"
@@ -222,6 +225,15 @@
 					  expression="execution(* com.baozi.service.*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />
 	</aop:config>
+
+	<!-- 开启aop，对类代理 -->
+	<aop:config proxy-target-class="true"></aop:config>
+
+	<!--*************** 支持aop切面 实现controller耗时统计 **************** -->
+	<aop:aspectj-autoproxy />
+
+	<!-- 定义切面 -->
+	<bean class="com.baozi.aspect.ControllerTimeConsumingAspect" />
 
 	<import resource="spring-mvc.xml"/>
 </beans>

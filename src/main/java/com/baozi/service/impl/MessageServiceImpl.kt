@@ -2,14 +2,13 @@ package com.baozi.service.impl
 
 import com.baozi.mappers.SOMessageLikeMapper
 import com.baozi.mappers.SOMessageMapper
-import com.baozi.po.SoMessage
+import com.baozi.po.SOMessage
 import com.baozi.po.SOMessageAuthor
 import com.baozi.po.SOMessageLike
 import com.baozi.service.MessageService
 import com.baozi.util.LogUtils
 import com.baozi.vo.ResultMessage
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
 import java.util.HashMap
 
 
@@ -18,7 +17,6 @@ import java.util.HashMap
  * @version 1.0<br/>
  *
  */
-@Service
 open class MessageServiceImpl @Autowired constructor(
         val  messageMapper: SOMessageMapper,
         val  messageLikeMapper: SOMessageLikeMapper
@@ -35,9 +33,9 @@ open class MessageServiceImpl @Autowired constructor(
     override fun deleteByPrimaryKey(id: Long?): Int
         = messageMapper.deleteByPrimaryKey(id)
 
-    override fun insert(entity: SoMessage): Int
+    override fun insert(entity: SOMessage): Int
         = messageMapper.insert(entity)
-    override fun insertSelective(entity: SoMessage): Int{
+    override fun insertSelective(entity: SOMessage): Int{
 
         val result = messageMapper.insertSelective(entity)
         //更新父-当前id节点串
@@ -52,19 +50,19 @@ open class MessageServiceImpl @Autowired constructor(
         return result
     }
 
-    override fun selectByPrimaryKey(id: Long): SoMessage?
+    override fun selectByPrimaryKey(id: Long): SOMessage?
         = messageMapper.selectByPrimaryKey(id)
 
-    override fun selectByMessageAndKey(entity: SoMessage): Long?
+    override fun selectByMessageAndKey(entity: SOMessage): Long?
         = messageMapper.selectByMessageAndKey(entity)
 
-    override fun updateByPrimaryKeySelective(entity: SoMessage): Int
+    override fun updateByPrimaryKeySelective(entity: SOMessage): Int
         = messageMapper.updateByPrimaryKeySelective(entity)
 
-    override fun updateByPrimaryKeyWithBLOBs(entity: SoMessage): Int
+    override fun updateByPrimaryKeyWithBLOBs(entity: SOMessage): Int
         = messageMapper.updateByPrimaryKeyWithBLOBs(entity)
 
-    override fun updateByPrimaryKey(entity: SoMessage): Int
+    override fun updateByPrimaryKey(entity: SOMessage): Int
         = messageMapper.updateByPrimaryKey(entity)
 
     /**
@@ -178,7 +176,7 @@ open class MessageServiceImpl @Autowired constructor(
      * @param entity
      * @return
      */
-    override fun selectByIdAndAuthorId(entity: SoMessage): SoMessage? {
+    override fun selectByIdAndAuthorId(entity: SOMessage): SOMessage? {
         return messageMapper.selectByIdAndAuthorId(entity)
     }
 
