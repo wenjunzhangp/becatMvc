@@ -177,6 +177,7 @@
 				/logout.shtml=anon
 				/login/qqcallback.shtml=anon
 				/open/**=anon
+				/message/**=anon
 				/console/login.shtml=anon
 				/console/userLogin.shtml=authc
 				/console/index.shtml=authc

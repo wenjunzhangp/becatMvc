@@ -82,6 +82,7 @@ open class ShuoApiController @Autowired constructor(
      * @return
      */
     @RequestMapping(value = "loadMessage", method = arrayOf(RequestMethod.GET))
+    @ResponseBody
     fun loadMessage(key: String, orderMarker: String?, request: HttpServletRequest): Map<String, Any>? {
         var resultMap = LinkedHashMap<String,Any>()
         resultMap.put("pkey", key)

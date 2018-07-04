@@ -384,100 +384,110 @@ loadMessage = function(){
 		//清空信息框
 		body.empty();
 		//根据key获取评论信息
-		$.getJSON("/message/loadMessage.shtml",args,function(result){
-			token = result.message.token;//赋值token
-			var fmtData = {};
-			if(token && !$.isEmptyObject(token)){
-				$("[token_nickname]").text(token.nickname).attr('href',token.link);
-				$(".ds-toolbar").show(200);
-				fmtData = $.extend(token,{"pid":0,location:"main",level:1,pids:'0',pkey:pkey});
-			}else{
-				fmtData = token = {"pid":0,location:"main",level:1,pids:'0',nickname:"请登录",avatarUrl:"/images/default_avatar_50.gif",id:"-1",url:"http://www.sojson.com/admin.shtml",link:"http://www.sojson.com/admin.shtml",pkey:pkey};
-			}
-			//初次加载把评论框加上
-			if($('[box="main"]').length === 0){
-				$("#orderMenu").before(html.join('').fmt(fmtData).replace('ds-inline-replybox',''));
-			}
-			//加载emote
-			$('[emote="main"]').qqFace({
-				id : 'facebox',
-				assign:'main',
-				path:'//cdn.sojson.com/images/emote/'	//表情存放的路径
-			});
-			$('#orderMenu').show(100);
-			//多少条评论
-			$('span[len]').text(result.message.data.length);
-			//没有评论
-			if(!result.message.data.length ||result.message.data.length == 0){
-				return body.html('<li class="ds-post ds-post-placeholder">还没有评论，沙发等你来抢</li>'),!1;
-			}
+        $.ajax({
+            url : "/message/loadMessage.shtml",
+            type : "get",
+            dataType : "text",
+			data : {key:pkey,orderMarker:orderMarker},
+            success : function(result){
+                result = eval('(' + result + ')');
+                console.log(result);
+                token = result.message.token;//赋值token
+                var fmtData = {};
+                if(token && !$.isEmptyObject(token)){
+                    $("[token_nickname]").text(token.nickname).attr('href',token.link);
+                    $(".ds-toolbar").show(200);
+                    fmtData = $.extend(token,{"pid":0,location:"main",level:1,pids:'0',pkey:pkey});
+                }else{
+                    fmtData = token = {"pid":0,location:"main",level:1,pids:'0',nickname:"请登录",avatarUrl:"/images/default_avatar_50.gif",id:"-1",url:"http://www.sojson.com/admin.shtml",link:"http://www.sojson.com/admin.shtml",pkey:pkey};
+                }
+                //初次加载把评论框加上
+                if($('[box="main"]').length === 0){
+                    $("#orderMenu").before(html.join('').fmt(fmtData).replace('ds-inline-replybox',''));
+                }
+                //加载emote
+                $('[emote="main"]').qqFace({
+                    id : 'facebox',
+                    assign:'main',
+                    path:'//cdn.sojson.com/images/emote/'	//表情存放的路径
+                });
+                $('#orderMenu').show(100);
+                //多少条评论
+                $('span[len]').text(result.message.data.length);
+                //没有评论
+                if(!result.message.data.length ||result.message.data.length == 0){
+                    return body.html('<li class="ds-post ds-post-placeholder">还没有评论，沙发等你来抢</li>'),!1;
+                }
 
 
 
-			//热评
-			if(result && result.message.hotData && result.message.hotData.length){
-				var outArray = [];
-				$.each(result.message.hotData,function(){
+                //热评
+                if(result && result.message.hotData && result.message.hotData.length){
+                    var outArray = [];
+                    $.each(result.message.hotData,function(){
 
-					//获取到单条的HTML
-					var outHtml = outSingle(this).fmt({none:""});
-
-
-
-					outArray.push(outHtml);
-				});
-				$("#ds-hot-posts >ul").html(outArray.join(''));
-				$("#ds-hot-posts").show(100);
-			}else{
-				$("#ds-hot-posts").remove();
-			}
+                        //获取到单条的HTML
+                        var outHtml = outSingle(this).fmt({none:""});
 
 
-			if(result && result.message && result.message.data && result.message.data.length){
-				$.each(result.message.data,function(){
-					console.log(this);
-					//用户信息
-					users[this.author.id] = this.author;
 
-					//获取到单条的HTML
-					if(this.level > 5){//层级大于5
-						this.message = '{%parent_info}' + this.message;
-					}
-					var outHtml = outSingle(this).fmt({none:""});
+                        outArray.push(outHtml);
+                    });
+                    $("#ds-hot-posts >ul").html(outArray.join(''));
+                    $("#ds-hot-posts").show(100);
+                }else{
+                    $("#ds-hot-posts").remove();
+                }
 
-					//判断是否父类，如果有父类往下叠加,实现子父类关系
-					var li =  body.find("[data-post-id='"+ this.parentId +"']");
-					if(li.length>0){
-						if(this.level > 5){
-							var info = '<a class="ds-comment-context" pids="'+ this.pids  +'" data-user-id="'+ this.authorId +'"  more=""data-post-id="'+this.id +'" data-parent-id="'+ this.parentId +'">回复 '+ li.attr('nickname') +': </a>';
-							var t = outHtml.fmt({parent_info:info});
-							li.parent().children('li:last').after(t);
-						}else{
-							var children = li.children('ul.ds-children');
-							if(children.length > 0){
-								//已经有子评论了
-								children.find('li').eq(0).before(outHtml);
-							}else{
-								//第一个子评论
-								li.append('<ul class="ds-children">'+outHtml +'</ul>');
-							}
-						}
-					}else{
-						body.append(outHtml);
-					}
-				});
-			}else{
-				body.append('<li class="ds-post ds-post-placeholder">还没有评论，沙发等你来抢</li>');
-			}
-			//用户条数信息
-			if(result && result.message && result.message.userTips){
-				var userTips=result.message.userTips;
-				for(var i in userTips){//把count数量放到用户信息中去
-					users[i]['count'] =userTips[i];
-				}
-				$.message = {},$.message.tokens = users;
-			};
-		});
+
+                if(result && result.message && result.message.data && result.message.data.length){
+                    $.each(result.message.data,function(){
+                        console.log(this);
+                        //用户信息
+                        users[this.author.id] = this.author;
+
+                        //获取到单条的HTML
+                        if(this.level > 5){//层级大于5
+                            this.message = '{%parent_info}' + this.message;
+                        }
+                        var outHtml = outSingle(this).fmt({none:""});
+
+                        //判断是否父类，如果有父类往下叠加,实现子父类关系
+                        var li =  body.find("[data-post-id='"+ this.parentId +"']");
+                        if(li.length>0){
+                            if(this.level > 5){
+                                var info = '<a class="ds-comment-context" pids="'+ this.pids  +'" data-user-id="'+ this.authorId +'"  more=""data-post-id="'+this.id +'" data-parent-id="'+ this.parentId +'">回复 '+ li.attr('nickname') +': </a>';
+                                var t = outHtml.fmt({parent_info:info});
+                                li.parent().children('li:last').after(t);
+                            }else{
+                                var children = li.children('ul.ds-children');
+                                if(children.length > 0){
+                                    //已经有子评论了
+                                    children.find('li').eq(0).before(outHtml);
+                                }else{
+                                    //第一个子评论
+                                    li.append('<ul class="ds-children">'+outHtml +'</ul>');
+                                }
+                            }
+                        }else{
+                            body.append(outHtml);
+                        }
+                    });
+                }else{
+                    body.append('<li class="ds-post ds-post-placeholder">还没有评论，沙发等你来抢</li>');
+                }
+                //用户条数信息
+                if(result && result.message && result.message.userTips){
+                    var userTips=result.message.userTips;
+                    for(var i in userTips){//把count数量放到用户信息中去
+                        users[i]['count'] =userTips[i];
+                    }
+                    $.message = {},$.message.tokens = users;
+                };
+            },error:function () {
+				console.log("ajax 出错啦啦啦啦");
+            }
+        })
 
 		//时间格式化
 		setInterval(function() {
