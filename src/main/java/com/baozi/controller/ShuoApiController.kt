@@ -10,15 +10,15 @@ import com.baozi.service.MessageLikeService
 import com.baozi.service.MessageService
 import com.baozi.statics.Constant
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpServletRequest
 import org.apache.commons.lang.StringUtils
+import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseBody
 import java.util.*
 
-
-@RestController
+@Controller
 @RequestMapping(value = "message")
 open class ShuoApiController @Autowired constructor(
         //评论信息
@@ -38,6 +38,7 @@ open class ShuoApiController @Autowired constructor(
      * @return
      */
     @RequestMapping(value = "like", method = arrayOf(RequestMethod.POST))
+    @ResponseBody
     fun like(id: Long?, pkey: String, request: HttpServletRequest): Map<String, Any>? {
 
         val entity = SOMessageLike()
@@ -54,6 +55,7 @@ open class ShuoApiController @Autowired constructor(
      * @return
      */
     @RequestMapping(value = "deleteMessage", method = arrayOf(RequestMethod.POST))
+    @ResponseBody
     fun deleteMessage(request: HttpServletRequest, entity: SOMessage?): Map<String, Any>? {
         var resultMap = LinkedHashMap<String,Any>()
         //entity = messageService.selectByIdAndAuthorId(entity);
@@ -103,6 +105,7 @@ open class ShuoApiController @Autowired constructor(
      * @return
      */
     @RequestMapping(value = "pushMessage", method = arrayOf(RequestMethod.POST))
+    @ResponseBody
     fun pushMessage(request: HttpServletRequest, entity: SOMessage): Map<String, Any>? {
         var resultMap = LinkedHashMap<String,Any>()
         //各种校验
