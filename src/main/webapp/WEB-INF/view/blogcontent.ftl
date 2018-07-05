@@ -42,7 +42,7 @@
             </div>
           </div>
 
-          <div class="row">
+          <div class="row" style="height: 1000px;overflow: hidden;">
               <#--评论输入
               固定写法：class="ds-thread"  id="ds-thread"
               data-key= url 这里是用这个URL来做key，你看你自己的业务，因为多说也是这样做，就这样下来了
@@ -59,5 +59,6 @@
   </div>
 
 <#include "common/footer.ftl">
+<script src="/resource/js/layer/layer.js" charset="utf-8"></script>
 <script src="/resource/js/view/rightdetail.js" charset="utf-8"></script>
 <script src="/resource/js/view/message.js" charset="utf-8"></script>

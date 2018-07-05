@@ -10,15 +10,15 @@ import com.baozi.service.MessageLikeService
 import com.baozi.service.MessageService
 import com.baozi.statics.Constant
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpServletRequest
 import org.apache.commons.lang.StringUtils
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.ResponseBody
 import java.util.*
 
-@Controller
+
+@RestController
 @RequestMapping(value = "message")
 open class ShuoApiController @Autowired constructor(
         //评论信息
