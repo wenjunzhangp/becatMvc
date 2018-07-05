@@ -15,7 +15,7 @@ String.prototype.fmt = function(){
 	return str;
 };
 String.prototype.filter = function(){
-	return this.toString().replace(/\&/g,'&amp;').replace(/\"/g,'&quot;').replace(/\>/g,'&gt;').replace(/\n/g,'<br/>').replace(/\[em_([0-9]*)\]/g,'<img src="//cdn.sojson.com/images/emote/$1.gif" border="0" />');
+	return this.toString().replace(/\&/g,'&amp;').replace(/\"/g,'&quot;').replace(/\>/g,'&gt;').replace(/\n/g,'<br/>').replace(/\[em_([0-9]*)\]/g,'<img src="//source.becat.shop/faceimg/$1.gif" border="0" />');
 };
 //评论框
 var html = [];
@@ -408,7 +408,7 @@ loadMessage = function(){
                 $('[emote="main"]').qqFace({
                     id : 'facebox',
                     assign:'main',
-                    path:'//cdn.sojson.com/images/emote/'	//表情存放的路径
+                    path:'//source.becat.shop/faceimg/'	//表情存放的路径
                 });
                 $('#orderMenu').show(100);
                 //多少条评论
@@ -706,7 +706,7 @@ loadMessage = function(){
 		$('[emote="small"]').qqFace({
 			id : 'facebox',
 			assign:'small',
-			path:'//cdn.sojson.com/images/emote/'	//表情存放的路径
+			path:'//source.becat.shop/faceimg/'	//表情存放的路径
 		});
 	});
 	//顶

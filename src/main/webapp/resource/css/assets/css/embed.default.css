@@ -160,8 +160,8 @@
     vertical-align: middle;
     display: inline-block;
     overflow: hidden;
-    background: transparent url("//cdn.sojson.com/images/sprites.png") no-repeat;
-    _background-image: url("//static.duoshuo.com/images/sprites.gif")
+    background: transparent url("//source.becat.shop/faceimg/sprites.png") no-repeat;
+    _background-image: url("//source.becat.shop/faceimg/sprites.png")
 }
 
 #ds-reset a .ds-icon {
@@ -829,8 +829,8 @@
     height: 19px;
     float: left;
     margin-right: 4px;
-    background: transparent url("//cdn.sojson.com/images/sprites.png") no-repeat;
-    _background-image: url("//static.duoshuo.com/images/sprites.gif");
+    background: transparent url("//source.becat.shop/faceimg/sprites.png") no-repeat;
+    _background-image: url("//source.becat.shop/faceimg/sprites.png");
     vertical-align: middle;
     opacity: .6;
     -webkit-transition: opacity .15s linear;
@@ -1723,8 +1723,8 @@
     width: 13px;
     height: 13px;
     overflow: hidden;
-    background: transparent url("//cdn.sojson.com/images/sprites.png") 0 -163px no-repeat;
-    _background-image: url("//static.duoshuo.com/images/sprites.gif")
+    background: transparent url("//source.becat.shop/faceimg/sprites.png") 0 -163px no-repeat;
+    _background-image: url("//source.becat.shop/faceimg/sprites.png")
 }
 
 #ds-wrapper #ds-reset .ds-dialog-close:hover {
@@ -1839,8 +1839,8 @@
 #ds-notify #ds-reset a.ds-logo {
     width: 18px;
     height: 14px;
-    background: transparent url("//cdn.sojson.com/images/sprites.png") 0 -220px no-repeat;
-    _background-image: url("//static.duoshuo.com/images/sprites.gif");
+    background: transparent url("//source.becat.shop/faceimg/sprites.png") 0 -220px no-repeat;
+    _background-image: url("//source.becat.shop/faceimg/sprites.png");
     position: absolute;
     display: block;
     top: 8px;

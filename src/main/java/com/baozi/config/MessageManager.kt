@@ -70,7 +70,7 @@ class MessageManager {
 
             val message = entity.message//评论内容
             //判断是否还是含有尖括号，< >
-            val checkMessage = message?.replace("<br/>".toRegex(), "")?.replace("<img(\\s+)?src=\"\\/\\/cdn.sojson.com\\/images\\/emote\\/([0-9]{1,3}).gif\"(\\s+)?border=\"0\"(\\s+)?/>".toRegex(), "")
+            val checkMessage = message?.replace("<br/>".toRegex(), "")?.replace("<img(\\s+)?src=\"\\/\\/source.becat.shop\\/faceimg\\/([0-9]{1,3}).gif\"(\\s+)?border=\"0\"(\\s+)?/>".toRegex(), "")
 
 
 
