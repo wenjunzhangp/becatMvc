@@ -35,9 +35,9 @@ public interface StatisticalReportDemoService {
     Option getEchartPancakeGraphOption();
 
     /**
-     * 地图demo
+     * 仪表盘demo
      * @param
      * @return
      */
-    Option getEchartMapGraphOption();
+    Option getEchartGaugeGraphOption();
 }

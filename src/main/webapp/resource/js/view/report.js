@@ -9,7 +9,7 @@ $(function(){
     var pancakeChar = echarts.init(document.getElementById('pancakediv'),"dark");
 
     //地图统计表
-    var mapChar = echarts.init(document.getElementById('mapdiv'),"dark");
+    var gaugeChar = echarts.init(document.getElementById('gaugediv'),"dark");
 
     function loadBarChar() {
         barChar.clear();
@@ -41,13 +41,13 @@ $(function(){
     }
     loadPancakeChar();
 
-    function loadMapChar() {
-        mapChar.clear();
-        mapChar.showLoading({text: '正在努力的读取数据中...'});
-        $.getJSON('/report/map.shtml', function (data) {
-            mapChar.setOption(data, true);
-            mapChar.hideLoading();
+    function loadGaugeChar() {
+        gaugeChar.clear();
+        gaugeChar.showLoading({text: '正在努力的读取数据中...'});
+        $.getJSON('/report/gauge.shtml', function (data) {
+            gaugeChar.setOption(data, true);
+            gaugeChar.hideLoading();
         });
     }
-    loadMapChar();
+    loadGaugeChar();
 });

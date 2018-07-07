@@ -57,12 +57,12 @@
                             <div class="am-panel am-panel-default">
                                 <div class="am-panel-hd">
                                     <h4 class="am-panel-title" data-am-collapse="{parent: '#accordion', target: '#do-not-say-4'}">
-                                        EchartsDemo-地图
+                                        EchartsDemo-仪表盘
                                     </h4>
                                 </div>
                                 <div id="do-not-say-4" class="am-panel-collapse am-collapse">
                                     <div class="am-panel-bd">
-                                        <div id="mapdiv" style="width: 900px;height: 300px;"></div>
+                                        <div id="gaugediv" style="width: 900px;height: 300px;"></div>
                                     </div>
                                 </div>
                             </div>

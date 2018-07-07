@@ -68,12 +68,12 @@ public class StatisticalReportDemoController extends BaseController{
         return str;
     }
 
-    @RequestMapping("/map")
+    @RequestMapping("/gauge")
     @ResponseBody
-    public String map(HttpServletRequest request){
+    public String gauge(HttpServletRequest request){
         String str = "";
         try {
-            str = JSONObject.toJSONString(statisticalReportDemoService.getEchartMapGraphOption());
+            str = JSONObject.toJSONString(statisticalReportDemoService.getEchartGaugeGraphOption());
             return str;
         } catch ( Exception e ) {
             LogUtils.logError("地图demo生成失败出现异常",e);

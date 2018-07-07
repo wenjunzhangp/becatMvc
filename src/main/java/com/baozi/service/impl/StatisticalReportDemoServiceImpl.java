@@ -10,6 +10,7 @@ import com.github.abel533.echarts.axis.ValueAxis;
 import com.github.abel533.echarts.code.*;
 import com.github.abel533.echarts.feature.MagicType;
 import com.github.abel533.echarts.series.Bar;
+import com.github.abel533.echarts.series.Gauge;
 import com.github.abel533.echarts.series.Line;
 import com.github.abel533.echarts.series.Pie;
 import com.github.abel533.echarts.series.Series;
@@ -162,49 +163,25 @@ public class StatisticalReportDemoServiceImpl implements StatisticalReportDemoSe
     }
 
     @Override
-    public Option getEchartMapGraphOption() {
+    public Option getEchartGaugeGraphOption() {
         Option option = new Option();
-        //标题
-        Title title = new Title();
-        title.setText("香港18区人口密度");
-        title.setSubtext("人口密度数据来自echarts");
-        title.setX("center");
-        option.setTitle(title);
-        //提示工具
-        Tooltip tooltip = new Tooltip();
-        tooltip.setTrigger(Trigger.item);
-        tooltip.setFormatter("{b}<br/>{c} (p / km2)");
-        option.setTooltip(tooltip);
-        //地图比例尺
-        List<VisualMap> visualMap = new ArrayList<>();
-        VisualMap map = new VisualMap();
-        map.setMin(800);
-        map.setMax(5000);
-        Object[] obj = {"最低","最高"};
-        map.setText(obj);
-        map.setRealtime(false);
-        map.setCalculable(true);
-        map.setInRange(VisualMapType.colorAlpha);
-        visualMap.add(map);
-        option.setVisualMap(visualMap);
-        //series数据集合
-        Series series = new Series() {
-            @Override
-            public Object left() {
-                return super.left();
-            }
-        };
-        series.setName("香港18区人口密度");
-        series.setType(SeriesType.map);
-        Map<String,Object> mapdata = new HashMap<String,Object>();
-        mapdata.put("中西区",20057.34);
-        mapdata.put("湾仔",15477.48);
-        mapdata.put("东区",31686.1);
-        mapdata.put("南区",6992.6);
-        mapdata.put("油尖旺",44045.49);
-        series.data(mapdata);
-        option.series(series);
 
+        option.tooltip().setFormatter("{a} <br/>{c} {b}");
+        option.toolbox().setShow(true);
+
+        Gauge gauge = new Gauge();
+        gauge.setName("业务指标");
+        gauge.setType(SeriesType.gauge);
+        gauge.detail().setFormatter("{value}%");
+        Map<String,Object> successMap = new HashMap<>(256);
+        successMap.put("name","完成率");
+        successMap.put("value",50);
+        Map<String,Object> failMap = new HashMap<>(256);
+        failMap.put("name","坏账率");
+        failMap.put("value",80);
+        gauge.data(successMap,failMap);
+
+        option.series(gauge);
         return option;
     }
 
