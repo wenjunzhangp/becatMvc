@@ -14,6 +14,7 @@ import com.github.abel533.echarts.series.Line;
 import com.github.abel533.echarts.series.Pie;
 import com.github.abel533.echarts.series.Series;
 import com.github.abel533.echarts.style.ItemStyle;
+import com.github.abel533.echarts.style.itemstyle.Normal;
 import org.junit.jupiter.api.Test;
 import org.springframework.stereotype.Service;
 
@@ -187,15 +188,22 @@ public class StatisticalReportDemoServiceImpl implements StatisticalReportDemoSe
         visualMap.add(map);
         option.setVisualMap(visualMap);
         //series数据集合
-        List<Series> series = new ArrayList<>();
-        com.github.abel533.echarts.series.Map mapgithub = new com.github.abel533.echarts.series.Map();
-        mapgithub.setName("香港18区人口密度");
-        mapgithub.setType(SeriesType.map);
-        ItemStyle itemStyle = new ItemStyle();
-        /*itemStyle.setNormal();
-        mapgithub.setItemStyle();
-        series.add();
-        option.series();*/
+        Series series = new Series() {
+            @Override
+            public Object left() {
+                return super.left();
+            }
+        };
+        series.setName("香港18区人口密度");
+        series.setType(SeriesType.map);
+        Map<String,Object> mapdata = new HashMap<String,Object>();
+        mapdata.put("中西区",20057.34);
+        mapdata.put("湾仔",15477.48);
+        mapdata.put("东区",31686.1);
+        mapdata.put("南区",6992.6);
+        mapdata.put("油尖旺",44045.49);
+        series.data(mapdata);
+        option.series(series);
 
         return option;
     }

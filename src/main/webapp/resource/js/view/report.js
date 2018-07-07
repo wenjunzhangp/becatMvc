@@ -8,6 +8,9 @@ $(function(){
     //柱状状图表
     var pancakeChar = echarts.init(document.getElementById('pancakediv'),"dark");
 
+    //地图统计表
+    var mapChar = echarts.init(document.getElementById('mapdiv'),"dark");
+
     function loadBarChar() {
         barChar.clear();
         barChar.showLoading({text: '正在努力的读取数据中...'});
@@ -37,4 +40,14 @@ $(function(){
         });
     }
     loadPancakeChar();
+
+    function loadMapChar() {
+        mapChar.clear();
+        mapChar.showLoading({text: '正在努力的读取数据中...'});
+        $.getJSON('/report/map.shtml', function (data) {
+            mapChar.setOption(data, true);
+            mapChar.hideLoading();
+        });
+    }
+    loadMapChar();
 });

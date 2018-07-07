@@ -68,5 +68,16 @@ public class StatisticalReportDemoController extends BaseController{
         return str;
     }
 
-
+    @RequestMapping("/map")
+    @ResponseBody
+    public String map(HttpServletRequest request){
+        String str = "";
+        try {
+            str = JSONObject.toJSONString(statisticalReportDemoService.getEchartMapGraphOption());
+            return str;
+        } catch ( Exception e ) {
+            LogUtils.logError("地图demo生成失败出现异常",e);
+        }
+        return str;
+    }
 }
