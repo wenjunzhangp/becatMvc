@@ -68,9 +68,9 @@ public class WeiXinMessageFactory {
             } else {
                 sb.append("天气信息被外星人劫走了呢，请稍后再试~");
             }
-        }/* else {
-            sb.append(getTulingResult(content));
-        }*/
+        } else {
+            sb.append("success");
+        }
         TextMessage text = new TextMessage();
         text.setContent(sb.toString());
         text.setToUserName(fromUserName);
