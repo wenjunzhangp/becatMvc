@@ -33,63 +33,65 @@ import java.util.Map;
 public class WeiXinMessageFactory {
 
     public static String handleWeiXinTextMessage( String fromUserName,String toUserName,String msgType,String content ){
-        StringBuffer sb = new StringBuffer();
-        //这里根据关键字执行相应的逻辑，只有你想不到的，没有做不到的
-        if(Constant.WECHAT_HELLO.equals(content)){
-            sb.append("你好\n\n");
-            sb.append("该公众号已实现以下功能：\n");
-            sb.append("1.回复“天气”将有该功能的介绍与使用\n");
-            sb.append("2.图灵机器人实现智能聊天\n");
-            sb.append("3.回复“撸猫”，我们都会有猫的\n");
-            sb.append("4.更多功能尽在开发中...\n");
-            sb.append("官网链接是“https://www.doudoucat.com/about.shtml”");
-        } else if(Constant.WECHAT_WEATHER.equals(content)){
-            sb.append("目前支持查看昨天、今天和未来4 天的天气预报\n");
-            sb.append("回复“您要查询的省份”后面跟上天气即可\n");
-            sb.append("例如查看北京天气：“北京天气”");
-        } else if (content.endsWith(Constant.WECHAT_WEATHER)) {
-            Map<String, String> param = new HashMap<>(256);
-            String city = content.substring(0,Constant.WECHAT_WEATHER.length());
-            param.put("city",city);
-            String responStr = HttpclientUtil.doGet(Iconfig.get("weather_api_url"),param);
-            JSONObject jsonObject = JSONObject.parseObject(responStr);
-            if (String.valueOf(Constant.HTTP_OK).equals(jsonObject.getString("status"))) {
-                JSONObject data = jsonObject.getJSONObject("data");
-                sb.append("今日温度"+data.get("wendu")+"℃，湿度"+data.get("shidu")+"，空气等级“"+data.get("quality")+"“，PM2.5："+data.get("pm25")+"\n");
-                sb.append("小编温馨提示:\n"+data.get("ganmao"));
-                sb.append("\n------------------\n");
-                sb.append("\n未来四天天气走势：\n");
-                JSONArray jsonArray = JSONArray.parseArray(data.getString("forecast"));
-                JSONObject one = jsonArray.getJSONObject(1);
-                sb.append(one.get("date")+"\t"+one.get("type")+"\t"+one.get("low")+"~"+one.get("high")+"\t风向:"+one.get("fx"));
-                sb.append("\n小编温馨提示:\n"+one.get("notice")+"\n");
-                sb.append("\n------------------\n");
-                JSONObject two = jsonArray.getJSONObject(2);
-                sb.append(two.get("date")+"\t"+two.get("type")+"\t"+two.get("low")+"~"+two.get("high")+"\t风向:"+two.get("fx"));
-                sb.append("\n小编温馨提示:\n"+two.get("notice")+"\n");
-                sb.append("\n------------------\n");
-                JSONObject three = jsonArray.getJSONObject(3);
-                sb.append(three.get("date")+"\t"+three.get("type")+"\t"+three.get("low")+"~"+three.get("high")+"\t风向:"+three.get("fx"));
-                sb.append("\n小编温馨提示:\n"+three.get("notice")+"\n");
-                sb.append("\n------------------\n");
-                JSONObject four = jsonArray.getJSONObject(4);
-                sb.append(four.get("date")+"\t"+four.get("type")+"\t"+four.get("low")+"~"+four.get("high")+"\t风向:"+four.get("fx"));
-                sb.append("\n小编温馨提示:\n"+four.get("notice")+"\n");
-            } else {
-                sb.append("天气信息被外星人劫走了呢，请稍后再试~");
-            }
-        } else if (content.endsWith(Constant.WECHAT_LUMAO)) {
-            handleWeiXinImageMessage(fromUserName,toUserName);
+        if (content.endsWith(Constant.WECHAT_LUMAO)) {
+            return handleWeiXinImageMessage(fromUserName,toUserName);
         } else {
-            sb.append(getTulingResult(content));
+            StringBuffer sb = new StringBuffer();
+            //这里根据关键字执行相应的逻辑，只有你想不到的，没有做不到的
+            if(Constant.WECHAT_HELLO.equals(content)){
+                sb.append("你好\n\n");
+                sb.append("该公众号已实现以下功能：\n");
+                sb.append("1.回复“天气”将有该功能的介绍与使用\n");
+                sb.append("2.图灵机器人实现智能聊天\n");
+                sb.append("3.回复“撸猫”，我们都会有猫的\n");
+                sb.append("4.更多功能尽在开发中...\n");
+                sb.append("官网链接是“https://www.doudoucat.com/about.shtml”");
+            } else if(Constant.WECHAT_WEATHER.equals(content)){
+                sb.append("目前支持查看昨天、今天和未来4 天的天气预报\n");
+                sb.append("回复“您要查询的省份”后面跟上天气即可\n");
+                sb.append("例如查看北京天气：“北京天气”");
+            } else if (content.endsWith(Constant.WECHAT_WEATHER)) {
+                Map<String, String> param = new HashMap<>(256);
+                String city = content.substring(0,Constant.WECHAT_WEATHER.length());
+                param.put("city",city);
+                String responStr = HttpclientUtil.doGet(Iconfig.get("weather_api_url"),param);
+                JSONObject jsonObject = JSONObject.parseObject(responStr);
+                if (String.valueOf(Constant.HTTP_OK).equals(jsonObject.getString("status"))) {
+                    JSONObject data = jsonObject.getJSONObject("data");
+                    sb.append("今日温度"+data.get("wendu")+"℃，湿度"+data.get("shidu")+"，空气等级“"+data.get("quality")+"“，PM2.5："+data.get("pm25")+"\n");
+                    sb.append("小编温馨提示:\n"+data.get("ganmao"));
+                    sb.append("\n------------------\n");
+                    sb.append("\n未来四天天气走势：\n");
+                    JSONArray jsonArray = JSONArray.parseArray(data.getString("forecast"));
+                    JSONObject one = jsonArray.getJSONObject(1);
+                    sb.append(one.get("date")+"\t"+one.get("type")+"\t"+one.get("low")+"~"+one.get("high")+"\t风向:"+one.get("fx"));
+                    sb.append("\n小编温馨提示:\n"+one.get("notice")+"\n");
+                    sb.append("\n------------------\n");
+                    JSONObject two = jsonArray.getJSONObject(2);
+                    sb.append(two.get("date")+"\t"+two.get("type")+"\t"+two.get("low")+"~"+two.get("high")+"\t风向:"+two.get("fx"));
+                    sb.append("\n小编温馨提示:\n"+two.get("notice")+"\n");
+                    sb.append("\n------------------\n");
+                    JSONObject three = jsonArray.getJSONObject(3);
+                    sb.append(three.get("date")+"\t"+three.get("type")+"\t"+three.get("low")+"~"+three.get("high")+"\t风向:"+three.get("fx"));
+                    sb.append("\n小编温馨提示:\n"+three.get("notice")+"\n");
+                    sb.append("\n------------------\n");
+                    JSONObject four = jsonArray.getJSONObject(4);
+                    sb.append(four.get("date")+"\t"+four.get("type")+"\t"+four.get("low")+"~"+four.get("high")+"\t风向:"+four.get("fx"));
+                    sb.append("\n小编温馨提示:\n"+four.get("notice")+"\n");
+                } else {
+                    sb.append("天气信息被外星人劫走了呢，请稍后再试~");
+                }
+            } else {
+                sb.append(getTulingResult(content));
+            }
+            TextMessage text = new TextMessage();
+            text.setContent(sb.toString());
+            text.setToUserName(fromUserName);
+            text.setFromUserName(toUserName);
+            text.setCreateTime(System.currentTimeMillis() + "");
+            text.setMsgType(msgType);
+            return MessageUtil.textMessageToXml(text);
         }
-        TextMessage text = new TextMessage();
-        text.setContent(sb.toString());
-        text.setToUserName(fromUserName);
-        text.setFromUserName(toUserName);
-        text.setCreateTime(System.currentTimeMillis() + "");
-        text.setMsgType(msgType);
-        return MessageUtil.textMessageToXml(text);
     }
 
     public static String handleWeiXinVoiceMessage( Map<String, String> requestMap ){
