@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 public class NewsMessage extends BaseMessage {
 
-    // 图文消息个数，限制为10条以内
+    // 图文消息个数，限制为8条以内  超过8个微信将无响应
     private int ArticleCount;
     // 多条图文消息信息，默认第1条为大图
     private List<Article> Articles;

@@ -6,6 +6,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.baozi.config.Iconfig;
 import com.baozi.config.WeiXinConfig;
 import com.baozi.statics.Constant;
+import com.baozi.vo.weixin.Article;
+import com.baozi.vo.weixin.ImageMessage;
+import com.baozi.vo.weixin.NewsMessage;
 import com.baozi.vo.weixin.TextMessage;
 
 import java.io.BufferedReader;
@@ -15,7 +18,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,10 +38,11 @@ public class WeiXinMessageFactory {
         if(Constant.WECHAT_HELLO.equals(content)){
             sb.append("你好\n\n");
             sb.append("该公众号已实现以下功能：\n");
-            sb.append("回复“天气”将有该功能的介绍与使用，\n");
-            sb.append("如您在使用该订阅号有任何宝贵意见，欢迎反馈！\n\n");
-            sb.append("反馈邮箱：zhangwenjunp@126.com\n\n");
-            sb.append("官网链接是“https://www.becat.shop/about.shtml”");
+            sb.append("1.回复“天气”将有该功能的介绍与使用\n");
+            sb.append("2.图灵机器人实现智能聊天\n");
+            sb.append("3.回复“撸猫”，我们都会有猫的\n");
+            sb.append("4.更多功能尽在开发中...\n");
+            sb.append("官网链接是“https://www.doudoucat.com/about.shtml”");
         } else if(Constant.WECHAT_WEATHER.equals(content)){
             sb.append("目前支持查看昨天、今天和未来4 天的天气预报\n");
             sb.append("回复“您要查询的省份”后面跟上天气即可\n");
@@ -50,26 +56,32 @@ public class WeiXinMessageFactory {
             if (String.valueOf(Constant.HTTP_OK).equals(jsonObject.getString("status"))) {
                 JSONObject data = jsonObject.getJSONObject("data");
                 sb.append("今日温度"+data.get("wendu")+"℃，湿度"+data.get("shidu")+"，空气等级“"+data.get("quality")+"“，PM2.5："+data.get("pm25")+"\n");
-                sb.append("小编温馨提示:"+data.get("ganmao"));
-                sb.append("\n\n未来四天天气走势：\n");
+                sb.append("小编温馨提示:\n"+data.get("ganmao"));
+                sb.append("\n------------------\n");
+                sb.append("\n未来四天天气走势：\n");
                 JSONArray jsonArray = JSONArray.parseArray(data.getString("forecast"));
                 JSONObject one = jsonArray.getJSONObject(1);
                 sb.append(one.get("date")+"\t"+one.get("type")+"\t"+one.get("low")+"~"+one.get("high")+"\t风向:"+one.get("fx"));
-                sb.append("\n小编温馨提示:"+one.get("notice")+"\n\n");
+                sb.append("\n小编温馨提示:\n"+one.get("notice")+"\n");
+                sb.append("\n------------------\n");
                 JSONObject two = jsonArray.getJSONObject(2);
                 sb.append(two.get("date")+"\t"+two.get("type")+"\t"+two.get("low")+"~"+two.get("high")+"\t风向:"+two.get("fx"));
-                sb.append("\n小编温馨提示:"+two.get("notice")+"\n\n");
+                sb.append("\n小编温馨提示:\n"+two.get("notice")+"\n");
+                sb.append("\n------------------\n");
                 JSONObject three = jsonArray.getJSONObject(3);
                 sb.append(three.get("date")+"\t"+three.get("type")+"\t"+three.get("low")+"~"+three.get("high")+"\t风向:"+three.get("fx"));
-                sb.append("\n小编温馨提示:"+three.get("notice")+"\n\n");
+                sb.append("\n小编温馨提示:\n"+three.get("notice")+"\n");
+                sb.append("\n------------------\n");
                 JSONObject four = jsonArray.getJSONObject(4);
                 sb.append(four.get("date")+"\t"+four.get("type")+"\t"+four.get("low")+"~"+four.get("high")+"\t风向:"+four.get("fx"));
-                sb.append("\n小编温馨提示:"+four.get("notice")+"\n\n");
+                sb.append("\n小编温馨提示:\n"+four.get("notice")+"\n");
             } else {
                 sb.append("天气信息被外星人劫走了呢，请稍后再试~");
             }
+        } else if (content.endsWith(Constant.WECHAT_LUMAO)) {
+            handleWeiXinImageMessage(fromUserName,toUserName);
         } else {
-            sb.append("success");
+            sb.append(getTulingResult(content));
         }
         TextMessage text = new TextMessage();
         text.setContent(sb.toString());
@@ -102,12 +114,13 @@ public class WeiXinMessageFactory {
             StringBuffer sb = new StringBuffer();
             sb.append("欢迎关注，BeCat撸猫订阅号\n\n");
             sb.append("该公众号已实现以下功能：\n");
-            sb.append("1.回复“天气”将有该功能的介绍与使用，\n");
+            sb.append("1.回复“天气”将有该功能的介绍与使用\n");
             sb.append("2.图灵机器人实现智能聊天\n");
-            sb.append("3.更多功能尽在开发中...\n");
+            sb.append("3.回复“撸猫”，我们都会有猫的~\n");
+            sb.append("4.更多功能尽在开发中...\n");
             sb.append("如您在使用该订阅号有任何宝贵意见，欢迎反馈！\n\n");
             sb.append("反馈邮箱：zhangwenjunp@126.com\n\n");
-            sb.append("官网链接是“https://www.becat.shop/about.shtml”");
+            sb.append("官网链接是“https://www.doudoucat.com/about.shtml”");
             text.setContent(sb.toString());
             text.setToUserName(fromUserName);
             text.setFromUserName(toUserName);
@@ -130,6 +143,30 @@ public class WeiXinMessageFactory {
                 respMessage = MessageUtil.textMessageToXml(text);
             }
         }
+        return respMessage;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(handleWeiXinImageMessage("张飒","微信订阅号"));
+    }
+
+    public static String handleWeiXinImageMessage(String fromUserName,String toUserName) {
+        String respMessage = "";
+        NewsMessage newsMessage = new NewsMessage();
+        List<Article> articles = new ArrayList<>();
+        Article article = new Article();
+        article.setTitle("豆豆的蓝胖子全网最低价");
+        article.setDescription("想撸猫就来这里，这辈子不能没有猫!");
+        article.setPicUrl("http://source.doudoucat.com/lpz.jpg");
+        article.setUrl("https://www.doudoucat.com/pet.shtml");
+        articles.add(article);
+        newsMessage.setArticleCount(1);
+        newsMessage.setArticles(articles);
+        newsMessage.setToUserName(fromUserName);
+        newsMessage.setFromUserName(toUserName);
+        newsMessage.setCreateTime(System.currentTimeMillis() + "");
+        newsMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
+        respMessage = MessageUtil.newsMessageToXml(newsMessage);
         return respMessage;
     }
 
@@ -173,4 +210,5 @@ public class WeiXinMessageFactory {
         }
         return result;
     }
+
 }

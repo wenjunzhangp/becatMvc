@@ -1,5 +1,6 @@
 package com.baozi.util;
 
+import com.baozi.vo.weixin.Article;
 import com.baozi.vo.weixin.NewsMessage;
 import com.baozi.vo.weixin.TextMessage;
 import com.thoughtworks.xstream.XStream;
@@ -7,7 +8,6 @@ import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
-import org.apache.commons.net.nntp.Article;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -176,7 +176,10 @@ public class MessageUtil {
      */
     public static String newsMessageToXml(NewsMessage newsMessage) {
         xstream.alias("xml", newsMessage.getClass());
-        xstream.alias("item", new Article().getClass());
+        List<Article> articles =  newsMessage.getArticles();
+        for (int i=0;i<articles.size();i++) {
+            xstream.alias("item", articles.get(i).getClass());
+        }
         return xstream.toXML(newsMessage);
     }
 }

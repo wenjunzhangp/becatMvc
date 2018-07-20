@@ -216,7 +216,7 @@
                         <i class="service_item--icon am-icon-diamond"></i>
                         <h3 class="service_item--title">简单</h3>
                         <div class="service_item--text">
-                            <p>官网www.becat.shop，APP+PC随时随地挑选你喜欢的猫。</p>
+                            <p>官网www.doudoucat.com，APP+PC随时随地挑选你喜欢的猫。</p>
                         </div>
                     </div>
                 </div>
