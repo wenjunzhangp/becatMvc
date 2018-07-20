@@ -7,7 +7,6 @@ import com.baozi.config.Iconfig;
 import com.baozi.config.WeiXinConfig;
 import com.baozi.statics.Constant;
 import com.baozi.vo.weixin.Article;
-import com.baozi.vo.weixin.ImageMessage;
 import com.baozi.vo.weixin.NewsMessage;
 import com.baozi.vo.weixin.TextMessage;
 
@@ -32,9 +31,19 @@ import java.util.Map;
  */
 public class WeiXinMessageFactory {
 
+    /**
+     * 处理微信交互文本消息
+     * @param fromUserName 用户昵称
+     * @param toUserName 公众号昵称
+     * @param msgType 消息类型 text
+     * @param content 用户发送的内容
+     * @return
+     */
     public static String handleWeiXinTextMessage( String fromUserName,String toUserName,String msgType,String content ){
         if (content.endsWith(Constant.WECHAT_LUMAO)) {
-            return handleWeiXinImageMessage(fromUserName,toUserName);
+            return handleWeiXinNewsImageMessage(fromUserName,toUserName);
+        } else if (content.endsWith(Constant.WECHAT_SINGSONG)) {
+            return encapsulation(fromUserName,toUserName);
         } else {
             StringBuffer sb = new StringBuffer();
             //这里根据关键字执行相应的逻辑，只有你想不到的，没有做不到的
@@ -44,7 +53,8 @@ public class WeiXinMessageFactory {
                 sb.append("1.回复“天气”将有该功能的介绍与使用\n");
                 sb.append("2.图灵机器人实现智能聊天\n");
                 sb.append("3.回复“撸猫”，我们都会有猫的\n");
-                sb.append("4.更多功能尽在开发中...\n");
+                sb.append("4.回复“唱歌”听歌曲\n");
+                sb.append("5.更多功能尽在开发中...\n");
                 sb.append("官网链接是“https://www.doudoucat.com/about.shtml”");
             } else if(Constant.WECHAT_WEATHER.equals(content)){
                 sb.append("目前支持查看昨天、今天和未来4 天的天气预报\n");
@@ -60,21 +70,21 @@ public class WeiXinMessageFactory {
                     JSONObject data = jsonObject.getJSONObject("data");
                     sb.append("今日温度"+data.get("wendu")+"℃，湿度"+data.get("shidu")+"，空气等级“"+data.get("quality")+"“，PM2.5："+data.get("pm25")+"\n");
                     sb.append("小编温馨提示:\n"+data.get("ganmao"));
-                    sb.append("\n------------------\n");
+                    sb.append("\n__________________________\n");
                     sb.append("\n未来四天天气走势：\n");
                     JSONArray jsonArray = JSONArray.parseArray(data.getString("forecast"));
                     JSONObject one = jsonArray.getJSONObject(1);
                     sb.append(one.get("date")+"\t"+one.get("type")+"\t"+one.get("low")+"~"+one.get("high")+"\t风向:"+one.get("fx"));
                     sb.append("\n小编温馨提示:\n"+one.get("notice")+"\n");
-                    sb.append("\n------------------\n");
+                    sb.append("\n__________________________\n");
                     JSONObject two = jsonArray.getJSONObject(2);
                     sb.append(two.get("date")+"\t"+two.get("type")+"\t"+two.get("low")+"~"+two.get("high")+"\t风向:"+two.get("fx"));
                     sb.append("\n小编温馨提示:\n"+two.get("notice")+"\n");
-                    sb.append("\n------------------\n");
+                    sb.append("\n__________________________\n");
                     JSONObject three = jsonArray.getJSONObject(3);
                     sb.append(three.get("date")+"\t"+three.get("type")+"\t"+three.get("low")+"~"+three.get("high")+"\t风向:"+three.get("fx"));
                     sb.append("\n小编温馨提示:\n"+three.get("notice")+"\n");
-                    sb.append("\n------------------\n");
+                    sb.append("\n__________________________\n");
                     JSONObject four = jsonArray.getJSONObject(4);
                     sb.append(four.get("date")+"\t"+four.get("type")+"\t"+four.get("low")+"~"+four.get("high")+"\t风向:"+four.get("fx"));
                     sb.append("\n小编温馨提示:\n"+four.get("notice")+"\n");
@@ -94,18 +104,57 @@ public class WeiXinMessageFactory {
         }
     }
 
-    public static String handleWeiXinVoiceMessage( Map<String, String> requestMap ){
+    /**
+     * 处理微信交互语音消息
+     * @param requestMap
+     * @return
+     */
+    public static String handleWeiXinVoiceMessage( Map<String, String> requestMap,String fromUserName,String toUserName ){
         String respMessage = "";
         String recvMessage = requestMap.get("Recognition");
+        LogUtils.logInfo("解析的语音结果是【"+recvMessage+"】");
         if(StringUtil.isNotEmpty(recvMessage)){
             //进行语音解析
             respMessage = getTulingResult(recvMessage);
-        }else{
-            respMessage = "您说的太模糊了，能不能重新说下呢？";
+        } else if (recvMessage.indexOf(Constant.WECHAT_SINGSONG)!=-1) {
+            respMessage = encapsulation(fromUserName,toUserName);
+        } else{
+            respMessage = "您说的太模糊了，小豆没听清!";
         }
         return respMessage;
     }
 
+    /**
+     * 拼装返回语音消息 唱一首歌
+     * @return
+     */
+    private static String encapsulation(String fromUserName,String toUserName) {
+        String respMessage = "";
+        NewsMessage newsMessage = new NewsMessage();
+        List<Article> articles = new ArrayList<>();
+        Article article = new Article();
+        article.setTitle("没有车没有房--孙辉");
+        article.setDescription("你的存折有几张~");
+        article.setPicUrl("http://source.doudoucat.com/lpz.jpg");
+        article.setUrl("https://music.163.com/song?id=865048215&userid=292060520");
+        articles.add(article);
+        newsMessage.setArticleCount(1);
+        newsMessage.setArticles(articles);
+        newsMessage.setToUserName(fromUserName);
+        newsMessage.setFromUserName(toUserName);
+        newsMessage.setCreateTime(System.currentTimeMillis() + "");
+        newsMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
+        respMessage = MessageUtil.newsMessageToXml(newsMessage);
+        return respMessage;
+    }
+
+    /**
+     * 处理微信交互各种事件 订阅 取消订阅 自定义菜单点击事件
+     * @param fromUserName 用户昵称
+     * @param toUserName 公众号昵称
+     * @param requestMap 微信请求的map
+     * @return
+     */
     public static String handleWeiXinEventPush( String fromUserName,String toUserName,Map<String, String> requestMap ){
         String respMessage = "";
         // 事件类型
@@ -119,7 +168,8 @@ public class WeiXinMessageFactory {
             sb.append("1.回复“天气”将有该功能的介绍与使用\n");
             sb.append("2.图灵机器人实现智能聊天\n");
             sb.append("3.回复“撸猫”，我们都会有猫的~\n");
-            sb.append("4.更多功能尽在开发中...\n");
+            sb.append("4.回复“唱歌”听歌曲\n");
+            sb.append("5.更多功能尽在开发中...\n");
             sb.append("如您在使用该订阅号有任何宝贵意见，欢迎反馈！\n\n");
             sb.append("反馈邮箱：zhangwenjunp@126.com\n\n");
             sb.append("官网链接是“https://www.doudoucat.com/about.shtml”");
@@ -149,10 +199,16 @@ public class WeiXinMessageFactory {
     }
 
     public static void main(String[] args) {
-        System.out.println(handleWeiXinImageMessage("张飒","微信订阅号"));
+        System.out.println(handleWeiXinNewsImageMessage("张飒","微信订阅号"));
     }
 
-    public static String handleWeiXinImageMessage(String fromUserName,String toUserName) {
+    /**
+     * 处理微信交互图像文本消息
+     * @param fromUserName 用户昵称
+     * @param toUserName 公众号昵称
+     * @return
+     */
+    public static String handleWeiXinNewsImageMessage(String fromUserName,String toUserName) {
         String respMessage = "";
         NewsMessage newsMessage = new NewsMessage();
         List<Article> articles = new ArrayList<>();
@@ -177,7 +233,7 @@ public class WeiXinMessageFactory {
      * @param content
      * @return
      */
-    public static String getTulingResult(String content){
+    private static String getTulingResult(String content){
         //图灵机器人数据库接口
         StringBuffer sb = new StringBuffer();
         String result = "";

@@ -91,9 +91,9 @@ public class WeixinSignatureController extends BaseController{
             if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
                 respMessage = WeiXinMessageFactory.handleWeiXinTextMessage(fromUserName,toUserName,msgType,content);
             } else if(msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_VOICE)) {
-                respMessage = WeiXinMessageFactory.handleWeiXinVoiceMessage(requestMap);
+                respMessage = WeiXinMessageFactory.handleWeiXinVoiceMessage(requestMap,fromUserName,toUserName);
             } else if(msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)){
-                respMessage = WeiXinMessageFactory.handleWeiXinImageMessage(fromUserName,toUserName);
+                respMessage = WeiXinMessageFactory.handleWeiXinNewsImageMessage(fromUserName,toUserName);
             } else if(msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_PHOTO)) {
                 // TODO 拍照功能暂不实现，以后再说 2018-06-21 11:15
             } else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {

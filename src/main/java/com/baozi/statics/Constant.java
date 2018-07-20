@@ -69,4 +69,5 @@ public class Constant {
 	public static final String WECHAT_WEATHER = "天气";
 	public static final String WECHAT_CLICK_EVENT_ABOUT = "about";
 	public static final String WECHAT_LUMAO = "撸猫";
+	public static final String WECHAT_SINGSONG = "唱歌";
 }
