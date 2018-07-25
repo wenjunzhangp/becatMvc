@@ -55,7 +55,7 @@ public class WeiXinMessageFactory {
                 sb.append("3.回复“撸猫”，我们都会有猫的\n");
                 sb.append("4.回复“唱歌”听歌曲\n");
                 sb.append("5.更多功能尽在开发中...\n");
-                sb.append("官网链接是“https://www.doudoucat.com/about.shtml”");
+                sb.append("官网链接是“https://www.doudoucat.com”");
             } else if(Constant.WECHAT_WEATHER.equals(content)){
                 sb.append("目前支持查看昨天、今天和未来4 天的天气预报\n");
                 sb.append("回复“您要查询的省份”后面跟上天气即可\n");
@@ -73,21 +73,14 @@ public class WeiXinMessageFactory {
                     sb.append("\n__________________________\n");
                     sb.append("\n未来四天天气走势：\n");
                     JSONArray jsonArray = JSONArray.parseArray(data.getString("forecast"));
-                    JSONObject one = jsonArray.getJSONObject(1);
-                    sb.append(one.get("date")+"\t"+one.get("type")+"\t"+one.get("low")+"~"+one.get("high")+"\t风向:"+one.get("fx"));
-                    sb.append("\n小编温馨提示:\n"+one.get("notice")+"\n");
-                    sb.append("\n__________________________\n");
-                    JSONObject two = jsonArray.getJSONObject(2);
-                    sb.append(two.get("date")+"\t"+two.get("type")+"\t"+two.get("low")+"~"+two.get("high")+"\t风向:"+two.get("fx"));
-                    sb.append("\n小编温馨提示:\n"+two.get("notice")+"\n");
-                    sb.append("\n__________________________\n");
-                    JSONObject three = jsonArray.getJSONObject(3);
-                    sb.append(three.get("date")+"\t"+three.get("type")+"\t"+three.get("low")+"~"+three.get("high")+"\t风向:"+three.get("fx"));
-                    sb.append("\n小编温馨提示:\n"+three.get("notice")+"\n");
-                    sb.append("\n__________________________\n");
-                    JSONObject four = jsonArray.getJSONObject(4);
-                    sb.append(four.get("date")+"\t"+four.get("type")+"\t"+four.get("low")+"~"+four.get("high")+"\t风向:"+four.get("fx"));
-                    sb.append("\n小编温馨提示:\n"+four.get("notice")+"\n");
+                    for (int i=0;i<jsonArray.size();i++) {
+                        JSONObject json = jsonArray.getJSONObject(i);
+                        sb.append(json.get("date")+"\t\t"+json.get("type")+"\t\t"+json.get("low")+"~"+json.get("high")+"\t\t风向:"+json.get("fx"));
+                        sb.append("\n小编温馨提示:\n"+json.get("notice")+"\n");
+                        if (jsonArray.size()-1!=i) {
+                            sb.append("\n__________________________\n\n");
+                        }
+                    }
                 } else {
                     sb.append("天气信息被外星人劫走了呢，请稍后再试~");
                 }
@@ -135,7 +128,7 @@ public class WeiXinMessageFactory {
         Article article = new Article();
         article.setTitle("没有车没有房--孙辉");
         article.setDescription("你的存折有几张~");
-        article.setPicUrl("http://source.doudoucat.com/lpz.jpg");
+        article.setPicUrl("http://source.doudoucat.com/muisc.png");
         article.setUrl("https://music.163.com/song?id=865048215&userid=292060520");
         articles.add(article);
         newsMessage.setArticleCount(1);
@@ -172,7 +165,7 @@ public class WeiXinMessageFactory {
             sb.append("5.更多功能尽在开发中...\n");
             sb.append("如您在使用该订阅号有任何宝贵意见，欢迎反馈！\n\n");
             sb.append("反馈邮箱：zhangwenjunp@126.com\n\n");
-            sb.append("官网链接是“https://www.doudoucat.com/about.shtml”");
+            sb.append("官网链接是“https://www.doudoucat.com”");
             text.setContent(sb.toString());
             text.setToUserName(fromUserName);
             text.setFromUserName(toUserName);
@@ -215,7 +208,7 @@ public class WeiXinMessageFactory {
         Article article = new Article();
         article.setTitle("豆豆的蓝胖子全网最低价");
         article.setDescription("想撸猫就来这里，这辈子不能没有猫!");
-        article.setPicUrl("http://source.doudoucat.com/lpz.jpg");
+        article.setPicUrl("http://source.doudoucat.com/timg.png");
         article.setUrl("https://www.doudoucat.com/pet.shtml");
         articles.add(article);
         newsMessage.setArticleCount(1);
