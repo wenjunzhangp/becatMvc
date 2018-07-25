@@ -42,12 +42,12 @@
             </div>
           </div>
 
-          <div class="row" style="height: 1000px;overflow: hidden;">
+          <div class="row" style="height: 1000px;overflow: auto;">
               <#--评论输入
               固定写法：class="ds-thread"  id="ds-thread"
               data-key= url 这里是用这个URL来做key，你看你自己的业务，因为多说也是这样做，就这样下来了
               -->
-              <div class="ds-thread"  id="ds-thread" data-key="https://www.doudoucat.com"></div>
+              <div class="ds-thread"  id="ds-thread" data-key="https://www.doudoucat.com/blogmessage"></div>
           </div>
 
         </div>

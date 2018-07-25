@@ -94,7 +94,7 @@
                         </ul>
                     </li>
                     <li><a href="/about.shtml">关于站长</a></li>
-                    <li><a href="/joinus.shtml">加入BeCat</a></li>
+                    <li><a href="/joinus.shtml">留言墙</a></li>
                     <li><a href="/contact.shtml">联系站长</a></li>
                 </ul>
             </div>
@@ -136,7 +136,7 @@
                                     </ul>
                                 </li>
                                 <li class=""><a href="/about.shtml" class="" >关于站长</a></li>
-                                <li class=""><a href="/joinus.shtml" class="" >加入BeCat</a></li>
+                                <li class=""><a href="/joinus.shtml" class="" >留言墙</a></li>
                                 <li class=""><a href="/contact.shtml" class="" >联系站长</a></li>
                                 <li class="am-parent">
                                     <a href="javascript:void(0)" class="nav-icon nav-icon-globe" >Language</a>

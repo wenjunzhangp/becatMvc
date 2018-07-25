@@ -52,7 +52,8 @@
 	<!-- 配置QQ互联登录拦截器 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/product.shtml"/>
+			<mvc:mapping path="/blog.shtml"/>
+			<mvc:mapping path="/joinus.shtml"/>
 			<bean class="com.baozi.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
