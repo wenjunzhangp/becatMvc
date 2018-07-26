@@ -29,9 +29,9 @@ public class BaseController {
 	protected int pageSize = 10;
 	private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);
 	protected Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
-	public static String URL404 =  "/404.html";
-	public static String URL500 =  "/500.html";
-	public static String URLUNAUTHORIZED =  "/unauthorized.html";
+	public static String URL404 =  "/open/404.shtml";
+	public static String URL500 =  "/open/500.shtml";
+	public static String URLUNAUTHORIZED =  "/open/unauthorized.shtml";
 
 	/**
 	 * 往Request里带值

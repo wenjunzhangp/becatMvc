@@ -31,9 +31,8 @@ public class CommonController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("404")
-	public ModelAndView notFound(HttpServletRequest request){
-		ModelAndView view = new ModelAndView("/404");
-		return view;
+	public String notFound(HttpServletRequest request){
+		return "404";
 	}
 	/**
 	 * 500错误
@@ -41,45 +40,17 @@ public class CommonController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("500")
-	public ModelAndView exceptionPage(HttpServletRequest request){
-		ModelAndView view = new ModelAndView("/500");
-		
-		Throwable t = (Throwable)request.getAttribute("javax.servlet.error.exception");
-		String defaultMessage = "未知" ;
-		if(null == t){
-			view.addObject("line", defaultMessage);
-			view.addObject("clazz", defaultMessage);
-			view.addObject("methodName",defaultMessage);
-			return view;
-		}
-		//错误信息
-		String message = t.getMessage() ;
-		StackTraceElement[] stack = t.getStackTrace();
-		view.addObject("message", message);
-		if(null != stack && stack.length != 0 ){
-			StackTraceElement element = stack[0];
-			//错误行号
-			int line = element.getLineNumber();
-			//错误java类
-			String clazz = element.getClassName();
-			String fileName = element.getFileName();
-			//错误方法
-			String methodName = element.getMethodName() ;
-			view.addObject("line", line);
-			view.addObject("clazz", clazz);
-			view.addObject("methodName",methodName);
-			LogUtils.logError("line:"+line+",clazz:+"+clazz+",fileName:"+fileName+",methodName:"+methodName+"");
-		}
-		return view;
+	public String exceptionPage(HttpServletRequest request){
+		return "500";
 	}
 
 	/**
 	 * 没有权限提示页面
 	 * @return
 	 */
-	@RequestMapping(value="unauthorized",method= RequestMethod.GET)
-	public ModelAndView unauthorized(){
-		return new ModelAndView("/unauthorized");
+	@RequestMapping("unauthorized")
+	public String unauthorized(){
+		return "unauthorized";
 	}
 
 	/**
