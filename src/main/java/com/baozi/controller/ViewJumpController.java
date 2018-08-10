@@ -103,7 +103,8 @@ public class ViewJumpController extends BaseController{
         Map<String,Object> paramMap = new HashMap<>(256);
         paramMap.put("page",1);
         paramMap.put("limit",1);
-        mav.addObject("total", industryConsultancyService.footerPagination(paramMap).getTotal());
+        int total = Integer.parseInt(String.valueOf(industryConsultancyService.footerPagination(paramMap).getTotal()));
+        mav.addObject("total", total);
         return mav;
     }
 

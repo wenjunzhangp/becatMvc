@@ -10,7 +10,7 @@ $(function(){
             $.each(data.data,function(i,v){
                 html.push('<article class="am-g blog-entry-article">');
                 html.push('<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">');
-                html.push('<img src="'+v.sourceimg+'" alt="'+v.sourceimg+'" class="am-u-sm-12">');
+                html.push('<img src="'+v.sourceimg+'" alt="'+v.sourceimg+'" class="am-u-sm-12" style="height: 220px;">');
                 html.push('</div>');
                 html.push('<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">');
                 html.push('<span><a href="/news/'+v.id+'.shtml" class="blog-color">'+v.looknumber+'阅&nbsp;</a></span>');

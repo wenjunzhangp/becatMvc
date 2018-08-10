@@ -12,7 +12,7 @@
         //合并参数
         var opts = $.extend(config, options);
 
-        opts.totalBars = Math.ceil(opts.totalBars / opts.limit);
+        opts.totalBars = Math.ceil(parseInt(opts.totalBars.replace(",","")) / parseInt(opts.limit));
         //计算按钮的总个数
 
         //获取offset参数
