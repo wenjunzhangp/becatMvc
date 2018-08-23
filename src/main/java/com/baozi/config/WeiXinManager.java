@@ -13,6 +13,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import static java.util.concurrent.Executors.newScheduledThreadPool;
 import static sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl.ThreadStateMap.Byte0.runnable;
 
 public class WeiXinManager {
@@ -53,8 +54,8 @@ public class WeiXinManager {
 				token = httpToken();
 			}
 		};
-		ScheduledExecutorService service = Executors.newScheduledThreadPool(2);
+		ScheduledExecutorService service = newScheduledThreadPool(2);
 		// 第二个参数为首次执行的延时时间，第三个参数为定时执行的间隔时间
-		service.scheduleAtFixedRate(runnable, 0, 1, TimeUnit.HOURS);
+		service.scheduleWithFixedDelay(runnable, 60, 60, TimeUnit.SECONDS);
 	}
 }
