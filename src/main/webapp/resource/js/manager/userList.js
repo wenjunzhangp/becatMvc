@@ -84,6 +84,7 @@ layui.use(['form','layer','table','laytpl','laydate'],function(){
                     url : "/console/updateSysUserLock.shtml",
                     type : "post",
                     data: {lock:status},
+                    dataType : "json",
                     success : function(data){
                         if(data.status==200){
                             layer.msg(data.msg);

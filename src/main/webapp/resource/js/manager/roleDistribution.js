@@ -51,6 +51,7 @@ layui.use(['form','layer','table','laytpl'],function(){
                 url : "/console/selectRoleByUserId.shtml",
                 type : "post",
                 data: {userId:userId},
+                dataType : "json",
                 success : function(data){
                     if(data.status==200){
                         var html = [];
@@ -88,6 +89,7 @@ layui.use(['form','layer','table','laytpl'],function(){
                                     url : "/console/addRoleToUser.shtml",
                                     type : "post",
                                     data: {userId:userId,ids:ids.join(",")},
+                                    dataType : "json",
                                     success : function(data){
                                         if(data.status==200){
                                             top.layer.close(load);

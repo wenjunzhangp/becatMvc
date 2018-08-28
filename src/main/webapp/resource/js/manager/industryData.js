@@ -114,6 +114,7 @@ layui.use(['form','layer','table','laytpl'],function(){
                     url : "/console/deleteIndusSingleOrBatch.shtml",
                     type : "post",
                     data: {ids:newsId.toString()},
+                    dataType : "json",
                     success : function(data){
                         if(data.status==200){
                             layer.msg(data.msg);
@@ -153,6 +154,7 @@ layui.use(['form','layer','table','laytpl'],function(){
                     url : "/console/updateIndusStatus.shtml",
                     type : "post",
                     data: {id:data.id,status:status},
+                    dataType : "json",
                     success : function(data){
                         if(data.status==200){
                             layer.msg(data.msg);
@@ -172,6 +174,7 @@ layui.use(['form','layer','table','laytpl'],function(){
                     url : "/console/deleteIndusSingleOrBatch.shtml",
                     type : "post",
                     data: {ids:data.id},
+                    dataType : "json",
                     success : function(data){
                         if(data.status==200){
                             layer.msg(data.msg);

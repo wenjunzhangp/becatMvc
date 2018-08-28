@@ -42,6 +42,7 @@ layui.use(['form','layer','table','laytpl'],function(){
                 url : "/console/selectPermissionById.shtml",
                 type : "post",
                 data: {permissionId:permissionId},
+                dataType : "json",
                 success : function(data){
                     if(data.status==200){
                         var html = [];
@@ -79,6 +80,7 @@ layui.use(['form','layer','table','laytpl'],function(){
                                     url : "/console/addPermissionToRole.shtml",
                                     type : "post",
                                     data: {roleId:permissionId,ids:ids.join(",")},
+                                    dataType : "json",
                                     success : function(data){
                                         if(data.status==200){
                                             top.layer.close(load);

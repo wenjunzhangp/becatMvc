@@ -84,6 +84,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
                     url : "/console/deleteSysRole.shtml",
                     type : "post",
                     data: {id:data.id},
+                    dataType : "json",
                     success : function(data){
                         if(data.status==200){
                             layer.msg(data.msg);

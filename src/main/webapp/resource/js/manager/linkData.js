@@ -104,6 +104,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
                     url : "/console/deleteSysLinkSingleOrBatch.shtml",
                     type : "post",
                     data: {ids:linkId.toString()},
+                    dataType : "json",
                     success : function(data){
                         if(data.status==200){
                             layer.msg(data.msg);
@@ -143,6 +144,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
                     url : "/console/updateSysLinkStatus.shtml",
                     type : "post",
                     data: {id:data.id,status:status},
+                    dataType : "json",
                     success : function(data){
                         if(data.status==200){
                             layer.msg(data.msg);
@@ -162,6 +164,7 @@ layui.use(['form','layer','laydate','table','upload'],function(){
                     url : "/console/deleteSysLinkSingleOrBatch.shtml",
                     type : "post",
                     data: {ids:data.id},
+                    dataType : "json",
                     success : function(data){
                         if(data.status==200){
                             layer.msg(data.msg);
