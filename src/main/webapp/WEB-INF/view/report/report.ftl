@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="/resource/css/assets/css/common.min.css" />
 <link rel="stylesheet" href="/resource/css/assets/css/index.min.css" />
 
-<script src="/resource/js/jquery/jquery-2.1.0.js" charset="utf-8"></script>
+<script src="https://libs.baidu.com/jquery/2.1.1/jquery.min.js" charset="utf-8"></script>
 <script src="/resource/js/amazeui/amazeui.js" charset="utf-8"></script>
 <script src="/resource/js/amazeui/common.js" charset="utf-8"></script>
 
