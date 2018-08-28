@@ -10,10 +10,10 @@
 <meta name="generator" content="Java">
 
 <link rel="shortcut icon" href="/resource/images/favicon.ico" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/css/amazeui.min.css" />
+<link rel="stylesheet" href="/resource/css/assets/css/amazeui.min.css" />
 <link rel="stylesheet" href="/resource/css/assets/css/common.min.css" />
 <link rel="stylesheet" href="/resource/css/assets/css/index.min.css" />
 
 <script src="https://libs.baidu.com/jquery/2.1.1/jquery.min.js" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/js/amazeui.min.js" charset="utf-8"></script>
+<script src="/resource/js/amazeui/amazeui.min.js" charset="utf-8">
 <script src="/resource/js/amazeui/common.js" charset="utf-8"></script>
