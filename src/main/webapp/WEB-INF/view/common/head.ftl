@@ -84,13 +84,14 @@
                 <ul class="am-nav am-nav-pills am-nav-justify">
                     <li class=""><a href="/product.shtml">首页</a></li>
                     <li><a href="/pet.shtml">在售宠物</a></li>
+                    <li><a href="/taobao/coupon.shtml" target="_blank">领取淘宝优惠券</a></li>
                     <li>
                         <a href="javascript:void(0);">博文趣事</a>
                         <ul class="sub-menu">
                             <li class="menu-item"><a href="/blog.shtml">技术博客</a></li>
+                            <li class="menu-item"><a href="/news.shtml">文章趣事</a></li>
                             <li class="menu-item"><a href="/event.shtml">平台大事记</a></li>
                             <li class="menu-item"><a href="/notice.shtml">平台公告</a></li>
-                            <li class="menu-item"><a href="/news.shtml">文章趣事</a></li>
                         </ul>
                     </li>
                     <li><a href="/about.shtml">关于站长</a></li>
@@ -118,6 +119,7 @@
                             <ul class="am-menu-nav am-avg-sm-1">
                                 <li><a href="/product.shtml" class="" >首页</a></li>
                                 <li class="am-parent"><a href="/pet.shtml" class="" >在售宠物</a></li>
+                                <li class="am-parent"><a href="/taobao/coupon.shtml" class="" >领取淘宝优惠券</a></li>
                                 <li class="am-parent">
                                     <a href="javascript:void(0);" class="" >博文趣事</a>
                                     <ul class="am-menu-sub am-collapse  ">

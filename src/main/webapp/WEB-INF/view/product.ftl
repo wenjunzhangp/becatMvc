@@ -1,5 +1,6 @@
 <#include "common/source.ftl">
-
+<link rel="stylesheet" type="text/css" href="/resource/js/layui/css/layui.css" media="all">
+<script type="text/javascript" src="/resource/js/layui/layui.js"></script>
 <#include "common/head.ftl">
 
     <!--===========layout-container================-->
@@ -303,3 +304,23 @@
 </div>
 
 <#include "common/footer.ftl">
+
+<script type="text/javascript">
+    layui.use(['layer'],function(){
+        layer = parent.layer === undefined ? layui.layer : top.layer,
+        layer.open({
+            type: 1,
+            title : '海量淘宝优惠券等你领取',
+            offset: 'rt',
+            content: '<div style="padding: 20px 80px;">速速领取淘宝优惠券，你还在等什么，点击下方按钮领取</div>',
+            btn: ['领取','关闭'],
+            btnAlign: 'c',
+            shade: [0.5, '#393D49'],
+            anim : 2,
+            yes: function(){
+                layer.closeAll();
+                window.location.href = "/taobao/coupon.shtml";
+            }
+        });
+    })
+</script>

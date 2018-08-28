@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baozi.mappers.TaobaoCouponMapper" >
+  <resultMap id="BaseResultMap" type="com.baozi.po.TaobaoCoupon" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="goodsname" property="goodsname" jdbcType="VARCHAR" />
+    <result column="goodsremark" property="goodsremark" jdbcType="VARCHAR" />
+    <result column="totalcount" property="totalcount" jdbcType="VARCHAR" />
+    <result column="buynum" property="buynum" jdbcType="VARCHAR" />
+    <result column="onlineprice" property="onlineprice" jdbcType="VARCHAR" />
+    <result column="couponprice" property="couponprice" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.baozi.po.TaobaoCoupon" extends="BaseResultMap" >
+    <result column="url" property="url" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, goodsname, goodsremark, totalcount, buynum, onlineprice, couponprice, createtime
+  </sql>
+  <sql id="Blob_Column_List" >
+    url
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.baozi.po.TaobaoCouponExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from taobao_coupon
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.baozi.po.TaobaoCouponExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from taobao_coupon
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from taobao_coupon
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from taobao_coupon
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.baozi.po.TaobaoCouponExample" >
+    delete from taobao_coupon
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.baozi.po.TaobaoCoupon" >
+    insert into taobao_coupon (id, goodsname, goodsremark, 
+      totalcount, buynum, onlineprice, 
+      couponprice, createtime, url
+      )
+    values (#{id,jdbcType=INTEGER}, #{goodsname,jdbcType=VARCHAR}, #{goodsremark,jdbcType=VARCHAR}, 
+      #{totalcount,jdbcType=VARCHAR}, #{buynum,jdbcType=VARCHAR}, #{onlineprice,jdbcType=VARCHAR}, 
+      #{couponprice,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{url,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.baozi.po.TaobaoCoupon" >
+    insert into taobao_coupon
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goodsname != null" >
+        goodsname,
+      </if>
+      <if test="goodsremark != null" >
+        goodsremark,
+      </if>
+      <if test="totalcount != null" >
+        totalcount,
+      </if>
+      <if test="buynum != null" >
+        buynum,
+      </if>
+      <if test="onlineprice != null" >
+        onlineprice,
+      </if>
+      <if test="couponprice != null" >
+        couponprice,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="goodsname != null" >
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsremark != null" >
+        #{goodsremark,jdbcType=VARCHAR},
+      </if>
+      <if test="totalcount != null" >
+        #{totalcount,jdbcType=VARCHAR},
+      </if>
+      <if test="buynum != null" >
+        #{buynum,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineprice != null" >
+        #{onlineprice,jdbcType=VARCHAR},
+      </if>
+      <if test="couponprice != null" >
+        #{couponprice,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.baozi.po.TaobaoCouponExample" resultType="java.lang.Integer" >
+    select count(*) from taobao_coupon
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update taobao_coupon
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsname != null" >
+        goodsname = #{record.goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsremark != null" >
+        goodsremark = #{record.goodsremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalcount != null" >
+        totalcount = #{record.totalcount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buynum != null" >
+        buynum = #{record.buynum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.onlineprice != null" >
+        onlineprice = #{record.onlineprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponprice != null" >
+        couponprice = #{record.couponprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update taobao_coupon
+    set id = #{record.id,jdbcType=INTEGER},
+      goodsname = #{record.goodsname,jdbcType=VARCHAR},
+      goodsremark = #{record.goodsremark,jdbcType=VARCHAR},
+      totalcount = #{record.totalcount,jdbcType=VARCHAR},
+      buynum = #{record.buynum,jdbcType=VARCHAR},
+      onlineprice = #{record.onlineprice,jdbcType=VARCHAR},
+      couponprice = #{record.couponprice,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      url = #{record.url,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update taobao_coupon
+    set id = #{record.id,jdbcType=INTEGER},
+      goodsname = #{record.goodsname,jdbcType=VARCHAR},
+      goodsremark = #{record.goodsremark,jdbcType=VARCHAR},
+      totalcount = #{record.totalcount,jdbcType=VARCHAR},
+      buynum = #{record.buynum,jdbcType=VARCHAR},
+      onlineprice = #{record.onlineprice,jdbcType=VARCHAR},
+      couponprice = #{record.couponprice,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.baozi.po.TaobaoCoupon" >
+    update taobao_coupon
+    <set >
+      <if test="goodsname != null" >
+        goodsname = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsremark != null" >
+        goodsremark = #{goodsremark,jdbcType=VARCHAR},
+      </if>
+      <if test="totalcount != null" >
+        totalcount = #{totalcount,jdbcType=VARCHAR},
+      </if>
+      <if test="buynum != null" >
+        buynum = #{buynum,jdbcType=VARCHAR},
+      </if>
+      <if test="onlineprice != null" >
+        onlineprice = #{onlineprice,jdbcType=VARCHAR},
+      </if>
+      <if test="couponprice != null" >
+        couponprice = #{couponprice,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.baozi.po.TaobaoCoupon" >
+    update taobao_coupon
+    set goodsname = #{goodsname,jdbcType=VARCHAR},
+      goodsremark = #{goodsremark,jdbcType=VARCHAR},
+      totalcount = #{totalcount,jdbcType=VARCHAR},
+      buynum = #{buynum,jdbcType=VARCHAR},
+      onlineprice = #{onlineprice,jdbcType=VARCHAR},
+      couponprice = #{couponprice,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      url = #{url,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.baozi.po.TaobaoCoupon" >
+    update taobao_coupon
+    set goodsname = #{goodsname,jdbcType=VARCHAR},
+      goodsremark = #{goodsremark,jdbcType=VARCHAR},
+      totalcount = #{totalcount,jdbcType=VARCHAR},
+      buynum = #{buynum,jdbcType=VARCHAR},
+      onlineprice = #{onlineprice,jdbcType=VARCHAR},
+      couponprice = #{couponprice,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="findTaobaoCouponPage" resultType="com.baozi.po.TaobaoCoupon" parameterType="map">
+    select * from taobao_coupon t
+    <where>
+      <if test="goodsname!=null and goodsname!='' ">
+        and t.goodsname like CONCAT('%', #{goodsname}, '%')
+      </if>
+    </where>
+    order by t.createtime desc
+  </select>
+</mapper>
