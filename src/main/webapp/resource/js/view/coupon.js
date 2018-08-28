@@ -19,7 +19,7 @@ layui.use(['form','layer','table'],function(){
             {field: 'goodsremark', title: '商品卖点', minWidth:100, align:'center'},
             {field: 'buynum', title: '购买人数', minWidth:100, align:'center'},
             {field: 'onlineprice', title: '在售价格', minWidth:100, align:'center'},
-            {field: 'onlineprice', title: '折后价',minWidth:100, align:'center'},
+            {field: 'couponprice', title: '卷后价',minWidth:100, align:'center'},
             {field: 'url', title: '领取地址', align:'center',minWidth:200,templet:"#modifyNotice"},
             {title: '操作', minWidth:100, templet:'#couponListBar',fixed:"right",align:"center"}
         ]]
