@@ -1,4 +1,3 @@
-<link rel="shortcut icon" href="/resource/images/favicon.ico" />
 <link href="https://cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
 <link rel="stylesheet" href="/resource/css/assets/css/common.min.css" />
 <link rel="stylesheet" href="/resource/css/assets/css/index.min.css" />

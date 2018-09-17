@@ -8,3 +8,5 @@
 <meta name="robots" content="all">
 <meta name="author" content="豆豆的蓝胖子">
 <meta name="generator" content="Java">
+
+<link rel="shortcut icon" href="/resource/images/favicon.ico" />
