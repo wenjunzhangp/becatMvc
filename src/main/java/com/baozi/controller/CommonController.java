@@ -127,4 +127,29 @@ public class CommonController extends BaseController {
 		return map;
 	}
 
+	@RequestMapping("/paintingfile")
+	@ResponseBody
+	public Map<String,Object> paintingfile(HttpServletRequest request,MultipartHttpServletRequest multiRequest) {
+		Map<String,Object> map = new HashMap<>(256);
+		try {
+			String nickname = request.getParameter("nickname");
+			System.out.println("**********************************"+nickname);
+			System.out.println(multiRequest);
+			String resultFilePaths = FileUploadUtil.uploadFile(multiRequest);
+			System.out.println("上传返回的路径"+resultFilePaths);
+			map.put("code",0);
+			map.put("msg","上传成功！");
+			Map<String,Object> src = new HashMap<>(256);
+			src.put("filename",resultFilePaths.substring(resultFilePaths.indexOf("/")+1,resultFilePaths.length()));
+			src.put("src", Iconfig.get("becat.imgserver.prefix")+resultFilePaths);
+			map.put("data",src);
+		} catch (Exception e) {
+			LogUtils.logError("图像文件长传失败",e);
+			map.put("code",500);
+			map.put("msg","上传失败，接口异常！");
+			map.put("data","");
+		}
+		return map;
+	}
+
 }

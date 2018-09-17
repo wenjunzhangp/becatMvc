@@ -39,6 +39,7 @@
                                 <ul class="footer_navigation">
                                     <li class="footer_navigation--item"><a href="https://github.com/wenjunzhangp" target="_blank" class="footer_navigation--link">站长GitHub</a></li>
                                     <li class="footer_navigation--item"><a href="https://www.sojson.com" target="_blank" class="footer_navigation--link">SoJson工具站</a></li>
+                                    <#--<li class="footer_navigation--item"><a href="www.stems.top" target="_blank" class="footer_navigation--link">PPJ的小窝</a></li>-->
                                 </ul>
                             </div>
                         </div>
@@ -60,3 +61,7 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
+<script src="/resource/js/amazeui/common.js" charset="utf-8"></script>

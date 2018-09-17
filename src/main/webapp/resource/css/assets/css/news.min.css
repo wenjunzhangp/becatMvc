@@ -467,7 +467,7 @@ body {
     width: 165px;
     margin-left:10%;
     text-indent: -9999px;
-    background: url(http://s.amazeui.org/media/i/brand/amazeui-w.png) left center no-repeat;
+    background: url(//s.amazeui.org/media/i/brand/amazeui-w.png) left center no-repeat;
     background-size: 125px 24px;
 }
 .log-header:hover {
@@ -475,7 +475,7 @@ body {
     width: 165px;
     margin-left:10%;
     text-indent: -9999px;
-    background: url(http://s.amazeui.org/media/i/brand/amazeui-cw.png) left center no-repeat;
+    background: url(//s.amazeui.org/media/i/brand/amazeui-cw.png) left center no-repeat;
     background-size:125px 24px;
 }
 .log a {

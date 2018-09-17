@@ -8,12 +8,3 @@
 <meta name="robots" content="all">
 <meta name="author" content="豆豆的蓝胖子">
 <meta name="generator" content="Java">
-
-<link rel="shortcut icon" href="/resource/images/favicon.ico" />
-<link rel="stylesheet" href="/resource/css/assets/css/amazeui.min.css" />
-<link rel="stylesheet" href="/resource/css/assets/css/common.min.css" />
-<link rel="stylesheet" href="/resource/css/assets/css/index.min.css" />
-
-<script src="https://libs.baidu.com/jquery/2.1.1/jquery.min.js" charset="utf-8"></script>
-<script src="/resource/js/amazeui/amazeui.min.js" charset="utf-8">
-<script src="/resource/js/amazeui/common.js" charset="utf-8"></script>
