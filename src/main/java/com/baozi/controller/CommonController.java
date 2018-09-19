@@ -162,4 +162,41 @@ public class CommonController extends BaseController {
         return map;
     }
 
+    @RequestMapping("/userdata")
+    @ResponseBody
+    public Map<String, Object> userdata(HttpServletRequest request) {
+        Map<String, Object> map = new HashMap<>(16);
+        try {
+            String author = request.getParameter("nickname");
+            map.put("code", 0);
+            map.put("msg", "success");
+            map.put("data",wechatGraffitiService.findWechatGraffitiByAuthor(author));
+        } catch (Exception e) {
+            LogUtils.logError("调用【"+request.getParameter("nickname")+"】作品数据出现异常", e);
+            map.put("code", 500);
+            map.put("msg", "服务器出现异常,请重试..");
+            map.put("data","");
+        }
+        return map;
+    }
+
+    @RequestMapping("/operate")
+    @ResponseBody
+    public Map<String, Object> operate(HttpServletRequest request) {
+        Map<String, Object> map = new HashMap<>(16);
+        try {
+            String author = request.getParameter("nickname");
+            String id = request.getParameter("id");
+            String operate = request.getParameter("operate");
+            wechatGraffitiService.updateWechatGraffitiByIdAndAuthor(Boolean.getBoolean(operate),Integer.parseInt(id),author);
+            map.put("code", 0);
+            map.put("msg", "保存成功！");
+        } catch (Exception e) {
+            LogUtils.logError("点赞/踩出现异常", e);
+            map.put("code", 500);
+            map.put("msg", "点赞/踩出现异常,请重试..");
+        }
+        return map;
+    }
+
 }

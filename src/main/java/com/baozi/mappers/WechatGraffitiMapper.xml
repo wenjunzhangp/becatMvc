@@ -272,4 +272,18 @@
       modifytime = #{modifytime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="findWechatGraffitiByAuthor" parameterType="java.lang.String" resultType="com.baozi.po.WechatGraffiti">
+    SELECT w.id,w.author,w.url,w.likenum FROM wechat_graffiti w WHERE w.author = #{author}
+    ORDER BY w.likenum desc
+  </select>
+
+  <update id="updateWechatGraffitiLike" parameterType="java.util.Map">
+    UPDATE wechat_graffiti SET likenum = likenum+1 WHERE id=#{id} AND author=#{author}
+  </update>
+
+  <update id="updateWechatGraffitiNotLike" parameterType="java.util.Map">
+    UPDATE wechat_graffiti SET likenum = likenum-1 WHERE id=#{id} AND author=#{author}
+  </update>
 </mapper>

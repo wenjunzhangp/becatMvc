@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Copyright:   互融云
@@ -27,7 +30,7 @@ public class WechatGraffitiServiceImpl implements WechatGraffitiService {
     public void newWeChatImage(String nickname, String gender, String websitePath, String fileName) {
         WechatGraffiti wechatGraffiti = new WechatGraffiti();
         wechatGraffiti.setAuthor(nickname);
-        wechatGraffiti.setGender(gender.equals("男") ? 1 : 0);
+        wechatGraffiti.setGender(Integer.parseInt(gender));
         wechatGraffiti.setLikenum(0);
         wechatGraffiti.setMonth(DateUtil.formatDate(new Date(), "MM"));
         wechatGraffiti.setUrl(websitePath);
@@ -35,5 +38,23 @@ public class WechatGraffitiServiceImpl implements WechatGraffitiService {
         wechatGraffiti.setCreatetime(new Date());
         wechatGraffiti.setModifytime(new Date());
         wechatGraffitiMapper.insertSelective(wechatGraffiti);
+    }
+
+    @Override
+    public List<WechatGraffiti> findWechatGraffitiByAuthor(String author) {
+        return wechatGraffitiMapper.findWechatGraffitiByAuthor(author);
+    }
+
+    @Override
+    public void updateWechatGraffitiByIdAndAuthor(boolean operate, Integer id, String author) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("id", id);
+        map.put("author", author);
+        //operate为true，调用点赞方法，false为踩 likenum数量-1
+        if (operate) {
+            wechatGraffitiMapper.updateWechatGraffitiLike(map);
+        } else {
+            wechatGraffitiMapper.updateWechatGraffitiNotLike(map);
+        }
     }
 }

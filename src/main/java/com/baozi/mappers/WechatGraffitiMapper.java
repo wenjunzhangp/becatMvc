@@ -5,6 +5,7 @@ import com.baozi.po.WechatGraffitiExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface WechatGraffitiMapper {
     int countByExample(WechatGraffitiExample example);
@@ -28,4 +29,10 @@ public interface WechatGraffitiMapper {
     int updateByPrimaryKeySelective(WechatGraffiti record);
 
     int updateByPrimaryKey(WechatGraffiti record);
+
+    List<WechatGraffiti> findWechatGraffitiByAuthor(String author);
+
+    void updateWechatGraffitiLike(Map<String, Object> map);
+
+    void updateWechatGraffitiNotLike(Map<String, Object> map);
 }
