@@ -40,5 +40,5 @@ public interface WechatGraffitiService {
      * @param id
      * @param author
      */
-    void updateWechatGraffitiByIdAndAuthor(boolean operate,Integer id,String author);
+    void updateWechatGraffitiByIdAndAuthor(Integer id,String author);
 }
