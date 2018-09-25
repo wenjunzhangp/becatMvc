@@ -162,6 +162,23 @@ public class CommonController extends BaseController {
         return map;
     }
 
+    @RequestMapping("/paintingfiledata")
+    @ResponseBody
+    public Map<String, Object> paintingfiledata(HttpServletRequest request) {
+        Map<String, Object> map = new HashMap<>(16);
+        try {
+            map.put("code", 0);
+            map.put("msg", "success");
+            map.put("data",wechatGraffitiService.findWechatGraffitiList());
+        } catch (Exception e) {
+            LogUtils.logError("调用优秀作品列表数据出现异常", e);
+            map.put("code", 500);
+            map.put("msg", "服务器出现异常,请重试..");
+            map.put("data","");
+        }
+        return map;
+    }
+
     @RequestMapping("/userdata")
     @ResponseBody
     public Map<String, Object> userdata(HttpServletRequest request) {

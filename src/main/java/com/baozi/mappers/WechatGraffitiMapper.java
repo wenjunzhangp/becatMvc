@@ -32,7 +32,10 @@ public interface WechatGraffitiMapper {
 
     List<WechatGraffiti> findWechatGraffitiByAuthor(String author);
 
+    List<WechatGraffiti> findWechatGraffitiList();
+
     void updateWechatGraffitiLike(Map<String, Object> map);
 
     void updateWechatGraffitiNotLike(Map<String, Object> map);
+
 }

@@ -279,6 +279,10 @@
     ORDER BY w.likenum desc
   </select>
 
+  <select id="findWechatGraffitiList" resultType="com.baozi.po.WechatGraffiti">
+    SELECT w.id,w.author,w.url,w.likenum FROM wechat_graffiti w ORDER BY w.likenum desc
+  </select>
+
   <update id="updateWechatGraffitiLike" parameterType="java.util.Map">
     UPDATE wechat_graffiti SET likenum = likenum+1 WHERE id=#{id} AND author=#{author}
   </update>

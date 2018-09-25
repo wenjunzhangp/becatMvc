@@ -46,6 +46,11 @@ public class WechatGraffitiServiceImpl implements WechatGraffitiService {
     }
 
     @Override
+    public List<WechatGraffiti> findWechatGraffitiList() {
+        return wechatGraffitiMapper.findWechatGraffitiList();
+    }
+
+    @Override
     public void updateWechatGraffitiByIdAndAuthor(boolean operate, Integer id, String author) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("id", id);
