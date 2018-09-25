@@ -38,7 +38,6 @@ public interface WechatGraffitiService {
     /**
      * 根据小程序传过来的画作id和作者修改喜欢数 +1
      * @param id
-     * @param author
      */
-    void updateWechatGraffitiByIdAndAuthor(Integer id,String author);
+    void updateWechatGraffitiByIdAndAuthor(Integer id);
 }

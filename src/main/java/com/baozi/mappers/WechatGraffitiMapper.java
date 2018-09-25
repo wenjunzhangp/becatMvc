@@ -34,7 +34,7 @@ public interface WechatGraffitiMapper {
 
     List<WechatGraffiti> findWechatGraffitiList();
 
-    void updateWechatGraffitiLike(Map<String, Object> map);
+    void updateWechatGraffitiLike(@Param("id") Integer id);
 
     void updateWechatGraffitiNotLike(Map<String, Object> map);
 

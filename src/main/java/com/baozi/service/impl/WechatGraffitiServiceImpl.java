@@ -51,11 +51,8 @@ public class WechatGraffitiServiceImpl implements WechatGraffitiService {
     }
 
     @Override
-    public void updateWechatGraffitiByIdAndAuthor(Integer id, String author) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("id", id);
-        map.put("author", author);
+    public void updateWechatGraffitiByIdAndAuthor(Integer id) {
         //operate为true，调用点赞方法，false为踩 likenum数量-1
-        wechatGraffitiMapper.updateWechatGraffitiLike(map);
+        wechatGraffitiMapper.updateWechatGraffitiLike(id);
     }
 }

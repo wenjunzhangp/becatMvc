@@ -202,9 +202,8 @@ public class CommonController extends BaseController {
     public Map<String, Object> operate(HttpServletRequest request) {
         Map<String, Object> map = new HashMap<>(16);
         try {
-            String author = request.getParameter("nickname");
             String id = request.getParameter("id");
-            wechatGraffitiService.updateWechatGraffitiByIdAndAuthor(Integer.parseInt(id),author);
+            wechatGraffitiService.updateWechatGraffitiByIdAndAuthor(Integer.parseInt(id));
             map.put("code", 0);
             map.put("msg", "点赞成功，感谢您的支持！");
         } catch (Exception e) {
