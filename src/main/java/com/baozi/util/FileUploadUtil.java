@@ -43,6 +43,9 @@ public class FileUploadUtil {
     }
 
     public static String uploadWeChatAppLetFile(MultipartHttpServletRequest multiRequest, String nickName) throws IOException {
+        //过滤微信特殊字符昵称
+        String person = StringUtil.stringFilter(nickName);
+        person = StringUtil.filterEmoji(person);
         String filePath = Iconfig.get("becat.ftp.filepath");
         String resultFilePath = "";
         String imgPath = "";
@@ -59,9 +62,9 @@ public class FileUploadUtil {
             if (!file.isEmpty()) {
                 String imgname = IDUtils.genImageName() + ".png";
                 String dick = DateUtil.formatDate(new Date(), "yyyyMMdd");
-                resultFilePath = nickName + "/" + dick + "/" + imgname;
+                resultFilePath = person + "/" + dick + "/" + imgname;
                 FtpUtil.uploadFile(Iconfig.get("becat.ftp.ip"), Integer.valueOf(Iconfig.get("becat.ftp.port")), Iconfig.get("becat.ftp.user"), Iconfig.get("becat.ftp.password"),
-                        filePath, nickName + "/" + dick, imgname, file.getInputStream());
+                        filePath, person + "/" + dick, imgname, file.getInputStream());
             }
         }
         return resultFilePath;
