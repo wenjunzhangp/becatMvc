@@ -1,6 +1,7 @@
 package com.baozi.util;
 
 import com.baozi.config.Iconfig;
+import com.vdurmont.emoji.EmojiParser;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -44,8 +45,9 @@ public class FileUploadUtil {
 
     public static String uploadWeChatAppLetFile(MultipartHttpServletRequest multiRequest, String nickName) throws IOException {
         //过滤微信特殊字符昵称
-        String person = EmojiFilter.stringFilter(nickName);
-        person = EmojiFilter.emojiChange(person);
+        /*String person = EmojiFilter.stringFilter(nickName);
+        person = EmojiParser.removeAllEmojis(person.trim().toLowerCase().replaceAll(" ",""));
+        person = person.trim().replaceAll(" ","").replaceAll("  ","");*/
         String filePath = Iconfig.get("becat.ftp.filepath");
         String resultFilePath = "";
         String imgPath = "";
@@ -62,9 +64,9 @@ public class FileUploadUtil {
             if (!file.isEmpty()) {
                 String imgname = IDUtils.genImageName() + ".png";
                 String dick = DateUtil.formatDate(new Date(), "yyyyMMdd");
-                resultFilePath = person + "/" + dick + "/" + imgname;
+                resultFilePath = IDUtils.genImageName() + "/" + dick + "/" + imgname;
                 FtpUtil.uploadFile(Iconfig.get("becat.ftp.ip"), Integer.valueOf(Iconfig.get("becat.ftp.port")), Iconfig.get("becat.ftp.user"), Iconfig.get("becat.ftp.password"),
-                        filePath, person + "/" + dick, imgname, file.getInputStream());
+                        filePath, IDUtils.genImageName() + "/" + dick, imgname, file.getInputStream());
             }
         }
         return resultFilePath;
