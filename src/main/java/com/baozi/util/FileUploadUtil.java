@@ -63,10 +63,11 @@ public class FileUploadUtil {
             MultipartFile file = multiRequest.getFile(fileName);
             if (!file.isEmpty()) {
                 String imgname = IDUtils.genImageName() + ".png";
+                String path = IDUtils.genImageName();
                 String dick = DateUtil.formatDate(new Date(), "yyyyMMdd");
-                resultFilePath = IDUtils.genImageName() + "/" + dick + "/" + imgname;
+                resultFilePath = path + "/" + dick + "/" + imgname;
                 FtpUtil.uploadFile(Iconfig.get("becat.ftp.ip"), Integer.valueOf(Iconfig.get("becat.ftp.port")), Iconfig.get("becat.ftp.user"), Iconfig.get("becat.ftp.password"),
-                        filePath, IDUtils.genImageName() + "/" + dick, imgname, file.getInputStream());
+                        filePath, path + "/" + dick, imgname, file.getInputStream());
             }
         }
         return resultFilePath;
