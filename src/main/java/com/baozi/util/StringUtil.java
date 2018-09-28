@@ -10,7 +10,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 
 /**
@@ -26,41 +25,6 @@ public class StringUtil extends StringUtils {
 	private static Pattern pattern = Pattern.compile("<(span)?\\sstyle.*?style>|(span)?\\sstyle=.*?>", Pattern.DOTALL);
 
 	private static Pattern pattern2 = Pattern.compile("(<[^>]+>)",Pattern.DOTALL);
-
-	private static Pattern stringfilter = Pattern.compile("[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？·]");
-
-	private static Pattern emojifilter = Pattern.compile("[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]",
-			Pattern.UNICODE_CASE | Pattern.CASE_INSENSITIVE);
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		String str = "·-· ";
-		str = stringFilter(str);
-		System.out.println(str);
-		str = filterEmoji(str);
-		System.out.println(str);
-	}
-
-	// 过滤特殊字符
-	public static String stringFilter(String str) throws PatternSyntaxException {
-		Matcher m = stringfilter.matcher(str);
-		return m.replaceAll("").trim();
-	}
-
-	//过滤微信表情特殊字符
-	public static String filterEmoji(String source) {
-		if (source == null) {
-			return source;
-		}
-		Matcher emojiMatcher = emojifilter.matcher(source);
-		if (emojiMatcher.find()) {
-			source = emojiMatcher.replaceAll("");
-			return source;
-		}
-		return source;
-	}
 
 	/**
 	 * 一次性判断多个或单个对象为空。

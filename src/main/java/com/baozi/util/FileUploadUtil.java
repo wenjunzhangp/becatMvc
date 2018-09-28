@@ -44,8 +44,8 @@ public class FileUploadUtil {
 
     public static String uploadWeChatAppLetFile(MultipartHttpServletRequest multiRequest, String nickName) throws IOException {
         //过滤微信特殊字符昵称
-        String person = StringUtil.stringFilter(nickName);
-        person = StringUtil.filterEmoji(person);
+        String person = EmojiFilter.stringFilter(nickName);
+        person = EmojiFilter.emojiChange(person);
         String filePath = Iconfig.get("becat.ftp.filepath");
         String resultFilePath = "";
         String imgPath = "";
