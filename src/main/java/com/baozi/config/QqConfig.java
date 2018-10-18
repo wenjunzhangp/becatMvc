@@ -23,7 +23,7 @@ public class QqConfig {
 	/**
 	 * 配置文件名称
 	 */
-	private final static String FILE_NAME = "/qqconnectconfig.properties";
+	private final static String FILE_NAME = "properties/qqconnectconfig.properties";
 	
 	static{
 		prop = new Properties();

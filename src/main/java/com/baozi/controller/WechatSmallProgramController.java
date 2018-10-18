@@ -3,6 +3,7 @@ package com.baozi.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.baozi.config.WeiXinConfig;
 import com.baozi.po.WechatIdiom;
+import com.baozi.redis.RedisHandle;
 import com.baozi.service.WechatIdiomService;
 import com.baozi.service.WechatUserinfoService;
 import com.baozi.util.LogUtils;
@@ -20,7 +21,7 @@ import java.util.List;
 
 /**
  * Copyright:   互融云
- *
+ * 微信小程序看图猜成语接口
  * @author: zhangwenjun
  * @version: V1.0
  * @Date: 2018-09-30 11:03
@@ -34,6 +35,9 @@ public class WechatSmallProgramController extends BaseController {
 
     @Autowired
     private WechatUserinfoService wechatUserinfoService;
+
+    @Autowired
+    private RedisHandle redisHandle;
 
     /**
      * 初始化成语试题答案
@@ -88,7 +92,7 @@ public class WechatSmallProgramController extends BaseController {
             String openid = request.getParameter("openid");
             return CodeResult.build(200, "加载成功",wechatUserinfoService.findWechatUserinfoByOpenId(openid));
         } catch (Exception e) {
-            LogUtils.logError("初始化成语表answer字段失败", e);
+            LogUtils.logError("加载用户信息出现异常", e);
             return CodeResult.build(500, "无效的openid",null);
         }
     }
@@ -98,6 +102,9 @@ public class WechatSmallProgramController extends BaseController {
     public CodeResult authorizedRegister(HttpServletRequest request) {
         try {
             String openid = request.getParameter("openid");
+            if ( null != wechatUserinfoService.findWechatUserinfoByOpenId(openid) ) {
+                return CodeResult.build(200, "已经注册不在进行注册");
+            }
             String nickname = request.getParameter("nickname");
             String gender = request.getParameter("gender");
             String url = request.getParameter("url");
@@ -109,5 +116,21 @@ public class WechatSmallProgramController extends BaseController {
         }
     }
 
+    @RequestMapping("/loadQuestion")
+    @ResponseBody
+    public CodeResult loadQuestion(HttpServletRequest request) {
+        try {
+            List<Object> question = redisHandle.getList("question");
+            if ( null != question && question.size()>0 ) {
+                return CodeResult.build(200, "加载成功",question);
+            }
+            List<WechatIdiom> idiomList = wechatIdiomService.findWechatIdiomServiceALL();
+            redisHandle.addList("question",idiomList);
+            return CodeResult.build(200, "加载成功",idiomList);
+        } catch (Exception e) {
+            LogUtils.logError("加载成语试题出现异常", e);
+            return CodeResult.build(500, "服务器异常",null);
+        }
+    }
 
 }

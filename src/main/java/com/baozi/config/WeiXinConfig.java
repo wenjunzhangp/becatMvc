@@ -23,7 +23,7 @@ public class WeiXinConfig {
 	/**
 	 * 配置文件名称
 	 */
-	private final static String FILE_NAME = "/weixinconfig.properties";
+	private final static String FILE_NAME = "properties/weixinconfig.properties";
 	
 	static{
 		prop = new Properties();

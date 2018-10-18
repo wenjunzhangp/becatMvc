@@ -9,10 +9,10 @@ public class WechatUserinfoVo {
 
     private Integer id;
 
-    private String paragraphname;
+    private String paragraphname;//段位名称
 
-    private String openid;
+    private String openid;//微信用户openid
 
-    private Integer intelligencenum;
+    private Integer intelligencenum;//蓝豆豆余额
 
 }

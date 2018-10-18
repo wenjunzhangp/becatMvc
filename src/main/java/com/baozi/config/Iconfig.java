@@ -25,7 +25,7 @@ public class Iconfig {
 	/**
 	 * 配置文件名称
 	 */
-	private final static String FILE_NAME = "/config.properties";
+	private final static String FILE_NAME = "properties/config.properties";
 	
 	static{
 		prop = new Properties();

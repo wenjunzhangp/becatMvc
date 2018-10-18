@@ -318,7 +318,7 @@
   </update>
 
   <select id="findWechatIdiomServiceALL" resultType="com.baozi.po.WechatIdiom">
-    SELECT * FROM wechat_idiom
+    SELECT w.id,w.`name`,w.content,w.gameImg,w.answer FROM wechat_idiom w
   </select>
 
   <update id="updateAnswer" parameterType="java.util.Map">
