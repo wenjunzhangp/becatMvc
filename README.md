@@ -1,4 +1,4 @@
-# 豆豆的蓝胖子（Java、Kotlin结合体）
+# 博客评论、售猫网站（包含小程序、微信公众号后台）
 官网地址：https://www.doudoucat.com<br>
 微信公众号：微信搜索“becatshop”或者“豆豆的蓝胖子”,点击关注即可
 <br><br>
