@@ -1,6 +1,4 @@
-# 博客评论、售猫网站（包含小程序、微信公众号后台）
-官网地址：https://www.doudoucat.com<br>
-微信公众号：微信搜索“becatshop”或者“豆豆的蓝胖子”,点击关注即可
+# 简单的SpringMVC项目（增删改查分页、QQ快捷登录、小程序、微信公众号后台API接口）
 <br><br>
 ## 一.涉及技术<br>
 1.`Spring`、`Spring MVC`、`Mybatis`做为基础数据层框架<br>
