@@ -1,7 +1,7 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache updateCheck="false"  name="shirocache">
 	<diskStore path="java.io.tmpdir"/>
+	<diskStore path="\home\eric\Documents\becat_encache" />
 	<!-- 登录记录缓存 锁定10分钟 -->
 	<cache name="passwordRetryCache"
 		   maxEntriesLocalHeap="2000"
@@ -56,22 +56,4 @@
 	   diskPersistent="false"
 	   diskExpiryThreadIntervalSeconds="120"
 	   memoryStoreEvictionPolicy="LRU"/>
-
-=======
-<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
-	<!--diskStore：缓存数据持久化的目录 地址  -->
-	<diskStore path="\home\eric\Documents\becat_encache" />
-	<defaultCache 
-		maxElementsInMemory="1000" 
-		maxElementsOnDisk="10000000"
-		eternal="false" 
-		overflowToDisk="false" 
-		diskPersistent="false"
-		timeToIdleSeconds="120"
-		timeToLiveSeconds="120" 
-		diskExpiryThreadIntervalSeconds="120"
-		memoryStoreEvictionPolicy="LRU">
-	</defaultCache>
->>>>>>> 1.调整缓存配置与logback配置，适应ubantu
 </ehcache>
